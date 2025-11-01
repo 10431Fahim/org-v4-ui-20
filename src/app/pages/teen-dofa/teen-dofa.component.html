@@ -1,0 +1,80 @@
+<div class="top-banner-area">
+  <div class="">
+      <div class="banner">
+           <img [src]="tenPoints[0]?.image" alt="image" loading="lazy">
+           <div class="pageinfo-name">
+             <!-- <h2>{{pageInfo?.slug}}</h2> -->
+             <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{tenPoints[0]?.name}}</h2>
+            <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{tenPoints[0]?.nameEn}}</h2>
+
+             <!-- <h2>{{tenPoints[0]?.name}}</h2> -->
+           </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- <div class="card-section">
+    <div class="card-heading">
+      <h2>Martyred President Ziaur Rahaman Formulated a 19-Point Program For The Socio Economyc Liberation of the country.</h2>
+    </div>
+    <div class="container">
+      <div class="cards">
+        <div class="nineteen-card">
+          <div class="card1">
+            <span>1</span>
+            <p>was a Bangladeshi military officer and politician who served as the President</p>
+          </div>
+        </div>
+        <div class="nineteen-card">
+          <div class="card1">
+            <span>2</span>
+            <p>was a Bangladeshi military officer and politician who served as the President</p>
+          </div>
+        </div>
+        <div class="nineteen-card">
+          <div class="card1">
+            <span>3</span>
+            <p>was a Bangladeshi military officer and politician who served as the President</p>
+          </div>
+        </div>
+        <div class="nineteen-card">
+          <div class="card1">
+            <span>4</span>
+            <p>was a Bangladeshi military officer and politician who served as the President</p>
+          </div>
+        </div>
+        <div class="nineteen-card">
+          <div class="card1">
+            <span>5</span>
+            <p>was a Bangladeshi military officer and politician who served as the President</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="card-section">
+    <div class="card-heading">
+      <div class="section2-des p-title">
+        <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " [innerHTML]="tenPoints[0]?.description"></h2>
+        <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn' " [innerHTML]="tenPoints[0]?.descriptionEn"></h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="cards" >
+        <div class="nineteen-card" *ngFor="let data of tenPoints[0]?.informations">
+          <div class="card1">
+            <span *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</span>
+            <span class="font-bangla" *ngIf="translateService.currentLang === 'bn' ">{{data.nameEn}}</span>
+           <div class="text-content">
+             <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " [innerHTML]="data.description"></p>
+             <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'" [innerHTML]="data.descriptionEn"></p>
+           </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>

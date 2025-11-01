@@ -1,0 +1,224 @@
+<div class="section-main">
+  <div class="section-top-contents">
+    <div class="top-banner-area">
+      <div class="banner">
+        <img src="/images/payment.jpg" alt="image" loading="lazy">
+      </div>
+    </div>
+
+    <div class="form-area">
+      <div class="container">
+        <div class="form">
+
+          <div class="form-input-area">
+            <div class="title-area">
+              <div class="title-area-left">
+                <h3>{{ "ln.YearlyMember" | translate }}</h3>
+              </div>
+            </div>
+            <form  #formElement="ngForm" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+              <mat-stepper #stepper linear>
+                <mat-step>
+                  <!---form-input-->
+                  <div class="form-input" style="margin-top: 5px;">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Name" | translate }}</mat-label>
+                      <input matInput  type="text" value="" formControlName="name" required [readonly]="user()?.name">
+                      <mat-error>This Field is Required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+
+                  <label>{{ "ln.MobileNo" | translate }}<span>*</span></label>
+<!--                  <div class="num">-->
+<!--                    <div class="country-code">-->
+<!--                      <span> <img src="../../../assets/bd.png" alt="image" loading="lazy">+88</span>-->
+<!--                    </div>-->
+<!--                    <div class="form-input">-->
+<!--                      <input digitOnly formControlName="phoneNo" type="text"-->
+<!--                             autocomplete="off" [readonly]="user?.phoneNo || user?.phone">-->
+<!--                      &lt;!&ndash;                  <div class="invalid-txt" *ngIf="phoneNo.touched && phoneNo.invalid">&ndash;&gt;-->
+<!--                      &lt;!&ndash;                    <span>Please enter a valid phone number</span>&ndash;&gt;-->
+<!--                      &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <button type="button" *ngIf="isBtnHide && !user?.phoneNo && !user?.phone" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
+<!--                    <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
+<!--                    <i  *ngIf="isVerified" class="fa-solid fa-check"></i>-->
+<!--                  </div>-->
+
+                  <div class="num">
+                    <div class="country-code">
+                  <span [matMenuTriggerFor]="menu" >
+                    <img [src]="getSingleCountry()?.image" alt="image" loading="lazy"/>
+                    ({{ getSingleCountry()?.dial_code }})
+                    <small><i class="fa-solid fa-sort-down"></i></small>
+                  </span>
+                    </div>
+                    <div class="form-input">
+                      <input digitOnly formControlName="phoneNo" type="text"
+                             autocomplete="off" [readonly]="user()?.phoneNo">
+                    </div>
+<!--                    <button type="button" *ngIf="isBtnHide && !user?.phoneNo" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
+<!--                    <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
+<!--                    <i  *ngIf="isVerified" class="fa-solid fa-check"></i>-->
+                  </div>
+
+
+<!--                  <div class="resent-view" *ngIf="sendVerificationCode">-->
+<!--                    <div class="count-area" [hidden]="countDown === 0">-->
+<!--                      <span class="count-down">{{'0:' + countDown}}</span>-->
+<!--                    </div>-->
+<!--                    <button *ngIf="countDown == 0 && isCountDownEnd" mat-button color="primary" (click)="resendOtp()">Resend-->
+<!--                      Code</button>-->
+<!--                  </div>-->
+
+<!--                  <div class="input-area input-area-two" *ngIf="isOtpSent && isOtpValid === false">-->
+<!--                    <app-otp-verification [phoneNo]="phoneNo" (onEnterOtp)="onEnterOtp($event)" (onResentOtp)="resendOtp()"></app-otp-verification>-->
+<!--                  </div>-->
+
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline" class="field m-100">
+                      <mat-label>{{ "ln.EmailID" | translate }}</mat-label>
+                      <input matInput  type="email" value="" formControlName="email" required [readonly]="user()?.email">
+                      <mat-error>This Field is Required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+<!--                  <div class="form-input" *ngIf="dataForm.value.memberType ==='primary-member-fee'&& getSelectedAmount()">-->
+<!--                    <mat-form-field appearance="outline" class="field m-100 first-name-from">-->
+<!--                      <mat-label>{{ "ln.YearlyMember" | translate }}</mat-label>-->
+<!--                      <input readonly matInput  type="number" digitOnly value=""-->
+<!--                             formControlName="amount" required>-->
+<!--                      <mat-error>This Field is Required</mat-error>-->
+<!--                    </mat-form-field>-->
+<!--                  </div>-->
+
+<!--                  <div class="form-input" *ngIf="dataForm.value.memberType === 'primary-member-fee' && getSelectedAmount()">-->
+                  <div class="form-input" >
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.YearlyMember" | translate }}</mat-label>
+                      <input readonly matInput type="number" digitOnly formControlName="amount" required>
+                      <mat-error>This Field is Required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="information">{{ "ln.Information" | translate }}
+                    </mat-checkbox>
+                  </div>
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="personalFund">{{ "ln.PersonalFund" | translate }}
+                    </mat-checkbox>
+                  </div>
+
+
+
+                  <div class="next-btn">
+                    <button matStepperNext type="button" [disabled]="dataForm.get('information')?.invalid || dataForm.get('personalFund')?.invalid">Next</button>
+                  </div>
+
+                </mat-step>
+                <mat-step>
+
+                  <!--                <ng-template matStepLabel>Done</ng-template>-->
+                  <div class="selectPayment">
+                    <div class="payment-header data">
+                      <h4>{{ "ln.SelectMathod" | translate }}</h4>
+                    </div>
+
+                    <div class="online-payment">
+                      @for (data of paymentMethods; track data.slug) {
+                        <div class="method-info active"
+                             [class.active]="data.slug === selectedPaymentMethod()"
+                             (click)="onSelectPaymentMethod(data)"
+                        >
+                          <img [src]="data.image" alt="image" loading="lazy">
+                          <span>{{data.name}}</span>
+                        </div>
+                      }
+                    </div>
+
+                  </div>
+
+                  <div class="check-terms" >
+                    <input id="condition" type="checkbox" formControlName="agreeWithTermsAndConditions"/>
+                     <label for="condition">
+                        I agree to the
+                      </label>
+                      <a routerLink="/pages/terms-&-conditions">Terms & Conditions,</a>
+                      <a routerLink="/pages/privacy-policy">Privacy Policy,</a>
+                      <a routerLink="/pages/refund-policy"> Refund Policy.</a>
+                      <span>*</span>
+
+                  </div>
+
+
+
+                  <div>
+                    <div class="next-btn">
+                      <button type="submit" [disabled]="dataForm.get('agreeWithTermsAndConditions')?.invalid">Submit</button>
+                    </div>
+                  </div>
+
+                </mat-step>
+              </mat-stepper>
+            </form>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div class="section-bottom-contents">-->
+  <!--    <div class="container">-->
+  <!--      <div class="section-main">-->
+  <!--        <div class="payment-header">-->
+  <!--          <h4>Select Payment Method</h4>-->
+  <!--        </div>-->
+
+  <!--        <div class="payment-method-area">-->
+  <!--          <a class="select-payment">-->
+  <!--            <img src="/assets/images/ssl-thumb.jpg" alt="image" loading="lazy">-->
+  <!--          </a>-->
+  <!--          <a class="select-payment">-->
+  <!--            <img src="/assets/images/download.png" alt="image" loading="lazy">-->
+  <!--          </a>-->
+  <!--          <a class="select-payment">-->
+  <!--            <img src="/assets/images/mlogo.png" alt="image" loading="lazy">-->
+  <!--          </a>-->
+  <!--          <a class="select-payment">-->
+  <!--            <img src="/assets/images/Nagad-Logo.wine.png" alt="image" loading="lazy">-->
+  <!--          </a>-->
+  <!--        </div>-->
+
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+</div>
+
+<mat-menu #menu="matMenu" class="mat-menu-login">
+  <div class="search-area">
+    <input class="input-grey-rounded" placeholder="Search Country or Code"
+           [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event)"
+           (click)="$event.stopPropagation()"/>
+  </div>
+  @for (data of filteredCountryData(); track data.name) {
+    <button mat-menu-item (click)="onGetSingleCountry(data)">
+      <div class="login-flag">
+        <div>
+          <img [src]="data?.image | safeUrl" [alt]="data?.name"/>
+        </div>
+        <div>
+          <span style="color: #000000">/ {{ data?.name }}</span>
+        </div>
+      </div>
+    </button>
+  }
+</mat-menu>

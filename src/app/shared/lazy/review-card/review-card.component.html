@@ -1,0 +1,43 @@
+<div class="testimonials-card-div">
+    <div class="testimonials-card-profile">
+      <div class="avatar">
+        <img
+          decoding="async"
+          class="quotes-dot"
+          src="https://quiety-wp.themetags.com/wp-content/plugins/quiety-core/elementor/assets/images/quotes-dot.svg"
+          alt="Mr.Rupan Oberoi"
+        />
+        <img
+          decoding="async"
+          loading="lazy"
+          class="author-image"
+          [src]="data?.image"
+          alt="Mr.Rupan Oberoi"
+          height="60"
+          width="60"
+        />
+      </div>
+
+      <div class="bio-wrapper">
+        <h4 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="name">{{ data?.name }}</h4>
+        <h4 *ngIf="translateService.currentLang === 'bn' " class="name">{{ data?.nameEn }}</h4>
+
+        <span *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="designation">{{ data.title }}</span>
+        <span *ngIf="translateService.currentLang === 'bn' " class="designation">{{ data.titleEn }}</span>
+      </div>
+    </div>
+    <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="profile-details">
+      {{ data?.description }}
+    </p>
+    <p *ngIf="translateService.currentLang === 'bn' " class="profile-details">
+      {{ data?.descriptionEn }}
+    </p>
+
+    <div class="star-rating">
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <i class="fa fa-star" aria-hidden="true"></i>
+    </div>
+  </div>

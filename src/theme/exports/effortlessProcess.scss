@@ -1,0 +1,179 @@
+@use "../../theme/variables" as *;
+.section-6-main {
+  .instant {
+    margin-top: 50px;
+    text-align: center;
+
+    h3 {
+      font-family: $font-en-poppins;
+      color: #175cff;
+      font-size: 1.1rem;
+      display: block;
+      font-weight: 500;
+      margin: 10px;
+    }
+
+    h2 {
+      font-family: $font-en-poppins;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin: 10px;
+      color: #071c4d;
+    }
+
+    p {
+      font-family: $font-en-poppins;
+      font-weight: 400;
+      margin: 25px 0 30px;
+      font-size: 16px;
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+      color: #52525c;
+    }
+  }
+
+  .card-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    margin-top: 45px;
+
+    .card {
+      padding: 30px 20px;
+      border-radius: 15px;
+      transition: all 0.3s linear;
+      position: relative;
+      z-index: 10 !important;
+      background-color: #FFFF;
+      max-width: 280px;
+
+      .icon-contant {
+        text-align: center;
+
+        h1 {
+          height: 80px;
+          width: 80px;
+          line-height: 77px;
+          text-align: center;
+          color: #175cff;
+          font-size: 50px;
+          font-weight: 700;
+          display: inline-block;
+          border: 2px solid rgba(101, 101, 101, 0.1);
+          border-radius: 10px;
+          transition: all 0.4s linear;
+          font-family: $font-en-poppins;
+        }
+      }
+    }
+
+    .card:hover h1 {
+      background: #175cff;
+      color: #fff !important;
+    }
+
+    .card:hover {
+      box-shadow: 0 5px 20px 0 rgb(210 210 245 / 50%);
+      z-index: 20 !important;
+    }
+
+    .box-contant {
+      margin-top: 10px;
+
+      h3 {
+        font-family: $font-en-poppins;
+        font-size: 20px;
+        margin-bottom: 5px;
+        font-weight: 700;
+        line-height: 1.2em;
+        text-align: center;
+        margin: 0;
+        color: #071c4d;
+      }
+
+      p {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 26px;
+        font-family: $font-en-poppins;
+        text-align: center;
+        margin-top: 8px;
+        margin-right: 10px;
+        letter-spacing: 0.3px;
+        color: #52525c;
+      }
+    }
+  }
+}
+
+.card::before {
+  content: "";
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 15px;
+  transition: all .3s ease-in-out
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  border-bottom: 2px dashed #175cff;
+  right: -55px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -2 !important;
+}
+
+.card:nth-child(4):after {
+  width: 0px;
+}
+
+
+@media(max-width:1000px) {
+  .section-6-main .card-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card:nth-child(3):after {
+    width: 0px;
+  }
+}
+
+@media(max-width:767px) {
+  .section-6-main .card-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card:nth-child(3):after {
+    width: 80px;
+  }
+  .card:nth-child(2):after {
+    width: 0px;
+  }
+  .section-6-main  .instant  h2 {
+    font-size: 30px;
+    line-height: 1.2;
+}
+}
+
+@media(max-width:550px) {
+  .section-6-main .card-section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .card{
+    margin: auto;
+  }
+  .card::after {
+    width: 0px;
+  }
+  .card:nth-child(3):after {
+    width: 0px;
+  }
+
+}

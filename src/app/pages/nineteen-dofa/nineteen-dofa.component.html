@@ -1,0 +1,50 @@
+@if (showContent()) {
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img [src]="firstNineteenPoint()!.image" alt="image" loading="lazy">
+        <div class="pageinfo-name">
+          @if (!isLanguageBengali()) {
+            <h2>{{firstNineteenPoint()!.name}}</h2>
+          } @else {
+            <h2 class="font-bangla">{{firstNineteenPoint()!.nameEn}}</h2>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="card-heading">
+      <div class="section2-des nin-des-title">
+        @if (!isLanguageBengali()) {
+          <div class="title" [innerHTML]="firstNineteenPoint()!.description"></div>
+        } @else {
+          <div class="title font-bangla" [innerHTML]="firstNineteenPoint()!.descriptionEn"></div>
+        }
+      </div>
+    </div>
+    <div class="container">
+      <div class="cards">
+        @for (data of firstNineteenPoint()!.informations; track data?._id || $index) {
+          <div class="nineteen-card">
+            <div class="card1">
+              @if (!isLanguageBengali()) {
+                <span>{{data.name}}</span>
+              } @else {
+                <span class="font-bangla">{{data.nameEn}}</span>
+              }
+              <div class="text-content">
+                @if (!isLanguageBengali()) {
+                  <div class="test" [innerHTML]="data.description"></div>
+                } @else {
+                  <div class="test font-bangla" [innerHTML]="data.descriptionEn"></div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

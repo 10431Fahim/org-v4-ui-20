@@ -1,0 +1,171 @@
+@use "../../../theme/variables" as *;
+span {
+  background-color: yellow;
+  font-weight: bold;
+}
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px; /* Adjust width as needed */
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Optional: Adding a search icon inside input */
+.search-container::before {
+  content: "🔍"; /* You can replace this with an icon */
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #888;
+}
+
+.search-input {
+  padding-left: 40px; /* Adjust for the icon */
+}
+
+.top-banner-area{
+  display: block;
+  width: 100%;
+  position: relative;
+  .banner{
+    width: 100%;
+    text-align: center;
+    img{
+      position: relative;
+      max-height: 420px;
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+    }
+    h2{
+      position: absolute;
+      text-align: center;
+      line-height: 42px;
+      color: $colo-white;
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 570;
+      font-size: 32px;
+      top: 50%;
+      left: auto;
+      right: auto;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1250px;
+  padding: 16px 16px;
+  margin: 0 auto;
+}
+
+.section-1 {
+  margin-top: 20px;
+}
+
+
+.section1-main {
+  display: grid;
+  grid-template-columns: calc(100% - 280px) 260px;
+  grid-gap: 20px;
+  grid-template-rows: auto;
+  .section1-left {
+    .description1{
+      margin-top: 30px;
+      text-align: center;
+      font-family: $font-en-primary;
+      //font-weight: 500;
+      //font-size: 17px;
+      //line-height: 26px;
+
+    }
+    .description {
+
+      margin-top: 30px;
+    //  font-family: $font-en-primary;
+    //  font-weight: 500;
+    ////  font-size: 17px;
+    //  line-height: 26px;
+    }
+
+    .description22{
+
+    }
+    .page-title {
+      font-family: $font-en-primary;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 52px;
+      padding-bottom: 5px;
+      display: inline;
+      border-bottom: 3px solid green;
+    }
+  }
+
+  .section1-right {
+    h1 {
+      font-size: 22px;
+      font-family: $font-en-primary;
+      font-weight: 600;
+      padding-bottom: 5px;
+      display: inline;
+      border-bottom: 3px solid green;
+    }
+
+    .page-list {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+
+      a {
+        padding: 8px 10px;
+        background-color: #FFFF;
+        border: 1px solid green;
+        font-size: 16px;
+        font-family: $font-en-primary;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        cursor: pointer;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: green;
+          border: 1px solid green;
+          color: #FFF;
+        }
+      }
+    }
+  }
+
+}
+
+@media(max-width:850px) {
+  .section1-main {
+    grid-template-columns: repeat(1, 100%);
+  }
+}

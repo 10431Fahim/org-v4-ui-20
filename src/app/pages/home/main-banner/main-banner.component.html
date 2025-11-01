@@ -1,0 +1,28 @@
+<div class="swiper-container">
+  <div class="heading-section11">
+    @for (data of showcase(); track data._id) {
+      <div class="swipe">
+        <div class="swipe-img">
+          <a>
+            <img class="img1" [src]="data?.image" alt="image" loading="lazy" crossorigin="anonymous" />
+            <img class="img2" [src]="data?.image2" alt="image" loading="lazy" crossorigin="anonymous" />
+          </a>
+          @if (isEnglish()) {
+            <a routerLink="/login/primary-member-fee" [queryParamsHandling]="'merge'">
+              <button class="en" >
+                {{data?.title}}
+              </button>
+            </a>
+          } @else if (isBengali()) {
+            <a routerLink="/login/primary-member-fee" [queryParamsHandling]="'merge'">
+              <button class="bn font-bangla" >
+                {{data?.titleEn}}
+              </button>
+            </a>
+          }
+          <span (click)="onScroll()"><i class="fa fa-angle-down"></i></span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

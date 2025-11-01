@@ -1,0 +1,123 @@
+.section-8 {
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.section-8-main {
+  padding: 50px 0px!important;
+}
+
+.section-8-main-top {
+  text-align: center;
+  max-width: 700px;
+  margin: auto;
+
+  .subtitle {
+    color: #ffb116;
+    font-size: 16px;
+    display: block;
+    font-weight: 500;
+    font-family: $font-en-poppins;
+    line-height: 18px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    line-height: 52px;
+    font-weight: 700;
+    margin-bottom: 17px;
+    color: #071c4d;
+    font-family: $font-en-poppins;
+  }
+
+  .description {
+    color: #ffffffb8;
+
+    p {
+      color: #52525c;
+      font-family: $font-en-poppins;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 24px;
+      padding-bottom: 5px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+    .testimonials-card-div {
+      padding: 50px 50px 43px;
+      background-color: #fff;
+      box-shadow: 0 0 22px 0 rgb(0 0 0 / 6%);
+      border-radius: 15px;
+      position: relative;
+      z-index: 2;
+
+      .testimonials-card-profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 28px;
+
+        .avatar {
+          margin-right: 20px;
+          width: 60px;
+          height: 60px;
+          position: relative;
+          z-index: 2;
+
+          .quotes-dot {
+            position: absolute;
+            left: -25px;
+            top: -25px;
+            z-index: -1;
+          }
+
+          .avatar .author-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+          }
+        }
+
+        .bio-wrapper {
+          .name {
+            margin-bottom: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #071c4d;
+            font-family: $font-en-poppins;
+            line-height: 1.2em;
+            font-weight: 700;
+          }
+
+          .designation {
+            color: #575757;
+            margin-bottom: 2px;
+            display: block;
+            line-height: 1.5;
+            font-family: $font-en-OpenSans;
+            font-size: 16px;
+            line-height: 1.5;
+          }
+        }
+      }
+
+      .profile-details {
+        margin-bottom: 26px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
+        // overflow-x: hidden;
+        color: #52525c;
+        font-family: $font-en-OpenSans;
+      }
+
+      .star-rating {
+        i {
+          color: #ffbc08;
+          font-size: 22px;
+          margin-right: 5px;
+        }
+      }
+    }

@@ -1,0 +1,54 @@
+@if (hasStories()) {
+  <div class="section-1">
+    <div class="container">
+      <div class="section-1-main">
+        <div class="program-elm-container">
+          @for (data of storiesToShow(); track data._id) {
+            <div class="program-elm">
+              <a class="card-contents" [routerLink]="['./story-details', data._id]" [queryParamsHandling]="'merge'">
+                <div class="img-date">
+                  <img [src]="data.image" alt="image" loading="lazy">
+                </div>
+                <div class="writer-img">
+                  <img src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="">
+                </div>
+                <div class="card-contents1">
+                  <div class="desc">
+                    @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                      <p>{{data.name}}</p>
+                    } @else {
+                      <p class="font-bangla">{{data.nameEn}}</p>
+                    }
+                  </div>
+                  <div>
+                    @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                      <p class="description" [innerHTML]="data.description"></p>
+                    } @else {
+                      <p class="description font-bangla" [innerHTML]="data.descriptionEn"></p>
+                    }
+                  </div>
+                  <div class="button-one">
+                    <button [routerLink]="['./story-details', data._id]" [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                  </div>
+                </div>
+              </a>
+              <div class="border"></div>
+              <div class="date">
+                <p>{{ data.createdAt | date }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (showLoadMore()) {
+          <div class="load-more">
+            <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+              <i class="fa-solid fa-spinner"></i>
+              {{canLoadMore() ? 'Load More' : 'No More Stories'}}
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

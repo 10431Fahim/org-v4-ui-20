@@ -1,0 +1,61 @@
+<div class="section-5">
+  @for (data of showcase(); track data._id) {
+    <div class="title">
+      <a routerLink="donate" [queryParamsHandling]="'merge'">
+        @if (isEnglish()) {
+          <h2>{{getDescription(data, true)}}</h2>
+        } @else if (isBengali()) {
+          <h2 style="font-weight: 570">{{getDescription(data, false)}}</h2>
+        }
+      </a>
+    </div>
+  }
+  
+  <div class="container">
+    <div class="section-5-main">
+      @for (data of showcase(); track data._id) {
+        <div class="section-5-left wow animate__fadeInLeft">
+          <a routerLink="/bnpbd" [queryParamsHandling]="'merge'">
+            <h2>{{ "ln.Publications" | translate }}</h2>
+          </a>
+
+          <div class="publication">
+            @for (info of visionsResources()[0]?.informations | slice: 0 : 2; track $index) {
+              <a class="publication-card">
+                @if (isEnglish()) {
+                  <a [href]="info?.url" target="_blank">
+                    <img [src]="getImageUrl(info, true)" alt="image" loading="lazy">
+                  </a>
+                } @else if (isBengali()) {
+                  <a [href]="info?.url" target="_blank">
+                    <img [src]="getImageUrl(info, false)" alt="image" loading="lazy">
+                  </a>
+                }
+              </a>
+            }
+          </div>
+
+          <div class="action view-publication">
+            <a routerLink="/bnpbd" class="button-hover" [queryParamsHandling]="'merge'">
+              {{ "ln.ViewPublications" | translate }}
+            </a>
+          </div>
+        </div>
+      }
+
+      <div class="section-5-right wow animate__fadeInRight">
+        @if (hasPhotos()) {
+          <img [src]="photo()[0]?.image" alt="">
+        } @else if (isLoading()) {
+          <div class="loading-placeholder">Loading...</div>
+        }
+        <div class="desc-5">
+          <h2>{{ "ln.PhotoGallery" | translate }}</h2>
+          <a routerLink="photo-gallery" class="button-hover" [queryParamsHandling]="'merge'">
+            {{ "ln.ViewGallary" | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

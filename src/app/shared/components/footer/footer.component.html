@@ -1,0 +1,196 @@
+<div class="footer-top-area">
+    <div class="container">
+        <div class="footer-top-main">
+            <h2>{{ "ln.JoinNationalists" | translate }}</h2>
+            <a routerLink="/login/primary-member-fee" [queryParamsHandling]="'merge'">{{ "ln.Joinfight1" | translate }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="footer-area">
+    <div class="container1">
+      <div class="footer-link mobile-view">
+              <!-- <div class="footer-title">
+                <h3>{{ "ln.Payment" | translate }}</h3>
+              </div> -->
+               <div class="link">
+                 <ul>
+                   <li><a class="membership" [routerLink]="['/login/primary-member-fee']" >{{ "ln.GeneralMember" | translate }}</a></li>
+                   <li>
+                     <a
+                       class="membership margin"
+                        [routerLink]="['/login/member-fee']">
+                       {{ "ln.MembershipFee" | translate }}
+                     </a>
+                   </li>
+                   <li><a class="membership margin" routerLink="/donate">{{ "ln.Donate" | translate }}</a></li>
+                 </ul>
+               </div>
+             </div>
+        <div class="footer-main">
+            <!-- <div class="footer-logo"> -->
+<!--                <img src="./assets/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="image" loading="lazy">-->
+            <!-- </div> -->
+           <div class="footer-link-area">
+            <div class="footer-link">
+                <div class="footer-title">
+                    <h3 class="about">{{ "ln.About" | translate }}</h3>
+                </div>
+                <div class="link">
+                    <ul>
+                        <li><a routerLink="/our-leaders" [queryParamsHandling]="'merge'">{{ "ln.OurLeaders" | translate }}</a></li>
+                        <li><a routerLink="/pages/constitution" [queryParamsHandling]="'merge'">{{ "ln.Constitution" | translate }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-link">
+                <div class="footer-title">
+                    <h3>{{ "ln.Resources" | translate }}</h3>
+                </div>
+                <div class="link">
+                    <ul>
+                        <li><a routerLink="/vision-2030" [queryParamsHandling]="'merge'">{{ "ln.Vision" | translate }}</a></li>
+                        <li><a routerLink="/19-points" [queryParamsHandling]="'merge'">{{ "ln.19Points" | translate }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-link">
+                <div class="footer-title">
+                    <h3>{{ "ln.Update" | translate }}</h3>
+                </div>
+                <div class="link">
+                    <ul>
+                        <li><a routerLink="/programs&pressReleases" [queryParamsHandling]="'merge'">{{ "ln.PressReleases" | translate }}</a></li>
+                        <li><a routerLink="/all-news" [queryParamsHandling]="'merge'">{{ "ln.News" | translate }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-link">
+                <!-- <div class="footer-title">
+                    <h3>{{ "ln.Resources" | translate }}</h3>
+                </div> -->
+                <div class="link">
+                    <ul>
+                      <li>
+                        <a routerLink="/pages/terms-&-conditions">{{ "ln.TermsUse" | translate }}</a>
+                      </li>
+                      <li>
+                        <a routerLink="/pages/privacy-policy"
+                        >{{ "ln.PrivacyPolicy" | translate }}</a
+                        >
+                      </li>
+                      <li><a routerLink="/get-in-touch">{{ "ln.ContactUs" | translate }}</a></li>
+                      <li><a routerLink="/pages/refund-policy">{{ "ln.RefundPolicy" | translate }}</a></li>
+
+                    </ul>
+                </div>
+            </div>
+             <div class="footer-link pc-view">
+        <!-- <div class="footer-title">
+          <h3>{{ "ln.Payment" | translate }}</h3>
+        </div> -->
+         <div class="link">
+           <ul>
+             <li><a class="membership" [routerLink]="['/login/primary-member-fee']" >{{ "ln.GeneralMember" | translate }}</a></li>
+             <li>
+               <a
+                 class="membership margin"
+                  [routerLink]="['/login/member-fee']">
+                 {{ "ln.MembershipFee" | translate }}
+               </a>
+             </li>
+             <li><a class="membership margin" routerLink="/donate">{{ "ln.Donate" | translate }}</a></li>
+           </ul>
+         </div>
+       </div>
+<!--            <div class="footer-link">-->
+<!--                <div class="footer-title">-->
+<!--                    <h3>{{ "ln.Organizations" | translate }}</h3>-->
+<!--                </div>-->
+<!--                <div class="link">-->
+<!--                    <ul>-->
+<!--                        &lt;!&ndash; <li><a routerLink="/pages/ছাত্র-দল">{{ "ln.ChatraDal" | translate }}</a></li> &ndash;&gt;-->
+<!--                        <li><a routerLink="/pages/muktijoddha-dal">{{ "ln.MuktijoddhaDal" | translate }}</a></li>-->
+<!--                        <li><a routerLink="/pages/jubo-dal">{{ "ln.JuboDal" | translate }}</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="footer-link">-->
+<!--                <div class="footer-title res-hide">-->
+<!--                    <h3 style="visibility: hidden;">&nbsp;</h3>-->
+<!--                </div>-->
+<!--                <div class="link">-->
+<!--                    <ul>-->
+<!--                        -->
+<!--                        <li><a routerLink="/pages/mohila-dal">{{ "ln.MohilaDal" | translate }}</a></li>-->
+<!--                        <li><a routerLink="/pages/jashas">{{ "ln.SamajikSangskritik" | translate }}</a></li>-->
+<!--                        -->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="footer-link">-->
+<!--                <div class="footer-title res-hide">-->
+<!--                    <h3 style="visibility: hidden;">&nbsp;</h3>-->
+<!--                </div>-->
+<!--                <div class="link">-->
+<!--                    <ul>-->
+<!--                        &lt;!&ndash; <li><a routerLink="/pages/শ্রমিক-দল">{{ "ln.SramikDal" | translate }}</a></li> &ndash;&gt;-->
+<!--                        <li><a routerLink="/pages/krishak-dal">{{ "ln.KrishakDal" | translate }}</a></li>-->
+<!--                        <li><a routerLink="/pages/secchasebak-dal">{{ "ln.SwecchashebokDal" | translate }}</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="footer-link">-->
+<!--                <div class="footer-title res-hide">-->
+<!--                    <h3 style="visibility: hidden;">&nbsp;</h3>-->
+<!--                </div>-->
+<!--                <div class="link">-->
+<!--                    <ul>-->
+<!--                        <li><a routerLink="/pages/tati-dal">{{ "ln.TatiDal" | translate }}</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="footer-link">-->
+<!--                <div class="footer-title res-hide">-->
+<!--                    <h3 style="visibility: hidden;">&nbsp;</h3>-->
+<!--                </div>-->
+<!--                <div class="link">-->
+<!--                    <ul>-->
+<!--                        <li><a routerLink="/pages/ulama-dal">{{ "ln.UlamaDal" | translate }}</a></li>-->
+<!--                        <li><a routerLink="/pages/fisherman-dal">{{ "ln.FishermenDal" | translate }}</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+            <div class="social-link-area footer-link">
+                <div class="footer-title title2">
+                  <h3>{{ "ln.Follow" | translate }}</h3>
+                </div>
+                   <ul>
+                     <li><a href="https://www.facebook.com/bnpbd.org"><i class="fab fa-facebook-f"></i></a></li>
+                     <li><a href="https://www.youtube.com/@bdbnp"><i class="fab fa-youtube"></i></a></li>
+                     <li><a href="https://www.instagram.com/bnpbd/?igshid=YmMyMTA2M2Y%3D"><i class="fa-brands fa-instagram"></i></a></li>
+                     <li><a href="https://twitter.com/bdbnp78?fbclid=IwAR3Q283HzoOBATGXAycGh8x4QAmnDZfNWBBTRE5cI8DuAw4d6f0Jjixdq-g"><i class="fa-brands fa-x-twitter"></i></a></li>
+                     <li><a href="https://t.me/bnpbd_org"><i class="fa-brands fa-telegram"></i></a></li>
+                     <li><a href="https://www.tiktok.com/@bnpbd_org" ><i class="fa-brands fa-tiktok"></i></a></li>
+                   </ul>
+<!--             <div class="payment-btn">-->
+<!--               <a routerLink="membership-fee" class="membership" [queryParamsHandling]="'merge'">{{ "ln.MembershipFee" | translate }}</a>-->
+<!--               <a routerLink="payment" class="donate" [queryParamsHandling]="'merge'">{{ "ln.Donate" | translate }}</a>-->
+<!--             </div>-->
+            </div>
+           </div>
+        </div>
+        <div class="ntt">
+               <p>
+                 <span *ngIf="translateService.currentLang === 'en' || !translateService.currentLang "> © 2023 to {{currentYear}} </span>
+                 <span *ngIf="translateService.currentLang === 'bn'"> © ২০২৩ থেকে {{currentYear | engBnNum}} </span>
+
+                 {{ "ln.BangladeshNationalist" | translate }}
+               </p>
+               <!-- <p>Promotted by AKM  Wahiduzzaman on behalf of the Bangladesh Nationalist  Party (BNP)</p> -->
+               <p>{{ "ln.Poweredby" | translate }}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="section-1">
+  <div class="banner-area">
+    <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{ourService?.name}}</h2>
+    <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{ourService?.nameEn}}</h2>
+    <!-- <h2>{{ourService?.name}}</h2> -->
+  </div>
+  <div class="container">
+    <div class="section-1-main">
+      <div class="details-page-heading">
+        <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{ourService?.name}}</h2>
+        <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{ourService?.nameEn}}</h2>
+        <!-- <h2>{{ourService?.name}}</h2> -->
+        <img [src]="ourService?.image" alt="image" loading="lazy">
+      </div>
+      <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description" [innerHTML]="ourService?.description | safeHtmlCustom"></p>
+      <p  *ngIf="translateService.currentLang === 'bn'  " class="description font-bangla" [innerHTML]="ourService?.descriptionEn | safeHtmlCustom"></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="section-4">
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <h2 class="title-topp">{{ "ln.RelatedPrograms" | translate }}</h2>
+        <div class="program-elm-container  test-program-elm-container" *ngIf="isBrowser">
+          <app-swiper 
+            [visibleSlides]="1" 
+            [gap]="10" 
+            [autoplay]="false" 
+            [loop]="false"
+            [navigation]="true" 
+            [pagination]="false"
+            [breakpoints]="swiperBreakpoints" 
+            class="mySwiper">
+            <div #sliderItem *ngFor="let data of ourServicess">
+              <div class="related-news">
+                <div class="program-elm" >
+                  <div class="card-contents">
+                    <div class="img-date">
+                      <img [src]="data.image" alt="image" loading="lazy">
+                    </div>
+                    <div class="writer-img">
+                      <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">
+                    </div>
+                    <div class="card-contents1">
+                      <div class="desc">
+                        <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</p>
+                        <p class="font-bangla" *ngIf="translateService.currentLang === 'bn' ">{{data.nameEn}}</p>
+                      </div>
+                      <div>
+                        <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description" [innerHTML]="data.description"></p>
+                        <p  *ngIf="translateService.currentLang === 'bn'  " class="description font-bangla" [innerHTML]="data.descriptionEn"></p>
+                      </div>
+                      <div class="button-one">
+                        <button [routerLink]="['/press-releases-details', data._id]" [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border"></div>
+                  <div class="date">
+                    <p>{{ data.createdAt | date }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </app-swiper>
+
+        </div>
+<!--        <a routerLink="./press-releases-details" class="button-hover">More in this section</a>-->
+
+      </div>
+      <!-- <div class="icon-middle">
+          <i class="fa-solid fa-angle-right"></i>
+      </div> -->
+      <!-- <div class="section4-right">
+          <app-recently-all-news>
+
+          </app-recently-all-news>
+      </div> -->
+
+    </div>
+  </div>
+</div>

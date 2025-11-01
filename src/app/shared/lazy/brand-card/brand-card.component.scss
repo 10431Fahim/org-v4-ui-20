@@ -1,0 +1,31 @@
+@use "../../../../theme/variables" as *;
+
+.brand{
+    width: 100%;
+    height: auto;
+    box-shadow: rgb(13 21 55 / 6%) 0 5px 50px;
+    background-color: #fff;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  height: 110px;
+    img{
+      width: 100%;
+      max-width: 400px;
+      object-fit: cover;
+    }
+    p{
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 0;
+      color: #071c4d;
+      line-height: 1.2em;
+      font-family: $font-en-poppins;
+    }
+  }

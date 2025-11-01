@@ -1,0 +1,91 @@
+<div #pdfContent id="pdf-content" class="pdf-style"
+  style="z-index: 2; position: relative; margin:0 auto;width: 800px; min-height: 824px; padding: 20px;">
+  <div
+    style="position: absolute; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+      style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;" alt="Background Image">
+  </div>
+  <div style="display:flex;justify-content: center;margin-bottom: 10px">
+    <h1>Bismillahir Rahmanir Rahim</h1>
+  </div>
+  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
+    <img style="width: 150px;"
+      src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <h2 style="font-size: 40px;">Bangladesh Nationalist Party</h2>
+  </div>
+  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;">
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0">Central Office</h3>
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0;color: #ff5292;">Membership Receipt</h3>
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0">Member Part</h3>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Name: </span><b>{{ registrationData?.firstName }} {{ registrationData?.lastName }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Member Type: </span><b>{{ registrationData?.memberType }}</b>
+  </div>
+  <div *ngIf="registrationData?.memberId" style="margin-top: 15px;font-size: 20px">
+    <span>Member ID: </span><b>{{ registrationData?.memberId }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Organization Name: </span><b>{{ registrationData?.organizationName }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Email: </span><b>{{ registrationData?.email }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Mobile No: </span><b>{{ registrationData?.phoneNo }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Designation: </span><b>{{ registrationData?.designation }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Present Address: </span><b>{{ registrationData?.address }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Country: </span><b>{{ registrationData?.country }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>City: </span><b>{{ registrationData?.city }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Zip/Postal Code: </span><b>{{ registrationData?.zip }}</b>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Recommend Person 1:</span>
+    <div style="margin-left: 20px;">
+      <div>Name: <b>{{ registrationData?.recommender1Name }}</b></div>
+      <div>Mobile: <b>{{ registrationData?.recommender1Mobile }}</b></div>
+      <div>Designation: <b>{{ registrationData?.recommender1Designation }}</b></div>
+    </div>
+  </div>
+  <div style="margin-top: 15px;font-size: 20px">
+    <span>Recommend Person 2:</span>
+    <div style="margin-left: 20px;">
+      <div>Name: <b>{{ registrationData?.recommender2Name }}</b></div>
+      <div>Mobile: <b>{{ registrationData?.recommender2Mobile }}</b></div>
+      <div>Designation: <b>{{ registrationData?.recommender2Designation }}</b></div>
+    </div>
+  </div>
+  <div style="margin-top: 30px; display: flex; justify-content: space-between;">
+    <div style="margin-top: 15px; font-size: 20px; border-top: 1px solid #000000;">
+      <span>Chairperson</span>
+    </div>
+    <div style="margin-top: 15px; font-size: 20px; border-top: 1px solid #000000;">
+      <span>Member Signature</span>
+    </div>
+    <div style="margin-top: 15px; font-size: 20px; border-top: 1px solid #000000;">
+      <span>Collector Signature</span>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: 33.33% 33.33% 33.33%; margin-top: 20px;">
+    <div style="margin-top: 15px; font-size: 20px;"></div>
+    <div style="margin-top: 15px; font-size: 20px; margin-right: 25px;">
+      <span>Date</span>
+    </div>
+    <div style="margin-top: 15px; font-size: 20px;">
+      <span>Date</span>
+    </div>
+  </div>
+</div>
+<button (click)="downloadPDF()">Download PDF</button>

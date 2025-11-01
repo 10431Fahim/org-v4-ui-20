@@ -1,0 +1,31 @@
+<div class="section-2" >
+  <div class="container">
+    <div class="section-2-main" *ngIf="firstPortfolio()">
+      <div class="section-2-left wow animate__fadeInLeft">
+        <a class="our-leader" routerLink="/our-leaders"><h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+          {{firstPortfolio()!.name}}</h2></a>
+        <a class="our-leader" routerLink="/our-leaders"><h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{firstPortfolio()!.nameEn}}</h2></a>
+        <!-- <h1 class="title-top">{{firstPortfolio()!.name}}</h1> -->
+        <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang "
+           [innerHTML]="firstPortfolio()!.description | safeHtmlCustom"></p>
+        <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'"
+           [innerHTML]="firstPortfolio()!.descriptionEn | safeHtmlCustom"></p>
+
+        <a routerLink="/our-leaders" class="button-hover" [queryParamsHandling]="'merge'">{{ "ln.Learnmore" |
+          translate }}</a>
+      </div>
+      <div class="section-2-right" *ngIf="hasLeaders()">
+
+        <div class="section2-img wow animate__fadeInRight"
+             *ngFor="let data1 of leadersToShow(); let i = index"
+             [class]="('animate__delay-'+ (i+1) + 's')">
+          <a [routerLink]="['/leader-details', data1?.slug]" [queryParamsHandling]="'merge'">
+            <img [src]="data1?.image ? data1?.image : ''" alt="image" loading="lazy"
+                 style="cursor: pointer;" >
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

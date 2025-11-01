@@ -1,0 +1,465 @@
+<section class="main-area">
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+        <h2  *ngIf="memberType ==='primary-member-fee'">{{ 'ln.MemberSignUp' | translate }}</h2>
+        <h2  *ngIf="memberType !=='primary-member-fee'">{{ 'ln.MemberSignUp1' | translate }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-area">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+      <div class="header-main" style="display:flex;justify-content:center; gap: 10px;align-items: center;margin-bottom: 0">
+        <img style="width: 150px;"
+             src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+             alt="">
+        <div>
+          <h2 class="title">{{ 'ln.PartyTitle' | translate }}</h2>
+          <p *ngIf="memberType ==='primary-member-fee'" class="subtitle">({{ 'ln.NewMember' | translate }}
+            /{{ 'ln.OldMember' | translate }} {{ 'ln.Form' | translate }})</p>
+          <p *ngIf="memberType !=='primary-member-fee'" class="subtitle">({{ 'ln.NewMemberSignUp' | translate }})</p>
+        </div>
+      </div>
+
+      <!-- General validation error message -->
+<!--      <div class="form-error-summary" *ngIf="submitted && registrationForm.invalid">-->
+<!--        <div class="error-summary">-->
+<!--          <span>⚠ {{ 'ln.PleaseFixErrors' | translate }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+      <div class="header-row" *ngIf="memberType ==='primary-member-fee'">
+        <div class="right-fields">
+          <div class="form-group">
+            <label for="memberType">{{ 'ln.MemberType' | translate }} <span class="required">*</span></label>
+            <select id="memberType" formControlName="memberType" class="form-control">
+              <option value="New Member">{{ 'ln.NewMember' | translate }}</option>
+              <option value="Old Member">{{ 'ln.OldMember' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="showMemberIdField">
+            <label for="memberId">{{ 'ln.ID' | translate }} <span class="required">*</span></label>
+            <input id="memberId" type="text" formControlName="memberId"
+                   placeholder="{{ 'ln.TypeOldMemberId' | translate }}" class="form-control"/>
+            <div class="error" *ngIf="f['memberId'].invalid && (f['memberId'].dirty || f['memberId'].touched || submitted)">
+              <span *ngIf="f['memberId'].errors?.['required']">{{ 'ln.ID' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row" [class.test]="memberType">
+        <div class="form-group">
+          <label for="firstName">{{ 'ln.FullName' | translate }} <span class="required">*</span></label>
+          <input id="firstName" formControlName="name" placeholder="{{ 'ln.FullName' | translate }}"/>
+          <div class="error" *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched || submitted)">
+            <span *ngIf="f['name'].errors?.['required']">{{ 'ln.FullName' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Age">{{ 'ln.Age' | translate }} <span class="required">*</span></label>
+          <input id="Age" formControlName="age" placeholder="{{ 'ln.Age' | translate }}"/>
+          <div class="error" *ngIf="f['age'].invalid && (f['age'].dirty || f['age'].touched || submitted)">
+            <span *ngIf="f['age'].errors?.['required']">{{ 'ln.Age' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-row" *ngIf="memberType ==='primary-member-fee'">
+        <div class="form-group">
+          <label for="qualification">{{ 'ln.EducationalQualification' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="qualification" formControlName="qualification"
+                 placeholder="{{ 'ln.EnterEducationalQualification' | translate }}"/>
+        </div>
+        <div class="form-group">
+          <label for="occupation">{{ 'ln.Occupation' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="occupation" formControlName="occupation" placeholder="{{ 'ln.EnterOccupation' | translate }}"/>
+        </div>
+
+      
+      </div>
+      <div class="form-row">
+<!--        <div class="form-group">-->
+<!--          <label for="email">{{ 'ln.EmailAddress' | translate }} <span class="required">*</span></label>-->
+<!--          <input id="email" formControlName="email" type="email" placeholder="{{ 'ln.EnterEmail' | translate }}"/>-->
+<!--          <div class="error" *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched || submitted)">-->
+<!--            <span *ngIf="f['email'].errors?.['required']">{{ 'ln.EmailAddress' | translate }} {{ 'ln.isRequired' | translate }}</span>-->
+<!--            <span *ngIf="f['email'].errors?.['email']">{{ 'ln.EnterValidEmail' | translate }}</span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="form-group">
+          <label for="country">{{ 'ln.Country' | translate }} <span class="required">*</span></label>
+          <div class="form-input-select w-50 w-100">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="text"
+                     placeholder="{{ 'ln.CountryPlaceholder' | translate }}"
+                     aria-label="country"
+                     matInput
+                     formControlName="country"
+                     [matAutocomplete]="countryAuto"
+                     (focus)="onPresentCountryFocus()">
+              <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="onPresentCountrySelected($event)">
+                <mat-option *ngFor="let data of filteredPresentCountry$ | async" [value]="data?.name">{{data?.name}}</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="error" *ngIf="f['country'].invalid && (f['country'].dirty || f['country'].touched || submitted)">
+            <span *ngIf="f['country'].errors?.['required']">{{ 'ln.Country' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="phoneNo">{{ 'ln.MobileNo' | translate }} <span class="required">*</span></label>
+          <div class="mobile-input">
+<!--            <div class="country-code" [matMenuTriggerFor]="menu">-->
+            <div class="country-code"  *ngIf="getSingleCountry?.dial_code">
+              <img [src]="getSingleCountry?.image" alt="BD"/>
+              <span>({{ getSingleCountry?.dial_code }})</span>
+              <small><i class="fa-solid fa-sort-down"></i></small>
+            </div>
+            <input id="phoneNo" formControlName="phoneNo" placeholder="01XXXXXXXXX"/>
+          </div>
+          <div class="error" *ngIf="f['phoneNo'].invalid && (f['phoneNo'].dirty || f['phoneNo'].touched || submitted)">
+            <span *ngIf="f['phoneNo'].errors?.['required']">{{ 'ln.MobileNo' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      
+<!--      <div class="form-row">-->
+
+<!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;          <label for="resident">{{ 'ln.Designation1' | translate }}</label>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input id="designation" formControlName="designation" placeholder="{{ 'ln.Designation1' | translate }}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--          <label for="Designation1">{{ 'ln.Designation1' | translate }} <span class="required">*</span></label>-->
+<!--          <select id="Designation1" formControlName="designation" class="form-control">-->
+<!--            <option [value]="data?.name" *ngFor="let data of allCommittee">{{data?.name}}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+     
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">{{ 'ln.EmailAddress' | translate }} <span class="required">*</span></label>
+          <input id="email" formControlName="email" type="email" placeholder="{{ 'ln.EnterEmail' | translate }}"/>
+          <div class="error" *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched || submitted)">
+            <span *ngIf="f['email'].errors?.['required']">{{ 'ln.EmailAddress' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['email'].errors?.['email']">{{ 'ln.EnterValidEmail' | translate }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="resident">{{ 'ln.ResidentType' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="resident" formControlName="resident" placeholder="{{ 'ln.ResidentType' | translate }}"/>
+        </div>
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="city">{{ 'ln.City' | translate }} <span class="required">*</span></label>
+          <div class="form-input-select w-50 w-100">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="text"
+                     placeholder="{{ 'ln.City' | translate }}"
+                     aria-label="city"
+                     matInput
+                     formControlName="city"
+                     [matAutocomplete]="cityPresentAuto"
+                     (focus)="onPresentCityFocus()">
+              <mat-autocomplete #cityPresentAuto="matAutocomplete" (optionSelected)="onPresentCitySelected($event)">
+                <mat-option *ngFor="let data of filteredCities" [value]="data">{{data}}</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="error" *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched || submitted)">
+            <span *ngIf="f['city'].errors?.['required']">{{ 'ln.City' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="zip">{{ 'ln.ZipPostalCode' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="zip" formControlName="zip" placeholder="{{ 'ln.EnterZipPostalCode' | translate }}"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="country">{{ 'ln.CountryPermanent' | translate }} <span class="required">*</span></label>
+          <div class="form-input-select w-50 w-100">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="text"
+                     placeholder="{{ 'ln.CountryPermanent' | translate }}"
+                     aria-label="countryPermanent"
+                     matInput
+                     formControlName="countryPermanent"
+                     [matAutocomplete]="countryPermanentAuto"
+                     (focus)="onPermanentCountryFocus()">
+              <mat-autocomplete #countryPermanentAuto="matAutocomplete" (optionSelected)="onPermanentCountrySelected($event)">
+                <mat-option *ngFor="let data of filteredPermanentCountry$ | async" [value]="data?.name">{{data?.name}}</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="error" *ngIf="f['countryPermanent'].invalid && (f['countryPermanent'].dirty || f['countryPermanent'].touched || submitted)">
+            <span *ngIf="f['countryPermanent'].errors?.['required']">{{ 'ln.CountryPermanent' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">{{ 'ln.CityPermanent' | translate }} <span class="required">*</span></label>
+          <div class="form-input-select w-50 w-100">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="text"
+                     placeholder="{{ 'ln.CityPermanent' | translate }}"
+                     aria-label="cityPermanent"
+                     matInput
+                     formControlName="cityPermanent"
+                     [matAutocomplete]="cityPermanentAuto"
+                     (focus)="onPermanentCityFocus()">
+              <mat-autocomplete #cityPermanentAuto="matAutocomplete" (optionSelected)="onPermanentCitySelected($event)">
+                <mat-option *ngFor="let data of filteredPermanentCities" [value]="data">{{data}}</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="error" *ngIf="f['cityPermanent'].invalid && (f['cityPermanent'].dirty || f['cityPermanent'].touched || submitted)">
+            <span *ngIf="f['cityPermanent'].errors?.['required']">{{ 'ln.CityPermanent' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="zip1">{{ 'ln.ZipPostalCode' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="zip1" formControlName="zipPermanent" placeholder="{{ 'ln.EnterZipPostalCode' | translate }}"/>
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">{{ 'ln.Password' | translate }} <span class="required">*</span></label>
+          <input id="password" type="password" formControlName="password"
+                 placeholder="{{ 'ln.EnterPassword' | translate }}"/>
+          <div class="error" *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched || submitted)">
+            <span *ngIf="f['password'].errors?.['required']">{{ 'ln.Password' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['password'].errors?.['minlength']">{{ 'ln.PasswordMinLength' | translate }}</span>
+            <span *ngIf="f['password'].errors?.['pattern']">{{ 'ln.PasswordPattern' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">{{ 'ln.ConfirmPassword' | translate }} <span class="required">*</span></label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword"
+                 placeholder="{{ 'ln.ConfirmPassword' | translate }}"/>
+          <div class="error" *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched || submitted)">
+            <span *ngIf="f['confirmPassword'].errors?.['required']">{{ 'ln.ConfirmPassword' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+          <div class="error" *ngIf="registrationForm.errors?.['mismatch'] && (f['confirmPassword'].dirty || f['confirmPassword'].touched || submitted)">
+            <span>{{ 'ln.PasswordMismatch' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="whatsAppNumber">{{ 'ln.WhatsAppNumber' | translate }} <span class="required">*</span></label>
+          <input id="whatsAppNumber" formControlName="whatsAppNumber"
+                 placeholder="{{ 'ln.EnterWhatsAppNumber' | translate }}"/>
+          <div class="error" *ngIf="f['whatsAppNumber'].invalid && (f['whatsAppNumber'].dirty || f['whatsAppNumber'].touched || submitted)">
+            <span *ngIf="f['whatsAppNumber'].errors?.['required']">{{ 'ln.WhatsAppNumber' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="facebookId">{{ 'ln.FacebookProfileLink' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="facebookId" formControlName="facebookId"
+                 placeholder="{{ 'ln.EnterFacebookProfile' | translate }}"/>
+        </div>
+      </div>
+      
+      <div class="form-row" *ngIf="memberType === 'member-fee'">
+        <div class="form-group">
+          <label for="unitCommittee">{{ 'ln.UnitCommittee' | translate }}<span class="required">*</span></label>
+          <select id="unitCommittee" formControlName="committee" class="form-control" (change)="onUnitCommitteeChange($event)">
+            <option value="">{{ 'ln.SelectCommittee' | translate }}</option>
+            <option *ngFor="let committee of allCommittee" [value]="committee.name">
+              {{ currentLanguage === 'bn' ? committee.nameBn : committee.name }}
+            </option>
+          </select>
+          <div class="error" *ngIf="f['committee'].invalid && (f['committee'].dirty || f['committee'].touched || submitted)">
+            <span *ngIf="f['committee'].errors?.['required']">{{ 'ln.UnitCommittee' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="designation">{{ 'ln.Designation1' | translate }}<span class="required">*</span></label>
+          <select id="designation" formControlName="designation" (change)="onDesignationChange($event)" class="form-control">
+            <option value="">{{ 'ln.SelectDesignation' | translate }}</option>
+            <option *ngFor="let desig of availableDesignations" [value]="desig.name" [attr.data-amount]="desig.amount">
+              {{ currentLanguage === 'bn' ? desig.nameBn : desig.name }}
+            </option>
+          </select>
+          <div class="error" *ngIf="f['designation'].invalid && (f['designation'].dirty || f['designation'].touched || submitted)">
+            <span *ngIf="f['designation'].errors?.['required']">{{ 'ln.Designation1' | translate }} {{ 'ln.isRequired' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommend Person 1 -->
+      <div class="recommend-section" *ngIf="memberType ==='primary-member-fee'">
+        <h4 class="header">{{ 'ln.RecommendPerson1' | translate }}</h4>
+        <div class="recommend-row">
+          <div class="form-group">
+            <label for="recommender1Name">{{ 'ln.Name' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+            <input id="recommender1Name" formControlName="recommender1Name" placeholder="{{ 'ln.Name' | translate }}"/>
+          </div>
+          <div class="form-group">
+            <label for="recommender1Mobile">{{ 'ln.MobileNumber' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+            <input id="recommender1Mobile" formControlName="recommender1Mobile"
+                   placeholder="{{ 'ln.MobileNumber' | translate }}"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recommender1Designation">{{ 'ln.Designation1' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="recommender1Designation" formControlName="recommender1Designation"
+                 placeholder="{{ 'ln.Designation1' | translate }}" class="full-width"/>
+        </div>
+      </div>
+
+      <!-- Recommend Person 2 -->
+      <div class="recommend-section" *ngIf="memberType ==='primary-member-fee'">
+        <h4 class="header">{{ 'ln.RecommendPerson2' | translate }}</h4>
+        <div class="recommend-row">
+          <div class="form-group">
+            <label for="recommender2Name">{{ 'ln.Name' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+            <input id="recommender2Name" formControlName="recommender2Name" placeholder="{{ 'ln.Name' | translate }}"/>
+          </div>
+          <div class="form-group">
+            <label for="recommender2Mobile">{{ 'ln.MobileNumber' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+            <input id="recommender2Mobile" formControlName="recommender2Mobile"
+                   placeholder="{{ 'ln.MobileNumber' | translate }}"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recommender2Designation" class="header">{{ 'ln.Designation1' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+          <input id="recommender2Designation" formControlName="recommender2Designation"
+                 placeholder="{{ 'ln.Designation1' | translate }}" class="full-width"/>
+        </div>
+      </div>
+
+      <!-- <div class="file-upload" *ngIf="memberType ==='primary-member-fee'">
+        <label for="fileUpload">{{ 'ln.uploadFile' | translate }} <span class="optional">({{ 'ln.Optional' | translate }})</span></label>
+        <input id="fileUpload" type="file" multiple (change)="onFileChange($event)" />
+      </div> -->
+
+
+      <div class="amount" *ngIf="memberType ==='primary-member-fee' && f['country']?.value && getSelectedAmount()">
+        <label for="condition">{{ 'ln.amount' | translate }}:
+          <span class="amount-value">
+            {{ getSelectedAmount() }}
+          </span>
+        </label>
+      </div>
+
+       <div class="amount" *ngIf="memberType ==='member-fee'&& getSelectedDesignationAmount() > 0">
+        <label for="condition">{{ 'ln.amount' | translate }}:
+          <span  class="amount-value">
+            {{ getSelectedDesignationAmount() }} {{ currency }}
+          </span>
+        </label>
+      </div>
+
+      <div class="checkbox" *ngIf="memberType ==='primary-member-fee'">
+        <input id="condition" type="checkbox" formControlName="agree"/>
+        <label for="condition">{{ 'ln.IAgree' | translate }}</label>
+<!--        <div class="error" *ngIf="f['agree'].invalid && (f['agree'].dirty || f['agree'].touched || submitted)">-->
+<!--          <span *ngIf="f['agree'].errors?.['required']">{{ 'ln.AgreeRequired' | translate }}</span>-->
+<!--        </div>-->
+
+
+      </div>
+
+<!--      <div class="checkbox" *ngIf="memberType ==='primary-member-fee'">-->
+      <div class="checkbox" >
+        <input id="condition" type="checkbox" formControlName="agreeWithTermsAndConditions"/>
+<!--        <label for="condition">{{ 'ln.IAgree' | translate }}</label>-->
+
+        <div style="display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap;">
+          <label for="condition">
+            {{ 'ln.IAgreeTo' | translate }}
+          </label>
+          <a routerLink="/pages/terms-&-conditions">{{ 'ln.TermsAndConditions' | translate }},</a>
+          <a routerLink="/pages/privacy-policy">{{ 'ln.PrivacyPolicyLink' | translate }},</a>
+          <a routerLink="/pages/refund-policy"> {{ 'ln.RefundPolicyLink' | translate }}.</a>
+          <span>*</span>
+        </div>
+
+
+        <!--        <label for="condition">I have read and agree to the website terms and conditions, Return & Refund Policy, and privacy policy. *</label>-->
+<!--        <div class="error" *ngIf="f['agree'].invalid && (f['agree'].dirty || f['agree'].touched || submitted)">-->
+<!--          <span *ngIf="f['agree'].errors?.['required']">{{ 'ln.AgreeRequired' | translate }}</span>-->
+<!--        </div>-->
+      </div>
+
+
+
+      <div class="buttons">
+        <button type="submit">
+          <ng-container *ngIf="!isLoadings; else loadingTpl1">
+          {{ 'ln.SignUp' | translate }}
+          </ng-container>
+          <ng-template #loadingTpl1>
+            {{ 'ln.PleaseWait' | translate }}
+          </ng-template>
+        </button>
+
+        <!-- <button
+          type="button"
+          (click)="downloadForm()"
+          *ngIf="memberType === 'primary-member-fee'"
+        >
+          <ng-container *ngIf="!isLoading; else loadingTpl">
+            {{ 'ln.DownloadForm' | translate }}
+          </ng-container>
+        </button> -->
+
+        <ng-template #loadingTpl>
+          {{ 'ln.PleaseWait' | translate }}
+        </ng-template>
+
+      </div>
+
+      <div class="footer">
+        {{ 'ln.AlreadyMember' | translate }} <a routerLink="/login">{{ 'ln.LoginNow' | translate }}</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<mat-menu #menu="matMenu" class="mat-menu-login">
+  <div class="search-area">
+    <input class="input-grey-rounded" placeholder="{{ 'ln.SearchCountryOrCode' | translate }}" [(ngModel)]="searchQuery"
+           (click)="$event.stopPropagation()"/>
+  </div>
+  <ng-container *ngFor="let data of filteredCountryData">
+    <button mat-menu-item (click)="onGetSingleCountry(data)">
+      <div class="login-flag">
+        <div>
+          <img [src]="data?.image | safeUrl" [alt]="data?.name"/>
+        </div>
+        <div>
+          <span style="color: #000000">/ {{ data?.name }}</span>
+        </div>
+      </div>
+    </button>
+  </ng-container>
+</mat-menu>

@@ -1,1 +1,391 @@
-/* You can add global styles to this file, and also import other style files */
+// Core - @use statements must come first
+@use "theme/_base";
+@use "theme/material/_theme";
+@use "theme/_fonts";
+@use "theme/_variables" as *;
+
+// External CSS imports (these should remain as @import)
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100;200;300&display=swap');
+
+// Swipper CSS imports
+//@import 'swiper/swiper-bundle.min.css';
+//@import "swiper/css";
+//@import 'swiper/css/bundle';
+//@import "swiper/css/effect-fade";
+//@import "swiper/css/navigation";
+//@import "swiper/css/pagination";
+//@import "swiper/css/effect-coverflow";
+
+// Animation CSS imports
+@import 'animate.css';
+@import "./theme/css/animate_3_5_1.css";
+
+/* This only changes this particular animation duration */
+.animate__animated.animate__bounce {
+  --animate-duration: 1s;
+}
+
+/* This changes all the animations globally */
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
+
+.animated {
+  visibility: visible !important;
+}
+
+.hide-on-init {
+  visibility: hidden;
+}
+
+@keyframes backInDown {
+  0% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0.7;
+  }
+
+  80% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes backInUp {
+  0% {
+    transform: translateY(400px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  80% {
+    transform: translateY(0px) scale(0.8);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes backInLeft {
+  0% {
+    transform: translateX(-200px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  80% {
+    transform: translateX(0px) scale(0.8);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes backInRight {
+  0% {
+    transform: translateX(200px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  80% {
+    transform: translateX(0px) scale(0.8);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -20px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, 10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  100% {
+    transform: translateZ(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-200px, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(200px, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.wow.animate__delay-1s {
+  animation-delay: 0.1s;
+}
+
+.wow.animate__delay-2s {
+  animation-delay: 0.2s;
+}
+
+.wow.animate__delay-3s {
+  animation-delay: 0.3s;
+}
+
+.wow.animate__delay-4s {
+  animation-delay: 0.4s;
+}
+
+.wow.animate__delay-5s {
+  animation-delay: 0.5s;
+}
+
+.wow.animate__delay-6s {
+  animation-delay: 0.6s;
+}
+
+.wow.animate__delay-7s {
+  animation-delay: 0.7s;
+}
+
+.wow.animate__delay-8s {
+  animation-delay: 0.8s;
+}
+
+.scroll span {
+  border: 3px solid $color-primary;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-primary;
+  color: #fff;
+  box-shadow: 0 0 15px 3px rgb(71 254 126 / 10%);
+  font-size: 16px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 50px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 999999;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 5px rgb(71 254 126 / 20%);
+  }
+}
+
+// Ensure smooth scrolling behavior
+html {
+  scroll-behavior: smooth;
+}
+
+// Fix for SSR scroll position issues
+body {
+  scroll-behavior: smooth;
+}
+
+.top-to-down {
+  bottom: 50px !important;
+}
+
+.ad-des {
+  p,div {
+    font-size: 16px !important;
+    margin-bottom: 13px !important;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 16px !important;
+    font-family: 'Roboto', sans-serif !important;
+  }
+
+  .font-bangla{
+    font-family: $font-bn-primary!important;
+  }
+}
+
+.ad-des1 {
+  p {
+    font-size: 16px !important;
+    margin-bottom: 13px !important;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 16px !important;
+    font-family: $font-bn-primary!important;
+  }
+
+  //.font-bangla{
+  //  font-family: $font-bn-primary!important;
+  //}
+}
+
+.ad-des-info {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-size: 20px;
+    line-height: 32px;
+    font-family: 'Roboto', sans-serif !important;
+    margin-bottom: 16px !important;
+    font-weight: 500 !important;
+  }
+
+  p {
+    font-family: $font-en-primary;
+    line-height: 26px;
+    margin-bottom: 14px !important;
+  }
+}
+
+
+.nin-des-title {
+  h2 {
+    h2 {
+      font-weight: 500 !important;
+      font-size: 20px;
+      line-height: 32px;
+      margin-bottom: 16px !important;
+      font-family: 'Roboto', sans-serif
+    }
+  }
+
+  p {
+    p {
+      font-weight: 400 !important;
+      font-size: 20px;
+      line-height: 32px;
+      margin-bottom: 16px !important;
+      font-family: 'Roboto', sans-serif
+    }
+  }
+}
+
+.p-title {
+  h3,div {
+    h1 {
+      font-weight: 400 !important;
+    }
+  }
+
+  h2,div {
+    h1 {
+      font-weight: 400 !important;
+    }
+  }
+
+  p,div {
+    h1 {
+      font-weight: 400 !important;
+    }
+  }
+}
+
+
+
+.btn-share {
+  display: flex;
+  width: 100%;
+  margin: 20px 0;
+
+  button {
+    background-color: $color-primary;
+    font-family: $font-en-primary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    border: 2px solid $color-primary;
+
+    &:hover {
+      color: $color-primary;
+      background-color: #fff;
+    }
+  }
+
+  .back{
+    margin-left: 10px;
+    background-color: $color-primary2;
+    font-family: $font-en-primary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    border: 2px solid $color-primary2;
+    &:hover {
+      color: $color-primary;
+      background-color: #fff;
+    }
+  }
+}
+
+.font-bangla{
+  font-family: $font-bn-primary!important;
+}
+
+

@@ -1,0 +1,105 @@
+@if (hasStory()) {
+  <div class="section-1">
+    <div class="banner-area">
+      @if (!isLanguageBengali()) {
+        <h2>{{ourService()!.name}}</h2>
+      } @else {
+        <h2 class="font-bangla">{{ourService()!.nameEn}}</h2>
+      }
+    </div>
+    <div class="container">
+      <div class="section-1-main">
+        <div class="details-page-heading">
+          @if (!isLanguageBengali()) {
+            <h2>{{ourService()!.name}}</h2>
+          } @else {
+            <h2 class="font-bangla">{{ourService()!.nameEn}}</h2>
+          }
+          <img [src]="ourService()!.image" alt="image" loading="lazy">
+        </div>
+        @if (!isLanguageBengali()) {
+          <p class="description" [innerHTML]="ourService()!.description | safeHtmlCustom"></p>
+        } @else {
+          <p class="description font-bangla" [innerHTML]="ourService()!.descriptionEn | safeHtmlCustom"></p>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+
+<div class="section-4">
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <h2 class="title-topp">{{ "ln.RelatedStory" | translate }}</h2>
+        <div class="program-elm-container  test-program-elm-container">
+          <app-swiper
+            [visibleSlides]="1"
+            [gap]="10"
+            [autoplay]="false"
+            [loop]="false"
+            [navigation]="true"
+            [pagination]="false"
+            [breakpoints]="swiperBreakpoints"
+            class="mySwiper">
+            @if (hasRelatedStories()) {
+              @for (data of relatedStories(); track data._id) {
+                <div #sliderItem>
+                  <div class="related-news">
+                    <div class="program-elm" >
+                      <a class="card-contents"  [routerLink]="['../', data._id]" [queryParamsHandling]="'merge'">
+                        <div class="img-date">
+                          <img [src]="data.image" alt="image" loading="lazy">
+                        </div>
+                        <div class="writer-img">
+                          <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">
+                        </div>
+                        <div class="card-contents1">
+                          <div class="desc">
+                            @if (!isLanguageBengali()) {
+                              <p>{{data.name}}</p>
+                            } @else {
+                              <p class="font-bangla">{{data.nameEn}}</p>
+                            }
+                          </div>
+                          <div>
+                            @if (!isLanguageBengali()) {
+                              <p class="description" [innerHTML]="data.description"></p>
+                            } @else {
+                              <p class="description font-bangla" [innerHTML]="data.descriptionEn"></p>
+                            }
+                          </div>
+                          <div class="button-one">
+                            <button [routerLink]="['../', data._id]" [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                          </div>
+                        </div>
+                      </a>
+                      <div class="border"></div>
+                      <div class="date">
+                        <p>{{ data.createdAt | date }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          </app-swiper>
+
+        </div>
+        <!-- <a routerLink="../../programs&pressReleases" class="button-hover">More in this section</a> -->
+
+      </div>
+      <!-- <div class="icon-middle">
+          <i class="fa-solid fa-angle-right"></i>
+      </div> -->
+      <!-- <div class="section4-right">
+          <app-recently-all-news>
+
+          </app-recently-all-news>
+      </div> -->
+
+    </div>
+  </div>
+</div>

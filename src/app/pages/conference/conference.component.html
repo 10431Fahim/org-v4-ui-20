@@ -1,0 +1,86 @@
+
+<div class="top-banner-area">
+    <div class="">
+        <div class="banner">
+            <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+             <!-- <img [src]="motto[0]?.image" alt="image" loading="lazy"> -->
+             <div class="pageinfo-name">
+                <h2>{{"ln.Conference" | translate }}</h2>
+               <!-- <h2>{{motto[0]?.name}}</h2> -->
+             </div>
+        </div>
+    </div>
+</div>
+<!-- <div  *ngFor="let data of conference"></div> -->
+
+
+<div class="container">
+  <div class="conferance-card">
+
+    @if (isLoading2()) {
+      @for (data of [].constructor(6); track $index) {
+        <app-press-conference-loader></app-press-conference-loader>
+      }
+    }
+
+    @if (!isLoading2()) {
+      @for (data of conference(); track data._id) {
+        <a [routerLink]="['/press-conference', data._id]" [queryParamsHandling]="'merge'" class="post">
+          <img class="icon" src="/youtube.png" alt="image" loading="lazy">
+          <div class="header_post">
+            <img [src]="data?.image" alt="image" loading="lazy">
+          </div>
+
+          <div class="body_post">
+            <div class="post_content">
+              @if (isEnglish()) {
+                <h1>{{data?.title}}</h1>
+              } @else if (isBengali()) {
+                <h1 class="font-bangla">{{data?.titleEn}}</h1>
+              }
+            </div>
+          </div>
+        </a>
+      }
+    }
+  </div>
+  <div class="load-more">
+    <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()"><i class="fa-solid fa-spinner"></i>
+      {{totalProducts() > conference().length ? 'Load More' : 'No More Stories'}}
+    </a>
+  </div>
+</div>
+
+
+<!-- <div>
+  <div class="container">
+    <div class="section4-right">
+      <app-conference-card>
+
+      </app-conference-card>
+    </div>
+
+  </div>
+</div> -->
+
+<!--<div class="container" >-->
+<!--  <div class="press-video" *ngIf="isLoading">-->
+<!--  <ng-container >-->
+<!--    <app-product-car-one-loader [type]="'list'"-->
+<!--                                *ngFor="let data of  [1,2,3,4,5,6]"></app-product-car-one-loader>-->
+<!--  </ng-container>-->
+<!--    </div>-->
+<!--    <div class="press-video" >-->
+<!--        <div class="video" *ngFor="let data of conference">-->
+<!--            <iframe width="100%" height="280" [src]="getSafeUrl(data.name)" title="YouTube video player"-->
+<!--            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"-->
+<!--            allowfullscreen></iframe>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="load-more">-->
+<!--        <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore"><i  class="fa-solid fa-spinner"></i>-->
+<!--          {{totalProducts > conference.length ? 'Load More' : 'No More Press Conference'}}-->
+<!--        </a>-->
+<!--      </div>-->
+<!--</div>-->

@@ -1,0 +1,120 @@
+<div class="section-1">
+
+  @if (isLoading()) {
+    <app-news-details-loader></app-news-details-loader>
+  }
+
+  @if (!isLoading()) {
+    <div class="banner-area">
+     <div class="container">
+       @if (isEnglish()) {
+         <h2>{{review()?.name}}</h2>
+       } @else if (isBengali()) {
+         <h2 class="font-bangla">{{review()?.nameEn}}</h2>
+       }
+     </div>
+    </div>
+    <div class="container">
+      <div class="section-1-main">
+        <div class="details-page-heading">
+          <img [src]="review()?.image" alt="image" loading="lazy">
+        </div>
+        @if (isEnglish()) {
+          <div class="description" [innerHTML]="review()?.description | safeHtmlCustom"></div>
+        } @else if (isBengali()) {
+          <div class="font-bangla description" [innerHTML]="review()?.descriptionEn | safeHtmlCustom"></div>
+        }
+      </div>
+      <div class="btn-share">
+        <button class="share"(click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>Share Now</button>
+        <button class="back" routerLink="/all-news">Back to Main Page</button>
+      </div>
+    </div>
+  }
+</div>
+
+
+
+
+<div class="section-4">
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <h2 class="title-topp">{{ "ln.RelatedNews" | translate }}</h2>
+        <div class="program-elm-container  test-program-elm-container">
+          <app-swiper
+            [visibleSlides]="1"
+            [gap]="10"
+            [autoplay]="false"
+            [loop]="false"
+            [navigation]="true"
+            [pagination]="false"
+            [breakpoints]="swiperBreakpoints"
+            class="mySwiper">
+
+            @if (isLoadingRelated()) {
+              @for (data of [].constructor(4); track $index) {
+                <div #sliderItem>
+                  <app-news-card-one-loader></app-news-card-one-loader>
+                </div>
+              }
+            }
+
+            @if (!isLoadingRelated()) {
+              @for (data of reviewData(); track data._id) {
+                <div #sliderItem>
+                  <a [routerLink]="['/all-news', data._id]" [queryParamsHandling]="'merge'">
+                    <div class="related-news">
+                      <div class="program-elm">
+                        <div class="card-contents">
+                          <div class="img-date">
+                            <img [src]="data.image" alt="image" loading="lazy">
+                          </div>
+                          <div class="writer-img">
+                            <img
+                              src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="">
+                          </div>
+                          <div class="card-contents1">
+                            <div class="desc">
+                              @if (isEnglish()) {
+                                <p>{{data.name}}</p>
+                              } @else if (isBengali()) {
+                                <p class="font-bangla">{{data.nameEn}}</p>
+                              }
+                            </div>
+                            <div class="button-one">
+                              <button [routerLink]="['/all-news', data._id]" [queryParamsHandling]="'merge'">{{
+                                "ln.READMORE" | translate }}</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="border"></div>
+                        <div class="date">
+                          <p>{{ data.createdAt | date }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              }
+            }
+          </app-swiper>
+
+        </div>
+        <a routerLink="/all-news" class="button-hover" [queryParamsHandling]="'merge'">{{ "ln.Moresection" | translate
+          }}</a>
+
+      </div>
+      <!-- <div class="icon-middle">
+              <i class="fa-solid fa-angle-right"></i>
+          </div> -->
+      <!-- <div class="section4-right">
+              <app-recently-all-news>
+
+              </app-recently-all-news>
+          </div> -->
+
+    </div>
+  </div>
+</div>

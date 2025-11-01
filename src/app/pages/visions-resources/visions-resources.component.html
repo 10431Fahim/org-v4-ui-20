@@ -1,0 +1,165 @@
+<!-- <div class="section1" [style.background-image]="'url(' + visionsResources()[0]?.image + ')'">
+  <div class="container">
+    <div class="section1-main">
+
+      <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{visionsResources()[0]?.name}}</h2>
+      <h2 *ngIf="translateService.currentLang === 'bn'">{{visionsResources()[0]?.nameEn}}</h2>
+
+      <h2>{{visionsResources()[0]?.name}}</h2>
+    </div>
+  </div>
+</div> -->
+
+@if (hasVisionsResources() && firstVisionsResource()) {
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        @if (firstVisionsResource()!.image) {
+          <img [src]="firstVisionsResource()!.image" alt="image" loading="eager">
+        }
+        @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+          <h2>{{firstVisionsResource()!.name}}</h2>
+        }
+        @if (translateService.currentLang === 'bn') {
+          <h2 class="font-bangla">{{firstVisionsResource()!.nameEn}}</h2>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+<div class="vison-content">
+  @if (hasVisionsResources() && firstVisionsResource()) {
+    <div class="section2">
+      <div class="container">
+        <div class="section2-main">
+          <div class="section2-des p-title">
+            @if ((translateService.currentLang === 'en' || !translateService.currentLang) && firstVisionsResource()!.description) {
+              <p [innerHTML]="firstVisionsResource()!.description"></p>
+            }
+            @if (translateService.currentLang === 'bn' && firstVisionsResource()!.descriptionEn) {
+              <p class="font-bangla" [innerHTML]="firstVisionsResource()!.descriptionEn"></p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="section2-top">
+
+    <a routerLink="/bnpbd" [queryParamsHandling]="'merge'"><button
+      (click)="onTabClick('Policies')"
+      [class.active]="activeTab() == 'Policies'"
+      class="tab-link"
+    >
+    {{ "ln.About" | translate }}
+    </button></a>
+    <a routerLink="/bnpbd" [queryParamsHandling]="'merge'"><button
+      (click)="onTabClick('Article')"
+      [class.active]="activeTab() == 'Article'"
+      class="tab-link"
+    >
+    {{ "ln.Article" | translate }}
+    </button></a>
+    <a routerLink="/bnpbd" [queryParamsHandling]="'merge'"><button
+      (click)="onTabClick('Stories')"
+      [class.active]="activeTab() == 'Stories'"
+      class="tab-link"
+    >
+    {{ "ln.Stories" | translate }}
+    </button></a>
+
+    <a routerLink="/bnpbd" [queryParamsHandling]="'merge'"><button
+    (click)="onTabClick('Publications')"
+    [class.active]="activeTab() == 'Publications'"
+    class="tab-link"
+  >
+  {{ "ln.Publications" | translate }}
+  </button></a>
+     <a routerLink="/bnpbd" [queryParamsHandling]="'merge'"><button
+        (click)="onTabClick('Declaration')"
+        [class.active]="activeTab() == 'Declaration'"
+        class="tab-link"
+      >
+        {{ "ln.Declaration" | translate }}
+      </button></a>
+  </div>
+
+
+  @if (activeTab() == 'Policies') {
+    <div class="main2">
+      <app-policies></app-policies>
+    </div>
+  }
+
+<!--  @if (activeTab() == 'Press-Releases') {-->
+<!--    <div class="main2">-->
+<!--      <app-press-releases></app-press-releases>-->
+<!--    </div>-->
+<!--  } -->
+  @if (activeTab() == 'Article') {
+    <div class="main2">
+      <app-pathagar></app-pathagar>
+<!--     <app-press-releases></app-press-releases>-->
+    </div>
+  }
+
+  @if (activeTab() == 'Stories') {
+    <div class="main2">
+      <app-stories></app-stories>
+    </div>
+  }
+
+  @if (activeTab() == 'Publications') {
+    <div class="main2">
+      <app-publication></app-publication>
+    </div>
+  }
+
+  @if (activeTab() == 'Declaration') {
+    <div class="main2">
+      <app-declaration></app-declaration>
+    </div>
+  }
+</div>
+
+<!-- <ng-container *ngIf="visionsResources[0]?.informations && visionsResources[0]?.informations?.length > 0">
+  <div class="main" *ngFor="let info of visionsResources[0]?.informations; let i = index" >
+
+    <div class="section3" *ngIf="(i + 1) % 2 !== 0">
+      <div class="container">
+        <div class="section3-main">
+          <div class="section3-left">
+            <div>
+              <h3>{{info?.name}}</h3>
+             // <p>{{info?.description}}</p>
+              <p [innerHTML]="info?.description | safeHtmlCustom"></p>
+            </div>
+          </div>
+          <div class="section3-right">
+            <img [src]="info?.image" alt="image" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section4" *ngIf="(i + 1) % 2 === 0">
+      <div class="">
+        <div class="section4-main">
+          <div class="section4-left">
+            <img [src]="info?.image" alt="image" loading="lazy">
+          </div>
+          <div class="section4-right">
+            <div>
+              <h3>{{info?.name}}</h3>
+              //<p>{{info?.description}}</p>
+              <p [innerHTML]="info?.description | safeHtmlCustom"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container> -->

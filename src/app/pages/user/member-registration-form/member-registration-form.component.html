@@ -1,0 +1,287 @@
+<section class="main-area">
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+        <h2>{{ 'ln.MemberSignUp' | translate }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-area">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+      <div style="display:flex;justify-content:center; gap: 10px;align-items: center;margin-bottom: 0">
+        <img style="width: 150px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+        <div>
+          <h2 class="title">{{ 'ln.PartyTitle' | translate}}</h2>
+          <p class="subtitle">({{ 'ln.NewMember' | translate }}/{{ 'ln.OldMember' | translate }} {{ 'ln.Form' | translate }})</p>
+        </div>
+      </div>
+
+
+      <div class="header-row">
+        <div class="right-fields">
+          <div class="form-group">
+            <label for="memberType">{{ 'ln.MemberType' | translate }} <span class="required">*</span></label>
+            <select id="memberType" formControlName="memberType" class="form-control">
+              <option value="New Member">{{ 'ln.NewMember' | translate }}</option>
+              <option value="Old Member">{{ 'ln.OldMember' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group" *ngIf="showMemberIdField">
+            <label for="memberId">{{ 'ln.ID' | translate }} <span class="required">*</span></label>
+            <input id="memberId" type="text" formControlName="memberId" placeholder="{{ 'ln.TypeOldMemberId' | translate }}" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">{{ 'ln.FullName' | translate }} <span class="required">*</span></label>
+          <input id="firstName" formControlName="name" placeholder="{{ 'ln.FullName' | translate }}" />
+        </div>
+
+        <div class="form-group">
+          <label for="Father/Husband">{{ 'ln.Father/Husband' | translate }} <span class="required">*</span></label>
+          <input id="Father/Husband" formControlName="name" placeholder="{{ 'ln.Father/Husband' | translate }}" />
+        </div>
+        <!--        <div class="form-group">-->
+        <!--          <label for="lastName">{{ 'ln.LastName' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="lastName" formControlName="lastName" placeholder="{{ 'ln.EnterLastName' | translate }}" />-->
+        <!--        </div>-->
+
+        <!--        <div class="form-group">-->
+        <!--          <label for="organizationName">{{ 'ln.OrganizationName' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="organizationName" formControlName="organizationName" placeholder="{{ 'ln.EnterOrganizationName' | translate }}" />-->
+        <!--        </div>-->
+        <div class="form-group">
+          <label for="Age">{{ 'ln.Age' | translate }} <span class="required">*</span></label>
+          <input id="Age" formControlName="age" placeholder="{{ 'ln.Age' | translate }}" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!--        <div class="form-group">-->
+        <!--          <label for="Age">{{ 'ln.Age' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="Age" formControlName="age" placeholder="{{ 'ln.Age' | translate }}" />-->
+        <!--        </div>-->
+
+        <!--        <div class="form-group">-->
+        <!--          <label for="Father/Husband">{{ 'ln.Father/Husband' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="Father/Husband" formControlName="name" placeholder="{{ 'ln.Father/Husband' | translate }}" />-->
+        <!--        </div>-->
+        <!--        &lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
+        <!--        &lt;!&ndash;          <label for="lastName">{{ 'ln.LastName' | translate }} <span class="required">*</span></label>&ndash;&gt;-->
+        <!--        &lt;!&ndash;          <input id="lastName" formControlName="lastName" placeholder="{{ 'ln.EnterLastName' | translate }}" />&ndash;&gt;-->
+        <!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+
+        <!--        <div class="form-group">-->
+        <!--          <label for="organizationName">{{ 'ln.OrganizationName' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="organizationName" formControlName="organizationName" placeholder="{{ 'ln.EnterOrganizationName' | translate }}" />-->
+        <!--        </div>-->
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">{{ 'ln.EmailAddress' | translate }} <span class="required">*</span></label>
+          <input id="email" formControlName="email" type="email" placeholder="{{ 'ln.EnterEmail' | translate }}" />
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNo">{{ 'ln.MobileNo' | translate }} <span class="required">*</span></label>
+          <div class="mobile-input">
+            <div class="country-code" [matMenuTriggerFor]="menu">
+              <img [src]="getSingleCountry?.image" alt="BD" />
+              <span>({{ getSingleCountry?.dial_code }})</span>
+              <small><i class="fa-solid fa-sort-down"></i></small>
+            </div>
+            <input id="phoneNo" formControlName="phoneNo" placeholder="01XXXXXXXXX" />
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-row">
+        <!--        <div class="form-group">-->
+        <!--          <label for="designation">{{ 'ln.Designation1' | translate }} <span class="required">*</span></label>-->
+        <!--          <input id="designation" formControlName="designation" placeholder="{{ 'ln.EnterDesignation' | translate }}" />-->
+        <!--        </div>-->
+        <div class="form-group">
+          <label for="qualification">{{ 'ln.EducationalQualification' | translate }} <span class="required">*</span></label>
+          <input id="qualification" formControlName="qualification" placeholder="{{ 'ln.EnterEducationalQualification' | translate }}" />
+        </div>
+      </div>
+
+
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nationalId">{{ 'ln.NationalId' | translate }} <span class="required">*</span></label>
+          <input id="nationalId" formControlName="nationalId" placeholder="{{ 'ln.EnterNationalId' | translate }}" />
+        </div>
+
+        <div class="form-group">
+          <label for="occupation">{{ 'ln.Occupation' | translate }} <span class="required">*</span></label>
+          <input id="occupation" formControlName="occupation" placeholder="{{ 'ln.EnterOccupation' | translate }}" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="password">{{ 'ln.Password' | translate }} <span class="required">*</span></label>
+          <input id="password" type="password" formControlName="password" placeholder="{{ 'ln.EnterPassword' | translate }}" />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">{{ 'ln.ConfirmPassword' | translate }} <span class="required">*</span></label>
+          <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="{{ 'ln.ConfirmPassword' | translate }}" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="address">{{ 'ln.PresentAddress' | translate }} <span class="required">*</span></label>
+          <input id="address" formControlName="address" placeholder="{{ 'ln.EnterPresentAddress' | translate }}" />
+        </div>
+        <div class="form-group">
+          <label for="permanentAddress">{{ 'ln.PermanentAddress' | translate }} <span class="required">*</span></label>
+          <input id="permanentAddress" formControlName="permanentAddress" placeholder="{{ 'ln.EnterPermanentAddress' | translate }}" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="country">{{ 'ln.Country' | translate }} <span class="required">*</span></label>
+          <select id="country" formControlName="country">
+            <option *ngFor="let data of countrys" [value]="data.name">{{ data?.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="city">{{ 'ln.City' | translate }} <span class="required">*</span></label>
+          <select id="city" formControlName="city">
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="zip">{{ 'ln.ZipPostalCode' | translate }} <span class="required">*</span></label>
+          <input id="zip" formControlName="zip" placeholder="{{ 'ln.EnterZipPostalCode' | translate }}" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="whatsAppNumber">{{ 'ln.WhatsAppNumber' | translate }}</label>
+          <input id="whatsAppNumber" formControlName="whatsAppNumber" placeholder="{{ 'ln.EnterWhatsAppNumber' | translate }}" />
+        </div>
+
+        <div class="form-group">
+          <label for="facebookId">{{ 'ln.FacebookProfileLink' | translate }}</label>
+          <input id="facebookId" formControlName="facebookId" placeholder="{{ 'ln.EnterFacebookProfile' | translate }}" />
+        </div>
+      </div>
+
+      <!-- Recommend Person 1 -->
+      <div class="recommend-section">
+        <h4>{{ 'ln.RecommendPerson1' | translate }}</h4>
+        <div class="recommend-row">
+          <div class="form-group">
+            <label for="recommender1Name">{{ 'ln.Name' | translate }} <span class="required">*</span></label>
+            <input id="recommender1Name" formControlName="recommender1Name" placeholder="{{ 'ln.Name' | translate }}" />
+          </div>
+          <div class="form-group">
+            <label for="recommender1Mobile">{{ 'ln.MobileNumber' | translate }} <span class="required">*</span></label>
+            <input id="recommender1Mobile" formControlName="recommender1Mobile" placeholder="{{ 'ln.MobileNumber' | translate }}" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recommender1Designation">{{ 'ln.Designation1' | translate }} <span class="required">*</span></label>
+          <input id="recommender1Designation" formControlName="recommender1Designation" placeholder="{{ 'ln.Designation' | translate }}" class="full-width" />
+        </div>
+      </div>
+
+      <!-- Recommend Person 2 -->
+      <div class="recommend-section">
+        <h4>{{ 'ln.RecommendPerson2' | translate }}</h4>
+        <div class="recommend-row">
+          <div class="form-group">
+            <label for="recommender2Name">{{ 'ln.Name' | translate }} <span class="required">*</span></label>
+            <input id="recommender2Name" formControlName="recommender2Name" placeholder="{{ 'ln.Name' | translate }}" />
+          </div>
+          <div class="form-group">
+            <label for="recommender2Mobile">{{ 'ln.MobileNumber' | translate }} <span class="required">*</span></label>
+            <input id="recommender2Mobile" formControlName="recommender2Mobile" placeholder="{{ 'ln.MobileNumber' | translate }}" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="recommender2Designation">{{ 'ln.Designation' | translate }} <span class="required">*</span></label>
+          <input id="recommender2Designation" formControlName="recommender2Designation" placeholder="{{ 'ln.Designation' | translate }}" class="full-width" />
+        </div>
+      </div>
+
+      <div class="file-upload">
+        <label for="fileUpload">{{ 'ln.UploadRecommendationFile' | translate }}</label>
+        <input id="fileUpload" type="file" multiple (change)="onFileChange($event)" />
+      </div>
+
+      <div class="checkbox">
+        <input id="condition" type="checkbox" formControlName="agree" />
+        <label for="condition">{{ 'ln.IAgree' | translate }}</label>
+      </div>
+
+      <div class="checkbox" >
+        <input id="condition" type="checkbox" formControlName="agreeWithTermsAndConditions"/>
+        <!--        <label for="condition">{{ 'ln.IAgree' | translate }}</label>-->
+
+        <div style="display: flex; flex-direction: row; gap: 8px; flex-wrap: wrap;">
+          <label for="condition">
+            I agree to the
+          </label>
+          <a routerLink="/pages/terms-&-conditions">Terms & Conditions,</a>
+          <a routerLink="/pages/privacy-policy">Privacy Policy,</a>
+          <a routerLink="/pages/refund-policy"> Refund Policy.</a>
+          <span>*</span>
+        </div>
+
+
+        <!--        <label for="condition">I have read and agree to the website terms and conditions, Return & Refund Policy, and privacy policy. *</label>-->
+        <!--        <div class="error" *ngIf="f['agree'].invalid && (f['agree'].dirty || f['agree'].touched || submitted)">-->
+        <!--          <span *ngIf="f['agree'].errors?.['required']">{{ 'ln.AgreeRequired' | translate }}</span>-->
+        <!--        </div>-->
+      </div>
+
+
+
+      <div class="buttons">
+        <button type="submit">{{ 'ln.SignUp' | translate }}</button>
+        <button type="button" (click)="downloadForm()">{{ 'ln.DownloadForm' | translate }}</button>
+      </div>
+
+      <div class="footer">
+        {{ 'ln.AlreadyMember' | translate }} <a routerLink="/login">{{ 'ln.LoginNow' | translate }}</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<mat-menu #menu="matMenu" class="mat-menu-login">
+  <div class="search-area">
+    <input class="input-grey-rounded" placeholder="Search Country or Code" [(ngModel)]="searchQuery"
+           (click)="$event.stopPropagation()" />
+  </div>
+  <ng-container *ngFor="let data of filteredCountryData">
+    <button mat-menu-item (click)="onGetSingleCountry(data)">
+      <div class="login-flag">
+        <div>
+          <img [src]="data?.image | safeUrl" [alt]="data?.name" />
+        </div>
+        <div>
+          <span style="color: #000000">/ {{ data?.name }}</span>
+        </div>
+      </div>
+    </button>
+  </ng-container>
+</mat-menu>

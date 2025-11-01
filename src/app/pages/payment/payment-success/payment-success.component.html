@@ -1,0 +1,30 @@
+<section class="payment-success-area">
+  <div class="container">
+    <div class="payment-success-main">
+      <!-- Render canvas only in browser; skip hydration to avoid mismatches -->
+      <canvas id="canvas" *ngIf="isBrowser" ngSkipHydration></canvas>
+
+      <!-- Top -->
+      <div class="payment-success-top">
+        <div class="payment-success-icon">
+          <span><i class="fa fa-check"></i></span>
+        </div>
+        <div class="payment-success-title">
+          <h4>{{ message && message !== 'undefined' ? message : 'Success' }}</h4>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-container">
+        <button routerLink="" mat-raised-button color="primary" class="btn-home">
+          <i class="fa fa-home"></i>
+          <span>{{ 'ln.Home' | translate }}</span>
+        </button>
+        <button routerLink="/donate" mat-raised-button class="btn-donate">
+          <i class="fa fa-heart"></i>
+          <span>{{ 'ln.Donate' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

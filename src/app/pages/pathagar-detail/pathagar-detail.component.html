@@ -1,0 +1,32 @@
+<div class="top-banner-area">
+  <div class="">
+    <div class="banner">
+      <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+      @if (hasFaq() && isEnglish()) {
+        <h2>{{faq()?.name}}</h2>
+      }
+      @if (hasFaq() && isBangla()) {
+        <h2 class="font-bangla">{{faq()?.nameEn}}</h2>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="section-1">
+  @if (hasFaq()) {
+    <div class="container">
+      @if (isEnglish()) {
+        <h1 class="page-title">{{faq()?.name}}</h1>
+      }
+      @if (isBangla()) {
+        <h1 class="page-title font-bangla">{{faq()?.nameEn}}</h1>
+      }
+      @if (isEnglish()) {
+        <div class="description" [innerHTML]="faq()?.description | safeHtmlCustom"></div>
+      }
+      @if (isBangla()) {
+        <div class="description font-bangla" [innerHTML]="faq()?.descriptionEn | safeHtmlCustom"></div>
+      }
+    </div>
+  }
+</div>

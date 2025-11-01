@@ -1,0 +1,130 @@
+::ng-deep.slide-carousel .swiper-slide {
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+
+
+// new code
+
+::ng-deep.swiper{
+  padding: 0px 0px !important;
+}
+//::ng-deep .swiper-slide{
+//  width: 250px!important;
+//}
+::ng-deep.swiper-button-next:after,
+::ng-deep.swiper-button-prev:after {
+  content: "\f0da";
+  font-size: 30px;
+  font-weight: 600;
+  font-family: "Font Awesome 5 Free";
+  display: block;
+  color: rgb(180, 23, 49);
+  transition: all 0.3s linear;
+}
+
+::ng-deep.swiper-button-prev:after {
+  content: '\f0d9';
+}
+
+::ng-deep.swiper-button-next,
+::ng-deep.swiper-button-prev {
+  border-color: transparent;
+  background-color: #fff;
+  margin-top: -11px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid pink;
+}
+
+::ng-deep.swiper-button-next {
+  right: 30px;
+}
+
+::ng-deep.swiper-button-prev {
+  left: 30px;
+}
+
+::ng-deep .swiper-pagination-bullet {
+  background-color: #c6c6c6;
+  opacity: 1;
+  width: 12px;
+  height: 12px;
+}
+
+::ng-deep .swiper-scrollbar-drag {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  left: 0;
+  top: 0;
+}
+
+
+@media (max-width:767px) {
+
+  ::ng-deep.swiper-button-next:after,
+  ::ng-deep.swiper-button-prev:after {
+    font-size: 24px;
+  }
+
+  ::ng-deep.swiper-button-next,
+  ::ng-deep.swiper-button-prev {
+
+    width: 40px;
+    height: 40px;
+
+  }
+
+}
+
+@media (max-width:700px) {
+  ::ng-deep.swiper-button-next {
+    right: 10px;
+  }
+
+  ::ng-deep.swiper-button-prev {
+    left: 10px;
+  }
+}
+
+
+@media (max-width:556px) {
+
+
+  ::ng-deep.swiper-button-next:after,
+  ::ng-deep.swiper-button-prev:after {
+    font-size: 20px;
+  }
+
+
+  ::ng-deep.swiper-button-next,
+  ::ng-deep.swiper-button-prev {
+    width: 30px;
+    height: 30px;
+  }
+
+}
+
+@media (max-width:400px) {
+
+
+  ::ng-deep.swiper-button-next:after,
+  ::ng-deep.swiper-button-prev:after {
+    font-size: 16px;
+  }
+
+
+  ::ng-deep.swiper-button-next,
+  ::ng-deep.swiper-button-prev {
+    width: 24px;
+    height: 24px;
+  }
+
+}

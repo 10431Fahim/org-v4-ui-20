@@ -1,0 +1,73 @@
+<div class="section-3" #section2 *ngIf="hasTags()">
+  <div class="container">
+    <div class="section-3-main" *ngFor="let data of tag()">
+      <div class="section-3-left wow animate__fadeInLeft">
+        <div class="section-3-left-item item-1">
+          <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointQuenty3}} {{ "ln.Points" | translate }}</h1>
+          <h1 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data?.pointQuenty3En}} {{ "ln.Points" |
+            translate }}</h1>
+          <!-- <h1>{{data?.pointQuenty2}} Points</h1> -->
+          <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointDescription3}}</p>
+          <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescription3En}}</p>
+          <!-- <p>{{data?.pointDescription2}}</p> -->
+          <a class="button-hover" [routerLink]="data.pointLink3" [queryParamsHandling]="'merge'">{{
+            "ln.Learnmore" | translate }}</a>
+
+          <a class="button-hover" *ngIf="translateService.currentLang === 'bn'" (click)="onDownloadPdf('bangla')" href="/pdf/31 Points Bangla 50k.pdf" target="_blank">{{
+              "ln.31bangla" | translate }}</a>
+
+          <a class="button-hover" *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " (click)="onDownloadPdf('english')" href="/pdf/31 Points English 2.5k.pdf" target="_blank">{{
+              "ln.31bangla" | translate }}</a>
+        </div>
+
+        <div class="section-3-left-item">
+          <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointQuenty}} {{ "ln.Points" | translate }} </h1>
+          <h1 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data?.pointQuentyEn}} {{ "ln.Points" | translate
+            }}</h1>
+          <!-- <h1>{{data?.pointQuenty}} Points</h1> -->
+          <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointDescription}}</p>
+          <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescriptionEn}}</p>
+          <a class="button-hover" [routerLink]="data.pointLink" [queryParamsHandling]="'merge'">{{
+            "ln.Learnmore" | translate }}</a>
+        </div>
+        <!-- <div class="section-3-left-item">
+          <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointQuenty2}} {{ "ln.Points" | translate }}</h1>
+          <h1 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data?.pointQuenty2En}} {{ "ln.Points" |
+            translate }}</h1> -->
+          <!-- <h1>{{data?.pointQuenty2}} Points</h1> -->
+          <!-- <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointDescription2}}</p>
+          <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescription2En}}</p> -->
+          <!-- <p>{{data?.pointDescription2}}</p> -->
+          <!-- <a class="button-hover" [routerLink]="data.pointLink2" [queryParamsHandling]="'merge'">{{
+            "ln.Learnmore" | translate }}</a>
+        </div> -->
+
+      </div>
+      <div class="section-3-right">
+        <div class="quety">
+          <div class="wow animate__fadeInUp animate__delay-1s">
+            <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+              {{data.queti}}</p>
+            <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data.quetiEn}}</p>
+          </div>
+
+          <!-- <p>{{data.queti}}</p> -->
+          <div class="wow animate__fadeInUp animate__delay-2s">
+            <h3 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</h3>
+            <h3 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</h3>
+            <a class="times" >{{
+              "ln.times" | translate }}</a>
+          </div>
+
+          <!-- <h3>{{data.name}}</h3> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

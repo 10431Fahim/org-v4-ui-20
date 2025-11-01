@@ -1,0 +1,24 @@
+<div class="section-1">
+    <div class="container">
+        <div class="section-1-main">
+              <div class="section1-left">
+                <h1>{{ "ln.Organization" | translate }}</h1>
+                <div class="page-list">
+                    <a routerLink="/national-standing-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalCommittee" | translate }}</a>
+                    <a routerLink="/pages/advisory-council" [queryParamsHandling]="'merge'">{{ "ln.ChairpersonCouncil" | translate }}</a>
+                    <a routerLink="/pages/national-executive-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalExecutive" | translate }}</a>
+
+                    <a routerLink="/pages/district-metropolitan-committee" [queryParamsHandling]="'merge'">{{ "ln.DistrictCommittee" | translate }}</a>
+                    <a routerLink="/pages/upazila-pur-committee" [queryParamsHandling]="'merge'">{{ "ln.UpazilaCommittee" | translate }}</a>
+
+                    <a routerLink="/pages/principles" [queryParamsHandling]="'merge'">{{ "ln.Principles" | translate }}</a>
+                    <a routerLink="/ongo-songothon" [queryParamsHandling]="'merge'">{{ "ln.OrganOrganization" | translate }}</a>
+                    <a routerLink="/sohojogi-songothon" [queryParamsHandling]="'merge'">{{ "ln.AffiliateOrganization" | translate }}</a>
+                </div>
+              </div>
+              <div class="section1-right">
+                  <app-recently-all-news></app-recently-all-news>
+              </div>
+        </div>
+    </div>
+</div>

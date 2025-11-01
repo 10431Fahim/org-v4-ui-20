@@ -1,0 +1,276 @@
+<div class="section-main">
+  <div class="section-top-contents">
+    <div class="top-banner-area">
+      <div class="banner">
+        <img src="/images/payment.jpg" alt="image" loading="lazy">
+      </div>
+    </div>
+
+    <div class="form-area">
+      <div class="container">
+        <div class="form">
+
+          <div class="form-input-area">
+            <div class="title-area">
+              <div class="title-area-left">
+                <h3>{{ "ln.Donate" | translate }}</h3>
+              </div>
+            </div>
+
+            <form #formElement="ngForm" [formGroup]="dataForm()!" (ngSubmit)="onSubmit()">
+              <mat-stepper #stepper>
+                <mat-step>
+                  <!---form-input-->
+                  <div class="form-input" style="margin-top: 5px;">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Name" | translate }}</mat-label>
+                      <input matInput type="text" value="" formControlName="name" required [readonly]="user()?.name">
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                    <!-- <small *ngIf="user?.name" class="text-muted">Pre-filled from your account</small> -->
+                  </div>
+
+
+                  <label>{{ "ln.MobileNo" | translate }}<span>*</span></label>
+                  <div class="num">
+                    <div class="country-code" [class.locked]="isUserLoggedIn()">
+                      @if (isUserLoggedIn()) {
+                        <span class="locked-country">
+                          <img [src]="getSingleCountry()?.image" alt="image" loading="lazy"/>
+                          ({{ getSingleCountry()?.dial_code }})
+                         
+                        </span>
+                      } @else {
+                        <span [matMenuTriggerFor]="menu">
+                          <img [src]="getSingleCountry()?.image" alt="image" loading="lazy"/>
+                          ({{ getSingleCountry()?.dial_code }})
+                          <small><i class="fa-solid fa-sort-down"></i></small>
+                        </span>
+                      }
+                    </div>
+                    <div class="form-input">
+                      <input digitOnly formControlName="phoneNo" type="text"
+                             autocomplete="off" [readonly]="user()?.phoneNo">
+                    </div>
+                    <!--                <button type="button" *ngIf="isBtnHide && !user?.phoneNo" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
+                    <!--                <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
+                    <!--                <i  *ngIf="isVerified" class="fa-solid fa-check"></i>-->
+                  </div>
+
+
+                  @if (sendVerificationCode()) {
+                    <div class="resent-view">
+                      <div class="count-area" [hidden]="countDown() === 0">
+                        <span class="count-down">{{'0:' + countDown()}}</span>
+                      </div>
+                      @if (countDown() == 0 && isCountDownEnd()) {
+                        <button mat-button color="primary" (click)="resendOtp()">{{ "ln.ResendCode" | translate }}</button>
+                      }
+                    </div>
+                  }
+
+                  <!--              <div class="input-area input-area-two" *ngIf="isOtpSent && isOtpValid === false">-->
+                  <!--                <app-otp-verification [phoneNo]="phoneNo" (onEnterOtp)="onEnterOtp($event)" (onResentOtp)="resendOtp()"></app-otp-verification>-->
+                  <!--              </div>-->
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline" class="field m-100">
+                      <mat-label>{{ "ln.EmailID" | translate }}</mat-label>
+                      <input matInput type="email" value="" formControlName="email" required [readonly]="user()?.email">
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                    <!-- <small *ngIf="user?.email" class="text-muted">Pre-filled from your account</small> -->
+                  </div>
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Amount" | translate }}</mat-label>
+                      <input matInput  type="number" digitOnly value=""
+                             formControlName="amount" required>
+                      <mat-error *ngIf="dataForm()?.get('amount')?.hasError('required')">{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                      <mat-error *ngIf="dataForm()?.get('amount')?.hasError('min')">{{ "ln.AmountMustBeGreaterThanZero" | translate }}</mat-error>
+                      <mat-error *ngIf="dataForm()?.get('amount')?.hasError('maxAmount')">{{ dataForm()?.get('amount')?.getError('maxAmount') }}</mat-error>
+                    </mat-form-field>
+                    @if (getSingleCountry()) {
+                      <div class="country-validation-info">
+                        <div class="country-name">
+                          <i class="fa-solid fa-flag"></i> {{ getSingleCountry().name }}
+                        </div>
+                        <div class="max-limit">
+                          <i class="fa-solid fa-info-circle"></i> {{ "ln.MaximumDonation" | translate }} {{ maxDonationAmount() }} {{ maxDonationCurrency() }}
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="tramsCondition1" required>{{ "ln.Information" | translate }}
+                    </mat-checkbox>
+                  </div>
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="tramsCondition2" required>{{ "ln.PersonalFund" | translate }}
+                    </mat-checkbox>
+                  </div>
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check mat1" formControlName="agreeWithTermsAndConditions" required>
+                      <div class="mat2">
+                        <label for="condition">
+                          {{ "ln.IAgreeToThe" | translate }}
+                        </label>
+                        <a routerLink="/pages/terms-&-conditions">&nbsp; {{ "ln.TermsAndConditionsComma" | translate }}</a>
+                        <a routerLink="/pages/privacy-policy">{{ "ln.PrivacyPolicyComma" | translate }}</a>
+                        <a routerLink="/pages/refund-policy"> {{ "ln.RefundPolicyDot" | translate }}</a>
+                        <span>*</span>
+                      </div>
+                    </mat-checkbox>
+                  </div>
+
+                  <!--                <div class="check-terms" >-->
+                  <!--                  <input id="condition" type="checkbox" formControlName="agreeWithTermsAndConditions"/>-->
+                  <!--                  <label for="condition">-->
+                  <!--                    I agree to the-->
+                  <!--                  </label>-->
+                  <!--                  <a routerLink="/pages/terms-&-conditions">Terms & Conditions,</a>-->
+                  <!--                  <a routerLink="/pages/privacy-policy">Privacy Policy,</a>-->
+                  <!--                  <a routerLink="/pages/refund-policy"> Refund Policy.</a>-->
+                  <!--                  <span>*</span>-->
+
+                  <!--                </div>-->
+
+                  @if (checkDonationData()?.requestedAmount > checkDonationData()?.remainingLimit) {
+                    <div>
+                      <p class="check-donation-limit">{{checkDonationNotice()}}</p>
+                    </div>
+                  }
+
+
+                  <div class="next-btn">
+                    <button
+                      type="button"
+                      (click)="checkDonation(stepper)"
+                      [disabled]="dataForm()?.invalid || isLoading() || !dataForm()?.get('amount')?.value || (dataForm()?.get('amount')?.value || 0) <= 0"
+                    >
+                      {{ isLoading() ? ("ln.Processing" | translate) : ("ln.Next" | translate) }}
+                    </button>
+                  </div>
+
+
+                </mat-step>
+                <mat-step>
+
+                  <!--                <ng-template matStepLabel>Done</ng-template>-->
+                  <div class="selectPayment">
+                    <div class="payment-header data">
+                      <h4>{{ "ln.SelectMathod" | translate }}</h4>
+                      <p class="payment-subtitle">{{ "ln.PleaseSelectPaymentMethod" | translate }}</p>
+                    </div>
+
+                    <div class="online-payment">
+                      @for (data of paymentMethodsWithId(); track data.uniqueId) {
+                        <div class="method-info"
+                             [class.active]="data.slug === selectedPaymentMethod()"
+                             (click)="onSelectPaymentMethod(data)"
+                        >
+                          <img [src]="data.image" alt="image" loading="lazy">
+                          <span>{{data.name}}</span>
+                          @if (data.slug === selectedPaymentMethod()) {
+                            <div class="selection-indicator">
+                              <i class="fa-solid fa-check"></i>
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+
+                    @if (selectedPaymentMethod()) {
+                      <div class="payment-summary">
+                        <div class="summary-item">
+                          <span class="label">{{ "ln.SelectedMethod" | translate }}</span>
+                          <span class="value">{{selectedPaymentMethod()}}</span>
+                        </div>
+                        <div class="summary-item">
+                          <span class="label">{{ "ln.Country" | translate }}</span>
+                          <span class="value">{{getSingleCountry()?.name || ("ln.NotSelected" | translate)}}</span>
+                        </div>
+                        <div class="summary-item">
+                          <span class="label">{{ "ln.Currency" | translate }}</span>
+                          <span class="value">{{ maxDonationCurrency() }}</span>
+                        </div>
+                        <div class="summary-item">
+                          <span class="label">{{ "ln.Amount" | translate }}</span>
+                          <span class="value" [class.text-success]="(dataForm()?.value.amount || 0) <= maxDonationAmount()" [class.text-danger]="(dataForm()?.value.amount || 0) > maxDonationAmount()">
+                            {{dataForm()?.value.amount || 0}} {{ maxDonationCurrency() }}
+                            @if ((dataForm()?.value.amount || 0) <= maxDonationAmount()) {
+                              <i class="fa-solid fa-check text-success"></i>
+                            }
+                            @if ((dataForm()?.value.amount || 0) > maxDonationAmount()) {
+                              <i class="fa-solid fa-exclamation-triangle text-danger"></i>
+                            }
+                          </span>
+                        </div>
+                        <div class="summary-item">
+                          <span class="label">{{ "ln.MaxLimit" | translate }}</span>
+                          <span class="value">{{ maxDonationAmount() }} {{ maxDonationCurrency() }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!--                  <div class="check-terms" >-->
+                  <!--                    <input id="condition" type="checkbox" formControlName="agreeWithTermsAndConditions"/>-->
+                  <!--                    <label for="condition">-->
+                  <!--                      I agree to the-->
+                  <!--                    </label>-->
+                  <!--                    <a routerLink="/pages/terms-&-conditions">Terms & Conditions,</a>-->
+                  <!--                    <a routerLink="/pages/privacy-policy">Privacy Policy,</a>-->
+                  <!--                    <a routerLink="/pages/refund-policy"> Refund Policy.</a>-->
+                  <!--                    <span>*</span>-->
+
+                  <!--                  </div>-->
+
+                  <div>
+                    <!--                  <button mat-button matStepperPrevious>Back</button>-->
+                    <!--                  <button mat-button (click)="stepper.reset()">Reset</button>-->
+                    <div class="next-btn">
+                      <button type="submit"
+                              [disabled]="!selectedPaymentMethod() || isLoading()"
+                              class="submit-btn">
+                        {{ isLoading() ? ("ln.ProcessingPayment" | translate) : ("ln.CompleteDonation" | translate) }}
+                      </button>
+                    </div>
+                  </div>
+
+                </mat-step>
+              </mat-stepper>
+            </form>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<mat-menu #menu="matMenu" class="mat-menu-login">
+  <div class="search-area">
+    <input class="input-grey-rounded" [placeholder]="'ln.SearchCountryOrCode' | translate" [(ngModel)]="searchQuery"
+           (click)="$event.stopPropagation()"/>
+  </div>
+  @for (data of filteredCountryDataWithId(); track data.uniqueId) {
+    <button mat-menu-item (click)="onGetSingleCountry(data)">
+      <div class="login-flag">
+        <div>
+          <img [src]="data?.image | safeUrl" [alt]="data?.name"/>
+        </div>
+        <div>
+          <span style="color: #000000">/ {{ data?.name }}</span>
+        </div>
+      </div>
+    </button>
+  }
+</mat-menu>

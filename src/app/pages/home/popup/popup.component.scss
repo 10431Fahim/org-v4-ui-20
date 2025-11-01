@@ -1,0 +1,61 @@
+@use "../../../../theme/variables" as *;
+iframe{
+  .ytp-chrome-top .ytp-button, .ytp-small-mode .ytp-chrome-controls .ytp-button, .ytp-small-mode .ytp-replay-button {
+
+    display: none!important;
+
+  }
+}
+
+.youtube-container {
+  overflow: hidden;
+  width: 100%;
+  /* Keep it the right aspect-ratio */
+  aspect-ratio:10/4;
+  /* No clicking/hover effects */
+  //pointer-events: none;
+
+  iframe {
+    /* Extend it beyond the viewport... */
+    width: 100%;
+    max-height: 400px;
+    height: 100%;
+    /* ...and bring it back again */
+   // margin-left: -100%;
+  }
+}
+
+.offer-img{
+    display: block;
+    width: 100%;
+}
+.offer-cross-area{
+    display: block;
+    margin-bottom: 10px;
+    text-align: right;
+}
+.offer-cross-area span{
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+.offer-img-main{
+    display: block;
+  //pointer-events: none;
+}
+.offer-img-main img{
+    max-height: 400px!important;
+    //max-width: 1000px!important;
+    width: 100%;
+    height: auto;
+    block-size: auto;
+    //object-fit: fill;
+    border-radius: 5px;
+    object-position: top;
+}
+
+::ng-deep .cdk-overlay-dark-backdrop{
+    background-color: rgb(0 0 0 / 60%);
+    padding: 20px;
+    box-sizing: border-box;
+  }

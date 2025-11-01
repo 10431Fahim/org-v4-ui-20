@@ -1,0 +1,107 @@
+<div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img  src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+        <h2>{{ "ln.Executive" | translate }}</h2>
+  <!--      <h2 *ngIf="translateService.currentLang === 'bn'">{{ "ln.NationalCommittee" | translate }}</h2>-->
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sthi-committe">
+    <div class="search-container" >
+      <form class="table-search" #searchForm="ngForm">
+      <input
+        type="text"
+        #searchInput
+        name="searchTerm"
+        autocomplete="off"
+        ngModel
+        placeholder="Type to search..."
+        class="search-input">
+      </form>
+    </div>
+
+
+    <div class="container">
+      <div class="cards1">
+        @if (hasExecutives() && !isLoading()) {
+          @for (data of executive() | slice: 0: 2; track $index) {
+            <div class="card">
+              <img [src]="data?.image" class="card__image" alt="image" loading="lazy"/>
+              <div class="card__overlay">
+                <div class="card__header">
+                  <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                    <path/>
+                  </svg>
+                  <img class="card__thumb" [src]="data?.image ?? defaultImage" alt="image" loading="lazy"/>
+
+                  <div class="card__header-text">
+                    @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                      <h3 class="card__title">{{data.name}}</h3>
+                    } @else if (translateService.currentLang === 'bn') {
+                      <h3 class="card__title font-bangla">{{data.nameBn}}</h3>
+                    }
+                  </div>
+                </div>
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <p class="card__description" [innerHTML]="data.designation"></p>
+                } @else if (translateService.currentLang === 'bn') {
+                  <p class="card__description font-bangla" [innerHTML]="data.designationEn"></p>
+                }
+              </div>
+            </div>
+          }
+        } @else if (isLoading()) {
+          <div class="loading-placeholder">
+            <div class="loading-skeleton"></div>
+            <div class="loading-skeleton"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sthi-committe">
+    <div class="container">
+      <div class="cards">
+        @if (executiveLast().length > 0 && !isLoading()) {
+          @for (data of executiveLast(); track $index) {
+            <div class="card">
+              <img [src]="data?.image" class="card__image" alt="image" loading="lazy"/>
+              <div class="card__overlay">
+                <div class="card__header">
+                  <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                    <path/>
+                  </svg>
+                  <img class="card__thumb" [src]="data?.image ?? defaultImage" alt="image" loading="lazy"/>
+                  <div class="card__header-text">
+                    @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                      <h3 class="card__title">{{data.name}}</h3>
+                    } @else if (translateService.currentLang === 'bn') {
+                      <h3 class="card__title font-bangla">{{data.nameEn}}</h3>
+                    }
+                  </div>
+                </div>
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <p class="card__description" [innerHTML]="data.designation"></p>
+                } @else if (translateService.currentLang === 'bn') {
+                  <p class="card__description font-bangla" [innerHTML]="data.designationEn"></p>
+                }
+              </div>
+            </div>
+          }
+        } @else if (isLoading()) {
+          <div class="loading-placeholder">
+            <div class="loading-skeleton"></div>
+            <div class="loading-skeleton"></div>
+            <div class="loading-skeleton"></div>
+            <div class="loading-skeleton"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+

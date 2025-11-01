@@ -1,0 +1,61 @@
+
+@if (showContent()) {
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img [src]="firstMotto()!.image" alt="image" loading="lazy">
+        <div class="pageinfo-name">
+          @if (!isLanguageBengali()) {
+            <h2>{{firstMotto()!.name}}</h2>
+          } @else {
+            <h2 class="font-bangla">{{firstMotto()!.nameEn}}</h2>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="motto-content">
+    <div class="container">
+      <div class="mid-content">
+        <div class="heading">
+          @if (!isLanguageBengali()) {
+            <h1 class="heading1">{{firstMotto()!.title}}</h1>
+          } @else {
+            <h1 class="heading1 font-bangla">{{firstMotto()!.titleEn}}</h1>
+          }
+          @if (!isLanguageBengali()) {
+            <h1 class="heading2">{{firstMotto()!.subTitle}}</h1>
+          } @else {
+            <h1 class="heading2 font-bangla">{{firstMotto()!.subTitleEn}}</h1>
+          }
+          @if (!isLanguageBengali()) {
+            <p class="paragraphh">{{firstMotto()!.shortDescription}}</p>
+          } @else {
+            <p class="paragraphh font-bangla">{{firstMotto()!.shortDescriptionEn}}</p>
+          }
+          @if (!isLanguageBengali()) {
+            <p class="paragraph" [innerHTML]="firstMotto()!.description"></p>
+          } @else {
+            <p class="paragraph font-bangla" [innerHTML]="firstMotto()!.descriptionEn"></p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="moto-content2">
+    @for (data of firstMotto()!.informations; track data?._id || $index) {
+      <div class="container">
+        <div class="last-bannar">
+          <img [src]="data?.image" alt="image" loading="lazy">
+          @if (!isLanguageBengali()) {
+            <h1><span class="span1" [innerHTML]="data?.title"></span> <span class="span2">{{data?.name}}</span></h1>
+          } @else {
+            <h1><span class="span1 font-bangla" [innerHTML]="data?.titleEn"></span> <span class="span2 font-bangla">{{data?.nameEn}}</span></h1>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

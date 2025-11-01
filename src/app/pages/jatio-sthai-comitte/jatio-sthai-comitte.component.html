@@ -1,0 +1,75 @@
+<div class="top-banner-area">
+  <div class="">
+    <div class="banner">
+      <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+      <h2>{{ "ln.NationalCommittee" | translate }}</h2>
+    </div>
+  </div>
+</div>
+
+@if (showContent()) {
+  <div class="sthi-committe">
+    <div class="container">
+      <div class="cards1">
+        @for (data of firstTwoStanding(); track data?._id || $index) {
+          <div class="card">
+            <img [src]="data?.image" class="card__image" alt="image" loading="lazy"/>
+            <div class="card__overlay">
+              <div class="card__header">
+                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                  <path/>
+                </svg>
+                <img class="card__thumb" [src]="data?.image ?? defaultImage" alt="image" loading="lazy"/>
+
+                <div class="card__header-text">
+                  @if (!isLanguageBengali()) {
+                    <h3 class="card__title">{{data.title}}</h3>
+                  } @else {
+                    <h3 class="card__title font-bangla">{{data.titleEn}}</h3>
+                  }
+                </div>
+              </div>
+              @if (!isLanguageBengali()) {
+                <div class="card__description" [innerHTML]="data.description"></div>
+              } @else {
+                <div class="card__description font-bangla" [innerHTML]="data.descriptionEn"></div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="sthi-committe">
+    <div class="container">
+      <div class="cards">
+        @for (data of remainingStanding(); track data?._id || $index) {
+          <div class="card">
+            <img [src]="data?.image" class="card__image" alt="image" loading="lazy"/>
+            <div class="card__overlay">
+              <div class="card__header">
+                <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                  <path/>
+                </svg>
+                <img class="card__thumb" [src]="data?.image ?? defaultImage" alt="image" loading="lazy"/>
+                <div class="card__header-text">
+                  @if (!isLanguageBengali()) {
+                    <h3 class="card__title">{{data.title}}</h3>
+                  } @else {
+                    <h3 class="card__title font-bangla">{{data.titleEn}}</h3>
+                  }
+                </div>
+              </div>
+              @if (!isLanguageBengali()) {
+                <div class="card__description" [innerHTML]="data.description"></div>
+              } @else {
+                <div class="card__description font-bangla" [innerHTML]="data.descriptionEn"></div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

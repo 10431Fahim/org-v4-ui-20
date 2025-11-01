@@ -1,0 +1,26 @@
+<div class="section1">
+    <div class="container">
+        <div class="section1-title">
+            <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{portfolio[0]?.name}}</h2>
+            <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{portfolio[0]?.nameEn}}</h2>
+            <!-- <h3>{{portfolio[0]?.name}}</h3> -->
+        </div>
+        <div class="section1-main">
+            <a class="leader-card" [routerLink]="['/leader-details', data.slug]" [queryParamsHandling]="'merge'" *ngFor="let data of portfolio[0]?.leaders; let i = index">
+                <a ><div class="leader-img" >
+                    <img [src]="data.image ? data.image : ''"  alt="image" loading="lazy">
+                </div></a>
+                <div class="leader-name">
+
+                    <a *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " >{{data?.name}}</a>
+                    <a class="font-bangla" *ngIf="translateService.currentLang === 'bn'" >{{data?.nameEn}}</a>
+
+                  <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " [innerHTML]="data?.description"> </p>
+                  <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'" [innerHTML]="data?.descriptionEn"> </p>
+
+<!--                    <p>{{data?.description}}</p>-->
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

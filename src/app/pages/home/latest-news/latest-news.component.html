@@ -1,0 +1,62 @@
+<div class="section-4">
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <a routerLink="press-conference" [queryParamsHandling]="'merge'">
+          <h2 class="title-top">{{ "ln.Conference" | translate }}</h2>
+        </a>
+        <div class="program-elm-container">
+          <app-swiper 
+            [visibleSlides]="1" 
+            [gap]="10" 
+            [autoplay]="false" 
+            [loop]="false"
+            [navigation]="true" 
+            [pagination]="false"
+            [breakpoints]="swiperBreakpoints" 
+            class="mySwiper">
+            
+            @if (isLoadingConference()) {
+              @for (data of [].constructor(6); track $index) {
+                <div #sliderItem>
+                  <app-press-conference-loader></app-press-conference-loader>
+                </div>
+              }
+            }
+
+            @if (!isLoadingConference() && conference() && conference()!.length > 0) {
+              @for (data of conference()!; track data._id; let i = $index) {
+                <div #sliderItem>
+                  <a [routerLink]="['/press-conference', data._id]" [queryParamsHandling]="'merge'">
+                    <div class="program-elm1 wow animate__fadeInUp" [class]="('animate__delay-' + (i+1) + 's')">
+                      <div class="post">
+                        <img class="icon" src="/youtube.png" alt="image" loading="lazy">
+                        <div class="header_post">
+                          <img [src]="data?.image" alt="image" loading="lazy">
+                        </div>
+
+                        <div [routerLink]="['press-conference', data._id]" [queryParamsHandling]="'merge'" class="body_post">
+                          <div class="post_content">
+                            @if (isEnglish()) {
+                              <h1>{{data?.title}}</h1>
+                            } @else if (isBengali()) {
+                              <h1 class="font-bangla">{{data?.titleEn}}</h1>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              }
+            }
+          </app-swiper>
+        </div>
+        <a routerLink="/press-conference" [queryParamsHandling]="'merge'" class="button-hover">
+          {{ "ln.Moresection" | translate }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

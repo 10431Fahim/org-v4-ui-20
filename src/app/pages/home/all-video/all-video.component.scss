@@ -1,0 +1,122 @@
+@use "../../../../theme/variables" as *;
+@use "../../../../theme/_swipper" as *;
+.section-6 {
+  margin: 30px 0px;
+}
+
+.video-heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .title-top{
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+  }
+  a{
+    position: absolute;
+    //text-align: end;
+    right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+.video{
+  position: relative;
+  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-bottom: 80px;
+  //overflow: hidden;
+  iframe{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+    // margin-bottom: 50px;
+
+  }
+  .videoTitle{
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 26%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    display: -webkit-box!important;
+    -webkit-line-clamp: 3!important;
+    -webkit-box-orient: vertical!important;
+    background: #FFFFFF;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-weight: 500;
+    position: absolute;
+    width: 100%;
+    bottom: -24%;
+    z-index: 4;
+    font-size: 16px;
+    line-height: 30px;
+  }
+
+  .videoTitle:hover{
+    cursor: pointer;
+    transition: 1s;
+    height: 35%;
+    display: block!important;
+  }
+
+}
+
+.video:hover{
+
+  .videoTitle{
+    display: block!important;
+  }
+
+
+}
+
+.button-hover {
+  padding: 3px 10px;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  background-color: #0E7356;
+  color: #FFF;
+  text-align: center;
+  display: inline;
+  border: 2px solid transparent;
+  cursor: pointer;
+  max-width: 140px;
+  text-align: center;
+
+  &:hover {
+    background-color: #FFF;
+    color: #0E7356;
+    border: 2px solid #0E7356;
+  }
+}
+
+.title-top {
+  color: #2A413C;
+  font-family: $font-en-primary;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+@media(max-width:767px) {
+
+  .title-top {
+    font-size: 24px;
+  }
+}
+
+@media(max-width:489px) {
+  .video-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    h2{
+      text-align: start!important;
+    }
+  }
+
+}

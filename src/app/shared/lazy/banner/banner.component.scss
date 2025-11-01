@@ -1,0 +1,146 @@
+@use "../../../../theme/variables" as *;
+@use "../../../../theme/_swipper.scss" as *;
+.swipe-img{
+  button{
+
+  }
+}
+    .swiperr {
+        width: 100%;
+        padding: 0px !important;
+    }
+
+    .swiper-parent {
+        background-color: #fff;
+    }
+
+    .swipe {
+        background-color: #fff;
+        width: 100%;
+    }
+
+    .swipe-img {
+        width: 100%;
+        position: relative;
+
+        button {
+            position: absolute;
+            bottom: -23px;
+            left: 0px;
+            right: 0px;
+            max-width: 580px;
+            padding:17px 15px;
+            margin: auto;
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 21px;
+            color: #fff;
+            border-radius: 25px;
+            background-color: #047253;
+            border: 2px solid transparent;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #FFF;
+                color: #047253;
+                border: 2px solid #047253;
+            }
+
+            // border: 2px solid #FFFf;
+        }
+
+    }
+
+    .swipe-img img {
+        max-height: 570px;
+        min-height: 400px;
+        object-fit: cover;
+        object-position: 30% 3%;
+    }
+
+    .swipe-img a {
+        width: 100%;
+    }
+
+    @media (max-width: 767px) {
+        .swiper-parent {
+            background-color: #fff;
+            padding: 10px 10px 10px 10px;
+        }
+
+        .swipe-img {
+            button {
+                position: absolute;
+                bottom: -17px;
+                right: 0px;
+                left: 0px;
+                max-width: 334px;
+                padding: 6px 10px;
+                width: 100%;
+                font-size: 15px;
+                line-height: 20px;
+                border-radius: 20px;
+                background-color: #047253;
+                border: 2px solid transparent;
+            }
+
+        }
+
+    }
+
+    @media (max-width: 700px) {
+        .swiperr {
+            padding: 0px 0px !important;
+        }
+        .swipe-img img{
+            min-height: auto;
+        }
+    }
+
+@media (max-width: 376px) {
+  .swipe-img {
+    button {
+      position: absolute;
+      //bottom: 10px;
+      right: 0px;
+      left: 0px;
+      max-width: 300px;
+      padding: 6px 10px;
+      width: 100%;
+      font-size: 13px;
+      line-height: 20px;
+      border-radius: 20px;
+      background-color: #047253;
+      border: 2px solid transparent;
+    }
+  }
+}
+
+
+    .button-hover {
+        padding: 3px 10px;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 7px;
+        background-color: #0E7356;
+        color: #FFF;
+        text-align: center;
+        display: inline;
+        border: 2px solid transparent;
+        cursor: pointer;
+        max-width: 130px;
+        text-align: center;
+
+        &:hover {
+            background-color: #FFF;
+            color: #0E7356;
+            border: 2px solid #0E7356;
+        }
+    }
+
+    .title-top {
+        color: #2A413C;
+        font-family: $font-en-primary;
+        font-size: 28px;
+        font-weight: 700;
+    }

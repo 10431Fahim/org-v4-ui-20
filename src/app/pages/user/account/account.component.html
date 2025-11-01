@@ -1,0 +1,111 @@
+<div class="container-fluid">
+  <div class="side-bar" id="main-sidebar-container-area">
+    <div class="profile-view">
+      <div class="img-thumb">
+        <img [src]="imgPlaceHolder()" [alt]="'Picked Image'" />
+
+        <div class="edit-profile-img">
+          <button mat-icon-button (click)="profileImagePicker.click()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <input
+          [hidden]="true"
+          #profileImagePicker
+          type="file"
+          (change)="fileChangeEvent($event)"
+          accept="image/*"
+        />
+      </div>
+
+      <div class="desc">
+        <h2>{{ userDisplayName() }}</h2>
+
+        <p>{{ userDisplayPhone() }}</p>
+      </div>
+    </div>
+    <!--  END! profile-view -->
+
+    <div class="nav-link">
+      <ul>
+        <li
+          (click)="onLinkChange()"
+          [routerLink]="['basic-info']"
+          routerLinkActive="active-list"
+        >
+          <mat-icon>perm_identity</mat-icon>
+          <span>My Account</span>
+        </li>
+
+
+        <li (click)="onLinkChange()" [routerLink]="['change-password']" routerLinkActive="active-list">
+          <mat-icon>lock</mat-icon>
+          <span> Change Password</span>
+        </li>
+
+        <li
+          (click)="onLinkChange()"
+          [routerLink]="['transaction']"
+          routerLinkActive="active-list"
+        >
+          <mat-icon>bar_chart_4_bars</mat-icon>
+          <span>Manage Your Data</span>
+        </li>
+
+        @if (isNotPrimaryMember()) {
+          <li
+            (click)="onLinkChange()"
+            [routerLink]="['../membership-fee']"
+            routerLinkActive="active-list"
+          >
+            <mat-icon>paid</mat-icon>
+            <span>Monthly Membership Fee</span>
+          </li>
+        }
+
+        <li class="donate"
+          (click)="onLinkChange()"
+          [routerLink]="['../donate']"
+          routerLinkActive="active-list"
+        >
+          <mat-icon>paid</mat-icon>
+          <span>Donate</span>
+        </li>
+
+        <li class="donate"
+            (click)="downloadForm()"
+            routerLinkActive="active-list">
+          <mat-icon>cloud_download</mat-icon>
+          @if (!isImageLoading()) {
+            <span>Download Form</span>
+          } @else {
+            <span>Please wait...</span>
+          }
+        </li>
+        @if (isPrimaryMember()) {
+          <li class="donate"
+              [routerLink]="['../primary-member-fee']"
+              routerLinkActive="active-list"
+          >
+            <mat-icon>paid</mat-icon>
+            <span>Yearly Renewal Fee</span>
+          </li>
+        }
+
+        <li (click)="onLogout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </div>
+    <!-- END! nav-link -->
+  </div>
+  <!-- END! side-bar -->
+
+  <div class="content-view">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- END! content-view -->
+</div>
+<!-- END! container-fluid -->

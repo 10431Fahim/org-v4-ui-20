@@ -1,0 +1,10 @@
+.news {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(93, 92, 92, 0.5);
+    gap: 15px;
+    cursor: pointer;
+    width: 100%;
+}

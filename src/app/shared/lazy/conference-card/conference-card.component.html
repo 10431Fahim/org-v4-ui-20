@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="conferance-card" >
+      <div  [routerLink]="['/press-conference', data._id]" [queryParamsHandling]="'merge'" class="post" *ngFor="let data of conference">
+        <img  class="icon" src="/youtube.png" alt="image" loading="lazy">
+        <div  class="header_post">
+          <img  [src]="data?.image" alt="image" loading="lazy">
+        </div>
+
+        <div [routerLink]="['/press-conference', data._id]" [queryParamsHandling]="'merge'" class="body_post">
+          <div class="post_content">
+            <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data?.title}}</h1>
+            <h1 *ngIf="translateService.currentLang === 'bn'">{{data?.titleEn}}</h1>
+            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi assumenda cumque deserunt
+                dolorum ex exercitationem.</p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+
+<!--<div class="courses-container">-->
+<!--  <div class="course">-->
+<!--    <div class="course-preview">-->
+<!--      <h6>Course</h6>-->
+<!--      <h2>JavaScript Fundamentals</h2>-->
+<!--      <a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>-->
+<!--    </div>-->
+<!--    <div class="course-info">-->
+<!--      <div class="progress-container">-->
+<!--        <div class="progress"></div>-->
+<!--        <span class="progress-text">-->
+<!--					6/9 Challenges-->
+<!--				</span>-->
+<!--      </div>-->
+<!--      <h6>Chapter 4</h6>-->
+<!--      <h2>Callbacks & Closures</h2>-->
+<!--      <button class="btn">Continue</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; SOCIAL PANEL HTML &ndash;&gt;-->
+<!--<div class="social-panel-container">-->
+<!--  <div class="social-panel">-->
+<!--    <p>Created with <i class="fa fa-heart"></i> by-->
+<!--      <a target="_blank" href="https://florin-pop.com">Florin Pop</a></p>-->
+<!--    <button class="close-btn"><i class="fas fa-times"></i></button>-->
+<!--    <h4>Get in touch on</h4>-->
+<!--    <ul>-->
+<!--      <li>-->
+<!--        <a href="https://www.patreon.com/florinpop17" target="_blank">-->
+<!--          <i class="fab fa-discord"></i>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="https://twitter.com/florinpop1705" target="_blank">-->
+<!--          <i class="fab fa-twitter"></i>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="https://linkedin.com/in/florinpop17" target="_blank">-->
+<!--          <i class="fab fa-linkedin"></i>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="https://facebook.com/florinpop17" target="_blank">-->
+<!--          <i class="fab fa-facebook"></i>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="https://instagram.com/florinpop17" target="_blank">-->
+<!--          <i class="fab fa-instagram"></i>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<button class="floating-btn">-->
+<!--  Get in Touch-->
+<!--</button>-->
+
+<!--<div class="floating-text">-->
+<!--  Part of <a href="https://florin-pop.com/blog/2019/09/100-days-100-projects" target="_blank">#100Days100Projects</a>-->
+<!--</div>-->
+
+
+<!--<article class="cta">-->
+<!--  <img src='https://images.unsplash.com/photo-1600078686889-8c42747c25fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NDMzMjg5Nw&ixlib=rb-1.2.1&q=80&w=400' alt='Bluetit'>-->
+<!--  <div class="cta__text-column">-->
+<!--    <h2>Aspect ratio is great</h2>-->
+<!--    <p>This image has an aspect ratio of 3/2.</p>-->
+<!--    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio">Read all about it</a>-->
+<!--  </div>-->
+<!--</article>-->
+
+<!--<article class="cta">-->
+<!--  <img src='https://images.unsplash.com/photo-1569762825621-2dab96140a1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0NDMzNDkxMQ&ixlib=rb-1.2.1&q=80&w=400' alt='Small blue-grey yellow-breasted bird'>-->
+<!--  <div class="cta__text-column">-->
+<!--    <h2>Aspect ratio is great</h2>-->
+<!--    <p>This image has an aspect ratio of 3/2. But when the text is longer, the image grows too, overriding its aspect ratio. Cool!</p>-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>-->
+<!--    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio">Read all about it</a>-->
+<!--  </div>-->
+<!--</article>-->
+
+

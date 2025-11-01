@@ -1,0 +1,59 @@
+<div class="section-1">
+  <div class="container">
+    <div class="section-1-main">
+      <div class="program-elm-container">
+        @for (data of ourServiceItems(); track data._id) {
+          <div class="program-elm">
+            <div class="card-contents">
+              <div class="img-date">
+                <img [src]="data.image" alt="image" loading="lazy">
+              </div>
+              <div class="writer-img">
+                <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '../../../assets/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">
+              </div>
+              <div class="card-contents1">
+                <div class="desc">
+                  @if (!isLanguageBengali()) {
+                    <p>{{data.name}}</p>
+                  } @else {
+                    <p class="font-bangla">{{data.nameEn}}</p>
+                  }
+                </div>
+                <div>
+                  @if (!isLanguageBengali()) {
+                    <p class="description" [innerHTML]="data.descriptionShort"></p>
+                  } @else {
+                    <p class="description font-bangla" [innerHTML]="data.descriptionShortEn"></p>
+                  }
+                </div>
+                <div class="button-one">
+                  <button [routerLink]="['/press-releases-details', data._id]" [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                </div>
+              </div>
+            </div>
+            <div class="border"></div>
+            <div class="date">
+              <p>{{ data.createdAt | date }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (showLoadMore()) {
+        <div class="load-more">
+          <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+            <i class="fa-solid fa-spinner"></i>
+            {{canLoadMore() ? 'Load More' : 'No More Press Releases'}}
+          </a>
+        </div>
+      }
+    </div>
+
+    <div class="btn-share">
+      <button class="share" (click)="openDialog()">
+        <i class="fa-solid fa-share-nodes"></i>Share Now
+      </button>
+      <button class="back" routerLink="/about-us">Back to Main Page</button>
+    </div>
+  </div>
+</div>

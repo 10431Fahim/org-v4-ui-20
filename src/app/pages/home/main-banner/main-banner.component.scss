@@ -1,0 +1,243 @@
+@use "../../../../theme/variables" as *;
+@use "../../../../theme/_swipper" as *;
+
+.swipe {
+  background-color: #fff;
+  width: 100%;
+}
+.swiper-banner{
+  padding-bottom: 100px!important;
+}
+
+.swipe-img {
+  display: block;
+  width: 100%;
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: -32px;
+    right: 50%;
+    transform: translateX(50%);
+    max-width: 520px;
+    padding: 15px 14px;
+    margin: auto;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 23px;
+    color: #fff;
+    font-family: 'Noto Sans',sans-serif;
+    border-radius: 30px;
+    background-color: #047253;
+    border: 2px solid transparent;
+    transition: all 0.3s linear;
+    animation: upDown1 0.8s linear;
+
+    &:hover {
+      background-color: #FFF;
+      color: #047253;
+      border: 2px solid #047253;
+    }
+
+    &.en {
+      max-width: 545px;
+    }
+
+    // border: 2px solid #FFFf;
+  }
+
+  span {
+    color: #047253;
+    font-size: 50px;
+    position: absolute;
+    bottom: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    cursor: pointer;
+    animation: upDown 0.8s linear infinite alternate;
+
+  }
+
+
+
+}
+
+@keyframes upDown1 {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    bottom: 40px;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+    bottom: 90px;
+  }
+}
+
+@keyframes upDown {
+  0% {
+    bottom: -90px;
+  }
+
+  100% {
+    bottom: -100px;
+  }
+}
+
+
+.swipe-img a .img1 {
+
+  // max-height: 100vh;
+  // max-height: calc(100vh - 78px);
+  // min-height: 270px;
+  max-height: 530px;
+  width: 100%;
+  height: auto;
+  //object-fit: cover;
+  //object-position: 50% 28%;
+}
+
+.swipe-img a .img2 {
+  display: none !important;
+  // max-height: 100vh;
+  // max-height: calc(100vh - 78px);
+  // min-height: 270px;
+  max-height: 530px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  // object-position: 50% 28%;
+}
+
+.swipe-img a {
+  width: 100%;
+}
+@media (max-width: 737px) {
+  .swipe-img {
+    button {
+
+      &.en {
+        max-width: 468px!important;
+      }
+    }
+
+  }
+}
+
+@media (max-width: 767px) {
+  .swiper-parent {
+    background-color: #fff;
+    padding: 10px 10px 10px 10px;
+  }
+  .swiper-banner{
+    padding-bottom: 35px!important;
+  }
+
+  .swipe-img {
+    button {
+      position: absolute;
+      bottom: -20px;
+      //  max-width: 340px;
+      padding: 10px 10px;
+      width: 100%;
+      font-size: 18px;
+      line-height: 20px;
+      border-radius: 20px;
+      background-color: #047253;
+      border: 2px solid transparent;
+      margin: auto !important;
+
+      &.en {
+        // max-width: 300px;
+
+      }
+    }
+
+    span {
+      display: none;
+    }
+
+  }
+
+}
+
+@media (max-width: 700px) {
+  .swiperr {
+    padding: 0px 0px !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .swipe-img {
+    button {
+      font-size: 13px!important;
+      &.en {
+        max-width: 320px!important;
+      }
+      &.bn{
+        max-width: 320px!important;
+      }
+    }
+
+  }
+}
+
+
+.button-hover {
+  padding: 3px 10px;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  background-color: #0E7356;
+  color: #FFF;
+  text-align: center;
+  display: inline;
+  border: 2px solid transparent;
+  cursor: pointer;
+  max-width: 140px;
+  text-align: center;
+
+  &:hover {
+    background-color: #FFF;
+    color: #0E7356;
+    border: 2px solid #0E7356;
+  }
+}
+
+.title-top {
+  color: #2A413C;
+  font-family: $font-en-primary;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+
+@media(max-width:500px) {
+  .swipe-img a .img1 {
+    display: none !important;
+    // max-height: 100vh;
+    // max-height: calc(100vh - 78px);
+    // min-height: 270px;
+    max-height: 530px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 28%;
+  }
+
+  .swipe-img a .img2 {
+    display: block !important;
+    // max-height: 100vh;
+    // max-height: calc(100vh - 78px);
+    // min-height: 270px;
+    max-height: 322px;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: 50% 28%;
+  }
+
+}

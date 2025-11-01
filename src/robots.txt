@@ -1,0 +1,27 @@
+User-agent: *
+Disallow: /api/
+Disallow: /page/
+Disallow: /sitemap.xml/
+Disallow: /actuator/
+Disallow: /admin/
+Disallow: /server-status
+Disallow: /*?*
+
+# Allow Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Allow Bingbot
+User-agent: bingbot
+Allow: /
+
+# Allow Facebook External Agent (fb crawler)
+User-agent: facebookexternalhit
+Allow: /
+
+# Allow ChatGPT/OpenAI bot (optional)
+User-agent: ChatGPT-User
+Allow: /
+
+# Sitemap
+Sitemap: https://www.bnpbd.org/sitemap.xml

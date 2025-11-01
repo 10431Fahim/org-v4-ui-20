@@ -1,0 +1,220 @@
+@use "../../../theme/variables" as *;
+
+.section-1-main {
+  margin: 20px 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+
+  .section1-left {
+    .title {
+      margin-bottom: 30px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #a2e2d1;
+      padding: 15px;
+
+      h1 {
+        font-size: 32px;
+        line-height: 41px;
+        font-weight: 700;
+        font-family: $font-en-primary;
+        color: #121212;
+        position: relative;
+        margin-bottom: 0px;
+      }
+    }
+
+    .elm-container {
+      margin: auto;
+    }
+
+    .elm-main {
+      margin-bottom: 15px;
+    }
+
+    .elm-content {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .elm-image {
+      flex: 0 0 130px;
+
+      img {
+        width: 100%;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+    }
+
+    .elm-text {
+      flex: 1;
+
+      h3 {
+        color: #000000;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 500;
+        letter-spacing: 0.4px;
+        font-family: $font-en-primary;
+        margin: 0px 0px 8px 0px;
+        cursor: pointer;
+        position: relative;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      h3::after {
+        content: "";
+        width: 0px;
+        height: 3px;
+        margin-left: 5px;
+        background-color: #f2833b;
+        color: #f2833b;
+        position: absolute;
+        right: 0px;
+        bottom: -3px;
+        transition: all 0.3s linear;
+      }
+
+      h3:hover::after {
+        left: 0px;
+        width: 100%;
+      }
+    }
+
+    .elm>p {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 400;
+      font-family: $font-en-primary;
+      margin-left: 5px;
+    }
+
+    .des {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        color: #745350;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        font-family: $font-en-primary;
+        margin: 0;
+      }
+
+      .short-desc {
+        font-size: 14px;
+        line-height: 25px;
+        font-weight: 500;
+        font-family: $font-en-primary;
+        margin-top: 5px;
+        color: #543F22;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 5px !important;
+      }
+
+      button {
+        margin-top: 5px;
+        padding: 3px 6px;
+        width: 100%;
+        font-size: 14px;
+        border-radius: 7px;
+        background-color: #0E7356;
+        color: #FFF;
+        text-align: center;
+        display: inline;
+        border: 2px solid transparent;
+        cursor: pointer;
+        max-width: 130px;
+        font-family: $font-en-primary;
+      }
+    }
+  }
+}
+.button-hover {
+  padding: 3px 10px;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 7px;
+  background-color: #0E7356;
+  color: #FFF;
+  display: inline;
+  border: 2px solid transparent;
+  cursor: pointer;
+  max-width: 140px;
+  text-align: center;
+
+  &:hover {
+    background-color: #FFF!important;
+    color: #0E7356!important;
+    border: 2px solid #0E7356!important;
+  }
+}
+
+@media(max-width:900px) {
+  .section-1-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:1168px) {
+  .section-1-main {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+@media(max-width: 767px) {
+  .section1-left {
+    .title {
+      width: 90%;
+      padding: 7px;
+    }
+
+    .elm-content {
+      gap: 10px;
+    }
+
+    .elm-image {
+      flex: 0 0 80px;
+
+      img {
+        height: 80px;
+      }
+    }
+
+    .elm-text {
+      h3 {
+        font-size: 14px;
+        line-height: 18px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .des {
+      p {
+        font-size: 12px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 2px 5px;
+        max-width: 100px;
+      }
+    }
+  }
+}

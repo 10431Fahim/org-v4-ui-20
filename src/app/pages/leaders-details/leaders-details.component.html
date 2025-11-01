@@ -1,0 +1,61 @@
+<div class="section1">
+    <div class="container container1">
+        <div class="ledar-head">
+            @if (currentLanguage() === 'en' || !currentLanguage()) {
+                <h2>{{ leaderName() }}</h2>
+            } @else if (currentLanguage() === 'bn') {
+                <h2 class="font-bangla">{{ leaderName() }}</h2>
+            }
+        </div>
+        <div class="section1-main">
+            <div class="leader-img">
+                @if (leader()) {
+                    <img [src]="leader()?.image" alt="image" loading="lazy">
+                } @else {
+                    <div class="loading-placeholder">
+                        <div class="spinner"></div>
+                        <p>Loading leader information...</p>
+                    </div>
+                }
+                <div class="btn-back">
+                    <button routerLink="/">{{ "ln.Home" | translate }}</button>
+                    <button routerLink="/our-leaders">{{ "ln.OurLeaders" | translate }}</button>
+                    <div></div>
+                    
+                    @if (hasPortfolio()) {
+                        <div>
+                            @for (data1 of leaderButtons(); track data1.slug; let i = $index) {
+                                <button (click)="checkButtonHide(i)" [routerLink]="['/leader-details', data1?.slug]">
+                                    {{ getButtonName(data1) }}
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="leader-des">
+                @if (leader()) {
+                    @if (currentLanguage() === 'en' || !currentLanguage()) {
+                        <div [innerHTML]="leaderDescription()"></div>
+                    } @else if (currentLanguage() === 'bn') {
+                        <div class="font-bangla" [innerHTML]="leaderDescription()"></div>
+                    }
+                    
+                    <div class="btn-share">
+                        <button (click)="openDialog()">
+                            <i class="fa-solid fa-share-nodes"></i>{{ "ln.Share" | translate }}
+                        </button>
+                    </div>
+                } @else {
+                    <div class="content-loading">
+                        <div class="loading-skeleton">
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line short"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="section-1">
+
+  <ng-container *ngIf="isLoading">
+    <app-news-details-loader></app-news-details-loader>
+  </ng-container>
+
+  <ng-container *ngIf="!isLoading">
+    <div class="banner-area">
+      <div class="container">
+        <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{review?.name}}</h2>
+        <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{review?.nameEn}}</h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="section-1-main">
+        <div class="details-page-heading">
+          <img [src]="review?.image" alt="image" loading="lazy">
+        </div>
+        <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description"
+           [innerHTML]="review?.description | safeHtmlCustom"></p>
+        <p class="font-bangla description" *ngIf="translateService.currentLang === 'bn'"
+           [innerHTML]="review?.descriptionEn | safeHtmlCustom"></p>
+      </div>
+      <div class="btn-share">
+        <button class="share"(click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>Share Now</button>
+        <button class="back" routerLink="/all-news">Back to Main Page</button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+
+
+<div class="section-4">
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <h2 class="title-topp">{{ "ln.RelatedNews" | translate }}</h2>
+        <div class="program-elm-container  test-program-elm-container">
+<!--          <swiper [slidesPerView]="1" [spaceBetween]="10" [autoplay]="false" [loop]="false" [navigation]="true"-->
+<!--                  [breakpoints]="{-->
+<!--                          '520': {-->
+<!--                              slidesPerView: 2,-->
+<!--                              spaceBetween:15-->
+<!--                          },-->
+<!--                          '768': {-->
+<!--                              slidesPerView: 2.3-->
+<!--                          },-->
+<!--                          '1000': {-->
+<!--                              slidesPerView: 2.5,-->
+<!--                              spaceBetween:20-->
+<!--                          },-->
+<!--                          '1150': {-->
+<!--                              slidesPerView: 2.5,-->
+<!--                              spaceBetween:20-->
+<!--                          },-->
+<!--                          '1180': {-->
+<!--                              slidesPerView: 3,-->
+<!--                              spaceBetween:20-->
+<!--                          },-->
+<!--                          '1200': {-->
+<!--                              slidesPerView: 3,-->
+<!--                              spaceBetween:20-->
+<!--                          }-->
+<!--                          }" class="mySwiper">-->
+
+            <ng-container *ngIf="isLoadingRelated">
+              <ng-container  *ngFor="let data of [].constructor(4)">
+                <app-news-card-one-loader></app-news-card-one-loader>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoadingRelated">
+              <ng-container  *ngFor="let data of reviewData">
+                <a [routerLink]="['/all-news', data._id]" [queryParamsHandling]="'merge'">
+                  <div class="related-news">
+                    <div class="program-elm">
+                      <div class="card-contents">
+                        <div class="img-date">
+                          <img [src]="data.image" alt="image" loading="lazy">
+                        </div>
+                        <div class="writer-img">
+                          <img
+                            src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="">
+                          <!--                                  <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '../../../assets/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">-->
+                        </div>
+                        <div class="card-contents1">
+                          <div class="desc">
+                            <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                              {{data.name}}</p>
+                            <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</p>
+                          </div>
+                          <div class="button-one">
+                            <button [routerLink]="['/all-news', data._id]" [queryParamsHandling]="'merge'">{{
+                                "ln.READMORE" | translate }}</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="border"></div>
+                      <div class="date">
+                        <p>{{ data.createdAt | date }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </ng-container>
+            </ng-container>
+<!--          </swiper>-->
+
+        </div>
+        <a routerLink="/all-news" class="button-hover" [queryParamsHandling]="'merge'">{{ "ln.Moresection" | translate
+          }}</a>
+
+      </div>
+
+    </div>
+  </div>
+</div>

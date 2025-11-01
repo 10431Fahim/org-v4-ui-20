@@ -1,0 +1,51 @@
+<div class="pdf-height">
+  <div class="offer-cross-area">
+    <span (click)="onClose()"><i class="fa fa-xmark"></i></span>
+  </div>
+
+  <div  class="pdf-height1" >
+    <div class="loading1" *ngIf="isLoading">
+      <div class="abgne-loading-20140104-2">
+        <div class="loading"></div>
+        <div class="word"><img src="/fav.jpeg" alt=""></div>
+      </div>
+    </div>
+
+    <div *ngIf="showNoPdfMessage" class="not-found"><span>No PDF found.</span></div>
+
+<!--      <div>-->
+<!--        <iframe *ngIf="data" [src]="data + '#toolbar=0'  | safeUrl" width="100%" height="100%" style="border:none">-->
+
+<!--        </iframe>-->
+<!--      </div>-->
+
+    <div  id="pdfContainer" #pdfContainer class="pdf-container">
+      <!--      <div *ngIf="showNoPdfMessage" style="text-align: center; color: white;"><span>No PDF found.</span></div>-->
+    </div>
+
+<!--    <ngx-extended-pdf-viewer-->
+<!--      [src]="getSafeUrl('https://api.bnpbd.org/api/upload/files/095fa80432-d5cc.pdf')"-->
+<!--      [showToolbar]="false"-->
+<!--      [showSidebarButton]="false"-->
+<!--      [showFindButton]="true"-->
+<!--      [showPagingButtons]="false"-->
+<!--      [showDrawEditor]="false"-->
+<!--      [showStampEditor]="false"-->
+<!--      [showTextEditor]="false"-->
+<!--      [showZoomButtons]="false"-->
+<!--      [showPresentationModeButton]="false"-->
+<!--      [showOpenFileButton]="false"-->
+<!--      [showPrintButton]="false"-->
+<!--      [showDownloadButton]="true"-->
+<!--      [showSecondaryToolbarButton]="false"-->
+<!--      [showRotateButton]="false"-->
+<!--      [showRotateCwButton]="false"-->
+<!--      [showRotateCcwButton]="false"-->
+<!--      [showHandToolButton]="false"-->
+<!--      [showSpreadButton]="false"-->
+<!--      [showPropertiesButton]="false">-->
+<!--    </ngx-extended-pdf-viewer>-->
+
+  </div>
+
+</div>

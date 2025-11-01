@@ -1,0 +1,55 @@
+@if (hasAllData()) {
+  <div class="section-1">
+    <div class="container">
+      <div class="section1-main">
+        <div class="sectionpolicie-content">
+          <div class="sectionpolicie-main">
+            @for (link of allDataToShow(); track link.slug || $index) {
+              <div class="section41" [routerLink]="link.url" [queryParamsHandling]="'merge'">
+                <a [routerLink]="['/pages/',link.slug]" [queryParamsHandling]="'merge'">
+                  <div class="section4-main1">
+                    <div class="section4-left">
+                      <img [src]="link.image" alt="image" loading="lazy">
+                    </div>
+                    <div class="section4-right">
+                      <div>
+                        @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                          <a>{{ link.name}}</a>
+                        } @else {
+                          <a class="font-bangla">{{ link.nameEn}}</a>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="btn-share">
+          <button class="share" (click)="openDialog()">
+            <i class="fa-solid fa-share-nodes"></i>Share Now
+          </button>
+          <button class="back" routerLink="/about-us">Back to Main Page</button>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else if (showComingSoon()) {
+  <div class="section-1">
+    <div class="container">
+      <div class="section1-main">
+        <div class="coming-soon">
+          <div [innerHTML]="msg()"></div>
+        </div>
+        <div class="btn-share">
+          <button class="share" (click)="openDialog()">
+            <i class="fa-solid fa-share-nodes"></i>Share Now
+          </button>
+          <button class="back" routerLink="/about-us">Back to Main Page</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

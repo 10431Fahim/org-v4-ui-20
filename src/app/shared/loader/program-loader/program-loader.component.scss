@@ -1,0 +1,25 @@
+.program{
+  width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    background-color:#fff;
+    overflow: hidden;
+    .program-img{
+        position: relative;
+        .user-img{
+            margin-top: -50px;
+            margin-left: 15px;
+        }
+    }
+    .program-body{
+        padding: 0px 10px 10px 10px;
+    }
+    .program-footer{
+        display: block;
+    }
+
+}
+::ng-deep.program-footer .skeleton-loader{
+    margin: 0px!important;
+    margin-bottom: -6px!important;
+}

@@ -1,0 +1,63 @@
+<div class="top-banner-area">
+  <div class="">
+    <div class="banner">
+      @if (hasVisionResource() && firstVisionResource().image) {
+        <img [src]="firstVisionResource().image" alt="image" loading="eager">
+      }
+      @if (hasVisionResource() && isEnglish()) {
+        <h2>{{firstVisionResource().name}}</h2>
+      }
+      @if (hasVisionResource() && isBangla()) {
+        <h2 class="font-bangla">{{firstVisionResource().nameEn}}</h2>
+      }
+    </div>
+  </div>
+</div>
+
+
+<div class="section-1">
+  <div class="container">
+    @if (hasVisionResource()) {
+      <div class="section2">
+        <div class="container">
+          <div class="section2-main">
+            <div class="section2-des p-title">
+              @if (isEnglish() && firstVisionResource().description) {
+                <div [innerHTML]="firstVisionResource().description"></div>
+              }
+              @if (isBangla() && firstVisionResource().descriptionEn) {
+                <div class="font-bangla" [innerHTML]="firstVisionResource().descriptionEn"></div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="sectionpolicie-content">
+      <div class="sectionpolicie-main">
+        @for (data of faqSubCategories(); track data._id) {
+          <div class="section41">
+            <a [routerLink]="['/article-details', data._id ]" [queryParamsHandling]="'merge'">
+              <div class="section4-main1" [routerLink]="['/article-details', data._id ]" [queryParamsHandling]="'merge'">
+                <div class="section4-left">
+                  <img [src]="data?.image" alt="image" loading="lazy">
+                </div>
+                <div class="section4-right">
+                  <div>
+                    @if (isEnglish()) {
+                      <a [routerLink]="['/article-details', data._id ]" [queryParamsHandling]="'merge'">{{data?.name}}</a>
+                    }
+                    @if (isBangla()) {
+                      <a class="font-bangla" [routerLink]="['/article-details', data._id ]" [queryParamsHandling]="'merge'">{{data?.nameEn}}</a>
+                    }
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

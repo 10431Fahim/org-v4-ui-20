@@ -1,0 +1,25 @@
+<div class="section-1">
+    <div class="banner-area">
+        <div class="container">
+          @if (isEnglish()) {
+            <h2>{{notices()?.name}}</h2>
+          } @else if (isBengali()) {
+            <h2 class="font-bangla">{{notices()?.nameEn}}</h2>
+          }
+        </div>
+    </div>
+    <div class="container">
+        <div class="section-1-main">
+            <img [src]="notices()?.image" alt="image" loading="lazy">
+            @if (isEnglish()) {
+              <p class="description" [innerHTML]="notices()?.description | safeHtmlCustom"></p>
+            } @else if (isBengali()) {
+              <p class="description font-bangla" [innerHTML]="notices()?.descriptionEn | safeHtmlCustom"></p>
+            }
+        </div>
+        <div class="btn-share">
+            <button (click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>Share Now</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,144 @@
+<!--<div class="section1" [style.background-image]="'url(' + about[0]?.image + ')'" >-->
+<!--  &lt;!&ndash; <img [src]="about[0]?.image" alt="image" loading="lazy"> &ndash;&gt;-->
+<!--  <div class="container">-->
+<!--    <div class="section1-main">-->
+<!--      <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{ about[0]?.name }}</h2>-->
+<!--      <h2 *ngIf="translateService.currentLang === 'bn'">{{ about[0]?.nameEn }}</h2>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div>-->
+<!--  <app-conference-card></app-conference-card>-->
+<!--</div>-->
+
+<div class="top-banner-area">
+  <div class="">
+    @if (currentAbout() && !isLoading()) {
+      <div class="banner">
+        <img [src]="currentAbout()!.image" alt="image" loading="lazy">
+        @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+          <h2>{{ currentAbout()!.name }}</h2>
+        } @else if (translateService.currentLang === 'bn') {
+          <h2 class="font-bangla">{{ currentAbout()!.nameEn }}</h2>
+        }
+      </div>
+    } @else if (isLoading()) {
+      <div class="banner loading-placeholder">
+        <div class="loading-skeleton"></div>
+      </div>
+    }
+  </div>
+</div>
+
+@if (currentAbout() && !isLoading()) {
+  <div class="section2">
+    <div class="container">
+      <div class="section2-main">
+        <div class="bnp-logo">
+          <img
+            src="/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+            alt="image" loading="lazy"
+          />
+        </div>
+        <div class="section2-des">
+          @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+            <p class="paragraph1" [innerHTML]="currentAbout()!.description | safeHtmlCustom"></p>
+          } @else if (translateService.currentLang === 'bn') {
+            <p class="paragraph1 font-bangla" [innerHTML]="currentAbout()!.descriptionEn | safeHtmlCustom"></p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+} @else if (isLoading()) {
+  <div class="section2 loading-placeholder">
+    <div class="container">
+      <div class="loading-skeleton"></div>
+    </div>
+  </div>
+}
+
+@if (currentAbout() && informations().length > 0 && !isLoading()) {
+  <div class="z-bannar">
+    @for (info of informations(); track $index; let i = $index) {
+      @if (i < 1) {
+        <div class="">
+          <div>
+            <div class="top-banner-area1">
+              <div class="banner">
+                <img [src]="info?.image" alt="image" loading="lazy"/>
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <p class="paragraph1" [innerHTML]="info?.description | safeHtmlCustom"></p>
+                } @else if (translateService.currentLang === 'bn') {
+                  <p class="paragraph1 font-bangla" [innerHTML]="info?.descriptionEn | safeHtmlCustom"></p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="section4-content container">
+    <div class="section4-main">
+      @for (infoo of informations() | slice:1:4; track $index) {
+        <div class="section41">
+          <a routerLink="{{infoo.url}}" [queryParamsHandling]="'merge'">
+            <div class="section4-main1">
+              <div class="section4-left">
+                <img [src]="infoo?.image" alt="image" loading="lazy">
+              </div>
+              <div class="section4-right">
+                <div>
+                  @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                    <h3>{{infoo?.name}}</h3>
+                  } @else if (translateService.currentLang === 'bn') {
+                    <h3 class="font-bangla">{{infoo?.nameEn}}</h3>
+                  }
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+} @else if (isLoading()) {
+  <div class="z-bannar loading-placeholder">
+    <div class="loading-skeleton"></div>
+  </div>
+}
+
+
+@if (currentAbout() && !isLoading()) {
+  <div class="last-contents">
+    <div class="last-content">
+      <!--    <h2 class="heading2">Brief Timeline</h2>-->
+    </div>
+    <div class="last-content-img">
+      @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+        <img [src]="currentAbout()!.briefTimelineImg" alt="image" loading="lazy">
+      } @else if (translateService.currentLang === 'bn') {
+        <img [src]="currentAbout()!.briefTimelineImgEn" alt="image" loading="lazy">
+      }
+    </div>
+    <div class="btn-share">
+      <button class="share" (click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>{{"ln.Share" | translate}}</button>
+      <button class="back" routerLink="/">{{"ln.BackHome" | translate}}</button>
+    </div>
+  </div>
+} @else if (isLoading()) {
+  <div class="last-contents loading-placeholder">
+    <div class="loading-skeleton"></div>
+  </div>
+}
+
+<!-- <div class="nineteen-card">
+  <div class="card1">
+    <span>1</span>
+    <p>was a Bangladeshi military officer and politician who served as the President</p>
+  </div>
+</div> -->
+
+

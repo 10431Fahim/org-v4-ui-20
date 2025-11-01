@@ -1,0 +1,108 @@
+<div class="login-container">
+  <!-- Background Image -->
+  <div class="background-image">
+    <img src="/images/payment.jpg" alt="Login Background" loading="lazy">
+    <div class="overlay"></div>
+  </div>
+
+  <!-- Login Form - Centered -->
+  <div class="form-container">
+    <div class="form-card">
+      <!-- Header -->
+      <div class="form-header">
+
+        <h1 class="form-title">
+          @if (memberType() === 'member-fee') {
+            {{ 'ln.MembershipLogin' | translate }}
+          } @else if (memberType() === 'primary-member-fee') {
+            {{ 'ln.PrimaryMembershipLogin' | translate }}
+          } @else {
+            {{ 'ln.Login' | translate }}
+          }
+        </h1>
+        <p class="form-subtitle">{{ 'ln.WelcomeBackMessage' | translate }}</p>
+      </div>
+
+      <!-- Form -->
+      <form #formElement="ngForm" [formGroup]="dataForm" (ngSubmit)="onSubmit()" class="login-form">
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'ln.EnterYourUserName' | translate }}</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="username"
+              [placeholder]="'ln.EnterEmail' | translate"
+              autocomplete="email">
+            <mat-icon matSuffix>email</mat-icon>
+
+            @if (username?.hasError('required') && username?.touched) {
+              <mat-error>{{ 'ln.FieldRequired' | translate }}</mat-error>
+            }
+            @if (username?.hasError('email') && username?.touched) {
+              <mat-error>{{ 'ln.EnterValidEmail' | translate }}</mat-error>
+            }
+            @if (username?.hasError('minlength') && username?.touched) {
+              <mat-error>{{ 'ln.EmailMinLength' | translate }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>{{ 'ln.EnterYourPassword' | translate }}</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              [placeholder]="'ln.EnterPassword' | translate"
+              autocomplete="current-password">
+            <mat-icon matSuffix>lock</mat-icon>
+
+            @if (password?.hasError('required') && password?.touched) {
+              <mat-error>{{ 'ln.FieldRequired' | translate }}</mat-error>
+            }
+            @if (password?.hasError('minlength') && password?.touched) {
+              <mat-error>{{ 'ln.PasswordMinLength' | translate }}</mat-error>
+            }
+            @if (password?.hasError('pattern') && password?.touched) {
+              <mat-error>{{ 'ln.PasswordPattern' | translate }}</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="submit-btn"
+            [class.loading]="isLoading()">
+            @if (isLoading()) {
+              <span class="spinner"></span>
+              {{ 'ln.SigningIn' | translate }}
+            } @else {
+              {{ 'ln.Submit' | translate }}
+            }
+          </button>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="form-footer">
+          <div class="footer-links">
+            <a
+              class="register-link"
+              [routerLink]="memberType() === 'member-fee' ? '/registration/member-fee': '/registration/primary-member-fee'">
+              {{ 'ln.RegistrationNow' | translate }}
+            </a>
+            <a class="forgot-link" routerLink="/reset-password">
+              {{ 'ln.ForgotPassword' | translate }}
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

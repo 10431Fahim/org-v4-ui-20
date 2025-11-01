@@ -1,0 +1,88 @@
+<div class="section-4" >
+  <div class="container">
+    <div class="section-4-main">
+      <!--section4-left-->
+      <div class="section-4-main-left">
+        <a routerLink="/programs&pressReleases" [queryParamsHandling]="'merge'"><h2 class="title-top" >{{ "ln.ProgramsPress" | translate }}</h2></a>
+        <div class="program-elm-container">
+          <!-- banner.html -->
+
+          <app-swiper
+            [visibleSlides]="1"
+            [gap]="10"
+            [autoplay]="false"
+            [loop]="false"
+            [navigation]="true"
+            [pagination]="false"
+            [breakpoints]="swiperBreakpoints"
+            class="mySwiper">
+            @if (showLoader()) {
+              @for (data of [0,1,2,3,4]; track $index) {
+                <div #sliderItem>
+                  <app-news-card-one-loader></app-news-card-one-loader>
+                </div>
+              }
+            }
+            
+            @if (showContent()) {
+              @for (data of ourServiceItems(); track data._id; let i = $index) {
+                <div #sliderItem>
+                <a [routerLink]="['/programs&pressReleases' , data._id]"
+                   [queryParamsHandling]="'merge'">
+                  <div class="program-elm wow animate__fadeInUp" [class]="('animate__delay-' + (i+1) + 's')">
+                    <div  class="card-contents">
+                      <div class="img-date">
+                        <img  *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " [src]="data.image" alt="image" loading="lazy">
+                        <img  *ngIf="translateService.currentLang === 'bn'" [src]="data.imageEn" alt="image" loading="lazy">
+                      </div>
+                      <div class="writer-img">
+                        <img
+                          src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="">
+                        <!--                                        <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '../../../assets/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">-->
+                      </div>
+                      <div class="card-contents1" >
+                        <div class="desc">
+                          <p
+                            *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                            {{data.name}}</p>
+                          <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</p>
+                          <!-- <p>{{data.name}}</p> -->
+                        </div>
+                        <!--                                        <div>-->
+                        <!--                                            <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description" [innerHTML]="data.descriptionShort"></p>-->
+                        <!--                                            <p *ngIf="translateService.currentLang === 'bn' " class="description" [innerHTML]="data.descriptionShortEn"></p>-->
+                        <!--                                        </div>-->
+                        <!-- <div>
+                            <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description" [innerHTML]="data.description"></p>
+                            <p *ngIf="translateService.currentLang === 'bn' " class="description" [innerHTML]="data.descriptionEn"></p>
+                        </div> -->
+                        <div class="button-one">
+                          <button >{{ "ln.READMORE" | translate
+                            }}</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="border"></div>
+                    <div class="date">
+<!--                      <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{ (data.publishedDate | date ) ?? (data.createdAt | date) }}</p>-->
+<!--                      <p *ngIf="translateService.currentLang === 'bn'">{{ ((data.publishedDate | date ) | englishToBanglaDate) ?? ((data.createdAt | date) | englishToBanglaDate)}}</p>-->
+                      <p>{{ (data.publishedDate | date) ?? (data.createdAt | date) }}</p>
+                    </div>
+                  </div>
+                </a>
+                </div>
+              }
+            }
+          </app-swiper>
+
+        </div>
+        <a routerLink="programs&pressReleases" [queryParamsHandling]="'merge'" class="button-hover">{{ "ln.Moresection" | translate }}</a>
+
+      </div>
+      <!-- <div class="icon-middle">
+          <i class="fa-solid fa-angle-right"></i>
+      </div> -->
+
+    </div>
+  </div>
+</div>

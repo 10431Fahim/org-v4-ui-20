@@ -1,0 +1,469 @@
+<div class="section-main">
+  <div class="section-top-contents">
+    <div class="top-banner-area">
+      <div class="banner">
+        <img src="/images/payment.jpg" alt="image" loading="lazy">
+      </div>
+    </div>
+    <div class="form-area">
+      <div class="container">
+        <div class="form">
+          <div class="form-input-area">
+            <div class="title-area">
+              <div class="title-area-left">
+                <h3>{{ "ln.MembershipFee" | translate }}</h3>
+              </div>
+            </div>
+            <!---form-input-->
+            @if (!confarmSubmit()) {
+              <form #formElement="ngForm" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+              <mat-stepper #stepper (selectionChange)="onStepComplete()">
+
+                <mat-step>
+                  <div class="form-input" style="margin-top: 5px;"
+                       *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.OrganizationName" | translate }}</mat-label>
+                      <!-- Debug: Optional translation = {{ "ln.Optional" | translate }} -->
+                      <mat-select formControlName="organization" (selectionChange)="onOrganizationSelect($event)">
+                        <mat-option *ngFor="let data of organizationName" [value]="data?.name">
+                          {{data?.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix *ngIf="dataForm.get('organization').value" style="color: green;">check_circle</mat-icon>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- Debug info for organization -->
+                  <!-- <div class="debug-info" style="font-size: 12px; color: #666; margin: 5px 0; padding: 5px; background: #f5f5f5; border-radius: 4px;">
+                    <strong>Debug Info:</strong> Selected: "{{dataForm.get('organization').value || 'None'}}" |
+                    Valid: {{dataForm.get('organization').valid}} |
+                    Available: {{organizationName.length}} options
+                    <br>
+                    <button type="button" (click)="setDefaultOrganization()" style="margin-top: 5px; padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                      Set Default Organization
+                    </button>
+                  </div> -->
+
+                  <div class="form-input" style="margin-top: 5px;" *ngIf="translateService.currentLang === 'bn'">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.OrganizationName" | translate }}</mat-label>
+                      <mat-select formControlName="organization" (selectionChange)="onOrganizationSelect($event)">
+                        <mat-option *ngFor="let data of organizationName" [value]="data?.name">
+                          {{data?.nameBn}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-icon matSuffix *ngIf="dataForm.get('organization').value" style="color: green;">check_circle</mat-icon>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-input"
+                       *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.UnitCommittee" | translate }}</mat-label>
+                      <mat-select formControlName="committee" required (selectionChange)="onCommitteeSelect($event)">
+                        <mat-option *ngFor="let data of allCommittee" [value]="data?.name">
+                          {{data?.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-input" *ngIf="translateService.currentLang === 'bn'">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.UnitCommittee" | translate }}</mat-label>
+                      <mat-select formControlName="committee" required (selectionChange)="onCommitteeSelect($event)">
+                        <mat-option *ngFor="let data of allCommittee" [value]="data?.name">
+                          {{data?.nameBn}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-input"
+                       *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Designation1" | translate }}</mat-label>
+                      <mat-select formControlName="designation" (selectionChange)="onDesignationSelect($event)">
+                        <mat-option *ngFor="let data of committee[0]?.designation" [value]="data?.name">
+                          {{data?.name}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-input" *ngIf="translateService.currentLang === 'bn'">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Designation1" | translate }}</mat-label>
+                      <mat-select formControlName="designation" (selectionChange)="onDesignationSelect($event)">
+                        <mat-option *ngFor="let data of committee[0]?.designation" [value]="data?.name">
+                          {{data?.nameBn}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="month-range">
+
+                    <div class="start-date">
+                      <label for="start"> {{ "ln.StartDate" | translate }}</label>
+                      <input type="month" id="start" name="start" min="2018-03" formControlName="startDate1" (change)="calculateDifference()" value="2018-05" />
+                    </div>
+
+                    <div class="end-date">
+                      <label for="start"> {{ "ln.EndDate" | translate }}</label>
+                      <input type="month" id="end" name="end" min="2018-03" formControlName="endDate1" (change)="calculateDifference()" value="2018-05" />
+                    </div>
+                  </div>
+
+                  <div class="form-input"
+                       *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Amount" | translate }}</mat-label>
+                      <input matInput
+                             [value]="amount > 0 ? (amount | currency:'BDT':'symbol':'1.0-0') + ' (' + totalMonth + ' months)' : ''"
+                             [readonly]="true"
+                             formControlName="amount"
+                             placeholder="Amount will be calculated automatically">
+                      <mat-icon matSuffix *ngIf="amount > 0" style="color: green;">check_circle</mat-icon>
+                      <mat-icon matSuffix *ngIf="amount === 0 && designationData?.length > 0" style="color: orange;">schedule</mat-icon>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- Amount calculation summary -->
+                  <!-- <div class="amount-summary" *ngIf="amount > 0 && designationData?.length > 0">
+                    <div class="summary-card">
+                      <h4>Amount Calculation Summary</h4>
+                      <div class="summary-details">
+                        <p><strong>Base Amount:</strong> {{designationData[0]?.amount | currency:'BDT':'symbol':'1.0-0'}}</p>
+                        <p><strong>Duration:</strong> {{totalMonth}} months</p>
+                        <p><strong>Total Amount:</strong> {{amount | currency:'BDT':'symbol':'1.0-0'}}</p>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Amount calculation pending message -->
+                  <div class="amount-pending" *ngIf="amount === 0 && designationData?.length > 0 && totalMonth > 0">
+                    <div class="pending-card">
+                      <p><mat-icon style="color: orange; vertical-align: middle;">info</mat-icon>
+                         {{ "ln.PleaseSelectStartEndDates" | translate }}</p>
+                    </div>
+                  </div>
+
+                  <div class="form-input" *ngIf="translateService.currentLang === 'bn'">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Amount" | translate }}</mat-label>
+                      <input matInput
+                             [value]="amount > 0 ? (amount | currency:'BDT':'symbol':'1.0-0') + ' (' + totalMonth + ' months)' : ''"
+                             [readonly]="true"
+                             formControlName="amount"
+                             placeholder="পরিমাণ স্বয়ংক্রিয়ভাবে গণনা করা হবে">
+                      <mat-icon matSuffix *ngIf="amount > 0" style="color: green;">check_circle</mat-icon>
+                      <mat-icon matSuffix *ngIf="amount === 0 && designationData?.length > 0" style="color: orange;">schedule</mat-icon>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- Amount calculation summary for Bengali -->
+                  <!-- <div class="amount-summary" *ngIf="amount > 0 && designationData?.length > 0 && translateService.currentLang === 'bn'">
+                    <div class="summary-card">
+                      <h4>পরিমাণ গণনার সারসংক্ষেপ</h4>
+                      <div class="summary-details">
+                        <p><strong>মূল পরিমাণ:</strong> {{designationData[0]?.amountBn}}</p>
+                        <p><strong>সময়কাল:</strong> {{totalMonth}} মাস</p>
+                        <p><strong>মোট পরিমাণ:</strong> {{amount | currency:'BDT':'symbol':'1.0-0'}}</p>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- <button mat-button matStepperNext>Next</button> -->
+                  <div class="next-btn">
+                    <button matStepperNext
+                            type="button"
+                            [disabled]="!dataForm.get('organization')?.value ||
+                                       !dataForm.get('committee')?.value ||
+                                       !dataForm.get('designation')?.value ||
+                                       !dataForm.get('startDate1')?.value ||
+                                       !dataForm.get('endDate1')?.value ||
+                                       amount <= 0">
+                      {{ "ln.Next" | translate }}
+                    </button>
+                  </div>
+
+                </mat-step>
+                <mat-step  >
+                  <!--                <ng-template matStepLabel>Done</ng-template>-->
+
+                  <!-- User info section -->
+                  <!-- <div class="user-info-section" *ngIf="user">
+                    <div class="user-info-card">
+                      <h4>Logged In User Information</h4>
+                      <p><strong>Name:</strong> {{user.name}}</p>
+                      <p><strong>Phone:</strong> {{user.phoneNo || user.phone}}</p>
+                      <p><strong>Organization:</strong> {{user.organizationName}}</p>
+                    </div>
+                  </div> -->
+
+                  <div class="form-input" style="margin-top: 5px;">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Name" | translate }}</mat-label>
+                      <input matInput type="text" value="" formControlName="name" required [readonly]="user?.name">
+                      <mat-icon matSuffix *ngIf="user?.name" style="color: green;">check_circle</mat-icon>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <label>{{ "ln.MobileNo" | translate }}<span>*</span></label>
+<!--                  <div class="num">-->
+<!--                    <div class="country-code">-->
+<!--                      <span> <img src="../../../assets/bd.png" alt="image" loading="lazy">+88</span>-->
+<!--                    </div>-->
+<!--                    <div class="form-input">-->
+<!--                      <input digitOnly [maxlength]="11" [autocomplete]="false" [readOnly]="isOtpSent || user?.phoneNo" formControlName="phoneNo" type="text"-->
+<!--                             autocomplete="off">-->
+<!--                    </div>-->
+<!--                    <button type="button" *ngIf="isBtnHide && !user?.phoneNo" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
+<!--                    <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
+<!--                    <i  *ngIf="isVerified || user?.phoneNo" class="fa-solid fa-check"></i>-->
+<!--                  </div>-->
+
+                  <div class="num">
+                    <div class="country-code">
+                  <span [matMenuTriggerFor]="menu" >
+                    <img [src]="getSingleCountry?.image" alt="image" loading="lazy"/>
+                    ({{ getSingleCountry?.dial_code }})
+                    <small><i class="fa-solid fa-sort-down"></i></small>
+                  </span>
+                    </div>
+                    <div class="form-input">
+                      <input digitOnly formControlName="phoneNo" type="text"
+                             autocomplete="off" [readonly]="user?.phoneNo">
+                    </div>
+<!--                    <button type="button" *ngIf="isBtnHide && !user?.phoneNo" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
+<!--                    <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
+<!--                    <i  *ngIf="isVerified" class="fa-solid fa-check"></i>-->
+                  </div>
+                  <!-- Show verification message for logged-in users -->
+                  <!-- <div class="verification-message" *ngIf="user?.phoneNo">
+                    <p><mat-icon style="color: green; vertical-align: middle;">verified</mat-icon>
+                       Phone number verified (logged-in user)</p>
+                  </div> -->
+
+<!--                  <div class="resent-view" *ngIf="sendVerificationCode && !user?.phoneNo">-->
+<!--                    <div class="count-area" [hidden]="countDown === 0">-->
+<!--                      <span class="count-down">{{'0:' + countDown}}</span>-->
+<!--                    </div>-->
+<!--                    <button *ngIf="countDown == 0 && isCountDownEnd" mat-button color="primary" (click)="resendOtp()">Resend-->
+<!--                      Code</button>-->
+<!--                  </div>-->
+
+<!--                  <div class="input-area input-area-two" *ngIf="isOtpSent && isOtpValid === false && !user?.phoneNo">-->
+
+<!--                    <app-otp-verification [phoneNo]="phoneNo" (onEnterOtp)="onEnterOtp($event)" (onResentOtp)="resendOtp()"></app-otp-verification>-->
+<!--                  </div>-->
+
+                  <!-- <div class="form-input">
+                    <mat-form-field appearance="outline" class="field m-100 first-name-from">
+                      <mat-label>{{ "ln.Others" | translate }}</mat-label>
+                      <textarea matInput type="text" value="" formControlName="others"></textarea>
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                  </div> -->
+
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="tramsCondition1" required>{{ "ln.Information" | translate }}
+                    </mat-checkbox>
+                    <div class="checkbox-error" *ngIf="dataForm.get('tramsCondition1').invalid && dataForm.get('tramsCondition1').touched">
+                      <small style="color: #f44336;">{{ "ln.PleaseAcceptInformationTerms" | translate }}</small>
+                    </div>
+                  </div>
+
+                  <div class="check">
+                    <mat-checkbox class="mat-check" formControlName="tramsCondition2" required>{{ "ln.PersonalFund" | translate }}
+                    </mat-checkbox>
+                    <div class="checkbox-error" *ngIf="dataForm.get('tramsCondition2').invalid && dataForm.get('tramsCondition2').touched">
+                      <small style="color: #f44336;">{{ "ln.PleaseAcceptPersonalFundTerms" | translate }}</small>
+                    </div>
+                  </div>
+
+                  <div class="check-terms">
+                    <mat-checkbox class="mat-check" formControlName="agreeWithTermsAndConditions" required>
+                      <label for="agreeTerms" style="padding-right: 6px;">
+                        {{ "ln.IAgreeTo" | translate }}
+                      </label>
+                      <a routerLink="/pages/terms-&-conditions"> {{ "ln.TermsAndConditionsComma" | translate }}</a>
+                      <a routerLink="/pages/privacy-policy">{{ "ln.PrivacyPolicyComma" | translate }}</a>
+                      <a routerLink="/pages/refund-policy">{{ "ln.RefundPolicyDot" | translate }}</a>
+                      <span>*</span>
+                    </mat-checkbox>
+                    <div class="checkbox-error" *ngIf="dataForm.get('agreeWithTermsAndConditions').invalid && dataForm.get('agreeWithTermsAndConditions').touched">
+                      <small style="color: #f44336;">{{ "ln.AgreeRequired" | translate }}</small>
+                    </div>
+                  </div>
+
+                  <div class="done-btn">
+                    <div class="next-btn">
+                      <button matStepperPrevious type="button">{{ "ln.Back" | translate }}</button>
+                    </div>
+
+                    <div class="next-btn">
+                      <button matStepperNext 
+                              type="button"
+                              [disabled]="!dataForm.get('tramsCondition1')?.value || !dataForm.get('tramsCondition2')?.value || !dataForm.get('agreeWithTermsAndConditions')?.value">
+                        {{ "ln.Next" | translate }}
+                      </button>
+                    </div>
+                  </div>
+
+                </mat-step>
+
+                <mat-step>
+
+                  <!--                <ng-template matStepLabel>Done</ng-template>-->
+                  <div class="selectPayment">
+                    <div class="payment-header data">
+                      <h4>{{ "ln.SelectMathod" | translate }}</h4>
+                    </div>
+
+                    <div class="online-payment">
+                      <div class="method-info"
+                           *ngFor="let data of paymentMethods"
+                           [class.active]="data.slug === selectedPaymentMethod()"
+                           (click)="onSelectPaymentMethod(data)"
+                      >
+                        <img [src]="data.image" alt="image" loading="lazy">
+                        <span>{{data.name}}</span>
+                        <div class="selection-indicator" *ngIf="data.slug === selectedPaymentMethod()">
+                          <i class="fa-solid fa-check"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Payment method summary -->
+                    <div class="payment-summary" *ngIf="selectedPaymentMethod()">
+                      <div class="summary-item">
+                        <span class="label">{{ "ln.SelectedMethod" | translate }}:</span>
+                        <span class="value">{{selectedPaymentMethod()}}</span>
+                      </div>
+                      <div class="summary-item">
+                        <span class="label">{{ "ln.Country" | translate }}:</span>
+                        <span class="value">{{getSingleCountry?.name || ("ln.NotSelected" | translate)}}</span>
+                      </div>
+                      <div class="summary-item">
+                        <span class="label">{{ "ln.Currency" | translate }}:</span>
+                        <span class="value">{{getSingleCountry?.currency || 'BDT'}}</span>
+                      </div>
+                      <div class="summary-item">
+                        <span class="label">{{ "ln.Amount" | translate }}:</span>
+                        <span class="value">{{amount | currency:'BDT':'symbol':'1.0-0'}}</span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div>
+                    <!--                  <button mat-button matStepperPrevious>Back</button>-->
+                    <!--                  <button mat-button (click)="stepper.reset()">Reset</button>-->
+                    <div class="next-btn">
+                      <button type="submit"
+                              [disabled]="!selectedPaymentMethod() || isLoading() ||
+                                         (!isUserLoggedIn() && !dataForm.get('name').valid) ||
+                                         (!isUserLoggedIn() && !dataForm.get('phoneNo').valid) ||
+                                         !dataForm.get('tramsCondition1').value ||
+                                         !dataForm.get('tramsCondition2').value ||
+                                         !dataForm.get('agreeWithTermsAndConditions').value ||
+                                         !getSingleCountry"
+                              class="submit-btn">
+                        {{ isLoading() ? ("ln.ProcessingPayment" | translate) : ("ln.SubmitPayment" | translate) }}
+                      </button>
+                    </div>
+
+                    <!-- Validation messages -->
+                    <div class="validation-messages" style="margin-top: 10px;">
+                      <div *ngIf="!getSingleCountry" style="color: #f44336; font-size: 12px; margin-bottom: 5px;">
+                        <i class="fa-solid fa-exclamation-triangle"></i> {{ "ln.PleaseSelectCountry" | translate }}
+                      </div>
+                      <div *ngIf="!dataForm.get('tramsCondition1').value" style="color: #f44336; font-size: 12px; margin-bottom: 5px;">
+                        <i class="fa-solid fa-exclamation-triangle"></i> {{ "ln.PleaseAcceptInformationTerms" | translate }}
+                      </div>
+                      <div *ngIf="!dataForm.get('tramsCondition2').value" style="color: #f44336; font-size: 12px; margin-bottom: 5px;">
+                        <i class="fa-solid fa-exclamation-triangle"></i> {{ "ln.PleaseAcceptPersonalFundTerms" | translate }}
+                      </div>
+                    </div>
+                  </div>
+
+                </mat-step>
+
+              </mat-stepper>
+            </form>
+            }
+
+<!--            <div *ngIf="confarmSubmit === true" class="success">-->
+<!--              <div class="card">-->
+<!--                <div  class="paid-sign">-->
+<!--                  <i class="checkmark">✓</i>-->
+<!--                </div>-->
+<!--                <h1>{{ "ln.Congratulations" | translate }}</h1>-->
+<!--                <p>{{ "ln.Successfully" | translate }}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--  <div class="section-bottom-contents">-->
+<!--    <div class="container">-->
+<!--      <div class="section-main">-->
+<!--        <div class="payment-header">-->
+<!--          <h4>Select Payment Method</h4>-->
+<!--        </div>-->
+
+<!--        <div class="payment-method-area">-->
+<!--          <button><a class="select-payment">-->
+<!--            <img src="/assets/images/ssl-thumb.jpg" alt="image" loading="lazy">-->
+<!--          </a></button>-->
+<!--          <button><a class="select-payment">-->
+<!--            <img src="/assets/images/download.png" alt="image" loading="lazy">-->
+<!--          </a></button>-->
+<!--          <button><a class="select-payment">-->
+<!--            <img src="/assets/images/mlogo.png" alt="image" loading="lazy">-->
+<!--          </a></button>-->
+<!--          <button><a class="select-payment">-->
+<!--            <img src="/assets/images/Nagad-Logo.wine.png" alt="image" loading="lazy">-->
+<!--          </a></button>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+</div>
+<mat-menu #menu="matMenu" class="mat-menu-login">
+  <div class="search-area">
+    <input class="input-grey-rounded" placeholder="Search Country or Code" [(ngModel)]="searchQuery"
+           (click)="$event.stopPropagation()"/>
+  </div>
+  <ng-container *ngFor="let data of filteredCountryData">
+    <button mat-menu-item (click)="onGetSingleCountry(data)">
+      <div class="login-flag">
+        <div>
+          <img [src]="data?.image | safeUrl" [alt]="data?.name"/>
+        </div>
+        <div>
+          <span style="color: #000000">/ {{ data?.name }}</span>
+        </div>
+      </div>
+    </button>
+  </ng-container>
+</mat-menu>

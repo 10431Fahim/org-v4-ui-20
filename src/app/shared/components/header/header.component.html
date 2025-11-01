@@ -1,0 +1,516 @@
+<!--header-area-->
+<div class="header-area" [class.change-bg]="slide()">
+  <div class="container">
+    <div class="header-main">
+      <!---logo-->
+      <div class="bar" [class.bar-active]="slide()" (click)="slideToggle()">
+        <ul style="text-align: left">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="logo" [class.animation]="searchBar()">
+        <div routerLink="/" class="headerbtn">
+          <img class="wow animate__fadeInLeft" src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="image" loading="lazy" />
+          <p class="text wow animate__fadeInRight">
+            <span>{{ "ln.Bangladesh" | translate }}</span>
+            <span>{{ "ln.NationalistParty" | translate }}</span>
+          </p>
+        </div>
+        <div class="main-area">
+          @if (!isUser()) {
+          <div class="dropdown mobile-payment">
+            <a class="dropbtn" (click)="togglePaymentDropdown(); $event.stopPropagation()">
+              <img class="payment-btn" src="/payment-icon.png" alt="">
+            </a>
+            @if (paymentDropdownOpen()) {
+              <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22 show">
+                <a class="border" [routerLink]="['/login/primary-member-fee']" (click)="closePaymentDropdown(); slideClose()">
+                  {{ "ln.GeneralMember" | translate }}</a>
+                <a class="border" [routerLink]="['/login/member-fee']" (click)="closePaymentDropdown(); slideClose()">
+                  {{ "ln.MembershipFee" | translate }}</a>
+                <a class="border" routerLink="/donate" (click)="closePaymentDropdown(); slideClose()">
+                  {{ "ln.Donate" | translate }}</a>
+              </div>
+            }
+          </div>
+        }
+          <div class="header-top-right-elm mobiletn">
+            <a [class.active]="isLanguageEnglish()"
+                href="javascript:void(0)"
+                (click)="onChangeLanguage('en', $event)" class="ln-active ">EN</a>
+              <a [class.active]="isLanguageBengali()"
+                href="javascript:void(0)"
+                (click)="onChangeLanguage('bn', $event)" class="ln-inactive ">বাং</a>
+          </div>
+
+          @if (isUser()) {
+            <a class="mobiletn" routerLink="/login">
+              <img
+                class="profile"
+                [src]="userProfileImage()"
+                alt=""
+                style="max-width: 40px"
+              />
+            </a>
+          }
+        </div>
+
+      </div>
+      <!--menu-area-->
+      <div class="menu-area" [class.animation]="searchBar()">
+        <ul>
+          <li>
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+              {{ "ln.Home" | translate }}
+            </a>
+          </li>
+          <li>
+            <a routerLink="/about-us" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+              {{ "ln.About" | translate }}
+            </a>
+          </li>
+          <li class="dropdown ">
+            <a href="javascript:void(0)" class="dropbtn">{{ "ln.Policies" | translate }} <i
+                class="fa-solid fa-angle-down"></i></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <a class="border" routerLink="/pages/constitution" [queryParamsHandling]="'merge'">{{ "ln.Constitution" | translate }} </a>
+              <a class="border" routerLink="/31-points" [queryParamsHandling]="'merge'">{{ "ln.31Points" | translate }} </a>
+              <a class="border" routerLink="/19-points" [queryParamsHandling]="'merge'">{{ "ln.19Points" | translate }} </a>
+<!--              <a class="border" routerLink="/10-points" [queryParamsHandling]="'merge'">{{ "ln.10Points" | translate }} </a>-->
+              <a  routerLink="/vision-2030" [queryParamsHandling]="'merge'">{{ "ln.Vision" | translate }} </a>
+            </div>
+          </li>
+
+
+          <li class="dropdown ">
+            <a href="javascript:void(0)" class="dropbtn"> {{ "ln.Party" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <ul>
+                <li class="sub-sub-menu1">
+                  <a href="javascript:void(0)" class="border fa-solid">{{ "ln.BNP" | translate }} <i class="fa-solid fa-caret-down"></i></a>
+
+                  <div class="sub-sub-menu">
+                    <ul class="sub-sub-menu1">
+                      <li>
+                        <a class="border" routerLink="/national-standing-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalCommittee" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/advisory-council" [queryParamsHandling]="'merge'">{{ "ln.ChairpersonCouncil" | translate }}
+                        </a>
+                      </li>
+                      <li>
+                        <a  routerLink="/pages/national-executive-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalExecutive" | translate }} </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+
+                <li class="sub-sub-menu1">
+                  <a href="javascript:void(0)" class="border fa-solid" >{{ "ln.OrganOrganization" | translate }} <i class="fa-solid fa-caret-down"></i></a>
+
+                  <div class="sub-sub-menu">
+                    <ul class="sub-sub-menu1">
+                      <li>
+                        <a class="border" routerLink="/pages/muktijoddha-dal" [queryParamsHandling]="'merge'">{{ "ln.MuktijoddhaDal" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/jubo-dal" [queryParamsHandling]="'merge'">{{ "ln.JuboDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/mohila-dal"[queryParamsHandling]="'merge'" >{{ "ln.MohilaDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/jashas" [queryParamsHandling]="'merge'">{{ "ln.SamajikSangskritik" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/krishak-dal" [queryParamsHandling]="'merge'">{{ "ln.KrishakDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/secchasebak-dal" [queryParamsHandling]="'merge'">{{ "ln.SwecchashebokDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/tati-dal" [queryParamsHandling]="'merge'">{{ "ln.TatiDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a class="border" routerLink="/pages/ulama-dal" [queryParamsHandling]="'merge'">{{ "ln.UlamaDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a routerLink="/pages/fisherman-dal" [queryParamsHandling]="'merge'">{{ "ln.FishermenDal" | translate }} </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="sub-sub-menu1">
+                  <a href="javascript:void(0)" class="border fa-solid">{{ "ln.AffiliateOrganization" | translate }} <i class="fa-solid fa-caret-down"></i></a>
+                  <div class="sub-sub-menu">
+                    <ul class="sub-sub-menu1">
+                      <li>
+                        <a class="border" routerLink="/pages/chatra-dal" [queryParamsHandling]="'merge'">{{ "ln.ChatraDal" | translate }} </a>
+                      </li>
+                      <li>
+                        <a routerLink="/pages/sramik-dal" [queryParamsHandling]="'merge'">{{ "ln.SramikDal" | translate }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </li>
+
+
+
+
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn"> {{ "ln.Resources" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+<!--              <a routerLink="/all-program">{{ "ln.PressRelease" | translate }}</a>-->
+<!--              <a routerLink="conference">{{ "ln.Conference" | translate }} </a>-->
+              <a class="border" routerLink="reports" [queryParamsHandling]="'merge'">{{ "ln.Reports" | translate }} </a>
+              <a class="border" routerLink="/notice" [queryParamsHandling]="'merge'">{{ "ln.Notice" | translate }}</a>
+              <a class="border" routerLink="/bnpbd" [queryParamsHandling]="'merge'">{{ "ln.Publication" | translate }}</a>
+
+<!--              <ul>-->
+<!--                <li class="sub-sub-menu1">-->
+<!--                  <a class="border fa-solid"routerLink="/pages/our-success" [queryParamsHandling]="'merge'">{{ "ln.OurSuccess" | translate }}<i class="fa-solid fa-caret-down"></i></a>-->
+<!--                  <div class="sub-sub-menu">-->
+<!--                    <ul class="sub-sub-menu1">-->
+<!--                      <li>-->
+<!--                        <a class="border" routerLink="/presidency" [queryParamsHandling]="'merge'">{{ "ln.PresidencyZiaurRahman" | translate }}</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="border" routerLink="/premiership-begum-khaleda-zia1" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum1" | translate }}</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="border" routerLink="/premiership-begum-khaleda-zia2" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum2" | translate }}</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a routerLink="/premiership-begum-khaleda-zia3" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum3" | translate }}</a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+
+<!--                </li>-->
+
+<!--                </ul>-->
+
+
+<!--              <a routerLink="/nineteen-dofa">{{ "ln.19Points" | translate }} </a>-->
+<!--              <a routerLink="/10-points">{{ "ln.10Points" | translate }} </a>-->
+<!--              <a routerLink="/article">{{ "ln.Article" | translate }}</a>-->
+<!--              <a routerLink="/songothon">{{ "ln.Organization" | translate }}</a>-->
+              <!-- <a routerLink="/pages/১৯-দফা" >19 Points </a>
+              <a routerLink="/pages/১০-দফা" >10 Points </a> -->
+
+<!--              <a routerLink="/vision-2030">{{ "ln.Vision" | translate }}</a>-->
+
+            </div>
+          </li>
+
+          <li class="dropdown">
+            <a  class="dropbtn"> {{ "ln.Achievement" | translate }}<i
+              class="fa-solid fa-angle-down"></i></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <a class="border" routerLink="/presidency-of-ziaur-rahman" [queryParamsHandling]="'merge'">{{ "ln.PresidencyZiaurRahman" | translate }}</a>
+              <a class="border" routerLink="/premiership-begum-khaleda-zia1" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum1" | translate }}</a>
+              <a class="border" routerLink="/premiership-begum-khaleda-zia2" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum2" | translate }}</a>
+              <a  routerLink="/premiership-begum-khaleda-zia3" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum3" | translate }}</a>
+            </div>
+          </li>
+
+<!--          <li>-->
+<!--            <a class="dropbtnlast" routerLink="/all-news"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">-->
+<!--              {{ "ln.Recentnews" | translate }}-->
+<!--            </a>-->
+<!--          </li>-->
+
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn" > {{ "ln.latest" | translate }}<i
+              class="fa-solid fa-angle-down"></i></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <a class="border" routerLink="/all-news" [queryParamsHandling]="'merge'"> {{ "ln.Recentnews" | translate }}</a>
+              <a class="border" routerLink="/video-gallery" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+            </div>
+          </li>
+
+          <li class="dropdown desktop-payment">
+            <a href="javascript:void(0)" class="dropbtn" > <img class="payment-btn" src="/payment-icon.png" alt=""></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <a class="border" [routerLink]="['/login/primary-member-fee']" >{{ "ln.GeneralMember" | translate }}</a>
+              <a class="border" [routerLink]="['/login/member-fee']">
+                {{ "ln.MembershipFee" | translate }}</a>
+              <a class="border" routerLink="/donate">{{ "ln.Donate" | translate }}</a>
+            </div>
+          </li>
+
+<!--          <li>-->
+<!--            <a routerLink="/" class="dropbtnlast" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">-->
+<!--              {{ "ln.Achievement" | translate }}-->
+<!--            </a>-->
+<!--          </li>-->
+
+<!--           <li>-->
+<!--            <a routerLink="video-gallery" class="support" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+<!--              Latest Video-->
+<!--            </a>-->
+<!--          </li>-->
+        </ul>
+
+        <div class="social">
+          <a href="https://www.facebook.com/bnpbd.org"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@bdbnp"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.instagram.com/bnpbd/?hl=en"><i class="fa-brands fa-instagram"></i></a>
+          <a class="tiktok" href="https://twitter.com/bdbnp78?fbclid=IwAR3Q283HzoOBATGXAycGh8x4QAmnDZfNWBBTRE5cI8DuAw4d6f0Jjixdq-g"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://t.me/bnpbd_org"><i class="fa-brands fa-telegram"></i></a>
+          <a href="https://www.tiktok.com/@bnpbd_org" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+          <div class="header-top-right-elm">
+
+            <!-- <button class="ln-inactive" (click)="onChangeLanguageToggle('en')"> {{isChangeLanguage && translateService.currentLang === 'en' ? 'English' :'বাংলা'}}</button> -->
+            <a href="javascript:void(0)" [class.active]="isLanguageEnglish()"
+              (click)="onChangeLanguage('en', $event)" class="ln-active ">EN</a>
+            <a href="javascript:void(0)" [class.active]="isLanguageBengali()"
+              (click)="onChangeLanguage('bn', $event)" class="ln-inactive ">বাং</a>
+
+          </div>
+<!--          <a routerLink="/login" *ngIf="!isUser">-->
+          <a routerLink="/login" >
+            <img
+              class="profile"
+              [src]="userProfileImage()"
+              alt=""
+              style="max-width: 40px"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!---responsive-menu-->
+  <div class="slide-menu" [class.slide-menu-active]="slide()">
+    <div class="res-menu">
+      <ul>
+        <li (click)="slideClose()">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+            {{ "ln.Home" | translate }}
+          </a>
+        </li>
+        <li (click)="slideClose()">
+          <a routerLink="/about-us" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+            {{ "ln.About" | translate }}
+          </a>
+        </li>
+        <li class="dropdown-mobile">
+          <a style="cursor: pointer;" [class]="openSubSubMenu3() ? 'active-bg':''" (click)="onClickOpenSubSubMenu3()">
+            {{ "ln.Policies" | translate }}
+            <i class="fa-solid fa-angle-down"></i>
+          </a>
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu3()">
+            <a routerLink="/pages/constitution" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Constitution" | translate }} </a>
+            <a routerLink="/31-points" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.31Points" | translate }}</a>
+            <a routerLink="/19-points"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.19Points" | translate }}</a>
+<!--            <a routerLink="/10-points" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.10Points" | translate }} </a>-->
+            <a routerLink="/vision-2030" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Vision" | translate }} </a>
+          </div>
+        </li>
+        <li class="dropdown-mobile">
+          <a style="cursor: pointer;" [class]="openSubSubMenu1() ? 'active-bg':''" (click)="onClickOpenSubSubMenu1()">{{
+            "ln.Resources" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu1()">
+
+<!--            <a routerLink="/all-program" (click)="slideClose()">{{ "ln.PressRelease" | translate }}</a>-->
+<!--            <a routerLink="conference" (click)="slideClose()">{{ "ln.Conference" | translate }} </a>-->
+            <a routerLink="reports" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Reports" | translate }} </a>
+            <a routerLink="/notice" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Notice" | translate }}</a>
+            <a routerLink="/bnpbd" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Publication" | translate }}</a>
+<!--            <ul>-->
+<!--              <li (click)="onSubMenuControll(1)" style="cursor: pointer;"><a>{{ "ln.OurSuccess" | translate }} <i-->
+<!--                [class]="subMenu == 1? 'fa-solid fa-angle-up':'fa-solid fa-angle-down'"></i></a></li>-->
+<!--              <div class="sub-sub-sub-menu-mobile" *ngIf="subMenu === 1">-->
+<!--                <ul>-->
+<!--                  <li (click)="slideClose()">-->
+<!--                    <a routerLink="/presidency-of-ziaur-rahman" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PresidencyZiaurRahman" | translate }}</a>-->
+<!--                  </li>-->
+<!--                  <li (click)="slideClose()">-->
+<!--                    <a routerLink="/premiership-begum-khaleda-zia1" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum1" | translate-->
+<!--                      }}</a>-->
+<!--                  </li>-->
+<!--                  <li (click)="slideClose()">-->
+<!--                    <a routerLink="/premiership-begum-khaleda-zia2" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum2" | translate-->
+<!--                      }}</a>-->
+<!--                  </li>-->
+<!--                  <li (click)="slideClose()">-->
+<!--                    <a routerLink="/premiership-begum-khaleda-zia3" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum3" | translate-->
+<!--                      }}</a>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </ul>-->
+<!--            <a routerLink="/pages/our-success" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.OurSuccess" | translate }}</a>-->
+<!--            <a routerLink="/visions-resources" (click)="slideClose()">{{ "ln.Publication" | translate }}</a>-->
+            <!-- <a routerLink="/all-news" (click)="slideClose()">{{ "ln.Article" | translate }}</a> -->
+<!--            <a routerLink="/presidency" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PresidencyZiaurRahman" | translate }}</a>-->
+<!--            <a routerLink="/premiership-begum-khaleda-zia1" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum1" | translate-->
+<!--              }}</a>-->
+<!--            <a routerLink="/premiership-begum-khaleda-zia2" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum2" | translate-->
+<!--              }}</a>-->
+<!--            <a routerLink="/premiership-begum-khaleda-zia3" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum3" | translate-->
+<!--              }}</a>-->
+<!--            <a routerLink="/nineteen-dofa" (click)="slideClose()">{{ "ln.19Points" | translate }}</a>-->
+<!--            <a routerLink="/ten-dofa" (click)="slideClose()">{{ "ln.10Points" | translate }}</a>-->
+            <!-- <a routerLink="/article" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Article" | translate }}</a> -->
+            <!-- <a routerLink="/article" (click)="slideClose()">{{ "ln.Publication" | translate }}</a> -->
+<!--            <a routerLink="/songothon" (click)="slideClose()">{{ "ln.Organization" | translate }}</a>-->
+            <!-- <a routerLink="/pages/১৯-দফা" (click)="slideClose()">19 Points </a>
+              <a routerLink="/pages/১০-দফা" (click)="slideClose()">10 Points </a> -->
+
+<!--            <a routerLink="/vision-2030" (click)="slideClose()">{{ "ln.Vision" | translate }}</a>-->
+
+          </div>
+        </li>
+
+        <li class="dropdown-mobile">
+          <a style="cursor: pointer;" [class]="openSubSubMenu2() ? 'active-bg':''" (click)="onClickOpenSubSubMenu2()">{{
+            "ln.Party" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu2()">
+            <ul>
+              <li (click)="onSubMenuControll(1)" style="cursor: pointer;"><a>{{ "ln.BNP" | translate }} <i
+                    [class]="subMenu() == 1? 'fa-solid fa-angle-up':'fa-solid fa-angle-down'"></i></a></li>
+              <div class="sub-sub-sub-menu-mobile" *ngIf="subMenu() === 1">
+                <ul>
+                  <li (click)="slideClose()">
+                    <a routerLink="/national-standing-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalCommittee" | translate }} </a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a routerLink="/pages/advisory-council" [queryParamsHandling]="'merge'">{{ "ln.ChairpersonCouncil" | translate }}
+                    </a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a routerLink="/pages/national-executive-committee" [queryParamsHandling]="'merge'">{{ "ln.NationalExecutive" | translate }} </a>
+                  </li>
+                </ul>
+
+              </div>
+
+              <li (click)="onSubMenuControll(2)" style="cursor: pointer;"><a>{{ "ln.Organizations" | translate }} <i
+                    [class]="subMenu() == 2? 'fa-solid fa-angle-up':'fa-solid fa-angle-down'"></i></a></li>
+              <div class="sub-sub-sub-menu-mobile" *ngIf="subMenu() === 2">
+                <ul>
+                  <li><a routerLink="/pages/muktijoddha-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.MuktijoddhaDal" | translate}}</a></li>
+                  <li><a routerLink="/pages/jubo-dal"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.JuboDal" | translate }}</a></li>
+                  <li> <a routerLink="/pages/mohila-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.MohilaDal" | translate }}</a></li>
+                  <li><a routerLink="/pages/jashas" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.SamajikSangskritik" | translate }}</a>
+                  </li>
+                  <li><a routerLink="/pages/krishak-dal" (click)="slideClose()" [queryParamsHandling]="'merge'"> {{ "ln.KrishakDal" | translate }}</a></li>
+                  <li><a routerLink="/pages/secchasebak-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.SwecchashebokDal" | translate }}
+                    </a></li>
+                  <li> <a routerLink="/pages/tati-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.TatiDal" | translate }}</a></li>
+                  <li> <a routerLink="/pages/ulama-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.UlamaDal" | translate }} </a></li>
+                  <li> <a routerLink="/pages/fisherman-dal" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.FishermenDal" | translate }}</a></li>
+                </ul>
+
+              </div>
+              <li (click)="onSubMenuControll(3)" style="cursor: pointer;"> <a>{{ "ln.AffiliateOrganization" | translate
+                  }} <i [class]="subMenu() == 3? 'fa-solid fa-angle-up':'fa-solid fa-angle-down'"></i></a></li>
+              <div class="sub-sub-sub-menu-mobile" *ngIf="subMenu() === 3">
+                <ul>
+                  <li><a routerLink="/pages/chatra-dal"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.ChatraDal" | translate }} </a> </li>
+                  <li><a routerLink="/pages/sramik-dal"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.SramikDal" | translate }} </a></li>
+                </ul>
+              </div>
+            </ul>
+          </div>
+        </li>
+
+
+        <li class="dropdown-mobile">
+          <a style="cursor: pointer;" [class]="openSubSubMenu4() ? 'active-bg':''" (click)="onClickOpenSubSubMenu4()">{{
+            "ln.Achievement" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu4()">
+
+            <!--            <a routerLink="/all-program" (click)="slideClose()">{{ "ln.PressRelease" | translate }}</a>-->
+            <!--            <a routerLink="conference" (click)="slideClose()">{{ "ln.Conference" | translate }} </a>-->
+            <a routerLink="/presidency-of-ziaur-rahman" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PresidencyZiaurRahman" | translate }}</a>
+            <a routerLink="/premiership-begum-khaleda-zia1" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum1" | translate}}</a>
+            <a routerLink="/premiership-begum-khaleda-zia2" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum2" | translate}}</a>
+            <a routerLink="/premiership-begum-khaleda-zia3" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.PremiershipBegum3" | translate}}</a>
+          </div>
+        </li>
+
+<!--        <li (click)="slideClose()">-->
+<!--          <a routerLink="/all-news" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">-->
+<!--            {{ "ln.Recentnews" | translate }}-->
+<!--          </a>-->
+<!--        </li>-->
+
+        <li class="dropdown-mobile" >
+          <a style="cursor: pointer;" [class]="openSubSubMenu5() ? 'active-bg':''" (click)="onClickOpenSubSubMenu5()">{{ "ln.latest" | translate }} <i class="fa-solid fa-angle-down"></i></a>
+
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu5()">
+
+            <a class="border" routerLink="/all-news"  (click)="slideClose()" [queryParamsHandling]="'merge'"> {{ "ln.Recentnews" | translate }}</a>
+            <a class="border" routerLink="/video-gallery"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+          </div>
+        </li>
+<!--        <li (click)="slideClose()">-->
+<!--          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">-->
+<!--            {{ "ln.Achievement" | translate }}-->
+<!--          </a>-->
+<!--        </li>-->
+
+        <li (click)="slideClose()">
+          <a [routerLink]="['/login/member-fee']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+            {{ "ln.MembershipFee" | translate }}
+          </a>
+        </li>
+        <li (click)="slideClose()">
+          <a [routerLink]="['/login/primary-member-fee']"  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+            {{ "ln.GeneralMember" | translate }}
+          </a>
+        </li>
+        <li (click)="slideClose()" style="margin-bottom: 10px">
+          <a routerLink="/donate" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+            {{ "ln.Donate" | translate }}
+          </a>
+        </li>
+
+
+
+      </ul>
+      <div class="container">
+
+        <div class="social1">
+       <div class="social-link-area">
+         <a href="https://www.facebook.com/bnpbd.org"><i class="fa-brands fa-facebook"></i></a>
+         <a href="https://www.youtube.com/@bdbnp"><i class="fa-brands fa-youtube"></i></a>
+         <a href="https://www.instagram.com/bnpbd/?hl=en"><i class="fa-brands fa-instagram"></i></a>
+         <a class="tiktok" href="https://twitter.com/bdbnp78?fbclid=IwAR3Q283HzoOBATGXAycGh8x4QAmnDZfNWBBTRE5cI8DuAw4d6f0Jjixdq-g"><i class="fa-brands fa-x-twitter"></i></a>
+         <a href="https://t.me/bnpbd_org"><i class="fa-brands fa-telegram"></i></a>
+         <a href="https://www.tiktok.com/@bnpbd_org" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+       </div>
+         <div class="donation-area">
+<!--           <a routerLink="donate" class="donate" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.Donate" | translate }}</a>-->
+           <div class="header-top-right-elm">
+             <!-- <button (click)="onChangeLanguageToggle('en')"> {{isChangeLanguage && translateService.currentLang === 'en' ? 'English' :'বাংলা'}}</button> -->
+             <a href="javascript:void(0)" [class.active]="isLanguageEnglish()"
+                (click)="onChangeLanguage('en', $event)" class="ln-active ">EN</a>
+             <a href="javascript:void(0)" [class.active]="isLanguageBengali()"
+                (click)="onChangeLanguage('bn', $event)" class="ln-inactive ">বাং</a>
+
+             <!-- <a href="" class="ln-inactive">EN</a>
+             <a href="" class="ln-active">বাং</a> -->
+           </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---end-->

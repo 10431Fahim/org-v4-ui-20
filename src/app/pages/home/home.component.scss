@@ -1,0 +1,287 @@
+@use "../../../theme/variables" as *;
+@use "../../../theme/_swipper" as *;
+
+
+.description {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width: 100%;
+
+}
+
+
+.swiperr {
+  width: 100%;
+  padding: 0px !important;
+}
+
+.swiper-parent {
+  background-color: #fff;
+}
+
+
+
+.icon-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 50px;
+  }
+}
+
+
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+
+@media(max-width:767px) {
+
+  .title-top {
+    font-size: 24px;
+  }
+
+  .section-2 {
+    margin-bottom: 25px;
+  }
+
+  .section-2-main {
+    margin: 20px 0px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+
+  .section-2-left p {
+    padding-bottom: 0px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .section-2-right {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+
+  .section-2-right img {
+    height: auto;
+    width: 100%;
+    max-width: 500px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 5px;
+    margin: auto;
+  }
+
+  .section-2-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .section-3-main {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+  }
+
+  .section-4 {
+    margin: 20px 0px 50px;
+  }
+
+  .section-3 {
+    height: auto;
+    margin-top: 50px;
+  }
+
+  .section-4-main {
+    display: block;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .icon-middle {
+    display: none;
+  }
+
+
+  .section-5-main {
+    grid-template-columns: repeat(1, 1fr);
+    //height: 380px;
+
+  }
+
+  .section-5-left {
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+
+    h2 {
+      margin: 15px;
+      font-size: 15px;
+      line-height: 28px !important;
+      margin-bottom: 2px !important;
+    }
+
+    //.button-hover {
+    //    font-size: 13px;
+    //    max-width: 126px;
+    //}
+
+  }
+
+  .section-5-right {
+    //display: block;
+    //width: 100%;
+    //position: relative;
+    //
+    //img {
+    //  position: relative;
+    //  max-height: 350px;
+    //  //min-height: 300px;
+    //  width: 100%;
+    //  height: auto;
+    //  //min-height: 180px;
+    //}
+
+    .desc-5 {
+      h2{
+        line-height: 16px;
+      }
+      top: 70%;
+    }
+  }
+
+  //.section-5-right .desc-5 {
+  //    color: white;
+  //    display: flex;
+  //    align-items: center;
+  //    justify-content: center;
+  //    flex-direction: column;
+  //    gap: 5px;
+  //    width: 100%;
+  //
+  //    h2 {
+  //        font-size: 15px;
+  //        line-height: 22px;
+  //        margin-bottom: 2px !important;
+  //    }
+  //
+  //    .button-hover {
+  //        font-size: 13px;
+  //        max-width: 126px;
+  //    }
+  //}
+
+  .section-3-right {
+    .quety {
+      top: 0px;
+
+      p {
+        color: #FFF;
+        margin-bottom: 20px !important;
+      }
+    }
+  }
+
+
+  .section-5-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    padding: 5px;
+    background-position: center;
+  }
+
+  .program-elm .img-date img {
+    height: 180px;
+
+  }
+
+  .program-elm .desc {
+    padding: 5px;
+    height: 50px;
+  }
+
+  .program-elm .desc p {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
+  .section-3-right p {
+    font-size: 18px;
+    line-height: 22px !important;
+    font-weight: 600;
+  }
+
+  .section-4-main-right {
+    padding: 20px 20px 15px;
+  }
+
+
+  .section-5-left h2 {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .section-3-right {
+    padding-bottom: 20px;
+  }
+
+}
+
+@media(max-width:500px) {
+  .section-2-left {
+    h1 {
+      font-size: 28px;
+      line-height: 30px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 23px;
+    }
+  }
+}
+
+
+@media(max-width:432px) {
+  .section-5-right {
+
+
+    .desc-5{
+
+      top: 48%;
+
+      h2{
+
+      }
+    }
+  }
+}
+
+@media (max-width: 1154px) {
+  .section-3-right {
+    .quety {
+      margin-left: 20px;
+
+      p {
+        //color: #FFF;
+        //margin-bottom: 20px!important;
+      }
+    }
+  }
+}
+
+
+

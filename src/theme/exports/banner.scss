@@ -1,0 +1,375 @@
+@use "../../theme/variables" as *;
+
+.section-1 {
+  background: linear-gradient(70deg, #b06ab3, #3e2784);
+}
+
+.section-1-main {
+  width: 100%;
+  color: $colo-white;
+  height: auto;
+
+  .banner-main-div {
+    padding: 120px 0px 100px;
+    box-sizing: border-box;
+
+    .banner-section-container {
+      display: grid;
+      grid-template-columns: 40% 50%;
+      justify-content: space-between;
+
+      .banner__content {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        justify-content: center;
+
+        .banner__title {
+          font-size:50px;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 14px;
+          //letter-spacing: px;
+          line-height: 1.2;
+          font-family:  $font-en-mont;
+        }
+
+        .banner_description {
+          padding-top: 15px;
+          box-sizing: border-box;
+          margin-bottom: 42px;
+          font-size: 18px;
+          line-height: 26px;
+          color: rgba(243, 237, 237, 0.82);
+          font-family:  $font-en-mont;
+          font-weight: 400;
+        }
+
+        .subscribe {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 10px;
+          margin-bottom: 15px;
+
+          input {
+            background-color: transparent;
+            border-radius: 6px;
+            margin-bottom: 0px;
+            height: 50px;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            border-color: #FFFFFF69;
+            color: #FFFFFF;
+            font-family:  $font-en-mont;
+            font-size: 15px;
+            font-weight: 300;
+          }
+
+          ::placeholder {
+            color: #AFB0B7;
+            opacity: 1;
+          }
+
+          input:not([type=submit]),
+          textarea {
+            width: 100%;
+            padding: 0 15px;
+            outline: 0;
+            transition: all .3s linear;
+            border-radius: 6px;
+          }
+
+          a {
+            border-radius: 6px;
+            outline: 0;
+            background-color: #175cff;
+            border: 2px solid #175cff;
+            // box-shadow: 0 11px 18px -8px rgba(23,92,255,.6);
+            display: inline-block;
+            padding: 11px 30px;
+            height: auto;
+            cursor: pointer;
+            font-family:  $font-en-mont;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #FFF;
+            transition: 0.3s ease;
+
+            &:hover {
+              background-color: transparent;
+              color: #175cff;
+              font-weight: 600;
+            }
+
+          }
+        }
+
+        .banner__feature {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 25px;
+
+          li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            .check {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #ffffff;
+              background-color: rgba(255, 255, 255, 0.1607843137);
+              border-radius: 50%;
+              height: 20px;
+              width: 20px;
+              padding: 5px;
+              text-align: center;
+            }
+
+            ::ng-deep .material-symbols-outlined {
+              font-size: 17px;
+            }
+
+            p {
+              font-family:  $font-en-mont;
+              font-weight: 300;
+              font-size: 14px;
+              margin-bottom: 0px;
+            }
+          }
+        }
+      }
+    }
+
+    .banner__feature-image {
+      margin: 0px -150px 0px 0px;
+      position: relative;
+      z-index: 3;
+      box-sizing: border-box;
+
+      .wow {
+        max-width: 850px;
+      }
+
+      .banner_secondary_image {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        max-width: 200px;
+      }
+
+      .banner__animate-element-two {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .banner__animate-element-two li {
+        width: 100%;
+        height: 100%;
+      }
+
+      .banner__animate-element-two li .inner {
+        position: absolute;
+      }
+
+      .banner__animate-element-two li:nth-child(1) .inner {
+        left: 25%;
+        top: -80px;
+        opacity: 1;
+      }
+
+      .banner__animate-element-two li:nth-child(2) .inner {
+        top: 50%;
+        left: -100px;
+        transform: translateY(-50%);
+      }
+
+      .banner__animate-element-two li:nth-child(3) .inner {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -50px;
+      }
+
+      .banner__animate-element-two {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+    }
+
+    .dot-div {
+      margin-top: -100px;
+
+      img {
+        object-fit: cover;
+        background-repeat: no-repeat;
+      }
+    }
+
+    .company-div {
+      max-width: 1000px;
+      margin: auto;
+
+      .banner__brand-logo-wrapper {
+        margin-top: 55px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        .banner__brand-logos {
+          list-style: none;
+
+          li {
+            // padding: 10px 30px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 30px 1fr;
+            gap: 5px;
+            align-items: center;
+            transition: 0.3s linear;
+            cursor: pointer;
+            color: #CBCBCB;
+            &:hover{
+              color: #FFF;
+              opacity: 1;
+              // scale: 1.05;
+            }
+
+            img {
+              width: 30px;
+              height: 30px;
+              margin: auto;
+              border: none;
+            }
+            p{
+              font-size: 18px;
+              font-family:  $font-en-mont;
+              line-height: 20px;
+              font-weight: 500;
+              margin: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  a {
+    position: relative;
+    z-index: 13;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 18px;
+    margin-right: 25px;
+    padding: 13px 30px;
+    font-size: 16px;
+    font-family:  $font-en-mont;
+    font-weight: 500;
+
+  }
+
+  .active{
+    background-color: #FFFF;
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
+    color: #b06ab3;
+  }
+}
+
+
+@media(max-width:1550px) {
+  .section-1-main .banner-main-div .banner__feature-image .wow {
+    max-width: 650px;
+  }
+}
+
+@media(max-width:1350px) {
+  .section-1-main .banner-main-div .banner__feature-image {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .section-1-main .banner-main-div .banner-section-container {
+    grid-template-columns: 45% 50%;
+  }
+}
+
+@media(max-width:1150px) {
+  .section-1-main .banner-main-div .banner__feature-image .banner_secondary_image {
+    max-width: 130px;
+  }
+}
+
+@media(max-width:1000px) {
+  .section-1-main .banner-main-div {
+    padding: 50px 0px 50px;
+    box-sizing: border-box;
+  }
+
+  .section-1-main .banner-main-div .banner-section-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+  }
+}
+
+@media(max-width:767px) {
+  .section-1-main .banner-main-div .banner-section-container .banner__content .banner__title {
+    font-size: 32px;
+    margin-bottom: 14px;
+    letter-spacing: 0px;
+  }
+
+  .section-1-main .banner-main-div .banner-section-container {
+    gap: 65px;
+  }
+
+  .section-1-main .banner-main-div .company-div .banner__brand-logo-wrapper {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-1-main .banner-main-div .banner-section-container .banner__content .banner__feature li p {
+    font-weight: 400;
+    font-size: 13px;
+  }
+}
+
+
+img {
+  height: auto;
+  max-width: 100%;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}

@@ -1,0 +1,93 @@
+@if (firstVision()) {
+  <div class="section1" [style.background-image]="'url(' + (firstVision()!.image || '') + ')'">
+    <div class="container">
+      <div class="section1-main">
+        @if (isEnglish()) {
+          <h2>{{ firstVision()!.name }}</h2>
+        } @else if (isBengali()) {
+          <h2 class="font-bangla">{{ firstVision()!.nameEn }}</h2>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+@if (firstVision()) {
+  <div class="section2">
+    <div class="container">
+      <div class="section2-main">
+        <div class="bnp-logo">
+          <img src="/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="image" loading="lazy">
+        </div>
+        <div class="section2-des nin-des-title">
+          @if (isEnglish()) {
+            <div [innerHTML]="firstVision()!.description"></div>
+          } @else if (isBengali()) {
+            <div class="font-bangla" [innerHTML]="firstVision()!.descriptionEn"></div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@if (firstVision() && firstVision()!.informations && firstVision()!.informations!.length > 0) {
+  @for (info of firstVision()!.informations!; track $index; let i = $index) {
+    <div class="main">
+      @if ((i + 1) % 2 !== 0) {
+        <div class="section3">
+          <div class="container">
+            <div class="section3-main">
+              <div class="section3-left ad-des">
+                <div>
+                  @if (isEnglish()) {
+                    <h3>{{ info?.name }}</h3>
+                  } @else if (isBengali()) {
+                    <h3 class="font-bangla">{{ info?.nameEn }}</h3>
+                  }
+                  @if (isEnglish()) {
+                    <div [innerHTML]="info?.description | safeHtmlCustom"></div>
+                  } @else if (isBengali()) {
+                    <div class="font-bangla" [innerHTML]="info?.descriptionEn | safeHtmlCustom"></div>
+                  }
+                </div>
+              </div>
+              <div class="section3-right">
+                <img [src]="info?.image" alt="image" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="section4">
+          <div class="container">
+            <div class="section4-main">
+              <div class="section4-left">
+                <img [src]="info?.image" alt="image" loading="lazy">
+              </div>
+              <div class="section4-right ad-des">
+                <div>
+                  @if (isEnglish()) {
+                    <h3>{{ info?.name }}</h3>
+                  } @else if (isBengali()) {
+                    <h3>{{ info?.nameEn }}</h3>
+                  }
+                  @if (isEnglish()) {
+                    <div [innerHTML]="info?.description | safeHtmlCustom"></div>
+                  } @else if (isBengali()) {
+                    <div class="font-bangla" [innerHTML]="info?.descriptionEn | safeHtmlCustom"></div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+}
+
+<div class="btn-share">
+  <button class="share" (click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>Share Now</button>
+  <button class="back" routerLink="/about-us">Back to Main Page</button>
+</div>

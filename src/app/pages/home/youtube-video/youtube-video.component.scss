@@ -1,0 +1,128 @@
+@use "../../../../theme/exports/_load-more-btn" as *;
+.load-more{
+  .button{
+    width: 15.5em!important;
+  }
+}
+.video{
+  position: relative;
+  margin-bottom: 80px;
+  iframe{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    position: relative;
+
+  }
+  .videoTitle{
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 26%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    display: -webkit-box!important;
+    -webkit-line-clamp: 3!important;
+    -webkit-box-orient: vertical!important;
+    background: #FFFFFF;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-weight: 500;
+    position: absolute;
+    width: 100%;
+    bottom: -24%;
+    z-index: 4;
+    line-height: 30px;
+  }
+
+  .videoTitle:hover{
+    cursor: pointer;
+    transition: 1s;
+    height: 35%;
+    display: block!important;
+  }
+
+}
+.youtube-video{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 15px;
+}
+
+.top-banner-area{
+  margin-bottom: 30px;
+  display: block;
+  width: 100%;
+  .banner{
+    width: 100%;
+    position: relative;
+    img{
+      position: relative;
+
+      max-height: 420px;
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+    }
+    .pageinfo-name{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #FFF;
+      text-align: center;
+      h2{
+        font-size: 30px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1127px) {
+  .youtube-video{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 15px;
+  }
+}
+
+@media (max-width: 775px) {
+  .youtube-video{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 15px;
+  }
+
+  iframe{
+    height: 300px;
+  }
+}
+
+
+@media (max-width: 479px) {
+  .youtube-video{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 15px;
+  }
+
+  iframe{
+    height: 280px;
+  }
+}
+
+
+@media (max-width: 385px) {
+  .youtube-video{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 15px;
+  }
+
+  iframe{
+    height: 250px;
+  }
+}

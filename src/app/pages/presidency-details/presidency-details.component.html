@@ -1,0 +1,161 @@
+<!-- <div class="section1">
+    <div class="container">
+        <div class="section1-title">
+            <h3>{{portfolio[0]?.name}}</h3>
+        </div>
+        <div class="section1-main">
+            <div class="leader-card" *ngFor="let data of portfolio[0]?.leaders; let i = index">
+                <div class="leader-img" [routerLink]="['/leader-details', i]">
+                    <img [src]="data.image ? data.image : ''"  alt="image" loading="lazy">
+                </div>
+                <div class="leader-name">
+                    <a [routerLink]="['/leader-details',i]">{{data?.name}}</a>
+                  <div [innerHTML]="data?.description">
+
+                  </div>
+
+                   <p>{{data?.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+ <!-- <div class="main" *ngFor="let info of about[0]?.informations; let i = index">
+    <div class="section3" *ngIf="i < 1">
+      <div class="">
+        <div class="section3-main">
+          <div class="section3-right">
+            <img [src]="info?.image" alt="image" loading="lazy" />
+          </div>
+          <div class="section3-left">
+            <div>
+              <h3>{{info?.name}}</h3>
+              <p
+                class="paragraph1"
+                [innerHTML]="info?.description | safeHtmlCustom"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- <ng-container
+    *ngIf="about[0]?.informations && about[0]?.informations?.length > 0"
+  > -->
+    <!-- <div class="section1"*ngFor="let info of about[0]?.informations">
+        <div class="container">
+          <div class="ledar-head">
+            <h3>{{info?.name}}</h3>
+          </div>
+           <div class="section1-main">
+
+               <div class="leader-img">
+                <img [src]="info?.image" alt="image" loading="lazy" />
+               </div>
+               <div class="leader-des">
+
+                <p
+                class="paragraph1"
+                [innerHTML]="info?.description | safeHtmlCustom"
+              ></p>
+               </div>
+           </div>
+        </div>
+  </div> -->
+<!-- </ng-container> -->
+
+
+<div class="section1" [style.background-image]="'url(' + (about && about[0]?.image || '') + ')'">
+  <!-- <img [src]="about[0]?.image" alt="image" loading="lazy"> -->
+  <div class="container">
+    <div class="section1-main">
+
+      <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{ about && about[0]?.name || '' }}</h2>
+      <h2  class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{ about && about[0]?.nameEn || '' }}</h2>
+      <!-- <h2>{{ about[0]?.name }}</h2> -->
+    </div>
+  </div>
+</div>
+
+<div class="section2">
+  <div class="container">
+    <div class="section2-main">
+      <div class="bnp-logo">
+        <img
+          src="/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+          alt="image" loading="lazy"
+        />
+      </div>
+      <div class="section2-des">
+        <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " [innerHTML]="about && about[0]?.description || ''"></p>
+        <p  class="font-bangla" *ngIf="translateService.currentLang === 'bn' " [innerHTML]="about && about[0]?.descriptionEn || ''"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container
+  *ngIf="about && about[0]?.informations && about[0]!.informations!.length > 0"
+>
+  <div class="main" *ngFor="let info of about[0]!.informations; let i = index">
+    <div class="section3" *ngIf="i < 1">
+      <div class="">
+        <div class="section3-main">
+          <div class="section3-right">
+            <img [src]="info?.image" alt="image" loading="lazy" />
+          </div>
+          <div class="section3-left">
+            <div>
+              <!-- <h3>{{info?.name}}</h3> -->
+              <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang "
+                class="paragraph1"
+                [innerHTML]="info?.description | safeHtmlCustom"
+              ></p>
+              <p  *ngIf="translateService.currentLang === 'bn' "
+                class="paragraph1 font-bangla"
+                [innerHTML]="info?.descriptionEn | safeHtmlCustom"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- <div class="section41" *ngIf="i== 2">
+
+             <div class="section4-main1">
+                   <div class="section4-left">
+                     <img [src]="info?.image" alt="image" loading="lazy">
+                   </div>
+                   <div class="section4-right">
+                           <div>
+                             <h3>{{info?.name}}</h3>
+                             <p [innerHTML]="info?.description | safeHtmlCustom"></p>
+                           </div>
+                   </div>
+        </div>
+     </div> -->
+
+  </div>
+
+
+<div class="section4-content container">
+  <div class="section4-main">
+    <div class="section41" *ngFor="let infoo of (about && about[0]?.informations | slice:1:4) || []" >
+      <div class="section4-main1">
+            <div class="section4-left">
+              <img [src]="infoo?.image" alt="image" loading="lazy">
+            </div>
+            <div class="section4-right">
+                    <div>
+                      <h2 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{infoo?.name}}</h2>
+                      <h2 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{infoo?.nameEn}}</h2>
+                      <!-- <h3>{{infoo?.name}}</h3> -->
+                    </div>
+            </div>
+      </div>
+  </div>
+  </div>
+</div>
+</ng-container>

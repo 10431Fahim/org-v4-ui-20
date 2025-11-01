@@ -1,0 +1,119 @@
+<div class="top-banner-area">
+  <div class="">
+    @if (firstFoundingHistoric() && !isLoading()) {
+      <div class="banner">
+        <img [src]="firstFoundingHistoric()!.image" alt="image" loading="lazy" />
+        <div class="pageinfo-name">
+          @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+            <h2>{{ firstFoundingHistoric()!.name }}</h2>
+          } @else if (translateService.currentLang === 'bn') {
+            <h2 class="font-bangla">{{ firstFoundingHistoric()!.nameEn }}</h2>
+          }
+        </div>
+      </div>
+    } @else if (isLoading()) {
+      <div class="banner loading-placeholder">
+        <div class="loading-skeleton"></div>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="funding-historic">
+  <div class="container">
+    @if (firstFoundingHistoric() && !isLoading()) {
+      <div class="funding-historic-heading ad-des1">
+        @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+          <h1 class="main-title font-en" [innerHTML]="firstFoundingHistoric()!.description"></h1>
+        } @else if (translateService.currentLang === 'bn') {
+          <h1 class="main-title font-bangla" style="font-family: 'Noto Sans Bengali',sans-serif;" [innerHTML]="firstFoundingHistoric()!.descriptionEn"></h1>
+        }
+      </div>
+    } @else if (isLoading()) {
+      <div class="funding-historic-heading ad-des1 loading-placeholder">
+        <div class="loading-skeleton"></div>
+      </div>
+    }
+
+    <div class="funding-historic-tree">
+      @if (!isLoading()) {
+        @for (data of informations(); track data.id || $index; let i = $index) {
+        @if ((i + 1) % 2 !== 0) {
+          <ul class="timeline">
+            <li class="timeline-blocks">
+              <div>
+                @if (i == 0) {
+                  <figure class="timeline-icon1">
+                    <span></span>
+                  </figure>
+                }
+                <figure class="timeline-icon">
+                  <img src="/images/icons8-calendar.gif" alt="timeline" />
+                </figure>
+
+                <div class="dir-r radius-3">
+                  @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                    <h1>{{ data.name }}</h1>
+                  } @else if (translateService.currentLang === 'bn') {
+                    <h1 class="font-bangla">{{ data.nameEn }}</h1>
+                  }
+                  <img [src]="data.image" alt="image" loading="lazy" />
+                  @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                    <p [innerHTML]="data?.description" class="dotet-text"></p>
+                  } @else if (translateService.currentLang === 'bn') {
+                    <p [innerHTML]="data?.descriptionEn" class="dotet-text font-bangla"></p>
+                  }
+                </div>
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <div class="date-l">{{ data.dateFiled }}</div>
+                } @else if (translateService.currentLang === 'bn') {
+                  <div class="date-l font-bangla">{{ data.dateFiledEn }}</div>
+                }
+              </div>
+            </li>
+          </ul>
+        }
+
+        @if ((i + 1) % 2 === 0) {
+          <ul class="timeline">
+            <li class="timeline-blocks">
+              <figure class="timeline-icon">
+                <img src="/images/icons8-calendar.gif" alt="timeline" />
+              </figure>
+              <div class="dir-l radius-3">
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <h1>{{ data.name }}</h1>
+                } @else if (translateService.currentLang === 'bn') {
+                  <h1 class="font-bangla">{{ data.nameEn }}</h1>
+                }
+                <img [src]="data.image" alt="image" loading="lazy" />
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <p [innerHTML]="data?.description" class="dotet-text"></p>
+                } @else if (translateService.currentLang === 'bn') {
+                  <p [innerHTML]="data?.descriptionEn" class="dotet-text font-bangla"></p>
+                }
+              </div>
+              @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                <div class="date-r date-rrr right-heading">{{ data.dateFiled }}</div>
+              } @else if (translateService.currentLang === 'bn') {
+                <div class="date-r date-rrr right-heading font-bangla">{{ data.dateFiledEn }}</div>
+              }
+            </li>
+          </ul>
+        }
+        }
+      } @else {
+        <div class="loading-placeholder">
+          <div class="loading-skeleton"></div>
+          <div class="loading-skeleton"></div>
+          <div class="loading-skeleton"></div>
+        </div>
+      }
+    </div>
+    <div class="btn-share">
+      <button class="share" (click)="openDialog()"><i class="fa-solid fa-share-nodes"></i>{{"ln.Share" | translate}}</button>
+      <button class="back" routerLink="/about-us">{{"ln.BackHome" | translate}}</button>
+    </div>
+  </div>
+</div>
+

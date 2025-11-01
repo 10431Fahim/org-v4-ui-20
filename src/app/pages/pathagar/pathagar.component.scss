@@ -1,0 +1,63 @@
+@use "../../../theme/variables" as *;
+@use "../../../theme/_swipper" as *;
+
+.section-1-main {
+    display: grid;
+    grid-template-columns: 260px calc(100% - 280px);
+    grid-gap: 20px;
+    grid-template-rows: auto;
+    padding: 35px 0px;
+
+    .section1-left {
+        h1 {
+            font-size: 22px;
+            font-family: $font-en-primary;
+            font-weight: 600;
+            padding-bottom: 5px;
+            display: inline;
+            border-bottom: 3px solid green;
+        }
+
+        .page-list {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+
+            a {
+                padding: 8px 10px;
+                background-color: #FFFF;
+                border: 1px solid green;
+                font-size: 16px;
+                font-family: $font-en-primary;
+                font-weight: 500;
+                display: block;
+                width: 100%;
+                margin-bottom: 0px;
+                cursor: pointer;
+                border-radius: 5px;
+
+                &:hover {
+                    background-color: green;
+                    border: 1px solid green;
+                    color: #FFF;
+                }
+            }
+        }
+    }
+
+    .section1-right{
+        display: block;
+        width: 100%;
+    }
+
+
+
+}
+@media(max-width:850px){
+    .section-1-main{
+        grid-template-columns: repeat(1, 100%);
+    }
+}

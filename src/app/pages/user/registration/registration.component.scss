@@ -1,0 +1,626 @@
+@use "../../../../theme/variables" as *;
+
+.main-area {
+  background: #B3DDC4;
+}
+
+.form-area {
+  padding: 40px 0;
+  position: relative;
+}
+
+.top-banner-area {
+  display: block;
+  width: 100%;
+  position: relative;
+
+  .banner {
+    width: 100%;
+    text-align: center;
+
+    img {
+      position: relative;
+      max-height: 420px;
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+    }
+
+    h2 {
+      position: absolute;
+      text-align: center;
+      line-height: 42px;
+      color: $colo-white;
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 570;
+      font-size: 32px;
+      top: 50%;
+      left: auto;
+      right: auto;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+}
+.amount {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  text-align: center;
+
+  label {
+    font-weight: 600;
+    color: #495057;
+    margin: 0;
+
+    .amount-value {
+      color: #28a745;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+  }
+}
+
+.registration-form {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 15px;
+  background: #f4fef7;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: "Segoe UI", sans-serif;
+
+  .title {
+    text-align: center;
+    color: #007a00;
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    color: #555;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .test{
+    margin-top: 4rem;
+  }
+
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .required {
+      color: #dc3545;
+      margin-left: 2px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .optional {
+      color: #6c757d;
+      margin-left: 4px;
+      font-weight: 400;
+      font-size: 0.85em;
+      font-style: italic;
+      background-color: #f8f9fa;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.8rem;
+      margin-top: 3px;
+    }
+  }
+
+  .mobile-input {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+
+    .country-code {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #fff;
+      padding: 0 10px;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 24px;
+        border-radius: 2px;
+      }
+    }
+
+    input {
+      border: none;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      width: 100%;
+      background: transparent;
+
+      &:focus {
+        outline: none;
+        background-color: #fff;
+      }
+    }
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: #007a00;
+    box-shadow: 0 0 0 2px rgba(0, 122, 0, 0.2);
+  }
+
+  // Invalid state styles
+  input.ng-invalid.ng-touched,
+  select.ng-invalid.ng-touched {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2) !important;
+    background-color: #fff5f5;
+  }
+
+  .mat-form-field.ng-invalid.ng-touched .mat-form-field-outline {
+    border-color: #dc3545 !important;
+  }
+
+  .mat-form-field.ng-invalid.ng-touched .mat-form-field-outline-thick {
+    color: #dc3545 !important;
+  }
+
+  .mat-form-field.ng-invalid.ng-touched .mat-form-field-label {
+    color: #dc3545 !important;
+  }
+
+  .phone-group {
+    display: flex;
+    gap: 8px;
+
+    input:first-child {
+      width: 60px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input:last-child {
+      flex: 1;
+    }
+  }
+
+  .recommend-section {
+    background: #f6fff6;
+    //padding: 1rem;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+
+    h4 {
+      margin-bottom: 0.75rem;
+      color: #003300;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .recommend-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .full-width {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+  }
+
+  .file-upload {
+    margin-top: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    a {
+      color: #007a00;
+      text-decoration: none;
+      transition: text-decoration 0.2s ease;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    #condition {
+      width: 17px;
+      min-width: 17px;
+      min-height: 17px;
+      margin-top: 5px;
+    }
+
+    label {
+      margin: 0;
+    }
+  }
+
+  .error {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: "⚠";
+      margin-right: 4px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .form-error-summary {
+    margin-bottom: 1rem;
+
+    .error-summary {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: #721c24;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+
+      span {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 2rem;
+
+    button {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button[type='submit'] {
+      background-color: #007a00;
+      color: white;
+
+      &:hover {
+        background-color: #005f00;
+      }
+    }
+
+    button[type='button'] {
+      background-color: #444;
+      color: white;
+
+      &:hover {
+        background-color: #222;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+
+    a {
+      color: #007a00;
+      text-decoration: none;
+      transition: text-decoration 0.2s ease;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Material Design autocomplete styles
+  .form-input-select {
+    .mat-form-field {
+      width: 100%;
+
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+
+      .mat-form-field-outline {
+        border-radius: 6px;
+      }
+
+      .mat-form-field-outline-thick {
+        border-color: #007a00;
+      }
+
+      .mat-form-field-label {
+        color: #555;
+        font-weight: 600;
+      }
+
+      .mat-input-element {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+      }
+    }
+
+    .mat-autocomplete-panel {
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      .mat-option {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+
+        &:hover {
+          background-color: #f0f8f0;
+        }
+
+        &.mat-selected {
+          background-color: #e0f0e0;
+        }
+      }
+    }
+  }
+}
+
+.header-row {
+  //position: absolute;
+  //right: 0;
+  //top: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  .right-fields {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 4px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      min-width: 160px;
+
+      label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 0.95rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+    }
+  }
+}
+
+.login-flag {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  img {
+    max-width: 34px;
+    object-fit: cover;
+  }
+
+  span {
+    font-family: $font-en-primary;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+::ng-deep {
+  .mat-menu-login {
+    &.mat-mdc-menu-panel {
+      max-height: 300px !important;
+    }
+  }
+}
+
+::ng-deep.mat-mdc-menu-content {
+  padding-top: 0 !important;
+}
+
+.search-area {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  /* Ensure it stays on top of other content */
+}
+
+.search-area input {
+  line-height: 1.5;
+  border: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><path fill='%23838D99' d='M13.22 14.63a8 8 0 1 1 1.41-1.41l4.29 4.29a1 1 0 1 1-1.41 1.41l-4.29-4.29zm-.66-2.07a6 6 0 1 0-8.49-8.49 6 6 0 0 0 8.49 8.49z'></path></svg>");
+  background-repeat: no-repeat;
+  background-position: 9px 8px;
+  background-size: 20px 20px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0, rgba(27, 31, 35, 0.15) 0 0 0 1px;
+  border-radius: 5px;
+  color: #575757;
+  font-weight: 400;
+  width: 100%;
+  font-size: 14px;
+  padding: .4em 1em .4em 2.5em;
+}
+
+.search-area input::placeholder {
+  color: #575757;
+  font-size: 14px;
+}
+
+.search-area input:focus {
+  outline: none;
+}
+
+.form-input-select {
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.main-area{
+::ng-deep.mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+  font-size: .875rem !important;
+  line-height: 1.25rem !important;
+}
+
+::ng-deep.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+  transition: opacity 150ms 0ms cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: .875rem !important;
+  line-height: 1.25rem !important;
+}
+
+::ng-deep.mat-mdc-text-field-wrapper {
+  height: 41px !important;
+}
+
+::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 2px !important;
+  padding-bottom: 0px !important;
+}
+
+::ng-deep.mdc-text-field--outlined {
+  padding-right: max(0px, var(--mdc-shape-small, 0px)) !important;
+}
+
+::ng-deep.mdc-text-field--outlined {
+  padding-left: max(0px, calc(var(--mdc-shape-small, 0px) + 0px)) !important;
+}
+
+::ng-deep.mat-mdc-form-field-infix {
+  min-height: 41px !important;
+}
+
+::ng-deep.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle, .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle{
+  border-color: $color-primary !important;
+}
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle{
+  border-color: $color-primary !important;
+}
+
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #e5e7eb !important;
+}
+
+::ng-deep .mdc-notched-outline__leading {
+  border-color: #e5e7eb !important;
+}
+
+::ng-deep .mdc-notched-outline__notch {
+  border-color: #e5e7eb !important;
+}
+
+::ng-deep.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-left: none !important;
+}
+}
+
+@media (max-width:599px) {
+  .header-main{
+    flex-direction: column;
+  }
+  .registration-form .test {
+    margin-top: 1rem;
+}
+  .header{
+    font-size: 15px !important;
+  }
+  label{
+    font-size: 14px !important;
+  }
+}

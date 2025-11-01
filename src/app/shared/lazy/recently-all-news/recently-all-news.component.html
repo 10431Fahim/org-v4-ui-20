@@ -1,0 +1,30 @@
+<div class="recently-news">
+  <a routerLink="/all-news" [queryParamsHandling]="'merge'"><h2 class="title-top">{{ "ln.Recentnews" | translate }}</h2></a>
+
+    <div class="news-container">
+        <ng-container *ngIf="isLoading">
+             <div *ngFor="let t of [0,1,2]">
+                <app-recently-news-loader></app-recently-news-loader>
+             </div>
+        </ng-container>
+        <ng-container *ngIf="!isLoading">
+           <div class="news1" >
+            <div class="news" *ngFor="let data of review?.slice(0,4)">
+              <a class="news11" [routerLink]="['/all-news/',data?._id]" [queryParamsHandling]="'merge'">
+                <img [src]="data.image2" alt="image" loading="lazy" >
+                <div class="news-desc">
+                    <h4 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</h4>
+                    <h4 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</h4>
+                    <span *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.shortDescription}}</span>
+                    <span class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.shortDescriptionEn}}</span>
+                  <div class="read-more">
+                    <a [routerLink]="['/all-news/',data?._id]" [queryParamsHandling]="'merge'" class="button-hover">{{ "ln.READMORE1" | translate }}</a>
+                  </div>
+                </div>
+              </a>
+            </div>
+           </div>
+        </ng-container>
+    </div>
+    <a routerLink="/all-news" class="button-hover">{{ "ln.Moresection" | translate }}</a>
+</div>

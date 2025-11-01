@@ -1,0 +1,108 @@
+.transaction-card {
+  //max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin: 0;
+    }
+
+    p {
+      font-size: 13px;
+      color: #777;
+      margin: 4px 0 0 0;
+    }
+
+    button {
+      font-size: 13px;
+      background: transparent;
+      border: none;
+      color: #3b82f6;
+      cursor: pointer;
+      padding: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .transaction-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    overflow: auto;
+
+    .transaction-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-top: 1px solid #f0f0f0;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      .left {
+        .title {
+          font-size: 14px;
+          font-weight: 500;
+          color: #444;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          mat-icon{
+            cursor: pointer;
+            color: #0a785a;
+          }
+        }
+
+        .date {
+          font-size: 12px;
+          color: #999;
+        }
+      }
+
+      .right {
+        text-align: right;
+
+        .amount {
+          font-weight: 600;
+          font-size: 14px;
+          margin: 0;
+        }
+
+        .status {
+          font-size: 12px;
+          color: #999;
+        }
+
+        &.success {
+          .amount {
+            color: #10b981;
+          }
+        }
+
+        &.failed {
+          .amount {
+            color: #ef4444;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+<div class="angular20-demo-container">
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Angular 20 Features Demo</mat-card-title>
+      <mat-card-subtitle>Interactive demonstration of Angular 20 signals, effects, and modern patterns</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Signals Demo Section -->
+      <div class="demo-section">
+        <h3>Signals Demo</h3>
+        
+        <!-- Counter Signal -->
+        <div class="signal-demo">
+          <h4>Counter Signal</h4>
+          <p>Current Value: {{ counter() }}</p>
+          <p>Doubled Value: {{ doubledCounter() }}</p>
+          
+          <div class="button-group">
+            <button mat-raised-button color="primary" (click)="increment()">Increment</button>
+            <button mat-raised-button color="accent" (click)="decrement()">Decrement</button>
+            <button mat-raised-button color="warn" (click)="resetCounter()">Reset</button>
+          </div>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Set Counter Value</mat-label>
+            <input matInput type="number" [(ngModel)]="counterInput" (ngModelChange)="updateCounter(counterInput)">
+          </mat-form-field>
+        </div>
+
+        <!-- Name Signals -->
+        <div class="signal-demo">
+          <h4>Name Signals</h4>
+          <p>Full Name: {{ fullName() }}</p>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="firstName()" (ngModelChange)="updateFirstName($event)">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="lastName()" (ngModelChange)="updateLastName($event)">
+          </mat-form-field>
+        </div>
+
+        <!-- Theme Color Signal -->
+        <div class="signal-demo">
+          <h4>Theme Color Signal</h4>
+          <p>Selected Color: {{ themeColor() }}</p>
+          <div class="color-preview" [style.background-color]="themePreviewColor()"></div>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Theme Color</mat-label>
+            <mat-select [(ngModel)]="themeColor()" (ngModelChange)="updateThemeColor($event)">
+              <mat-option value="blue">Blue</mat-option>
+              <mat-option value="red">Red</mat-option>
+              <mat-option value="green">Green</mat-option>
+              <mat-option value="purple">Purple</mat-option>
+              <mat-option value="orange">Orange</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Service Integration Demo -->
+      <div class="demo-section">
+        <h3>Service Integration Demo</h3>
+        
+        <div class="service-demo">
+          @if (angular20Service.loading()) {
+            <mat-spinner diameter="30"></mat-spinner>
+            <p>Loading...</p>
+          } @else if (angular20Service.error()) {
+            <div class="error-state">
+              <p>{{ angular20Service.error() }}</p>
+              <button mat-button color="warn" (click)="angular20Service.clearError()">Clear Error</button>
+            </div>
+          } @else {
+            <div class="service-content">
+              @if (angular20Service.userProfile()) {
+                <div class="user-profile">
+                  <h4>User Profile</h4>
+                  <p><strong>Name:</strong> {{ angular20Service.userDisplayName() }}</p>
+                  <p><strong>Phone:</strong> {{ angular20Service.userDisplayPhone() }}</p>
+                  <p><strong>Profile Complete:</strong> {{ angular20Service.isProfileComplete() ? 'Yes' : 'No' }}</p>
+                </div>
+              }
+              
+              <div class="button-group">
+                <button mat-raised-button color="primary" (click)="loadUserProfile()">Load Profile</button>
+                <button mat-raised-button color="accent" (click)="simulateUpdate()">Simulate Update</button>
+                <button mat-raised-button color="warn" (click)="angular20Service.resetState()">Reset State</button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Effects Log -->
+      <div class="demo-section">
+        <h3>Effects Log</h3>
+        <div class="effects-log">
+          @for (log of effectLogs(); track log) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

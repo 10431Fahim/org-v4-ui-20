@@ -1,0 +1,77 @@
+<div class="transaction-card">
+  <div class="card-header">
+    <div>
+      <h2>Transaction History</h2>
+      @if (isLoading()) {
+        <p>Loading transactions...</p>
+      } @else {
+        <p>{{ transactionCount() }} transaction(s) found</p>
+      }
+    </div>
+  </div>
+
+  <ul class="transaction-list">
+    @if (hasTransactions()) {
+      @for (data of user(); track data.id || $index) {
+        <li class="transaction-item">
+          <div class="left">
+            <p class="title">{{ data?.transactionType }} <mat-icon (click)="downloadForm(data)">cloud_download</mat-icon></p>
+            <span class="date">{{ data?.date | date }}</span>
+          </div>
+          <div class="right success">
+            <p class="amount">+৳{{ data?.amount }}</p>
+            <span class="status">Paid</span>
+          </div>
+        </li>
+      }
+    } @else {
+      <li class="no-transactions">
+        <p>No transactions found</p>
+      </li>
+    }
+
+<!--    <li class="transaction-item">-->
+<!--      <div class="left">-->
+<!--        <p class="title">Membership fees</p>-->
+<!--        <span class="date">June 26, 2025</span>-->
+<!--      </div>-->
+<!--      <div class="right success">-->
+<!--        <p class="amount">+৳500.00</p>-->
+<!--        <span class="status">Paid</span>-->
+<!--      </div>-->
+<!--    </li>-->
+
+<!--    <li class="transaction-item">-->
+<!--      <div class="left">-->
+<!--        <p class="title">Membership fees</p>-->
+<!--        <span class="date">June 26, 2025</span>-->
+<!--      </div>-->
+<!--      <div class="right success">-->
+<!--        <p class="amount">+৳500.00</p>-->
+<!--        <span class="status">Paid</span>-->
+<!--      </div>-->
+<!--    </li>-->
+
+<!--    <li class="transaction-item">-->
+<!--      <div class="left">-->
+<!--        <p class="title">Membership fees</p>-->
+<!--        <span class="date">June 26, 2025</span>-->
+<!--      </div>-->
+<!--      <div class="right success">-->
+<!--        <p class="amount">+৳500.00</p>-->
+<!--        <span class="status">Paid</span>-->
+<!--      </div>-->
+<!--    </li>-->
+
+<!--    <li class="transaction-item">-->
+<!--      <div class="left">-->
+<!--        <p class="title">Membership fees</p>-->
+<!--        <span class="date">June 26, 2025</span>-->
+<!--      </div>-->
+<!--      <div class="right success">-->
+<!--        <p class="amount">+৳500.00</p>-->
+<!--        <span class="status">Paid</span>-->
+<!--      </div>-->
+<!--    </li>-->
+  </ul>
+</div>

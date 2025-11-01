@@ -1,0 +1,42 @@
+@if (showContent()) {
+  <div class="section1">
+    <div class="container">
+      <div class="section-1-main">
+        <div class="section1-left">
+          <div class="title">
+            <h1>{{ "ln.AllReports" | translate }}</h1>
+          </div>
+          <div class="elm-container">
+            @for (data of reports(); track data._id) {
+              <div class="elm">
+                <div class="elm-main">
+                  <div class="elm-content">
+                    <div class="elm-image">
+                      <img [src]="data.image" alt="image" loading="lazy">
+                    </div>
+                    <div class="elm-text">
+                      @if (!isLanguageBengali()) {
+                        <h3 [routerLink]="['/reports', data._id]" [queryParamsHandling]="'merge'">{{ data?.name }}</h3>
+                      } @else {
+                        <h3 class="font-bangla" [routerLink]="['/reports', data._id]" [queryParamsHandling]="'merge'">{{ data?.nameEn }}</h3>
+                      }
+                      <div class="des">
+                        <p>{{ data?.createdAt | date : "yyyy/M/d" }}</p>
+                        <button class="button-hover" [routerLink]="['/reports', data._id]" [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="section1-right">
+          <app-recently-all-news></app-recently-all-news>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="footer"></div>

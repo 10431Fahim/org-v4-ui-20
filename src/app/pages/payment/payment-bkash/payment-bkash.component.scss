@@ -1,0 +1,30 @@
+@use "../../../../theme/exports/_payment-message" as *;
+
+
+.payment-success-icon span {
+  background-color: #333333;
+  i {
+    color: #FFFFFF;
+  }
+}
+
+i{
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.payment-success-title h4 {
+  color:  #333333;
+}
+
+.payment-success-title p {
+  color:  #333333;
+  padding-top: 10px;
+}

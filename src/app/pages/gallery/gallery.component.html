@@ -1,0 +1,64 @@
+<!---section-4-area-->
+<!-- <div class="section-4">
+    <div class="container">
+        <div class="section4-main" id="container">
+            <div class="card-one mix" [id]="cardData?._id"
+                *ngFor="let cardData of albums | paginate: { itemsPerPage: productsPerPage, currentPage: currentPage, totalItems: totalProducts }; let i = index  "
+                (click)="openLightBox(i)">
+                <div class="card-one-img">
+                    <img [src]="cardData?.src" [alt]="cardData?.caption">
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+            <pagination-controls class="product-pagination" [autoHide]="true" [maxSize]="15"
+                (pageChange)="onPageChanged($event)">
+            </pagination-controls>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="section-1">
+    <div class="container">
+        <div class="section-1-main">
+            <div class="all-photo">
+                <div class="photo" *ngFor="let data of photo; index as i"  (click)="onShowPop(i)" >
+                    <img [src]="data?.images[0]" alt="image" loading="lazy" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-gallery-popup [galleryData]="photo" #galleryPop></app-gallery-popup>
+
+<!--  <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide" >-->
+<!--    <div *ngFor="let data of photo; let i=index" >-->
+<!--      <img [src]="data?.image" alt="image" loading="lazy">-->
+<!--    </div>-->
+<!--  </lightgallery>-->
+
+<!--<div >-->
+<!--  <lightgallery [settings]="settings" [onInit]="onInit"  *ngFor="let data of photo; index as i">-->
+<!--  <img  [src]="data?.image" alt="image" loading="lazy">-->
+<!--  </lightgallery>-->
+<!--</div>-->
+
+
+<!--<lightgallery [settings]="settings" >-->
+
+<!--    <img alt="img1" src="../../../assets/images/icons8-calendar.gif" />-->
+
+
+<!--    <img alt="img2" src="../../../assets/images/icons8-calendar.gif" />-->
+
+<!--</lightgallery>-->
+
+
+<!--<div class="imgcontainer">-->
+<!--  <div class="gallery" *ngFor="let image of _albums; let i=index">-->
+<!--    <img src="{{image.thumb}}" (click)="open(i)" />-->
+<!--  </div>-->
+<!--</div>-->

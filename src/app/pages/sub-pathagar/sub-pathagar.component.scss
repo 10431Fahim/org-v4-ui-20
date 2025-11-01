@@ -1,0 +1,232 @@
+@use "../../../theme/variables" as *;
+.top-banner-area{
+  display: block;
+  width: 100%;
+  position: relative;
+  border-bottom: 10px solid #27b68a;
+  .banner{
+    width: 100%;
+    text-align: center;
+    img{
+      position: relative;
+      max-height: 420px;
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+    }
+    h2{
+      position: absolute;
+      text-align: center;
+      line-height: 42px;
+      color: $colo-white;
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 670;
+      font-size: 32px;
+      top: 50%;
+      left: auto;
+      right: auto;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.section2{
+  display: block;
+  width: 100%;
+  //background-color: #f2f2f2;
+  padding: 60px 10px;
+  box-sizing: border-box;
+  .section2-main{
+    display: block;
+    .bnp-logo{
+      display: block;
+      margin-bottom: 20px;
+      img{
+        max-width: 100px;
+        width: 100%;
+        margin: auto;
+      }
+    }
+    .section2-des{
+      display: block;
+      text-align: center;
+      p{
+        color: $color-black;
+        font-size:11px;
+        font-family: $font-en-primary;
+        font-weight: 800!important;
+        max-width: 1000px;
+        // line-height: 30px;
+        width: 100%;
+        margin: auto;
+      }
+    }
+  }
+}
+
+
+@media(max-width:700px){
+  .section2{
+    .section2-main{
+      .section2-des{
+        //p{
+        //  font-size: 19px;
+        //  line-height: 27px;
+        //}
+      }
+    }
+  }
+}
+.section-1-main{
+    margin: 40px 0px;
+}
+
+
+.page-list{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    a{
+        padding:  7px 10px;
+        background-color: #FFFF;
+        border: 1px solid green;
+        font-size: 16px;
+        font-family: $font-en-primary;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+        margin-bottom: 0px;
+        cursor: pointer;
+
+        &:hover{
+            background-color: green;
+            border: 1px solid green;
+            color: #FFF;
+        }
+    }
+}
+
+.sectionpolicie-content {
+  // margin-right: 20px;
+}
+
+.sectionpolicie-main {
+
+  gap: 20px;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%;
+  margin: 20px 0;
+  .section41 {
+
+  }
+
+  .section4-main1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .section4-main1::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    transition: all .3s linear;
+    z-index: 1;
+    // border-radius: 10px;
+    color: #ffffff;
+    background-color: rgba(113, 245, 124, 0.7);
+  }
+
+  .section4-main1:hover::before {
+    content: "";
+    position: absolute;
+    color: #ffffff;
+    // bottom: -100%;
+    //left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all .3s linear;
+    z-index: 1;
+    background-color: rgba(113, 245, 124, 0.7);
+  }
+
+  .section4-left {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //display: block;
+    width: 100%;
+    height: 300px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      // max-height: 500px;
+    }
+  }
+
+  .section4-right {
+    position: absolute;
+    padding: 25px 20px;
+    //box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 31, 31, 0.6);
+    z-index: 1;
+    //top: 0;
+    // width: 100%;
+    a {
+      color: #ffffff;
+      //background-color: rgba(77, 77, 77, 0.5);
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 600;
+      text-align: center;
+      font-size: 24px;
+      line-height: 36px;
+      /* text-overflow: ellipsis; */
+      /* overflow: hidden; */
+      width: 100%;
+      height: 100%;
+      /* white-space: nowrap; */
+      padding: 5px;
+      //line-height: 1.2;
+    }
+
+    p {
+
+      color: #ffffff;
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 25px;
+    }
+  }
+
+
+}
+
+
+h1{
+  font-weight: 400 !important;
+}

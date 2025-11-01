@@ -1,0 +1,74 @@
+<div class="top-banner-area">
+  <div class="">
+    <div class="banner">
+      <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+      @if (!isLanguageBengali()) {
+        <h2>{{pageInfo()?.name}}</h2>
+      } @else {
+        <h2>{{pageInfo()?.nameEn}}</h2>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="section-1">
+  <div class="container">
+    <div class="section1-main">
+      <div class="section1-left">
+        @if (slug() === 'national-executive-committee') {
+          <div class="search-container">
+            <input
+              type="text"
+              [(ngModel)]="searchQuery"
+              (input)="searchText()"
+              placeholder="Type to search..."
+              class="search-input">
+          </div>
+        }
+
+        @if (showContent()) {
+          <div>
+            @if (!isLanguageBengali()) {
+              <div class="description1 ad-des description22" [innerHTML]="pageInfo()!.descriptionTitle | safeHtmlCustom"></div>
+            } @else {
+              <div class="description1 ad-des description22" [innerHTML]="pageInfo()!.descriptionEnTitle | safeHtmlCustom"></div>
+            }
+
+            @if (!isLanguageBengali()) {
+              <div id="data-container" class="description ad-des-info description22" [innerHTML]="highlightedContent() || pageInfo()!.description | safeHtmlCustom"></div>
+            } @else {
+              <div id="data-container" class="description ad-des-info description22" [innerHTML]="highlightedContent() || pageInfo()!.descriptionEn | safeHtmlCustom"></div>
+            }
+          </div>
+        }
+
+        @if (showComingSoon()) {
+          <div>
+            @if (!isLanguageBengali()) {
+              <div class="description" [innerHTML]="msg() | safeHtmlCustom"></div>
+            } @else {
+              <div class="descriptionEn" [innerHTML]="msg() | safeHtmlCustom"></div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="section1-right">
+        <h1>{{ "ln.About" | translate }}</h1>
+        <div class="page-list">
+          <a routerLink="/pages/party-name" [queryParamsHandling]="'merge'">{{ "ln.PartyName" | translate }}</a>
+          <a routerLink="/pages/declaration" [queryParamsHandling]="'merge'">{{ "ln.Declaration" | translate }}</a>
+          <a routerLink="/pages/constitution" [queryParamsHandling]="'merge'">{{ "ln.Constitution" | translate }}</a>
+          <a routerLink="/pages/principles" [queryParamsHandling]="'merge'">{{ "ln.Principles" | translate }}</a>
+          <a routerLink="/pages/aimsand-objectives" [queryParamsHandling]="'merge'">{{ "ln.ObjectivesGoals" | translate }}</a>
+          <a routerLink="/pages/history" [queryParamsHandling]="'merge'">{{ "ln.History" | translate }}</a>
+          <a routerLink="/pages/party-flag" [queryParamsHandling]="'merge'">{{ "ln.Partyflag" | translate }}</a>
+          <a routerLink="/pages/slogan" [queryParamsHandling]="'merge'">{{ "ln.Slogan" | translate }}</a>
+          <a routerLink="/pages/electoral-symbol" [queryParamsHandling]="'merge'">{{ "ln.ElectionSymbol" | translate }}</a>
+          <a routerLink="/pages/party-music" [queryParamsHandling]="'merge'">{{ "ln.PartyMusic" | translate }}</a>
+          <a routerLink="/pages/registration-no-007" [queryParamsHandling]="'merge'">{{ "ln.RegistrationNumber" | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

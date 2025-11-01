@@ -1,0 +1,94 @@
+<!--<div class="section1">-->
+<!--    <div class="container">-->
+<!--      <div class="section-1-main">-->
+<!--          <div class="section1-left">-->
+<!--            <div class="title">-->
+<!--              <h1>All News</h1>-->
+<!--            </div>-->
+<!--            <div class="elm-container">-->
+<!--              <div class="elm" *ngFor="let data of review">-->
+<!--                <div class="elm-main">-->
+<!--                  <div class="elm-top">-->
+<!--                    <p>{{ data?.createdAt | date : "yyyy/M/d" }}</p>-->
+<!--                  </div>-->
+<!--      -->
+<!--                  <div class="elm-right">-->
+<!--                    <h3 [routerLink]="['../', 'all-news', data._id]">{{ data?.name }}</h3>-->
+<!--                    <div class="des">-->
+<!--                      <p-->
+<!--                      class="short-desc"-->
+<!--                      [innerHTML]="data?.description | safeHtmlCustom"-->
+<!--                    ></p>-->
+<!--                      <button [routerLink]="['../', 'all-news', data._id]">Read More</button>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="section1-right">-->
+<!--             <app-recently-all-news></app-recently-all-news>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  -->
+<!--  <div class="footer"></div>-->
+<!-- -->
+
+
+<div class="section-1">
+  <div class="title">
+    <h1>{{ "ln.Allnews" | translate }}</h1>
+  </div>
+  <div class="container">
+    <div class="section-1-main">
+
+      <div class="program-elm-container">
+
+        <ng-container *ngIf="isLoading">
+          <app-news-card-one-loader *ngFor="let data of [].constructor(6)"></app-news-card-one-loader>
+        </ng-container>
+
+
+        <ng-container *ngIf="!isLoading">
+          <div class="program-elm" *ngFor="let data of review">
+            <a [routerLink]="['/all-news', data._id]"
+               [queryParamsHandling]="'merge'">
+            <div class="card-contents">
+              <div class="img-date">
+                <img [src]="data.image" alt="image" loading="lazy">
+              </div>
+              <div class="writer-img">
+                <img src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png" alt="">
+                <!--              <img [src]="data?.createdBy?.image ? data?.createdBy?.image: '../../../assets/images/logo/User-Profile-PNG-Image.png'" alt="image" loading="lazy">-->
+              </div>
+              <div class="card-contents1">
+                <div class="desc">
+                  <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</p>
+                  <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</p>
+                  <!-- <p>{{data.name}}</p> -->
+                </div>
+                <!--              <div>-->
+                <!--                <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " class="description" [innerHTML]="data.description"></p>-->
+                <!--                <p *ngIf="translateService.currentLang === 'bn'" class="description" [innerHTML]="data.descriptionEn"></p>-->
+                <!--              </div>-->
+                <div class="button-one">
+                  <button [routerLink]="['/all-news', data._id]"
+                          [queryParamsHandling]="'merge'">{{ "ln.READMORE" | translate }}</button>
+                </div>
+              </div>
+            </div>
+            <div class="border"></div>
+            <div class="date">
+              <p>{{ data.createdAt | date }}</p>
+            </div>
+            </a>
+          </div>
+        </ng-container>
+
+
+      </div>
+    </div>
+  </div>
+</div>

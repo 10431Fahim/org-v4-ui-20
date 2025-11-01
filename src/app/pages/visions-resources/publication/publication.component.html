@@ -1,0 +1,41 @@
+@if (hasVisionsResources()) {
+  <div class="publications">
+    <div class="container">
+      <div class="publication">
+        @for (data of visionsResourcesToShow()[0]?.informations; track data?._id || $index; let i = $index) {
+          <a class="publication-card">
+            @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+              <a [href]="data?.url" target="_blank">
+                <img [src]="data?.image" alt="image" loading="lazy">
+              </a>
+              <h3>{{data?.name}}</h3>
+              <a [href]="data?.url" target="_blank">{{ "ln.MoreDetails" | translate }}</a>
+            } @else {
+              <a [href]="data?.url" target="_blank">
+                <img [src]="data?.imageEn" alt="image" loading="lazy">
+              </a>
+              <h3 class="font-bangla">{{data?.nameEn}}</h3>
+              <a [href]="data?.url" target="_blank">{{ "ln.MoreDetails" | translate }}</a>
+            }
+          </a>
+        }
+      </div>
+
+      @if (showLoadMore()) {
+        <div class="load-more">
+          <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+            <i class="fa-solid fa-spinner"></i>
+            {{canLoadMore() ? 'Load More' : 'No More Products'}}
+          </a>
+        </div>
+      }
+
+      <div class="btn-share">
+        <button class="share" (click)="openDialog()">
+          <i class="fa-solid fa-share-nodes"></i>Share Now
+        </button>
+        <button class="back" routerLink="/about-us">Back to Main Page</button>
+      </div>
+    </div>
+  </div>
+}

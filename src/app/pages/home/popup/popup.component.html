@@ -1,0 +1,21 @@
+<div class="offer-img">
+  <div class="offer-cross-area">
+    <span (click)="onClose()"><i class="fa fa-xmark"></i></span>
+  </div>
+
+  <div class="offer-img-main" (click)="onNavigate()">
+    @if (hasUrl()) {
+      <div class="youtube-container">
+        <iframe [src]="'https://www.youtube.com/embed/' + data.url + '?autoplay=1&mute=1&loop=1&disablekb=0&color=white&controls=1&modestbranding=1&playsinline=1&showinfo=0&title=0&rel=0&enablejsapi=1&playlist=' + data.url | safeUrl" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen></iframe>
+      </div>
+    }
+    
+    @if (hasImage()) {
+      <img [src]="data.image" alt="image" loading="lazy">
+    }
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<!-- Angular 20: Loading indicator -->
+<!-- @if (isLoading()) {
+  <div class="loading-spinner">
+    <p>Loading...</p>
+  </div>
+} @else { -->
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <!-- Angular 20: Using computed signals -->
+        <img [src]="firstPoint()?.image" alt="image" loading="lazy">
+        <div class="pageinfo-name">
+          <!-- Angular 20: New Control Flow Syntax -->
+          @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+            <h2>{{firstPoint()?.name}}</h2>
+          } @else if (translateService.currentLang === 'bn') {
+            <h2 class="font-bangla">{{firstPoint()?.nameEn}}</h2>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-section">
+    <div class="card-heading">
+      <div class="section2-des p-title">
+        <!-- Angular 20: New Control Flow Syntax -->
+        @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+          <div class="title-area" [innerHTML]="firstPoint()?.description | safeHtmlCustom"></div>
+        } @else if (translateService.currentLang === 'bn') {
+          <div class="title-area font-bangla" [innerHTML]="firstPoint()?.descriptionEn | safeHtmlCustom"></div>
+        }
+      </div>
+    </div>
+    <div class="container">
+      <div class="cards">
+        <!-- Angular 20: New Control Flow Syntax with @for -->
+        @for (data of firstPoint()?.informations?.slice(0, (firstPoint()?.informations?.length || 0) - 1) || []; track $index) {
+          <div class="nineteen-card">
+            <div class="card1">
+              @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                <span>{{data.name}}</span>
+              } @else if (translateService.currentLang === 'bn') {
+                <span class="font-bangla">{{data.nameEn}}</span>
+              }
+              <div class="text-content">
+                @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+                  <div class="test" [innerHTML]="data.description | safeHtmlCustom"></div>
+                } @else if (translateService.currentLang === 'bn') {
+                  <div class="test font-bangla" [innerHTML]="data.descriptionEn | safeHtmlCustom"></div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="bottom-area">
+        <div class="bottom-content">
+          <!-- Angular 20: New Control Flow Syntax -->
+          @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+            <span>{{firstPoint()?.informations?.[(firstPoint()?.informations?.length || 0) - 1]?.name}}</span>
+          } @else if (translateService.currentLang === 'bn') {
+            <span class="font-bangla">{{firstPoint()?.informations?.[(firstPoint()?.informations?.length || 0) - 1]?.nameEn}}</span>
+          }
+          <div class="text-content">
+            @if (translateService.currentLang === 'en' || !translateService.currentLang) {
+              <div class="test" [innerHTML]="firstPoint()?.informations?.[(firstPoint()?.informations?.length || 0) - 1]?.description | safeHtmlCustom"></div>
+            } @else if (translateService.currentLang === 'bn') {
+              <div class="test font-bangla" [innerHTML]="firstPoint()?.informations?.[(firstPoint()?.informations?.length || 0) - 1]?.descriptionEn | safeHtmlCustom"></div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- } -->

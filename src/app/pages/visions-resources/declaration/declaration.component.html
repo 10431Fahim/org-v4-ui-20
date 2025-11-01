@@ -1,0 +1,27 @@
+<div class="section-1">
+  <div class="container">
+    <div class="section1-main">
+      <div class="section1-left">
+        @if (hasPageInfo()) {
+          <div>
+            @if (!isLanguageBengali()) {
+              <h1 class="page-title">{{pageInfo()?.pageTitle}}</h1>
+              <div class="description description22" [innerHTML]="pageInfo()?.description | safeHtmlCustom"></div>
+            } @else {
+              <h1 class="page-title font-bangla">{{pageInfo()?.pageTitleEn}}</h1>
+              <div class="description description22 font-bangla" [innerHTML]="pageInfo()?.descriptionEn | safeHtmlCustom"></div>
+            }
+          </div>
+        } @else {
+          <div>
+            @if (!isLanguageBengali()) {
+              <div class="description" [innerHTML]="msg() | safeHtmlCustom"></div>
+            } @else {
+              <div class="description font-bangla" [innerHTML]="msg() | safeHtmlCustom"></div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,352 @@
+<section class="bacground">
+<!--  &lt;!&ndash;-sub-banner-area&ndash;&gt;-->
+<!--  <div class="sub-banner-area">-->
+<!--    <div class="container">-->
+<!--      <div class="sub-banner-main">-->
+<!--        <h3>{{ "ln.ContactUs" | translate }}</h3>-->
+<!--        &lt;!&ndash; <ul>-->
+<!--          <li><a routerLink="/" [queryParamsHandling]="'merge'">Home <i class="fa fa-angle-right"></i></a></li>-->
+<!--          <li><a routerLink="/contact-us" [queryParamsHandling]="'merge'">Contact Us</a></li>-->
+<!--        </ul> &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img src="/images/banner.jpg" alt="image" loading="lazy">
+        <!-- <img [src]="motto[0]?.image" alt="image" loading="lazy"> -->
+<!--        <div class="pageinfo-name">-->
+<!--          <h2>{{"ln.Conference" | translate }}</h2>-->
+<!--          &lt;!&ndash; <h2>{{motto[0]?.name}}</h2> &ndash;&gt;-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+  <!-- <div  *ngFor="let data of conference"></div> -->
+
+
+  <!----section1-->
+  <div class="section1">
+    <div class="container">
+      <!---title-->
+
+      <div class="section1-main">
+        <div class="section1-title">
+          <h3>{{ "ln.GetTouch" | translate }}</h3>
+          <p>{{ "ln.HaveOpinion" | translate }}</p>
+        </div>
+        <!--left-->
+        <div class="section1-left">
+          <!--form-title-->
+          <div class="form-title">
+            <div>
+              <h4>{{ "ln.KnockSecond" | translate }}</h4>
+            </div>
+            <div>
+              <h4>{{ "ln.Required" | translate }} </h4>
+            </div>
+          </div><!---end-->
+          <!--form-->
+          <div class="form">
+            <form  #formElement="ngForm" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+
+              <!---grid-->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.FullName" | translate }}</mat-label>
+                  <input formControlName="firstName"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.Father/Husband" | translate }}</mat-label>
+                  <input formControlName="husband"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div> -->
+
+            <!-- <div class="age-area">
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.Age" | translate }}</mat-label>
+                  <input formControlName="age"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div>
+
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.Occupation" | translate }}</mat-label>
+                  <input formControlName="occupation"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div>
+
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.EducationalQualification" | translate }}</mat-label>
+                  <input formControlName="qualification"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div>
+            </div> -->
+
+              <!-- <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.VillageHouseNumber" | translate }}</mat-label>
+                  <input formControlName="village"  type="text" value="" matInput required >
+                </mat-form-field>
+              </div> -->
+
+              <!-- <div class="word-area">
+                <div class="form-input">
+                  <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>{{ "ln.WardNo" | translate }}</mat-label>
+                    <input formControlName="wardNo"  type="text" value="" matInput required>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-input">
+                  <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>{{ "ln.UnionMunicipality" | translate }}</mat-label>
+                    <input formControlName="union"  type="text" value="" matInput required>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <!-- <div class="word-area">
+                <div class="form-input">
+                  <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>{{ "ln.ThanaUpazila" | translate }}</mat-label>
+                    <input formControlName="thana"  type="text" value="" matInput required>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-input">
+                  <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>{{ "ln.DistrictMetropolis" | translate }}</mat-label>
+                    <input formControlName="district"  type="text" value="" matInput required>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <!-- <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.NationalIdentityCardNo" | translate }}</mat-label>
+                  <input formControlName="nationalIdentity"  type="text" value="" matInput required>
+                </mat-form-field>
+              </div> -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.EmailAddress" | translate }}</mat-label>
+                  <input formControlName="email" type="email" value="" matInput >
+                </mat-form-field>
+              </div>
+
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.PhoneNumber" | translate }}</mat-label>
+                  <input formControlName="phoneNo" type="text" value="" matInput required>
+                </mat-form-field>
+              </div>
+              <!-- <div class="form-input">
+                  <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>* Company Name</mat-label>
+                      <input formControlName="companyName" type="text" value="" matInput>
+                  </mat-form-field>
+              </div> -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.Message" | translate }}</mat-label>
+                  <textarea formControlName="shortDesc" type="text" value="" matInput></textarea>
+                </mat-form-field>
+              </div>
+              <!-- <div class="sort-describe">
+                  <p>The AIT family of companies may keep me informed with personalized emails about services.See our <a href="#">Privacy Policy</a> for more details or to opt-out at any time.</p>
+              </div> -->
+              <!---check-->
+              <div class="check">
+                <mat-checkbox class="mat-check">{{ "ln.Subscribe" | translate }}</mat-checkbox>
+              </div>
+              <!---sub-btn-->
+             <div class="button-area">
+               <div class="sub-btn">
+                 <button class="btn btn-change">{{ "ln.Submit" | translate }}</button>
+               </div>
+
+<!--               <div class="sub-btn" *ngIf="!isLoading">-->
+<!--                 <button (click)="downloadPDF()" class="btn btn-change" type="button" style="display: flex;align-items: center;gap: 5px"> <mat-icon>visibility</mat-icon><span>{{ "ln.View" | translate }}</span></button>-->
+<!--               </div>-->
+<!--               <div class="sub-btn" *ngIf="isLoading">-->
+<!--                 <button  class="btn btn-change" type="button" style="display: flex;align-items: center;gap: 5px"> <mat-icon>visibility</mat-icon><span>{{ "ln.PleaseWait" | translate }}</span></button>-->
+<!--               </div>-->
+             </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!--  <button (click)="downloadPDF()">Download PDF</button>-->
+
+  <div class="section2">
+    <div class="container">
+      <div class="contact-info-wrapper">
+        <h2 class="contact-title">{{ "ln.ContactUs" | translate }}</h2>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-icon address-icon">
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="contact-content">
+              <h3>{{ "ln.ContactAddress" | translate }}</h3>
+              <p>{{ "ln.ContactAddressValue" | translate }}</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon phone-icon">
+              <mat-icon>phone</mat-icon>
+            </div>
+            <div class="contact-content">
+              <h3>{{ "ln.ContactPhone" | translate }}</h3>
+              <p>{{ "ln.ContactPhoneValue" | translate }}</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-icon mobile-icon">
+              <mat-icon>phone_android</mat-icon>
+            </div>
+            <div class="contact-content">
+              <h3>{{ "ln.ContactMobile" | translate }}</h3>
+              <p>
+                <span>{{ "ln.ContactMobileValue" | translate }}</span>
+                <span class="whatsapp-note">{{ "ln.ContactWhatsAppNote" | translate }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="map-area">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.313833472206!2d90.41091947613947!3d23.73618558932039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b9a3930cfa6d%3A0xe7f05ff2e7b40ce5!2sBangladesh%20Nationalist%20Party-BNP!5e0!3m2!1sen!2sbd!4v1685778518535!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<div   #pdfContent id="pdf-content" class="pdf-style" style=" display: none; z-index: 2; position: relative; margin:0 auto;width: 800px;height: 824px; padding: 20px;">
+  <div style="position: absolute; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
+         alt="Background Image">
+  </div>
+  <div style="display:flex;justify-content: center;margin-bottom: 10px">
+    <h1 >{{ "ln.BismillahirRahmanirRahim" | translate }}</h1>
+  </div>
+
+  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
+    <img style="width: 150px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <h2 style="font-size: 40px;">{{ "ln.BangladeshNationalistParty" | translate }}</h2>
+  </div>
+
+  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;">
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0">{{ "ln.Centraloffice" | translate }}</h3>
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0;color: #ff5292;">{{ "ln.MembershipReceipt" | translate }}</h3>
+    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0">{{ "ln.MemberPart" | translate }}</h3>
+  </div>
+
+  <div style="display:flex;margin-top: 15px;font-size: 20px">
+    <span>{{ "ln.Im" | translate }}:</span>
+    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.firstName}}</span>
+  </div>
+
+  <div style="display:flex;margin-top: 15px;font-size: 20px">
+    <span style="text-wrap: nowrap;">{{ "ln.Father/Husband" | translate }}:</span>
+    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.husband}}</span>
+  </div>
+
+  <div style="display: grid;grid-template-columns: 20% 38% 42%">
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.Age" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.age}}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.Occupation" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.occupation}}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.EducationalQualification" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.qualification}}</span>
+    </div>
+  </div>
+
+  <div style="display:flex;margin-top: 15px;font-size: 20px">
+    <span style="text-wrap: nowrap;">{{ "ln.VillageHouseNumber" | translate }}:</span>
+    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.village}}</span>
+  </div>
+
+  <div style="display: grid;grid-template-columns: 30% 70%">
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.WardNo" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.wardNo}}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.UnionMunicipality" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.union}}</span>
+    </div>
+  </div>
+
+  <div style="display: grid;grid-template-columns: 50% 50%">
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.ThanaUpazila" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.thana}}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.DistrictMetropolis" | translate }}:</span>
+      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.district}}</span>
+    </div>
+  </div>
+
+  <div style="display:flex;margin-top: 15px;font-size: 20px">
+    <span style="text-wrap: nowrap;">{{ "ln.NationalIdentityCardNo" | translate }}:</span>
+    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.nationalIdentity}}</span>
+  </div>
+  <div style="display:flex;margin-top: 15px;font-size: 20px">
+    <span style="text-wrap: nowrap;">{{ "ln.PhoneMobileNumber" | translate }}:</span>
+    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;">{{this.dataForm.value.phoneNo}}</span>
+  </div>
+
+  <div style="display:flex;margin-top: 10px;font-size: 19px">
+    <p style="line-height: 30px">{{ "ln.PaidSubscription" | translate }}</p>
+  </div>
+
+  <div style="display: flex;justify-content: space-between;">
+    <div style="display:flex;margin-top: 15px;font-size: 20px;border-top: 1px solid #000000;">
+      <span style="text-wrap: nowrap;">{{ "ln.Chairperson" | translate }}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px;border-top: 1px solid #000000;">
+      <span style="text-wrap: nowrap;">{{ "ln.MemberSignature" | translate }}</span>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px;border-top: 1px solid #000000;">
+      <span style="text-wrap: nowrap;">{{ "ln.CollectorSignature" | translate }}</span>
+    </div>
+  </div>
+
+
+  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 20px">
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px;margin-right: 25px">
+      <span style="text-wrap: nowrap;">{{ "ln.Date" | translate }}</span>
+      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>
+    </div>
+    <div style="display:flex;margin-top: 15px;font-size: 20px">
+      <span style="text-wrap: nowrap;">{{ "ln.Date" | translate }}</span>
+      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>
+    </div>
+  </div>
+
+</div>

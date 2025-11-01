@@ -1,0 +1,35 @@
+<div class="top-banner-area">
+  <div class="">
+    <div class="banner">
+      <img src="/brand/about-us-banner-01-32ff.png" alt="image" loading="lazy">
+      <div class="pageinfo-name">
+        <h2>{{"ln.AllVideo" | translate }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="youtube-video">
+    @for (data of client(); track data._id; let i = $index) {
+      <div class="video wow animate__fadeInUp" [class]="('animate__delay-' + (i+1) + 's')">
+        <iframe width="100%" height="280" [src]="data?.name | safeUrl" title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        @if (isEnglish()) {
+          <a class="videoTitle" [routerLink]="['/video-details',data?._id]">{{data?.title}}</a>
+        } @else if (isBengali()) {
+          <a class="videoTitle font-bangla">{{data?.titleEn}}</a>
+        }
+      </div>
+    }
+  </div>
+  <div class="load-more">
+    <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+      @if (isLoadMore()) {
+        <i class="fa-solid fa-spinner"></i>
+      }
+      {{totalVideo() > client().length ? 'Load More' : 'No More Videos'}}
+    </a>
+  </div>
+</div>

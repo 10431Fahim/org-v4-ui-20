@@ -1,0 +1,45 @@
+<!-- Angular 20 New Control Flow Syntax -->
+<app-main-banner  lazyLoadComponent
+                 (lazyLoad)="loadNextComponent('sec1')"></app-main-banner>
+
+@if (checkComponentLoad('sec1')) {
+<app-our-leader  lazyLoadComponent
+                 (lazyLoad)="loadNextComponent('sec2')" ></app-our-leader>
+}
+
+@if (checkComponentLoad('sec2')) {
+<app-points lazyLoadComponent
+            (lazyLoad)="loadNextComponent('sec3')"></app-points>
+}
+
+@if (checkComponentLoad('sec3')) {
+<app-program-press lazyLoadComponent
+                   (lazyLoad)="loadNextComponent('sec4')"></app-program-press>
+}
+
+@if (checkComponentLoad('sec4')) {
+<div  lazyLoadComponent
+      (lazyLoad)="loadNextComponent('sec5')">
+  <div class="container">
+  <div class="section4-right">
+    <app-recently-all-news>
+
+    </app-recently-all-news>
+  </div>
+  </div>
+</div>
+}
+
+@if (checkComponentLoad('sec5')) {
+<app-latest-news lazyLoadComponent
+                 (lazyLoad)="loadNextComponent('sec6')"></app-latest-news>
+}
+
+@if (checkComponentLoad('sec6')) {
+<app-photo-gallary lazyLoadComponent
+                   (lazyLoad)="loadNextComponent('sec7')"></app-photo-gallary>
+}
+
+@if (checkComponentLoad('sec7')) {
+<app-all-video></app-all-video>
+}

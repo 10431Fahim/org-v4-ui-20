@@ -1,0 +1,59 @@
+@if (showContent()) {
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img [src]="firstPageFaq()!.image" alt="image" loading="lazy">
+        <div class="pageinfo-name">
+          @if (!isLanguageBengali()) {
+            <h2>{{firstPageFaq()!.name}}</h2>
+          } @else {
+            <h2 class="font-bangla">{{firstPageFaq()!.nameEn}}</h2>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section4">
+    <div class="container">
+      <div class="section4-title p-title">
+        @if (!isLanguageBengali()) {
+          <div [innerHTML]="firstPageFaq()!.description"></div>
+        } @else {
+          <div class="font-bangla" [innerHTML]="firstPageFaq()!.descriptionEn"></div>
+        }
+      </div>
+      <div class="section4-main">
+        @for (data of firstPageFaq()!.informations; track data?._id || $index; let i = $index) {
+          <ul>
+            <li>
+              <div class="faq-title" (click)="onFaqToggle(i+1)">
+                <div>
+                  @if (!isLanguageBengali()) {
+                    <h3>{{data?.name}}</h3>
+                  } @else {
+                    <h3 class="font-bangla">{{data?.nameEn}}</h3>
+                  }
+                </div>
+                <div>
+                  <span>
+                    <i [class]="isFaq() === i+1 ? 'fa fa-caret-down fa-rotate-180' : 'fa fa-caret-down'"></i>
+                  </span>
+                </div>
+              </div>
+              @if (isFaq() === i+1) {
+                <div class="faq-des ad-des">
+                  @if (!isLanguageBengali()) {
+                    <div [innerHTML]="data?.description"></div>
+                  } @else {
+                    <div class="font-bangla" [innerHTML]="data?.descriptionEn"></div>
+                  }
+                </div>
+              }
+            </li>
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+}

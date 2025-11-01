@@ -1,0 +1,15 @@
+<div class="swiper-container">
+    <div
+        class="swiper-banner mySwiper">
+        <div  *ngFor="let data of showcase">
+            <div class="swipe">
+                <div class="swipe-img">
+                    <a>
+                        <img [src]="data?.image" alt="image" loading="lazy" />
+                    </a>
+                    <button mat-raised-button color="warn" routerLink="/get-in-touch">{{ "ln.Joinfight" | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+@use "../../../../theme/variables" as *;
+
+.section-1 {
+  margin-top: 20px;
+}
+
+
+
+.banner-area {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  //   background-image: url(/assets/images/jpg-image/bg_about_mv.jpg);
+  object-fit: cover;
+  position: relative;
+  z-index: 10;
+  border-top: 4px solid #14352C;
+  min-height: 100px;
+
+  h2 {
+    color: #fff;
+    font-family: $font-en-primary;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    display: block;
+    margin-bottom: 0px;
+  }
+
+}
+
+.banner-area::after {
+
+  content: "";
+  // background: linear-gradient(to left, #5f0a87b6, #a8478bc9);
+  background-color: #033a2b80;
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  top: 0px;
+  height: 100%;
+  z-index: -10;
+}
+
+.section-1-main {
+  margin-top: 25px;
+  h2{
+    color: #121212;
+    font-family: $font-en-primary;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+    display: inline-block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E2E2E2;
+  }
+
+  img {
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 5px;
+  }
+  .description{
+    color: #121212;
+    font-family: $font-en-primary;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    margin-top: 15px;
+
+  }
+}

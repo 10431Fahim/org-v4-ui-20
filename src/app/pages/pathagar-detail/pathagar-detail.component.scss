@@ -1,0 +1,74 @@
+@use "../../../theme/variables" as *;
+.top-banner-area{
+  display: block;
+  width: 100%;
+  position: relative;
+  border-bottom: 10px solid #27b68a;
+  .banner{
+    width: 100%;
+    text-align: center;
+    img{
+      position: relative;
+      max-height: 420px;
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+    }
+    h2{
+      position: absolute;
+      text-align: center;
+      line-height: 42px;
+      color: $colo-white;
+      font-family: $font-en-primary;
+      font-style: normal;
+      font-weight: 670;
+      font-size: 32px;
+      top: 50%;
+      left: auto;
+      right: auto;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+}
+.container {
+  width: 100%;
+  max-width: 1250px;
+  padding: 16px 16px;
+  margin: 0 auto;
+}
+.section-1{
+  margin-top: 20px;
+}
+.description {
+  margin-top: 30px;
+  font-family: $font-en-primary;
+  font-weight: 500;
+  //font-size: 17px;
+  line-height: 26px;
+}
+
+.page-title{
+  font-family: $font-en-primary;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 52px;
+  padding-bottom: 5px;
+  display: inline;
+  border-bottom: 3px solid green;
+}
+
+@media (max-width: 550px) {
+  .top-banner-area{
+
+    .banner{
+
+      img{
+
+      }
+      h2{
+        font-size: 25px;
+      }
+    }
+  }
+}
