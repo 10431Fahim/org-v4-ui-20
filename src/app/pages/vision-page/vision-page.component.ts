@@ -38,19 +38,36 @@ export class VisionPageComponent implements OnInit, OnDestroy {
   readonly isChangeLanguageToggle = signal<string>('en');
   readonly language = signal<string | null>(null);
   readonly isLoading = signal<boolean>(true);
+  readonly currentLang = signal<string>('en'); // Local signal for reactive language tracking
 
   // Angular 20: Computed signals for derived state
-  readonly currentLanguage = computed(() => this.translateService.currentLang);
+  readonly currentLanguage = computed(() => this.currentLang());
   readonly isEnglish = computed(() => this.currentLanguage() === 'en' || !this.currentLanguage());
   readonly isBengali = computed(() => this.currentLanguage() === 'bn');
   readonly firstVision = computed(() => this.ourVision()[0] || null);
 
   ngOnInit(): void {
+    // Initialize language from translateService
+    this.currentLang.set(this.translateService.currentLang || 'en');
+
     // Angular 20: Using takeUntilDestroyed for automatic subscription cleanup
     this.activatedRoute.queryParamMap
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(qParam => {
-        this.language.set(qParam.get('language'));
+        const lang = qParam.get('language');
+        this.language.set(lang);
+        if (lang === 'bn') {
+          this.currentLang.set('bn');
+        } else if (lang === 'en') {
+          this.currentLang.set('en');
+        }
+      });
+
+    // Subscribe to translate service for language changes
+    this.translateService.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(langChange => {
+        this.currentLang.set(langChange.lang);
       });
     
     this.getAllOurVisions();

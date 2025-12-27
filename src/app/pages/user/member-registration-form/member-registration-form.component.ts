@@ -32,6 +32,7 @@ import {SafeUrlPipe} from '../../../shared/pipes/safe-url.pipe';
     SafeUrlPipe,
     FormsModule
   ],
+  standalone:true,
   styleUrls: ['./member-registration-form.component.scss'],
 
 })
@@ -281,14 +282,14 @@ export class MemberRegistrationFormComponent implements OnInit, OnDestroy {
       htmlContent = `
 <div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
   <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+    <img src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
          alt="Background Image">
   </div>
   <div style="padding: 10px;">
 
   <div style="display:flex; gap: 10px; align-items: center; margin-bottom: 0">
-    <img style="width: 150px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <img style="width: 150px;" src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
     <div>
       <h1 style="font-size: 20px; text-align: center;">বিসমিল্লাহির রাহমানির রাহিম</h1>
       <h2 style="font-size: 30px; text-align: center;">বাংলাদেশ জাতীয়তাবাদী দল</h2>
@@ -425,7 +426,7 @@ export class MemberRegistrationFormComponent implements OnInit, OnDestroy {
    <!--<div class="preview-container">-->
 <div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
   <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+    <img src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
          alt="Background Image">
   </div>
@@ -435,7 +436,7 @@ export class MemberRegistrationFormComponent implements OnInit, OnDestroy {
 <!--  </div>-->
 
   <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 150px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <img style="width: 150px;" src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
      <div>
       <h1 style="font-size: 20px; text-align: center;">Bismillahir Rahmanir Rahim</h1>
     <h2 style="font-size: 30px;text-align: center;">Bangladesh Nationalist Party</h2>

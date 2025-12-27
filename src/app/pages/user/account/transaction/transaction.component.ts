@@ -110,273 +110,422 @@ export class TransactionComponent implements OnInit, OnDestroy {
     const userData = this.userData();
     let htmlContent: any;
 
+    const issueDate = new Date().toLocaleDateString('bn-BD', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const transactionDate = formData?.createdAt
+      ? new Date(formData.createdAt).toLocaleDateString('bn-BD', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : issueDate;
+    const currency =
+      userData?.country === 'BD' || userData?.country === 'Bangladesh'
+        ? 'টাকা'
+        : ' USD';
+    const amount = formData?.amount || userData?.amount || '০';
+    // Use transaction ID or member ID for QR code
+    const mongoId = formData?._id || formData?.id || userData?.memberId || '';
+    const qrCodeUrl = mongoId
+      ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(mongoId.toString())}`
+      : '';
+
     if (this.isBengaliLanguage()) {
       htmlContent = `
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
-
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-    <div>
-      <h1 style="font-size: 20px; line-height: 18px; text-align: center; margin-bottom: 0!important;">বিসমিল্লাহির রহমানির রাহিম</h1>
-      <h2 style="font-size: 30px; text-align: center; line-height: 20px;">বাংলাদেশ জাতীয়তাবাদী দল</h2>
-    </div>
-  </div>
-
-  <div style="display:flex; justify-content: center; align-items: center; flex-direction: column; margin-top: -30px;">
-    <h3 style="line-height: 16px; font-size: 20px; margin-bottom: 0;">${data?.transactionType}</h3>
-    <h3 style="line-height: 20px; font-size: 20px; margin-bottom: 5px; color: #ff5292;">সদস্য আইডি ${userData?.memberId}</h3>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 50% 50%;">
-    <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-      <span>নাম:</span>
-      <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.name} </span>
-    </div>
-    <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-      <span>বয়স:</span>
-      <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.age} </span>
-    </div>
-  </div>
-
-
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>ফোন/মোবাইল নাম্বার:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.countryCode}${userData?.phoneNo} </span>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 50% 50%;">
-    <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-      <span>ইমেইল:</span>
-      <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.email} </span>
-    </div>
-    <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-      <span>হোয়াটসঅ্যাপ নাম্বার:</span>
-      <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.whatsAppNumber} </span>
-    </div>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>বাসিন্দার অবস্থা:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.resident} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>বর্তমান বসবাসের দেশ:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.country} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>শহর:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.city} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>জিপ/পোস্টাল কোড:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.zip} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>স্থায়ী দেশ:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.countryPermanent} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>স্থায়ী শহর:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.cityPermanent} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>স্থায়ী জিপ/পোস্টাল কোড:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.zipPermanent} </span>
-  </div>
-
-  <div style="display:flex; margin-top: 8px; font-size: 20px; align-content: center;">
-    <span>ফেসবুক প্রোফাইল লিংক:</span>
-    <span style="padding-left: 8px; border-bottom: 1px solid #000; width: 100%;"> ${userData?.facebookId ?? 'N/A'} </span>
-  </div>
-
-  <p style="text-align: center;"><b>${formData?.transactionType}:</b> ${userData?.amount} টাকা</p>
-
-  <div style="display: flex; justify-content: space-between;">
-    <div style="display:flex; margin-top: 8px; font-size: 20px; border-top: 1px solid #000;">
-      <span>চেয়ারপারসন</span>
-    </div>
-    <div style="display:flex; margin-top: 8px; font-size: 20px; border-top: 1px solid #000;">
-<!--      <span>সদস্যের স্বাক্ষর</span>-->
-    </div>
-    <div style="display:flex; margin-top: 8px; font-size: 20px; border-top: 1px solid #000;">
-      <span>সংগ্রাহকের স্বাক্ষর</span>
-    </div>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 33.33% 33.33% 33.33%; margin-top: 8px;">
-    <div style="display:flex; margin-top: 10px; font-size: 20px;"></div>
-    <div style="display:flex; margin-top: 10px; font-size: 20px; margin-right: 25px;">
-<!--      <span>তারিখ</span>-->
-<!--      <p style="border-top: 1px solid #000; width: 100%;"></p>-->
-    </div>
-    <div style="display:flex; margin-top: 10px; font-size: 20px;">
-      <span>তারিখ</span>
-      <p style="border-top: 1px solid #000; width: 100%;"></p>
-    </div>
-  </div>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+<div #pdfContent id="pdf-content" class="pdf-style" style="
+    width:1000px;
+    font-family:'Kalpurush','Noto Sans Bengali','Century','Times New Roman',Times,Georgia,serif;
+    font-weight:400;
+    font-style:normal;
+    margin:0 auto;
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.25);
+    border:12px solid #b89c5d;
+    outline:10px solid #006A4E;
+    position:relative;
+">
+            <div style="
+                border:4px solid #d5bc79;
+                padding:30px 30px 20px;
+                position:relative;
+                background:#fafaf7;
+                overflow:hidden;
+            ">
+                <div style="
+                    position:absolute;
+                    inset:0;
+                    background:url('https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png') center no-repeat;
+                    background-size:cover;
+                    opacity:.07;
+                    pointer-events:none;
+                    z-index:1;
+                "></div>
+                <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+                    crossorigin="anonymous"
+                    referrerpolicy="no-referrer"
+                    style="
+                        width:100px;
+                        opacity:.96;
+                        position:absolute;
+                        top:60px;
+                        left:30px;
+                        z-index:20;
+                    ">
+                <div style="
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="font-size:14px;color:#444;margin-bottom:4px;">
+                        বিসমিল্লাহির রহমানির রাহীম
+                    </div>
+                    <div style="font-size:28px;font-weight:400;color:#006A4E;letter-spacing:1px;">
+                        বাংলাদেশ জাতীয়তাবাদী দল – বিএনপি
+                    </div>
+                    <div style="font-size:16px;color:#333;margin-top:3px;font-style:normal;">
+                        কেন্দ্রীয় দফতর
+                    </div>
+                    <div style="font-size:20px;color:#333;margin-top:4px;font-weight:400;">
+                        ${formData?.transactionType || 'লেনদেন রশিদ'}
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:15px;position:relative;z-index:30;">
+                    <span style="
+                        display:inline-block;
+                        background:linear-gradient(90deg,#006A4E,#D60000);
+                        color:#fff;
+                        padding:6px 30px;
+                        border-radius:35px;
+                        font-size:14px;
+                        font-weight:400;
+                        border:2px solid #fff;
+                        box-shadow:0 0 12px rgba(0,0,0,0.25);
+                    ">
+                        লেনদেন রশিদ
+                    </span>
+                    <br>
+                    <span style="
+                        font-size:24px;
+                        font-weight:400;
+                        color:#006A4E;
+                        border-bottom:3px solid #d6c386;
+                        padding:3px 20px;
+                        display:inline-block;
+                        margin-top:6px;
+                    ">
+                        ${userData?.name || ''}
+                    </span>
+                </div>
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    margin-top:18px;
+                    font-size:16px;
+                    color:#222;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <tr>
+                        <td style="padding:4px 2px 4px 0;">সদস্য আইডি</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.memberId || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">বয়স</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.age || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">ফোন/মোবাইল</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.countryCode || ''}${userData?.phoneNo || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">ইমেইল</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.email || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">বর্তমান বসবাসের দেশ</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.country || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">শহর</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.city || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">জিপ/পোস্টাল কোড</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.zip || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">স্থায়ী ঠিকানা (দেশ)</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.countryPermanent || ''}</span></td>
+                    </tr>
+                </table>
+                <div style="
+                    margin-top:18px;
+                    text-align:center;
+                    font-size:16px;
+                    font-weight:400;
+                    padding:10px 18px;
+                    border-radius:10px;
+                    border:2px solid #d3bb76;
+                    background:linear-gradient(90deg,rgba(0,106,78,.08),rgba(214,0,0,.08));
+                    color:#574f3a;
+                    position:relative;
+                    z-index:30;
+                ">
+                    ${formData?.transactionType || 'লেনদেন'}: <b style="color:#D60000;font-weight:400;">${amount}${currency}</b> · 
+                    তারিখ: <b style="font-weight:400;">${transactionDate}</b>
+                </div>
+                <div style="
+                    margin-top:18px;
+                    display:flex;
+                    justify-content:space-between;
+                    font-size:15px;
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="margin-top:15px;flex:1;text-align:center;">
+                        <img src="https://api.bnpbd.org/api/upload/images/sign.png" 
+                             crossorigin="anonymous"
+                             referrerpolicy="no-referrer"
+                             alt="Chairman Signature" 
+                             style="max-width:90px;height:30px;display:block;margin:0 auto 6px auto;">
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #006A4E;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">চেয়ারপার্সন</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        <div style="margin-top:25px;height:18px;margin-bottom:6px;font-size:13px;color:#333;">
+                            ${transactionDate}
+                        </div>
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #444;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">তারিখ</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        ${qrCodeUrl ? `<img src="${qrCodeUrl}" alt="QR Code" crossorigin="anonymous" referrerpolicy="no-referrer" style="max-width:45px;height:45px;display:block;margin:0 auto 6px auto;object-fit:contain;">` : ''}
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #D60000;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">আদায়কারীর স্বাক্ষর</span>
+                    </div>
+                </div>
+            </div>
 </div>
-
 `;
     }else{
+      const transactionDateEn = formData?.createdAt
+        ? new Date(formData.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })
+        : new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+      const currencyEn =
+        userData?.country === 'BD' || userData?.country === 'Bangladesh'
+          ? ' Taka'
+          : ' USD';
+      
       htmlContent = `
-   <!--<div class="preview-container">-->
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
-<!--  <div style="display:flex;justify-content: center;margin-bottom: 10px">-->
-<!--    <h1 style="font-size: 16px">Bismillahir Rahmanir Rahim</h1>-->
-<!--  </div>-->
-
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-     <div>
-      <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">Bismillahir Rahmanir Rahim</h1>
-    <h2 style="font-size: 30px;text-align: center; line-height: 20px">Bangladesh Nationalist Party</h2>
-</div>
-
-  </div>
-
-  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;margin-top: -30px">
-    <h3 style="line-height: 16px;font-size: 20px;margin-bottom: 0">${data?.transactionType}</h3>
-    <h3 style="line-height: 20px;font-size: 20px;margin-bottom: 5px;color: #ff5292;">Mrmber ID${userData?.memberId}</h3>
-<!--    <h3 style="line-height: 30px;font-size: 20px;margin-bottom: 0">Member's Part</h3>-->
-  </div>
-
-<div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span>Name:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.name} </span>
-  </div>
-    <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Age:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.age}</span>
-  </div>
-  </div>
-
-
-    <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Phone / Mobile Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.countryCode}${userData?.phoneNo}</span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Email:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.email}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">WhatsApp Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.whatsAppNumber}</span>
-  </div>
-  </div>
-
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Resident Status:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.resident}</span>
-  </div>
-
-
-
-<!--  <div style="display: grid;grid-template-columns: 50% 50%">-->
-    <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-      <span style="text-wrap: nowrap;">Present Resident Country:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.country}</span>
-    </div>
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-      <span style="text-wrap: nowrap;">City:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.city}</span>
-    </div>
-<!--  </div>-->
-
-<!--<div style="display: grid;grid-template-columns: 50% 50%">-->
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.zip}</span>
-    </div>
-
-    <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Permanent Resident Country:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.countryPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;"> City:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.cityPermanent}</span>
-  </div>
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.zipPermanent}</span>
-    </div>
-  <div style="display:flex;margin-top: 8px;font-size: 20px;align-content: center;">
-    <span style="text-wrap: nowrap;">Facebook Profile Link:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${userData?.facebookId ?? 'N/A'}</span>
-  </div>
-<!--  </div>-->
-<p style="text-align: center"><b>${formData?.transactionType}:</b> ${userData?.amount} Taka</p>
-
-<!--  <div style="display:flex;margin-top: 5px;font-size: 19px">-->
-<!--   <p style="line-height: 24px">I solemnly declare that I hold deep respect for the constitution, declaration, and ideals and objectives of the Bangladesh Nationalist Party. I further declare my firm commitment to uphold Bangladeshi nationalism, the politics of production, people's democracy, national unity, and the achievement of peace and prosperity through the implementation of the 19-point program endorsed by the people in 1977. I pledge never to tolerate corruption. I hereby apply to be accepted as a member of the Bangladesh Nationalist Party.</p>-->
-<!--  </div>-->
-
-  <div style="display: flex;justify-content: space-between;">
-    <div style="display:flex;margin-top: 8px;font-size: 20px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Chairperson</span>
-    </div>
-    <div style="display:flex;margin-top: 8px;font-size: 20px;border-top: 1px solid #000000;">
-<!--      <span style="text-wrap: nowrap;">Member's signature</span>-->
-    </div>
-    <div style="display:flex;margin-top: 8px;font-size: 20px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Collector's signature</span>
-    </div>
-  </div>
-
-
-  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 8px">
-    <div style="display:flex;margin-top: 10px;font-size: 20px">
-    </div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px;margin-right: 25px">
-<!--      <span style="text-wrap: nowrap;">Date</span>-->
-<!--      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>-->
-    </div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px">
-      <span style="text-wrap: nowrap;">Date</span>
-      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>
-    </div>
-  </div>
-
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+<div #pdfContent id="pdf-content" class="pdf-style" style="
+    width:1000px;
+    font-family:'Kalpurush','Noto Sans Bengali','Century','Times New Roman',Times,Georgia,serif;
+    font-weight:400;
+    font-style:normal;
+    margin:0 auto;
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.25);
+    border:12px solid #b89c5d;
+    outline:10px solid #006A4E;
+    position:relative;
+">
+            <div style="
+                border:4px solid #d5bc79;
+                padding:30px 30px 20px;
+                position:relative;
+                background:#fafaf7;
+                overflow:hidden;
+            ">
+                <div style="
+                    position:absolute;
+                    inset:0;
+                    background:url('https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png') center no-repeat;
+                    background-size:cover;
+                    opacity:.07;
+                    pointer-events:none;
+                    z-index:1;
+                "></div>
+                <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+                 
+                    style="
+                        width:100px;
+                        opacity:.96;
+                        position:absolute;
+                        top:60px;
+                        left:30px;
+                        z-index:200;
+                    ">
+                <div style="
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="font-size:14px;color:#444;margin-bottom:4px;">
+                        Bismillahir Rahmanir Rahim
+                    </div>
+                    <div style="font-size:28px;font-weight:400;color:#006A4E;letter-spacing:1px;">
+                        Bangladesh Nationalist Party – BNP
+                    </div>
+                    <div style="font-size:16px;color:#333;margin-top:3px;font-style:normal;">
+                        Central Office
+                    </div>
+                    <div style="font-size:20px;color:#333;margin-top:4px;font-weight:400;">
+                        ${formData?.transactionType || 'Transaction Receipt'}
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:15px;position:relative;z-index:30;">
+                    <span style="
+                        display:inline-block;
+                        background:linear-gradient(90deg,#006A4E,#D60000);
+                        color:#fff;
+                        padding:6px 30px;
+                        border-radius:35px;
+                        font-size:14px;
+                        font-weight:400;
+                        border:2px solid #fff;
+                        box-shadow:0 0 12px rgba(0,0,0,0.25);
+                    ">
+                        Transaction Receipt
+                    </span>
+                    <br>
+                    <span style="
+                        font-size:24px;
+                        font-weight:400;
+                        color:#006A4E;
+                        border-bottom:3px solid #d6c386;
+                        padding:3px 20px;
+                        display:inline-block;
+                        margin-top:6px;
+                    ">
+                        ${userData?.name || ''}
+                    </span>
+                </div>
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    margin-top:18px;
+                    font-size:16px;
+                    color:#222;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <tr>
+                        <td style="padding:4px 2px 4px 0;">Member ID</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.memberId || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">Age</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.age || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">Phone/Mobile</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.countryCode || ''}${userData?.phoneNo || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">Email</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.email || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">Present Resident Country</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.country || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">City</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.city || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">Zip/Postal Code</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.zip || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">Permanent Address (Country)</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${userData?.countryPermanent || ''}</span></td>
+                    </tr>
+                </table>
+                <div style="
+                    margin-top:18px;
+                    text-align:center;
+                    font-size:16px;
+                    font-weight:400;
+                    padding:10px 18px;
+                    border-radius:10px;
+                    border:2px solid #d3bb76;
+                    background:linear-gradient(90deg,rgba(0,106,78,.08),rgba(214,0,0,.08));
+                    color:#574f3a;
+                    position:relative;
+                    z-index:30;
+                ">
+                    ${formData?.transactionType || 'Transaction'}: <b style="color:#D60000;font-weight:400;">${amount}${currencyEn}</b> · 
+                    Date: <b style="font-weight:400;">${transactionDateEn}</b>
+                </div>
+                <div style="
+                    margin-top:18px;
+                    display:flex;
+                    justify-content:space-between;
+                    font-size:15px;
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="margin-top:15px;flex:1;text-align:center;">
+                        <img src="https://api.bnpbd.org/api/upload/images/sign.png" 
+                             crossorigin="anonymous"
+                             referrerpolicy="no-referrer"
+                             alt="Chairman Signature" 
+                             style="max-width:90px;height:30px;display:block;margin:0 auto 6px auto;">
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #006A4E;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">Chairperson</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        <div style="margin-top:25px;height:18px;margin-bottom:6px;font-size:13px;color:#333;">
+                            ${transactionDateEn}
+                        </div>
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #444;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">Date</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        ${qrCodeUrl ? `<img src="${qrCodeUrl}" alt="QR Code" crossorigin="anonymous" referrerpolicy="no-referrer" style="max-width:45px;height:45px;display:block;margin:0 auto 6px auto;object-fit:contain;">` : ''}
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #D60000;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">Collector's Signature</span>
+                    </div>
+                </div>
+            </div>
 </div>
     `;
     }
 
     this.contactService.generatePDF(htmlContent)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((pdfBlob) => {
-        const url = window.URL.createObjectURL(pdfBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${data?.transactionType}.pdf`;
-        link.click();
-        window.URL.revokeObjectURL(url);
+      .subscribe({
+        next: (pdfBlob) => {
+          const url = window.URL.createObjectURL(pdfBlob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `${data?.transactionType || 'Transaction'}.pdf`;
+          link.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          console.error('Failed to generate PDF');
+        }
       });
   }
   /**

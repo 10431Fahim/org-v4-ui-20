@@ -12,7 +12,7 @@ const serverConfig: ApplicationConfig = {
     provideServerRendering(withRoutes(serverRoutes)),
     provideHttpClient(withFetch()),
     provideTranslateService({
-      fallbackLang: 'bn',
+      fallbackLang: 'en',
       loader: {
         provide: TranslateLoader,
         useFactory: translateServerLoaderFactory,

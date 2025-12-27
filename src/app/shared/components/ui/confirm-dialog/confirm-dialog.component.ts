@@ -8,6 +8,7 @@ import {MatButton} from '@angular/material/button';
   imports: [
     MatButton
   ],
+  standalone:true,
   styleUrls: ['./confirm-dialog.component.scss']
 })
 export class ConfirmDialogComponent implements OnInit {

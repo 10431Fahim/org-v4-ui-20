@@ -38,7 +38,7 @@
                         <span class="locked-country">
                           <img [src]="getSingleCountry()?.image" alt="image" loading="lazy"/>
                           ({{ getSingleCountry()?.dial_code }})
-                         
+
                         </span>
                       } @else {
                         <span [matMenuTriggerFor]="menu">
@@ -50,7 +50,10 @@
                     </div>
                     <div class="form-input">
                       <input digitOnly formControlName="phoneNo" type="text"
-                             autocomplete="off" [readonly]="user()?.phoneNo">
+                             autocomplete="off" [readonly]="user()?.phoneNo"
+                             maxlength="15"
+                             (keypress)="onPhoneKeyPress($event)"
+                             (paste)="onPhonePaste($event)">
                     </div>
                     <!--                <button type="button" *ngIf="isBtnHide && !user?.phoneNo" [disabled]="isLoading" class="verify-btn" (click)="onSubmitOtp()">{{ "ln.Verify" | translate }}</button>-->
                     <!--                <button type="button" *ngIf="isOtpSent && isOtpValid === false" class="verify-btn" (click)="onEditBtn()">Edit</button>-->
@@ -72,6 +75,18 @@
                   <!--              <div class="input-area input-area-two" *ngIf="isOtpSent && isOtpValid === false">-->
                   <!--                <app-otp-verification [phoneNo]="phoneNo" (onEnterOtp)="onEnterOtp($event)" (onResentOtp)="resendOtp()"></app-otp-verification>-->
                   <!--              </div>-->
+
+                  <div class="form-input">
+                    <mat-form-field appearance="outline" class="field m-100">
+                      <mat-label>{{ 'ln.WhatsAppNumber' | translate }}</mat-label>
+                      <input matInput type="tel" value="" formControlName="whatsAppNumber" required digitOnly
+                             maxlength="15"
+                             (keypress)="onPhoneKeyPress($event)"
+                             (paste)="onWhatsAppPaste($event)">
+                      <mat-error>{{ "ln.ThisFieldRequired" | translate }}</mat-error>
+                    </mat-form-field>
+                    <!-- <small *ngIf="user?.email" class="text-muted">Pre-filled from your account</small> -->
+                  </div>
 
                   <div class="form-input">
                     <mat-form-field appearance="outline" class="field m-100">

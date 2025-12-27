@@ -113,18 +113,18 @@ a {
     flex: end;
     right: 0;
   }
-  
+
   // Mobile payment dropdown - hidden by default (will show on mobile)
   .mobile-payment {
     display: none;
     min-width: 22px;
-    
+
     .dropbtn {
       cursor: pointer;
       display: flex;
       align-items: center;
     }
-    
+
     .dropdown-content {
       position: absolute;
       top: 100%;
@@ -176,7 +176,7 @@ a {
   font-family: $font-en-primary;
   font-style: normal;
   font-weight: 500;
-  font-size: 14.5px;
+  font-size: 14px;
   display: block;
   position: relative;
   cursor: pointer;
@@ -410,17 +410,17 @@ a {
   .menu-area {
     display: none;
   }
-  
+
   // Hide desktop payment dropdown on mobile
   .desktop-payment {
     display: none !important;
   }
-  
+
   // Hide mobile payment dropdown on desktop
   .mobile-payment {
     display: none !important;
   }
-  
+
   .logo {
     display: flex;
     align-items: center;
@@ -430,7 +430,7 @@ a {
     .mobiletn{
       display: flex;
     }
-    
+
     // Show mobile payment dropdown on mobile only
     .mobile-payment {
       display: block !important;
@@ -481,7 +481,7 @@ a {
   .mobile-payment {
     display: none !important;
   }
-  
+
   // Show desktop payment dropdown on desktop
   .desktop-payment {
     display: block !important;
@@ -1172,6 +1172,7 @@ a {
 }
 .payment-btn{
   max-width: 25px!important;
+  min-width: 27px!important;
 }
 
 /* Fix dropdown positioning - prevent overflow to the right */
@@ -1206,5 +1207,8 @@ a {
     // min-width: 150px !important;
     max-width: 200px !important;
     transform: translateX(0) !important;
+  }
+  .container{
+    padding: 0px 8px;
   }
 }

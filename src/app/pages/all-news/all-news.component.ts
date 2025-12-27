@@ -22,6 +22,7 @@ import {ReviewService} from '../../services/common/review.service';
     NgIf,
     NgForOf
   ],
+  standalone:true,
   styleUrls: ['./all-news.component.scss']})
 export class AllNewsComponent implements OnInit {
 

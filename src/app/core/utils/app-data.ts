@@ -27,7 +27,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 
   {
     name: 'SSLCOMMERZ',
-    image: '/images/ssl-thumb.jpg',
+    image: '/payment1.jpg',
     slug: 'SSl Commerz',
   },
 

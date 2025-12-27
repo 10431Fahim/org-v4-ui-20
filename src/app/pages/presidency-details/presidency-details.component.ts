@@ -16,6 +16,7 @@ import {AboutService} from '../../services/common/about.service';
     NgForOf,
     SlicePipe
   ],
+  standalone:true,
   styleUrls: ['./presidency-details.component.scss'],
 
 })

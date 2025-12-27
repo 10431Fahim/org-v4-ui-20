@@ -18,6 +18,7 @@ import {NgForOf, NgIf} from '@angular/common';
     NgForOf,
     TranslatePipe,
   ],
+  standalone:true,
   styleUrls: ['./points.component.scss'],
 
 })
@@ -26,14 +27,14 @@ export class PointsComponent implements OnInit, OnDestroy {
   language:any;
   isChangeLanguageToggle: string = 'en';
   @Input() showcase: Showcase[] = [];
-  
+
   // Angular 20 Signals for reactive state management
   tag = signal<any[]>([]);
   isLoading = signal<boolean>(true);
-  
+
   // Computed signals
   hasTags = computed(() => this.tag().length > 0);
-  
+
   // Subscriptions
   private subDataSix!: Subscription;
   constructor(

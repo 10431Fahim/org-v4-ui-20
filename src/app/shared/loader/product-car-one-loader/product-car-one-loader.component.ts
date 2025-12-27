@@ -9,6 +9,7 @@ import {NgIf} from '@angular/common';
     NgxSkeletonLoaderComponent,
     NgIf
   ],
+  standalone:true,
   styleUrls: ['./product-car-one-loader.component.scss']
 })
 export class ProductCarOneLoaderComponent implements OnInit {

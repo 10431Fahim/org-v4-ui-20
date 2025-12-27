@@ -12,9 +12,9 @@
         <div class="section-1-main">
             <img [src]="notices()?.image" alt="image" loading="lazy">
             @if (isEnglish()) {
-              <p class="description" [innerHTML]="notices()?.description | safeHtmlCustom"></p>
+              <div class="description" [innerHTML]="notices()?.description | safeHtmlCustom"></div>
             } @else if (isBengali()) {
-              <p class="description font-bangla" [innerHTML]="notices()?.descriptionEn | safeHtmlCustom"></p>
+              <div class="description font-bangla" [innerHTML]="notices()?.descriptionEn | safeHtmlCustom"></div>
             }
         </div>
         <div class="btn-share">

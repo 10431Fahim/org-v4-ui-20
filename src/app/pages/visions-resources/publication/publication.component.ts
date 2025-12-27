@@ -19,6 +19,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     TranslatePipe,
     RouterLink
   ],
+  standalone:true,
   styleUrls: ['./publication.component.scss'],
 
 })

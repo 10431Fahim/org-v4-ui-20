@@ -7,6 +7,7 @@ import {NgxSkeletonLoaderComponent} from 'ngx-skeleton-loader';
   imports: [
     NgxSkeletonLoaderComponent
   ],
+  standalone:true,
   styleUrls: ['./program-loader.component.scss']
 })
 export class ProgramLoaderComponent implements OnInit {

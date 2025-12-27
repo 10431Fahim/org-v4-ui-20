@@ -25,6 +25,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     SafeHtmlCustomPipe,
     SwiperComponent
   ],
+  standalone:true,
   styleUrls: ['./story-details.component.scss'],
 
 })
@@ -81,14 +82,14 @@ export class StoryDetailsComponent implements OnInit, OnDestroy {
         this.sub.set(qPram.get('sub'));
         this.language.set(qPram.get('language') || 'en');
         this.id.set(param.get('id'));
-        
+
         const storyId = this.id();
         if (storyId) {
           this.getStoryById(storyId);
         }
       });
     });
-    
+
     this.getAllOurService();
   }
 

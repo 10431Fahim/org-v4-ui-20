@@ -16,6 +16,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   imports: [
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./jatio-sthai-comitte.component.scss']})
 export class JatioSthaiComitteComponent implements OnInit, OnDestroy {
 
@@ -157,7 +158,7 @@ export class JatioSthaiComitteComponent implements OnInit, OnDestroy {
         next: res => {
           this.standing.set(res.data);
           this.isLoading.set(false);
-          
+
           // Update remaining standing data
           const mData = [...this.standing()];
           mData.splice(0, 2);

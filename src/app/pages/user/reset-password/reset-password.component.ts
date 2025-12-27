@@ -19,6 +19,7 @@ import {MatButton} from '@angular/material/button';
     RouterLink,
     NgIf
   ],
+  standalone:true,
   styleUrls: ['./reset-password.component.scss'],
 
 })

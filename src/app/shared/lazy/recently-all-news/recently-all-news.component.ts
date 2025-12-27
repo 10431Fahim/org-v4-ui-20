@@ -1,23 +1,27 @@
-import {Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
 import {Review} from '../../../interfaces/common/review.interface';
 import {ReviewService} from '../../../services/common/review.service';
-import {RecentlyNewsLoaderComponent} from '../../loader/recently-news-loader/recently-news-loader.component';
 import {RouterLink} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
+import {RecentlyNewsLoaderModule} from '../../loader/recently-news-loader/recently-news-loader.module';
 
 @Component({
   selector: 'app-recently-all-news',
   templateUrl: './recently-all-news.component.html',
   imports: [
-    RecentlyNewsLoaderComponent,
     RouterLink,
     TranslatePipe,
     NgForOf,
-    NgIf
+    NgIf,
+    RecentlyNewsLoaderModule
   ],
-  styleUrls: ['./recently-all-news.component.scss']
+  standalone:true,
+  styleUrls: ['./recently-all-news.component.scss'],
+  host: {
+    'ngSkipHydration': 'true'
+  }
 })
 export class RecentlyAllNewsComponent implements OnInit, OnDestroy {
 

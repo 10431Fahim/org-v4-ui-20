@@ -13,12 +13,14 @@ import {ReviewService} from '../../../services/common/review.service';
 import {NoticesService} from '../../../services/common/notices.service';
 import {CanonicalService} from '../../../services/common/canonical.service';
 import {SocialShareComponent} from '../../../shared/components/ui/social-share/social-share.component';
+import {PipesModule} from '../../../shared/pipes/pipes.module';
 
 @Component({
   selector: 'app-notice-details',
   templateUrl: './notice-details.component.html',
   imports: [
-    SafeHtmlCustomPipe
+    SafeHtmlCustomPipe,
+    PipesModule
   ],
   standalone: true,
   styleUrls: ['./notice-details.component.scss']
@@ -161,7 +163,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
     this.meta.updateTag({name: 'author', content: 'BNP BD'});
     this.meta.updateTag({ name: 'keywords', content: 'news' });
-    
+
     // Facebook
     this.meta.updateTag({ property: 'og:title', content: currentNotices.name || 'Default Title' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
@@ -173,7 +175,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({ property: 'og:description', content: currentNotices.description || 'BNP Notice' });
     this.meta.updateTag({ property: 'og:locale', content: 'en_US'});
     this.meta.updateTag({ property: 'og:site_name', content: 'BNP Bangladesh'});
-    
+
     // Twitter
     this.meta.updateTag({ name: 'twitter:title', content: currentNotices.name || 'Default Title' });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image'});
@@ -181,7 +183,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({ name: 'twitter:creator', content: '@bdbnp78'});
     this.meta.updateTag({ name: 'twitter:image', content: currentNotices.seoImage || 'Default Image' });
     this.meta.updateTag({ name: 'twitter:description', content: currentNotices.description || 'BNP Notice' });
-    
+
     // Microsoft
     this.meta.updateTag({name: 'msapplication-TileImage', content: currentNotices.seoImage || 'Default Image'});
 
@@ -201,7 +203,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
     this.meta.updateTag({name: 'author', content: 'BNP BD'});
     this.meta.updateTag({ name: 'keywords', content: 'news' });
-    
+
     // Facebook
     this.meta.updateTag({ property: 'og:title', content: currentNotices.nameEn || 'Default Title' });
     this.meta.updateTag({ property: 'og:type', content: 'article' });
@@ -213,7 +215,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({ property: 'og:description', content: currentNotices.descriptionEn || 'BNP Notice' });
     this.meta.updateTag({ property: 'og:locale', content: 'bn_BD'});
     this.meta.updateTag({ property: 'og:site_name', content: 'BNP Bangladesh'});
-    
+
     // Twitter
     this.meta.updateTag({ name: 'twitter:title', content: currentNotices.nameEn || 'Default Title' });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image'});
@@ -221,7 +223,7 @@ export class NoticeDetailsComponent implements OnInit {
     this.meta.updateTag({ name: 'twitter:creator', content: '@bdbnp78'});
     this.meta.updateTag({ name: 'twitter:image', content: currentNotices.seoImage || 'Default Image' });
     this.meta.updateTag({ name: 'twitter:description', content: currentNotices.descriptionEn || 'BNP Notice' });
-    
+
     // Microsoft
     this.meta.updateTag({name: 'msapplication-TileImage', content: currentNotices.seoImage || 'Default Image'});
 

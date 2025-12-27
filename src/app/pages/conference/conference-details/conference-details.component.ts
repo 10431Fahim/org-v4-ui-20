@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal, computed, DestroyRef} from '@angular/core';
+import {Component, OnInit, inject, signal, computed, DestroyRef, effect} from '@angular/core';
 import {Subscription} from "rxjs";
 import {DomSanitizer, Meta, SafeResourceUrl, Title} from "@angular/platform-browser";
 import {Conference} from "../../../interfaces/common/conference.interface";
@@ -22,7 +22,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     RouterLink
   ],
   standalone: true,
-  styleUrls: ['./conference-details.component.scss']
+  styleUrls: ['./conference-details.component.scss'],
+  host: {ngSkipHydration: 'true'},
 })
 export class ConferenceDetailsComponent implements OnInit {
   // Angular 20: Using inject() function instead of constructor injection
@@ -53,12 +54,42 @@ export class ConferenceDetailsComponent implements OnInit {
   readonly conference = signal<Conference[]>([]);
   readonly conferenceData = signal<Conference | null>(null);
 
+  // Angular 20: Signal to track current language for reactive updates
+  readonly currentLang = signal<string>(this.translateService.currentLang || 'en');
+
   // Angular 20: Computed signals for derived state
-  readonly currentLanguage = computed(() => this.translateService.currentLang);
+  readonly currentLanguage = computed(() => this.currentLang());
   readonly isEnglish = computed(() => this.currentLanguage() === 'en' || !this.currentLanguage());
   readonly isBengali = computed(() => this.currentLanguage() === 'bn');
 
+  constructor() {
+    // Effect to reactively update metadata when language or conference data changes
+    effect(() => {
+      const lang = this.currentLanguage();
+      const conferenceData = this.conferenceData();
+
+      // Only update metadata if conference data is loaded
+      if (conferenceData && lang) {
+        if (lang === 'bn') {
+          this.updateMetaDataBn();
+        } else {
+          this.updateMetaData();
+        }
+      }
+    });
+  }
+
   ngOnInit(): void {
+    // Initialize language signal
+    this.currentLang.set(this.translateService.currentLang || 'en');
+
+    // Subscribe to translate service language changes
+    this.translateService.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(langChange => {
+        this.currentLang.set(langChange.lang);
+      });
+
     // Angular 20: Using takeUntilDestroyed for automatic subscription cleanup
     this.activatedRoute.paramMap
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -100,48 +131,72 @@ export class ConferenceDetailsComponent implements OnInit {
       });
   }
 
-  private getAllConference(loadMore?: boolean) {
-    const pagination: Pagination = {
-      pageSize: Number(this.productsPerPage()),
-      currentPage: Number(this.currentPage()) - 1
-    };
-    
-    // Select
-    const mSelect = {
-      name: 1,
-      nameEn: 1,
-      title: 1,
-      titleEn: 1,
-      description: 1,
-      descriptionEn: 1,
-      _id: 1,
-      createdAt: 1
-    };
+  // private getAllConference(loadMore?: boolean) {
+  //   const pagination: Pagination = {
+  //     pageSize: Number(this.productsPerPage()),
+  //     currentPage: Number(this.currentPage()) - 1
+  //   };
+  //
+  //   // Select
+  //   const mSelect = {
+  //     name: 1,
+  //     nameEn: 1,
+  //     title: 1,
+  //     titleEn: 1,
+  //     description: 1,
+  //     descriptionEn: 1,
+  //     _id: 1,
+  //     createdAt: 1
+  //   };
+  //
+  //   const filterData: FilterData = {
+  //     pagination: pagination,
+  //     filter: null,
+  //     select: mSelect,
+  //     sort: {createdAt: -1}
+  //   };
+  //
+  //   this.conferenceService.getAllConferences(filterData, null)
+  //     .pipe(takeUntilDestroyed(this.destroyRef))
+  //     .subscribe({
+  //       next: res => {
+  //         this.isLoading.set(false);
+  //         this.isLoadMore.set(false);
+  //
+  //         if (loadMore) {
+  //           this.conference.set([...this.conference(), ...res.data]);
+  //         } else {
+  //           this.conference.set(res.data);
+  //         }
+  //         this.totalProducts.set(res.count);
+  //       },
+  //       error: error => {
+  //         this.isLoading.set(false);
+  //         console.error(error);
+  //       }
+  //     });
+  // }
 
-    const filterData: FilterData = {
-      pagination: pagination,
-      filter: null,
-      select: mSelect,
-      sort: {createdAt: -1}
-    };
-
-    this.conferenceService.getAllConferences(filterData, null)
+  private getAllConference(): void {
+    this.isLoading.set(true);
+    this.conferenceService.getAllConference()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: res => {
           this.isLoading.set(false);
           this.isLoadMore.set(false);
 
-          if (loadMore) {
-            this.conference.set([...this.conference(), ...res.data]);
-          } else {
-            this.conference.set(res.data);
+          if (res.success) {
+            const currentId = this.id();
+            if (currentId) {
+              this.conference.set(res.data.filter(f => f._id !== currentId));
+            }
           }
-          this.totalProducts.set(res.count);
         },
-        error: error => {
+        error: err => {
           this.isLoading.set(false);
-          console.error(error);
+          this.isLoadMore.set(false);
+          console.error(err);
         }
       });
   }
@@ -158,12 +213,13 @@ export class ConferenceDetailsComponent implements OnInit {
     if (this.totalProducts() > this.conference().length) {
       this.isLoadMore.set(true);
       this.currentPage.set(this.currentPage() + 1);
-      this.getAllConference(true);
+      // this.getAllConference(true);
     }
   }
 
   onChangeLanguage(language: string) {
     this.isChangeLanguage.set(language === 'bn');
+    this.currentLang.set(language);
     this.translateService.use(language);
   }
 
@@ -171,10 +227,12 @@ export class ConferenceDetailsComponent implements OnInit {
     if (this.isChangeLanguageToggle() !== language) {
       this.isChangeLanguageToggle.set(language);
       this.isChangeLanguage.set(true);
+      this.currentLang.set(language);
       this.translateService.use(this.isChangeLanguageToggle());
     } else {
       this.isChangeLanguageToggle.set('en');
       this.isChangeLanguage.set(false);
+      this.currentLang.set('en');
       this.translateService.use(this.isChangeLanguageToggle());
     }
   }

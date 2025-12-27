@@ -20,6 +20,7 @@ import {SafeHtmlCustomPipe} from '../../../shared/pipes/safe-html.pipe';
     NgForOf,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./our-leader.component.scss'],
 
 })
@@ -28,16 +29,16 @@ export class OurLeaderComponent implements OnInit, OnDestroy {
   isChangeLanguage: boolean = false;
   language: any;
   isChangeLanguageToggle: string = 'en';
-  
+
   // Angular 20 Signals for reactive state management
   portfolio = signal<any[]>([]);
   isLoading = signal<boolean>(true);
-  
+
   // Computed signals
   firstPortfolio = computed(() => this.portfolio()[0] || null);
   hasLeaders = computed(() => this.firstPortfolio()?.leaders?.length > 0);
   leadersToShow = computed(() => this.firstPortfolio()?.leaders?.slice(0, 3) || []);
-  
+
   private subDataTwo!: Subscription;
   constructor(
     private matDialog: MatDialog,

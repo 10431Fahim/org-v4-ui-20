@@ -238,25 +238,28 @@
     a {
       text-decoration: none;
       font-weight: 500;
-  font-family: $font-en-primary;
+      font-family: $font-en-primary;
       transition: all 0.3s ease;
       padding: 8px 16px;
       border-radius: 8px;
 
       &.register-link {
-        color: $color-primary;
-        background-color: rgba(37, 59, 56, 0.1);
-
+        //color: $color-primary;
+        //background-color: rgba(37, 59, 56, 0.1);
+        color: #000000;
+        background-color: rgb(2 104 58 / 64%);
         &:hover {
           background-color: rgba(37, 59, 56, 0.2);
           transform: translateY(-1px);
         }
       }
-
+      //color: #000000;
+      //background-color: rgb(2 104 58 / 64%);
       &.forgot-link {
-        color: #718096;
-        background-color: rgba(113, 128, 150, 0.1);
-
+        //color: #718096;
+        //background-color: rgba(113, 128, 150, 0.1);
+        color: #000000;
+        background-color: rgb(190 0 0 / 50%);
         &:hover {
           background-color: rgba(113, 128, 150, 0.2);
           transform: translateY(-1px);

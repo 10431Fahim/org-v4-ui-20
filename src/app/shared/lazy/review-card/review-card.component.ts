@@ -8,6 +8,7 @@ import {NgIf} from '@angular/common';
   imports: [
     NgIf
   ],
+  standalone:true,
   styleUrls: ['./review-card.component.scss']
 })
 export class ReviewCardComponent implements OnInit {

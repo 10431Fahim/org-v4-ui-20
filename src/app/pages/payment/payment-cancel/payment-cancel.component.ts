@@ -9,6 +9,7 @@ import {MatButton} from '@angular/material/button';
     RouterLink,
     MatButton
   ],
+  standalone:true,
   styleUrls: ['./payment-cancel.component.scss'],
 
 })

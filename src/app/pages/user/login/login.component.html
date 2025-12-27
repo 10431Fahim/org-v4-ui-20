@@ -68,9 +68,6 @@
             @if (password?.hasError('minlength') && password?.touched) {
               <mat-error>{{ 'ln.PasswordMinLength' | translate }}</mat-error>
             }
-            @if (password?.hasError('pattern') && password?.touched) {
-              <mat-error>{{ 'ln.PasswordPattern' | translate }}</mat-error>
-            }
           </mat-form-field>
         </div>
 

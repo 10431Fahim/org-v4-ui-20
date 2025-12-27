@@ -16,6 +16,7 @@ import {CanonicalService} from '../../services/common/canonical.service';
     NgIf,
     NgForOf
   ],
+  standalone:true,
   styleUrls: ['./teen-dofa.component.scss']})
 export class TeenDofaComponent implements OnInit, OnDestroy {
 

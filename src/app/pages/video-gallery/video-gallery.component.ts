@@ -13,6 +13,7 @@ import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
     SafeUrlPipe,
     NgForOf
   ],
+  standalone:true,
   styleUrls: ['./video-gallery.component.scss']})
 export class VideoGalleryComponent implements OnInit {
 

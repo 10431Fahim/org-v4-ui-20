@@ -8,7 +8,7 @@ import {StorageService} from '../../../services/core/storage.service';
   selector: 'app-payment-bkash',
   templateUrl: './payment-nagad.component.html',
   styleUrls: ['./payment-nagad.component.scss'],
-
+  standalone:true,
 })
 export class PaymentNagadComponent implements OnInit {
 

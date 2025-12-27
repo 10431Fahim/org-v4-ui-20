@@ -14,6 +14,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   imports: [
     RouterLink
   ],
+  standalone:true,
   styleUrls: ['./policies.component.scss'],
 
 })

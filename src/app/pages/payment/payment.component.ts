@@ -7,6 +7,7 @@ import {RouterOutlet} from '@angular/router';
   imports: [
     RouterOutlet
   ],
+  standalone:true,
   styleUrls: ['./payment.component.scss']})
 export class PaymentComponent implements OnInit {
 

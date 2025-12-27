@@ -27,6 +27,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     PublicationComponent,
     DeclarationComponent
   ],
+  standalone:true,
   styleUrls: ['./visions-resources.component.scss']})
 export class VisionsResourcesComponent implements OnInit, OnDestroy {
   // Angular 20 Signals for reactive state management
@@ -76,7 +77,7 @@ export class VisionsResourcesComponent implements OnInit, OnDestroy {
     ).subscribe(qPram => {
       this.language.set(qPram.get('language') || 'en');
     })
-    
+
     this.activatedRoute.queryParamMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(qParam => {
@@ -210,7 +211,7 @@ export class VisionsResourcesComponent implements OnInit, OnDestroy {
   private updateMetaData() {
     const visionsData = this.visionsResources();
     const firstResource = visionsData[0];
-    
+
     // Title
     this.title.setTitle(firstResource?.name || 'Visions & Resources');
     // Meta
@@ -251,7 +252,7 @@ export class VisionsResourcesComponent implements OnInit, OnDestroy {
   private updateMetaDataBn() {
     const visionsData = this.visionsResources();
     const firstResource = visionsData[0];
-    
+
     // Title
     this.title.setTitle(firstResource?.nameEn || 'Visions & Resources');
     // Meta

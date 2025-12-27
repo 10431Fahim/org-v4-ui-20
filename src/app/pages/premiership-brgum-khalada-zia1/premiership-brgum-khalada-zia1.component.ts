@@ -18,6 +18,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-premiership-brgum-khalada-zia1',
   templateUrl: './premiership-brgum-khalada-zia1.component.html',
   imports: [],
+  standalone:true,
   host: {ngSkipHydration: 'true'},
   styleUrls: ['./premiership-brgum-khalada-zia1.component.scss']})
 export class PremiershipBrgumKhaladaZia1Component implements OnInit, OnDestroy {

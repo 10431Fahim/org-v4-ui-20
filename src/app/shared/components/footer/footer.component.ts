@@ -13,6 +13,7 @@ import {EngBnNumPipe} from '../../pipes/eng-bn-num.pipe';
     EngBnNumPipe,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {

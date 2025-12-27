@@ -31,6 +31,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'certificate-verification',
+    renderMode: RenderMode.Prerender
+  },
+  {
     path: 'coming-soon',
     renderMode: RenderMode.Prerender
   },
@@ -157,6 +161,10 @@ export const serverRoutes: ServerRoute[] = [
   {
     path: 'donate',
     renderMode: RenderMode.Prerender
+  },
+  {
+    path: 'donate-payment',
+    renderMode: RenderMode.Server
   },
   {
     path: 'premiership-begum-khaleda-zia3',

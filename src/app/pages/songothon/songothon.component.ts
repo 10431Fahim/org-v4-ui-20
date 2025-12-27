@@ -11,6 +11,7 @@ import {RecentlyAllNewsComponent} from '../../shared/lazy/recently-all-news/rece
     TranslatePipe,
     RecentlyAllNewsComponent
   ],
+  standalone:true,
   styleUrls: ['./songothon.component.scss']})
 export class SongothonComponent implements OnInit {
   isChangeLanguage: boolean = false;

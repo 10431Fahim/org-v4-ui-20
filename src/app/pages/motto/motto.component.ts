@@ -21,6 +21,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-motto',
   templateUrl: './motto.component.html',
   imports: [],
+  standalone:true,
   styleUrls: ['./motto.component.scss'],
 })
 export class MottoComponent implements OnInit, OnDestroy {
@@ -139,7 +140,7 @@ export class MottoComponent implements OnInit, OnDestroy {
           this.isLoading.set(false);
           this.spinnerService.hide();
           this.motto.set(res.data);
-          
+
           if (this.hasMotto()) {
             if (this.isLanguageBengali()) {
               this.updateMetaDataBn();

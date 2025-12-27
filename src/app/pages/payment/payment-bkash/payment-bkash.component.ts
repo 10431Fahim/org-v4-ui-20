@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   selector: 'app-payment-bkash',
   templateUrl: './payment-bkash.component.html',
   styleUrls: ['./payment-bkash.component.scss'],
-
+  standalone:true,
 })
 export class PaymentBkashComponent implements OnInit, OnDestroy {
 

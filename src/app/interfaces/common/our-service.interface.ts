@@ -9,6 +9,7 @@ export interface OurService {
   publishedDate?: any;
   nameEn?: string;
   description?: string;
+  seoDescription?: string;
   descriptionEn?: string;
   shortDescription?: string;
   shortDescriptionEn?: string;

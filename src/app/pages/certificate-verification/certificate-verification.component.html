@@ -1,0 +1,125 @@
+<section class="certificate-verification">
+  <div class="top-banner-area">
+    <div class="">
+      <div class="banner">
+        <img src="/images/banner.jpg" alt="image" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="section1">
+    <div class="container">
+      <div class="section1-main">
+        <div class="section1-title">
+          <h3>{{ "ln.CertificateVerification" | translate }}</h3>
+          <p>{{ "ln.VerifyCertificateDescription" | translate }}</p>
+        </div>
+
+        <div class="verification-form-area">
+          <div class="form-title">
+            <h4>{{ "ln.EnterVerificationId" | translate }}</h4>
+          </div>
+
+          <div class="form">
+            <form #formElement="ngForm" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>{{ "ln.MemberIdOrCertificateId" | translate }}</mat-label>
+                  <input 
+                    formControlName="verificationId" 
+                    type="text" 
+                    matInput 
+                    required
+                    placeholder="BNP123456 or Certificate ID">
+                  <mat-icon matPrefix>verified_user</mat-icon>
+                  <mat-error *ngIf="verificationId?.invalid && verificationId?.touched">
+                    {{ "ln.Required" | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="button-area">
+                <div class="sub-btn">
+                  <button 
+                    class="btn btn-change" 
+                    type="submit"
+                    [disabled]="isLoading">
+                    <span *ngIf="!isLoading">{{ "ln.Verify" | translate }}</span>
+                    <span *ngIf="isLoading">{{ "ln.PleaseWait" | translate }}</span>
+                  </button>
+                </div>
+                <div class="sub-btn" *ngIf="showResult">
+                  <button 
+                    class="btn btn-secondary" 
+                    type="button"
+                    (click)="resetForm()">
+                    {{ "ln.VerifyAnother" | translate }}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Verification Result -->
+        <div class="verification-result" *ngIf="showResult && verificationResult">
+          <div class="result-card success" *ngIf="verificationResult">
+            <div class="result-header">
+              <mat-icon class="success-icon">check_circle</mat-icon>
+              <h3>{{ "ln.CertificateVerified" | translate }}</h3>
+            </div>
+
+            <div class="result-content">
+              <div class="certificate-preview">
+                <div class="certificate-info">
+                  <div class="info-row">
+                    <span class="label">{{ "ln.MemberName" | translate }}:</span>
+                    <span class="value">{{ verificationResult.name || 'N/A' }}</span>
+                  </div>
+                  <div class="info-row">
+                    <span class="label">{{ "ln.MemberId" | translate }}:</span>
+                    <span class="value">{{ verificationResult.memberId || 'N/A' }}</span>
+                  </div>
+                  <div class="info-row" *ngIf="verificationResult.age">
+                    <span class="label">{{ "ln.Age" | translate }}:</span>
+                    <span class="value">{{ verificationResult.age }}</span>
+                  </div>
+                  <div class="info-row" *ngIf="verificationResult.country">
+                    <span class="label">{{ "ln.Country" | translate }}:</span>
+                    <span class="value">{{ verificationResult.country }}</span>
+                  </div>
+                  <div class="info-row" *ngIf="verificationResult.city">
+                    <span class="label">{{ "ln.City" | translate }}:</span>
+                    <span class="value">{{ verificationResult.city }}</span>
+                  </div>
+                  <div class="info-row" *ngIf="verificationResult.paymentStatus">
+                    <span class="label">{{ "ln.PaymentStatus" | translate }}:</span>
+                    <span class="value status-badge" [class.paid]="verificationResult.paymentStatus === 'paid'">
+                      {{ verificationResult.paymentStatus === 'paid' ? ('ln.Paid' | translate) : ('ln.Pending' | translate) }}
+                    </span>
+                  </div>
+                  <div class="info-row" *ngIf="verificationResult.issueDate">
+                    <span class="label">{{ "ln.IssueDate" | translate }}:</span>
+                    <span class="value">{{ verificationResult.issueDate }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Result Found -->
+        <div class="verification-result" *ngIf="showResult && !verificationResult">
+          <div class="result-card error">
+            <div class="result-header">
+              <mat-icon class="error-icon">error</mat-icon>
+              <h3>{{ "ln.CertificateNotFound" | translate }}</h3>
+            </div>
+            <p>{{ "ln.CertificateNotFoundMessage" | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

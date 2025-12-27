@@ -7,6 +7,10 @@ export const environment = {
   // apiBaseLink: 'https://api.bangladeshnationalistparty.net',
   // ftpBaseLink: 'https://api.bangladeshnationalistparty.net',
   sslIpnUrl: 'https://api-v2.bnpbd.org/api/payment/ssl-ipn',
+
+  // apiBaseLink: 'https://ict-bnp-78-api.bnpbangladesh.org',
+  // ftpBaseLink: 'https://ict-bnp-78-cdn.bnpbangladesh.org',
+  // sslIpnUrl: 'https://ict-bnp-78-api.bnpbangladesh.org/api/payment/ssl-ipn',
   appBaseUrl: '/',
   userBaseUrl: 'account',
   userProfileUrl: '/account',

@@ -17,6 +17,7 @@ import {Showcase} from '../../../interfaces/common/showcase.interface';
     RouterLink,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent implements OnInit {

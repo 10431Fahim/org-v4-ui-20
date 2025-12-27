@@ -38,6 +38,10 @@ export const routes: Routes = [ {
     loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule),
   },
   {
+    path: 'certificate-verification',
+    loadChildren: () => import('./pages/certificate-verification/certificate-verification.module').then(m => m.CertificateVerificationModule),
+  },
+  {
     path: 'coming-soon',
     loadChildren: () => import('./pages/coming-soon/coming-soon.module').then(m => m.ComingSoonModule),
   },
@@ -172,6 +176,10 @@ export const routes: Routes = [ {
   {
     path: 'donate',
     loadChildren: () => import('./pages/donate/donate.module').then(m => m.DonateModule),
+  },
+  {
+    path: 'donate-payment',
+    loadComponent: () => import('./pages/donate-payment/donate-payment.component').then(m => m.DonatePaymentComponent),
   },
   {
     path:"premiership-begum-khaleda-zia3",

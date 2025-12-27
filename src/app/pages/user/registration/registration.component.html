@@ -13,7 +13,7 @@
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
       <div class="header-main" style="display:flex;justify-content:center; gap: 10px;align-items: center;margin-bottom: 0">
         <img style="width: 150px;"
-             src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+             src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
              alt="">
         <div>
           <h2 class="title">{{ 'ln.PartyTitle' | translate }}</h2>
@@ -80,7 +80,7 @@
           <input id="occupation" formControlName="occupation" placeholder="{{ 'ln.EnterOccupation' | translate }}"/>
         </div>
 
-      
+
       </div>
       <div class="form-row">
 <!--        <div class="form-group">-->
@@ -102,7 +102,8 @@
                      matInput
                      formControlName="country"
                      [matAutocomplete]="countryAuto"
-                     (focus)="onPresentCountryFocus()">
+                     (focus)="onPresentCountryFocus()"
+                     (keydown.enter)="$event.preventDefault()">
               <mat-autocomplete #countryAuto="matAutocomplete" (optionSelected)="onPresentCountrySelected($event)">
                 <mat-option *ngFor="let data of filteredPresentCountry$ | async" [value]="data?.name">{{data?.name}}</mat-option>
               </mat-autocomplete>
@@ -110,6 +111,7 @@
           </div>
           <div class="error" *ngIf="f['country'].invalid && (f['country'].dirty || f['country'].touched || submitted)">
             <span *ngIf="f['country'].errors?.['required']">{{ 'ln.Country' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['country'].errors?.['invalidCountry']">Please select a valid country from the dropdown</span>
           </div>
         </div>
 
@@ -130,7 +132,7 @@
           </div>
         </div>
       </div>
-      
+
 <!--      <div class="form-row">-->
 
 <!--&lt;!&ndash;        <div class="form-group">&ndash;&gt;-->
@@ -146,7 +148,7 @@
 <!--      </div>-->
 
 
-     
+
 
       <div class="form-row">
         <div class="form-group">
@@ -176,7 +178,8 @@
                      matInput
                      formControlName="city"
                      [matAutocomplete]="cityPresentAuto"
-                     (focus)="onPresentCityFocus()">
+                     (focus)="onPresentCityFocus()"
+                     (keydown.enter)="$event.preventDefault()">
               <mat-autocomplete #cityPresentAuto="matAutocomplete" (optionSelected)="onPresentCitySelected($event)">
                 <mat-option *ngFor="let data of filteredCities" [value]="data">{{data}}</mat-option>
               </mat-autocomplete>
@@ -184,6 +187,7 @@
           </div>
           <div class="error" *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched || submitted)">
             <span *ngIf="f['city'].errors?.['required']">{{ 'ln.City' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['city'].errors?.['invalidCity']">Please select a valid city from the dropdown</span>
           </div>
         </div>
 
@@ -204,7 +208,8 @@
                      matInput
                      formControlName="countryPermanent"
                      [matAutocomplete]="countryPermanentAuto"
-                     (focus)="onPermanentCountryFocus()">
+                     (focus)="onPermanentCountryFocus()"
+                     (keydown.enter)="$event.preventDefault()">
               <mat-autocomplete #countryPermanentAuto="matAutocomplete" (optionSelected)="onPermanentCountrySelected($event)">
                 <mat-option *ngFor="let data of filteredPermanentCountry$ | async" [value]="data?.name">{{data?.name}}</mat-option>
               </mat-autocomplete>
@@ -212,6 +217,7 @@
           </div>
           <div class="error" *ngIf="f['countryPermanent'].invalid && (f['countryPermanent'].dirty || f['countryPermanent'].touched || submitted)">
             <span *ngIf="f['countryPermanent'].errors?.['required']">{{ 'ln.CountryPermanent' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['countryPermanent'].errors?.['invalidCountry']">Please select a valid country from the dropdown</span>
           </div>
         </div>
 
@@ -225,7 +231,8 @@
                      matInput
                      formControlName="cityPermanent"
                      [matAutocomplete]="cityPermanentAuto"
-                     (focus)="onPermanentCityFocus()">
+                     (focus)="onPermanentCityFocus()"
+                     (keydown.enter)="$event.preventDefault()">
               <mat-autocomplete #cityPermanentAuto="matAutocomplete" (optionSelected)="onPermanentCitySelected($event)">
                 <mat-option *ngFor="let data of filteredPermanentCities" [value]="data">{{data}}</mat-option>
               </mat-autocomplete>
@@ -233,6 +240,7 @@
           </div>
           <div class="error" *ngIf="f['cityPermanent'].invalid && (f['cityPermanent'].dirty || f['cityPermanent'].touched || submitted)">
             <span *ngIf="f['cityPermanent'].errors?.['required']">{{ 'ln.CityPermanent' | translate }} {{ 'ln.isRequired' | translate }}</span>
+            <span *ngIf="f['cityPermanent'].errors?.['invalidCity']">Please select a valid city from the dropdown</span>
           </div>
         </div>
 
@@ -251,7 +259,6 @@
           <div class="error" *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched || submitted)">
             <span *ngIf="f['password'].errors?.['required']">{{ 'ln.Password' | translate }} {{ 'ln.isRequired' | translate }}</span>
             <span *ngIf="f['password'].errors?.['minlength']">{{ 'ln.PasswordMinLength' | translate }}</span>
-            <span *ngIf="f['password'].errors?.['pattern']">{{ 'ln.PasswordPattern' | translate }}</span>
           </div>
         </div>
 
@@ -284,7 +291,7 @@
                  placeholder="{{ 'ln.EnterFacebookProfile' | translate }}"/>
         </div>
       </div>
-      
+
       <div class="form-row" *ngIf="memberType === 'member-fee'">
         <div class="form-group">
           <label for="unitCommittee">{{ 'ln.UnitCommittee' | translate }}<span class="required">*</span></label>
@@ -361,7 +368,7 @@
       </div> -->
 
 
-      <div class="amount" *ngIf="memberType ==='primary-member-fee' && f['country']?.value && getSelectedAmount()">
+      <div class="amount" *ngIf="f['country']?.value && getSelectedAmount()">
         <label for="condition">{{ 'ln.amount' | translate }}:
           <span class="amount-value">
             {{ getSelectedAmount() }}
@@ -369,13 +376,13 @@
         </label>
       </div>
 
-       <div class="amount" *ngIf="memberType ==='member-fee'&& getSelectedDesignationAmount() > 0">
-        <label for="condition">{{ 'ln.amount' | translate }}:
-          <span  class="amount-value">
-            {{ getSelectedDesignationAmount() }} {{ currency }}
-          </span>
-        </label>
-      </div>
+<!--       <div class="amount" *ngIf="memberType ==='member-fee'&& getSelectedDesignationAmount() > 0">-->
+<!--        <label for="condition">{{ 'ln.amount' | translate }}:-->
+<!--          <span  class="amount-value">-->
+<!--            {{ getSelectedDesignationAmount() }} {{ currency }}-->
+<!--          </span>-->
+<!--        </label>-->
+<!--      </div>-->
 
       <div class="checkbox" *ngIf="memberType ==='primary-member-fee'">
         <input id="condition" type="checkbox" formControlName="agree"/>

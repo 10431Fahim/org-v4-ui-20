@@ -62,7 +62,8 @@ export const MY_FORMATS = {
     MatButton,
     MatDatepickerInput,
     NgForOf
-  ]
+  ],
+  standalone:true,
 })
 export class TaskControllerComponent implements OnInit {
 

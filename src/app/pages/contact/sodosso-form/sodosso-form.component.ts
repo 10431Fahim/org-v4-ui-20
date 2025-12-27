@@ -8,6 +8,7 @@ import {ContactService} from "../../../services/common/contact.service";
   imports: [
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./sodosso-form.component.scss'],
 
 })

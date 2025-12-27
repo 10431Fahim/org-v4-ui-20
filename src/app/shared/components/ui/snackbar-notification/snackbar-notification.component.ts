@@ -4,7 +4,8 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-snackbar-notification',
   templateUrl: './snackbar-notification.component.html',
-  styleUrls: ['./snackbar-notification.component.scss']
+  styleUrls: ['./snackbar-notification.component.scss'],
+  standalone:true,
 })
 export class SnackbarNotificationComponent implements OnInit {
 

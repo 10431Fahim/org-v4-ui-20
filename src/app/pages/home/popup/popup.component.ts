@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit, inject, signal, computed, DestroyRef} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {Component, computed, DestroyRef, Inject, inject, OnInit, signal} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 import {StorageService} from '../../../services/core/storage.service';
 import {Popup} from '../../../interfaces/common/popup.interface';
 import {DATABASE_KEY} from '../../../core/utils/global-variable';
 import {SafeUrlPipe} from '../../../shared/pipes/safe-url.pipe';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-popup',

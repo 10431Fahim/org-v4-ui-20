@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: 'img[src]' // auto apply to all <img src="...">
+  selector: 'img[src]', // auto apply to all <img src="...">
+  standalone:true,
 })
 export class AutoCrossoriginDirective implements AfterViewInit, OnDestroy {
   private observer!: MutationObserver;

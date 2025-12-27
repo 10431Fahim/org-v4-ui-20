@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'numMinDigit',
-  pure: true
+  pure: true,
+  standalone:true,
 })
 export class NumberMinDigitPipe implements PipeTransform {
 

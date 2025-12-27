@@ -13,6 +13,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   imports: [
     SafeHtmlCustomPipe
   ],
+  standalone:true,
   styleUrls: ['./declaration.component.scss'],
 
 })

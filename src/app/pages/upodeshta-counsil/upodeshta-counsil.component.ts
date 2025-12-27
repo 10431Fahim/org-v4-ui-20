@@ -9,6 +9,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     RouterLink,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./upodeshta-counsil.component.scss']})
 export class UpodeshtaCounsilComponent implements OnInit {
 

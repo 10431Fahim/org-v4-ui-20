@@ -26,6 +26,7 @@ import {NewsCardOneLoaderComponent} from '../../../shared/loader/news-card-one-l
     TranslatePipe,
     NgForOf,
   ],
+  standalone:true,
   styleUrls: ['./test-details.component.scss'],
 
 })

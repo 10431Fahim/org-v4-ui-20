@@ -14,6 +14,7 @@ import {NgIf} from '@angular/common';
     NumberMinDigitPipe,
     NgIf
   ],
+  standalone:true,
   styleUrls: ['./otp-verification.component.scss']
 })
 export class OtpVerificationComponent implements OnInit, OnDestroy {

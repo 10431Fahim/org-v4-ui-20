@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, signal, computed, DestroyRef} from '@angular/core';
+import {Component, OnInit, inject, signal, computed, DestroyRef, effect} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
@@ -55,8 +55,11 @@ export class ProgramDetailsComponent implements OnInit {
   readonly isLoading = signal<boolean>(true);
   readonly isLoadingRelated = signal<boolean>(true);
 
+  // Angular 20: Signal to track current language for reactive updates
+  readonly currentLang = signal<string>(this.translateService.currentLang || 'en');
+
   // Angular 20: Computed signals for derived state
-  readonly currentLanguage = computed(() => this.translateService.currentLang);
+  readonly currentLanguage = computed(() => this.currentLang());
   readonly isEnglish = computed(() => this.currentLanguage() === 'en' || !this.currentLanguage());
   readonly isBengali = computed(() => this.currentLanguage() === 'bn');
 
@@ -70,7 +73,34 @@ export class ProgramDetailsComponent implements OnInit {
     '1200': { visibleSlides: 3, gap: 20 }
   };
 
+  constructor() {
+    // Effect to reactively update metadata when language or service data changes
+    effect(() => {
+      const lang = this.currentLanguage();
+      const service = this.ourService();
+
+      // Only update metadata if service data is loaded
+      if (service && lang) {
+        if (lang === 'bn') {
+          this.updateMetaDataBn();
+        } else {
+          this.updateMetaData();
+        }
+      }
+    });
+  }
+
   ngOnInit(): void {
+    // Initialize language signal
+    this.currentLang.set(this.translateService.currentLang || 'en');
+
+    // Subscribe to translate service language changes
+    this.translateService.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(langChange => {
+        this.currentLang.set(langChange.lang);
+      });
+
     // Angular 20: Using takeUntilDestroyed for automatic subscription cleanup
     this.activatedRoute.paramMap
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -192,6 +222,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   onChangeLanguage(language: string) {
     this.isChangeLanguage.set(language === 'bn');
+    this.currentLang.set(language);
     this.translateService.use(language);
   }
 
@@ -199,10 +230,12 @@ export class ProgramDetailsComponent implements OnInit {
     if (this.isChangeLanguageToggle() !== language) {
       this.isChangeLanguageToggle.set(language);
       this.isChangeLanguage.set(true);
+      this.currentLang.set(language);
       this.translateService.use(this.isChangeLanguageToggle());
     } else {
       this.isChangeLanguageToggle.set('en');
       this.isChangeLanguage.set(false);
+      this.currentLang.set('en');
       this.translateService.use(this.isChangeLanguageToggle());
     }
   }
@@ -255,6 +288,11 @@ export class ProgramDetailsComponent implements OnInit {
     // Canonical URL
     this.canonicalService.setCanonicalURL();
   }
+  // stripHtml(html:any) {
+  //   const tmp = document.createElement('div');
+  //   tmp.innerHTML = html || '';
+  //   return tmp.textContent || tmp.innerText || '';
+  // }
 
   private updateMetaDataBn() {
     const currentOurService = this.ourService();

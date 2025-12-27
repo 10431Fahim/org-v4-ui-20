@@ -13,6 +13,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-premiership-brgum-khalada-zia2',
   templateUrl: './premiership-brgum-khalada-zia2.component.html',
   imports: [],
+  standalone:true,
   host: {ngSkipHydration: 'true'},
   styleUrls: ['./premiership-brgum-khalada-zia2.component.scss']})
 export class PremiershipBrgumKhaladaZia2Component implements OnInit, OnDestroy {
@@ -134,7 +135,7 @@ export class PremiershipBrgumKhaladaZia2Component implements OnInit, OnDestroy {
         next: (res) => {
           this.pageFaq.set(res.data);
           this.isLoading.set(false);
-          
+
           if (this.hasPageFaq()) {
             if (this.isLanguageBengali()) {
               this.updateMetaDataBn();

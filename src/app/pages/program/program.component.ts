@@ -1,6 +1,5 @@
-import {Component, OnInit, inject, signal, computed, DestroyRef} from '@angular/core';
+import {Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
 import {SeoPage} from "../../interfaces/common/seo-page.interface";
 import {Meta, Title} from "@angular/platform-browser";
 import {CanonicalService} from "../../services/common/canonical.service";
@@ -12,6 +11,7 @@ import {OurService} from '../../interfaces/common/our-service.interface';
 import {OurServiceService} from '../../services/common/our-service.service';
 import {FilterData} from '../../interfaces/core/filter-data';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {NewsCardOneLoaderModule} from '../../shared/loader/news-card-one-loader/news-card-one-loader.module';
 
 @Component({
   selector: 'app-program',
@@ -20,7 +20,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     NewsCardOneLoaderComponent,
     TranslatePipe,
     RouterLink,
-    DatePipe
+    DatePipe,
+    NewsCardOneLoaderModule
   ],
   standalone: true,
   styleUrls: ['./program.component.scss']

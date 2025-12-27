@@ -24,6 +24,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     RecentlyAllNewsComponent,
     DatePipe
   ],
+  standalone:true,
   styleUrls: ['./reports.component.scss']})
 export class ReportsComponent implements OnInit, OnDestroy {
 

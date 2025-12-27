@@ -14,6 +14,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-nineteen-dofa',
   templateUrl: './nineteen-dofa.component.html',
   imports: [],
+  standalone:true,
   styleUrls: ['./nineteen-dofa.component.scss']})
 export class NineteenDofaComponent implements OnInit, OnDestroy {
   // Angular 20 Signals for reactive state management

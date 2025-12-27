@@ -329,687 +329,228 @@ export class AccountComponent implements OnInit, OnDestroy {
     let htmlContent : any;
     this.isLoading.set(true);
 
-    if(this.isPrimaryMember()){
-      if(this.language() === 'bn'){
-        htmlContent = `
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
+    const issueDate = new Date().toLocaleDateString('bn-BD', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const approvedDate = formData?.updatedAt
+      ? new Date(formData.updatedAt).toLocaleDateString('bn-BD', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : issueDate;
+    const currency =
+      formData?.country === 'BD' || formData?.country === 'Bangladesh'
+        ? 'টাকা'
+        : ' USD';
+    const amount = formData?.amount || '২০';
+    const mongoId = formData?._id || formData?.id || '';
+    const qrCodeUrl = mongoId
+      ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(mongoId.toString())}`
+      : '';
 
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-     <div>
-      <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">বিসমিল্লাহির রহমানির রহিম</h1>
-    <h2 style="font-size: 30px;text-align: center; line-height: 20px">বাংলাদেশ জাতীয়তাবাদী দল</h2>
+    htmlContent = `
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet">
+<div #pdfContent id="pdf-content" class="pdf-style" style="
+    width:1000px;
+    font-family:'Kalpurush','Noto Sans Bengali','Century','Times New Roman',Times,Georgia,serif;
+    font-weight:400;
+    font-style:normal;
+    margin:0 auto;
+    background:#fff;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 15px 45px rgba(0,0,0,0.25);
+    border:12px solid #b89c5d;
+    outline:10px solid #006A4E;
+    position:relative;
+">
+            <div style="
+                border:4px solid #d5bc79;
+                padding:30px 30px 20px;
+                position:relative;
+                background:#fafaf7;
+                overflow:hidden;
+            ">
+                <div style="
+                    position:absolute;
+                    inset:0;
+                    background:url('https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png') center no-repeat;
+                    background-size:cover;
+                    opacity:.07;
+                    pointer-events:none;
+                    z-index:1;
+                "></div>
+                <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+                   
+                    style="
+                        width:100px;
+                        opacity:.96;
+                        position:absolute;
+                        top:60px;
+                        left:30px;
+                        z-index:200;
+                    ">
+                <div style="
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="font-size:14px;color:#444;margin-bottom:4px;">
+                        বিসমিল্লাহির রহমানির রাহীম
+                    </div>
+                    <div style="font-size:28px;font-weight:400;color:#006A4E;letter-spacing:1px;">
+                        বাংলাদেশ জাতীয়তাবাদী দল – বিএনপি
+                    </div>
+                    <div style="font-size:16px;color:#333;margin-top:3px;font-style:normal;">
+                        কেন্দ্রীয় দফতর
+                    </div>
+                    <div style="font-size:20px;color:#333;margin-top:4px;font-weight:400;">
+                        সদস্য সংগ্রহ / নবায়ন ফরম
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:15px;position:relative;z-index:30;">
+                    <span style="
+                        display:inline-block;
+                        background:linear-gradient(90deg,#006A4E,#D60000);
+                        color:#fff;
+                        padding:6px 30px;
+                        border-radius:35px;
+                        font-size:14px;
+                        font-weight:400;
+                        border:2px solid #fff;
+                        box-shadow:0 0 12px rgba(0,0,0,0.25);
+                    ">
+                        সদস্যপদ রশিদ
+                    </span>
+                    <br>
+                    <span style="
+                        font-size:24px;
+                        font-weight:400;
+                        color:#006A4E;
+                        border-bottom:3px solid #d6c386;
+                        padding:3px 20px;
+                        display:inline-block;
+                        margin-top:6px;
+                    ">
+                        ${formData?.name || ''}
+                    </span>
+                </div>
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    margin-top:18px;
+                    font-size:16px;
+                    color:#222;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <tr>
+                        <td style="padding:4px 2px 4px 0;">সদস্য আইডি</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.memberId || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">বয়স</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.age || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">বর্তমান বসবাসের দেশ</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.country || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">শহর</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.city || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">জিপ/পোস্টাল কোড</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.zip || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">স্থায়ী ঠিকানা (দেশ)</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.countryPermanent || ''}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:4px 2px 4px 0px;">শহর</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.cityPermanent || ''}</span></td>
+                        <td style="padding:4px 2px 4px 0px;">জিপ/পোস্টাল কোড</td><td style="padding:4px 0px;">:</td><td style="padding:4px 0px 4px 2px;"><span style="font-weight:400;">${formData?.zipPermanent || ''}</span></td>
+                    </tr>
+                </table>
+                <div style="
+                    margin-top:18px;
+                    text-align:center;
+                    font-size:16px;
+                    font-weight:400;
+                    padding:10px 18px;
+                    border-radius:10px;
+                    border:2px solid #d3bb76;
+                    background:linear-gradient(90deg,rgba(0,106,78,.08),rgba(214,0,0,.08));
+                    color:#574f3a;
+                    position:relative;
+                    z-index:30;
+                ">
+                    সদস্য ফি: <b style="color:#D60000;font-weight:400;">${amount}${currency}</b> ·
+                    ইস্যুর তারিখ: <b style="font-weight:400;">${issueDate}</b> ·
+                    মেয়াদ: <b style="font-weight:400;">১ বছর</b>
+                </div>
+                <div style="
+                    margin-top:18px;
+                    display:flex;
+                    justify-content:space-between;
+                    font-size:15px;
+                    text-align:center;
+                    position:relative;
+                    z-index:30;
+                ">
+                    <div style="margin-top:15px;flex:1;text-align:center;">
+                        <img src="https://api.bnpbd.org/api/upload/images/sign.png"
+                             crossorigin="anonymous"
+                             referrerpolicy="no-referrer"
+                             alt="Chairman Signature"
+                             style="max-width:90px;height:30px;display:block;margin:0 auto 6px auto;">
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #006A4E;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">চেয়ারপার্সন</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        <div style="margin-top:25px;height:18px;margin-bottom:6px;font-size:13px;color:#333;">
+                            ${approvedDate}
+                        </div>
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #444;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">তারিখ</span>
+                    </div>
+                    <div style="flex:1;text-align:center;">
+                        ${qrCodeUrl ? `<img src="${qrCodeUrl}" alt="QR Code" crossorigin="anonymous" referrerpolicy="no-referrer" style="max-width:45px;height:45px;display:block;margin:0 auto 6px auto;object-fit:contain;">` : ''}
+                        <div style="
+                            width:220px;
+                            height:0;
+                            border-top:3px solid #D60000;
+                            margin:0 auto 5px auto;
+                        "></div>
+                        <span style="font-weight:400;">আদায়কারীর স্বাক্ষর</span>
+                    </div>
+                </div>
+            </div>
 </div>
-
-  </div>
-
-  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;margin-top: -30px">
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0">কেন্দ্রীয় কার্যালয়</h3>
-<!--       <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;color: #ff5292;">(${formData?.memberType ==='New Member'? 'নতুন প্রাথমিক সদস্য নবায়ন ফরম' : 'প্রাথমিক সদস্য নবায়ন ফরম'})</h3>-->
-
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;color: #ff5292;">(${formData?.memberType ==='New Member'? 'নতুন প্রাথমিক সদস্য /প্রাথমিক সদস্য নবায়ন নবায়ন ফরম' : 'নতুন প্রাথমিক সদস্য /প্রাথমিক সদস্য নবায়ন নবায়ন ফরম'})</h3>
-     <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px; color: #ff5292;">সদস্য আইডি ${formData?.memberId}</h3>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span>নাম:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.name} </span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 100%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">শিক্ষাগত যোগ্যতা:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.qualification}</span>
-    </div>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">পেশা:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.occupation}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">বয়স:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.age}</span>
-    </div>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">বাসিন্দার অবস্থান:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.resident}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">ফোন/মোবাইল নাম্বার:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryCode}${formData?.phoneNo}</span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">ইমেইল:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.email}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">হোয়াটসঅ্যাপ নাম্বার:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.whatsAppNumber}</span>
-    </div>
-  </div>
-
-<!--  <div style="display: grid;grid-template-columns: 50% 50%">-->
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">বর্তমান বসবাসের দেশ:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.country}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">শহর:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.city}</span>
-    </div>
-<!--  </div>-->
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">জিপ/পোস্টাল কোড:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zip}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">স্থায়ী ঠিকানা (দেশ):</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">শহর:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.cityPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">জিপ/পোস্টাল কোড:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zipPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">ফেসবুক প্রোফাইল লিংক:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.facebook ?? 'N/A'}</span>
-  </div>
-
-  <div><h3 style="line-height: 20px;margin-bottom: 0;">প্রস্তাবক ১</h3></div>
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">নাম:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Name}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">মোবাইল:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Mobile}</span>
-    </div>
-  </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">পদবী:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Designation}</span>
-  </div>
-
-  <div><h3 style="line-height: 20px;margin-bottom: 0;">প্রস্তাবক ২</h3></div>
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">নাম:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Name}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">মোবাইল:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Mobile}</span>
-    </div>
-  </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">পদবী:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Designation}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 5px;font-size: 19px">
-    <p style="line-height: 24px">আমি solemnly ঘোষণা করছি যে আমি বাংলাদেশ জাতীয়তাবাদী দলের সংবিধান, ঘোষণা ও নীতি-আদর্শের প্রতি শ্রদ্ধাশীল। ১৯৭৭ সালে জনগণ কর্তৃক অনুমোদিত ১৯ দফা কর্মসূচির বাস্তবায়নের মাধ্যমে বাংলাদেশের জাতীয়তাবাদ, উৎপাদনের রাজনীতি, গণতন্ত্র, জাতীয় ঐক্য ও শান্তি-সমৃদ্ধি অর্জনের প্রতি অঙ্গীকারাবদ্ধ। দুর্নীতি সহ্য করবো না এবং সদস্যপদ গ্রহণ করতে আবেদন করছি।</p>
-  </div>
-
-  <div style="display: flex;justify-content: space-between;">
-    <div>
-    <img style="max-width: 100px" src="https://api.bnpbd.org/api/upload/images/sign.png" alt="">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">চেয়ারপার্সন</span>
-    </div>
-   </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-<!--      <span style="text-wrap: nowrap;">সদস্যের স্বাক্ষর</span>-->
-    </div>
-     <div>
-    <p>Digitally Signed</p>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">সংগ্রাহকের স্বাক্ষর</span>
-    </div>
-    </div>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 8px">
-    <div></div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px;margin-right: 25px">
-<!--      <span style="text-wrap: nowrap;">তারিখ</span>-->
-<!--      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>-->
-    </div>
-    <div style="display:flex;justify-content: flex-end; margin-top: 10px;font-size: 20px;width: 100%">
-      <span style="text-wrap: nowrap;">তারিখ</span>
-      <p style="border-top: 1px solid #000000!important;width: 50%;"></p>
-    </div>
-  </div>
-
-</div>
-
 `;
-
-      }else{
-        htmlContent = `
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
-<!--  <div style="display:flex;justify-content: center;margin-bottom: 10px">-->
-<!--    <h1 style="font-size: 16px">Bismillahir Rahmanir Rahim</h1>-->
-<!--  </div>-->
-
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-     <div>
-      <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">Bismillahir Rahmanir Rahim</h1>
-    <h2 style="font-size: 30px;text-align: center; line-height: 20px">Bangladesh Nationalist Party</h2>
-</div>
-
-  </div>
-
-  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;margin-top: -30px">
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0;">Central office</h3>
-<!--    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;color: #ff5292;">(${formData?.memberType ==='New Member'? 'New Primary Member Renewal Form' : 'Primary Member Renewal Form'})</h3>-->
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;color: #ff5292;">(${formData?.memberType ==='New Member'? 'New Primary Member / Renewal Primary Member Renewal Form' : 'New Primary Member / Renewal Primary Member Renewal Form'})</h3>
-    <h3 style="line-height: 18px;font-size: 16px;margin-top: 0.2px; margin-bottom: 0">MEMBER ID: ${formData?.memberId}</h3>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span>Name:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.name} </span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 100%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Educational Qualification:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.qualification}</span>
-    </div>
-  </div>
-    <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display: grid;grid-template-columns: 100%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Occupation:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.occupation}</span>
-    </div>
-  </div>
-
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Age:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.age}</span>
-  </div>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Resident Status:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.resident}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Phone / Mobile Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryCode}${formData?.phoneNo}</span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Email:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.email}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">WhatsApp Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.whatsAppNumber}</span>
-  </div>
-  </div>
-
-<!--  <div style="display: grid;grid-template-columns: 50% 50%">-->
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Present Resident Country:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.country}</span>
-    </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">City:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.city}</span>
-    </div>
-<!--  </div>-->
-
-<!--<div style="display: grid;grid-template-columns: 50% 50%">-->
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zip}</span>
-    </div>
-
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Permanent Resident Country:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;"> City:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.cityPermanent}</span>
-  </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zipPermanent}</span>
-    </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Facebook Profile Link:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.facebook ?? 'N/A'}</span>
-  </div>
-<!--  </div>-->
-
-  <div><h3  style="line-height: 20px;margin-bottom: 0;">Recommend Person 1</h3></div>
-  <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Name:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Name}</span>
-  </div>
-
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Mobile Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Mobile}</span>
-  </div>
-</div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Designation:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender1Designation}</span>
-  </div>
-
-
-  <div><h3 style="line-height: 20px;margin-bottom: 0;">Recommend Person 2</h3></div>
-    <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Name:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Name}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Mobile Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Mobile}</span>
-  </div>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Designation:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.recommender2Designation}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 5px;font-size: 19px">
-   <p style="line-height: 24px">I solemnly declare that I hold deep respect for the constitution, declaration, and ideals and objectives of the Bangladesh Nationalist Party. I further declare my firm commitment to uphold Bangladeshi nationalism, the politics of production, people's democracy, national unity, and the achievement of peace and prosperity through the implementation of the 19-point program endorsed by the people in 1977. I pledge never to tolerate corruption. I hereby apply to be accepted as a member of the Bangladesh Nationalist Party.</p>
-  </div>
-
-  <div style="display: flex;justify-content: space-between;">
-    <div>
-    <img style="max-width: 140px" src="https://api.bnpbd.org/api/upload/images/sign.png" alt="">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Chairperson</span>
-    </div>
-</div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-<!--      <span style="text-wrap: nowrap;">Member's signature</span>-->
-    </div>
-   <div>
-    <p>Digitally Signed</p>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Collector's signature</span>
-    </div>
-</div>
-  </div>
-
-
-  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 8px">
-    <div style="display:flex;margin-top: 10px;font-size: 20px">
-    </div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px;margin-right: 25px">
-<!--      <span style="text-wrap: nowrap;">Date</span>-->
-<!--      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>-->
-    </div>
-    <div style="display:flex;justify-content: flex-end; margin-top: 10px;font-size: 20px;width: 100%">
-      <span style="text-wrap: nowrap;">Date</span>
-      <p style="border-top: 1px solid #000000!important;width: 50%;"></p>
-    </div>
-  </div>
-
-</div>
-</div>
-    `;
-      }
-    }else{
-      if(this.language() === 'bn'){
-        htmlContent = `
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
-
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-     <div>
-      <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">বিসমিল্লাহির রহমানির রহিম</h1>
-      <h2 style="font-size: 30px;text-align: center; line-height: 20px">বাংলাদেশ জাতীয়তাবাদী দল</h2>
-</div>
-
-  </div>
-
-  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;margin-top: -30px">
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0">কেন্দ্রীয় কার্যালয়</h3>
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px; color: #ff5292;">মাসিক সদস্য ফি সাইন আপ ফরম</h3>
-     <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px; color: #ff5292;">সদস্য আইডি ${formData?.memberId}</h3>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span>নাম:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.name} </span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 100%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">শিক্ষাগত যোগ্যতা:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.qualification}</span>
-    </div>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">পেশা:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.occupation}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">বয়স:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.age}</span>
-    </div>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">বাসিন্দার অবস্থান:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.resident}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">ফোন/মোবাইল নাম্বার:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryCode}${formData?.phoneNo}</span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">ইমেইল:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.email}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">হোয়াটসঅ্যাপ নাম্বার:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.whatsAppNumber}</span>
-    </div>
-  </div>
-
-<!--  <div style="display: grid;grid-template-columns: 50% 50%">-->
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">বর্তমান বসবাসের দেশ:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.country}</span>
-    </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">শহর:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.city}</span>
-    </div>
-<!--  </div>-->
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">জিপ/পোস্টাল কোড:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zip}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">স্থায়ী ঠিকানা (দেশ):</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">শহর:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.cityPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">জিপ/পোস্টাল কোড:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zipPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">ফেসবুক প্রোফাইল লিংক:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.facebook ?? 'N/A'}</span>
-  </div>
-
-
-  <div style="display:flex;margin-top: 5px;font-size: 19px">
-    <p style="line-height: 24px">আমি solemnly ঘোষণা করছি যে আমি বাংলাদেশ জাতীয়তাবাদী দলের সংবিধান, ঘোষণা ও নীতি-আদর্শের প্রতি শ্রদ্ধাশীল। ১৯৭৭ সালে জনগণ কর্তৃক অনুমোদিত ১৯ দফা কর্মসূচির বাস্তবায়নের মাধ্যমে বাংলাদেশের জাতীয়তাবাদ, উৎপাদনের রাজনীতি, গণতন্ত্র, জাতীয় ঐক্য ও শান্তি-সমৃদ্ধি অর্জনের প্রতি অঙ্গীকারাবদ্ধ। দুর্নীতি সহ্য করবো না এবং সদস্যপদ গ্রহণ করতে আবেদন করছি।</p>
-  </div>
-
-  <div style="display: flex;justify-content: space-between; margin-top: 50px">
-     <div>
-    <img style="max-width: 140px" src="https://api.bnpbd.org/api/upload/images/sign.png" alt="">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">চেয়ারপার্সন</span>
-    </div>
-   </div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-<!--      <span style="text-wrap: nowrap;">সদস্যের স্বাক্ষর</span>-->
-    </div>
-    <div>
-    <p style="line-height: 18px">Digitally Signed</p>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">সংগ্রাহকের স্বাক্ষর</span>
-    </div>
-</div>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 8px">
-    <div></div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px;margin-right: 25px">
-<!--      <span style="text-wrap: nowrap;">তারিখ</span>-->
-<!--      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>-->
-    </div>
-
-    <div style="display:flex;justify-content: flex-end; margin-top: 40px;font-size: 20px;width: 100%">
-      <span style="text-wrap: nowrap;">তারিখ</span>
-      <p style="border-top: 1px solid #000000!important;width: 50%;"></p>
-    </div>
-  </div>
-
-</div>
-
-`;
-
-      }else{
-        htmlContent = `
-<div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
-  <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
-         style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
-         alt="Background Image">
-  </div>
-  <div style="padding: 10px;">
-<!--  <div style="display:flex;justify-content: center;margin-bottom: 10px">-->
-<!--    <h1 style="font-size: 16px">Bismillahir Rahmanir Rahim</h1>-->
-<!--  </div>-->
-
-  <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
-     <div>
-      <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">Bismillahir Rahmanir Rahim</h1>
-    <h2 style="font-size: 30px;text-align: center; line-height: 20px">Bangladesh Nationalist Party</h2>
-</div>
-
-  </div>
-
-  <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;margin-top: -30px">
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0">Central office</h3>
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;color: #ff5292;">(Monthly Membership Fee Sign Up Form)</h3>
-    <h3 style="line-height: 18px;font-size: 16px;margin-bottom: 0; margin-top: 0.2px;">MEMBER ID: ${formData?.memberId}</h3>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span>Name:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.name} </span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 100%">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Educational Qualification:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.qualification}</span>
-    </div>
-  </div>
-    <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display: grid;grid-template-columns: 100%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Occupation:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.occupation}</span>
-    </div>
-  </div>
-
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Age:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.age}</span>
-  </div>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Resident Status:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.resident}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Phone / Mobile Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryCode}${formData?.phoneNo}</span>
-  </div>
-
-  <div style="display: grid;grid-template-columns: 50% 50%">
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Email:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.email}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">WhatsApp Number:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.whatsAppNumber}</span>
-  </div>
-  </div>
-
-<!--  <div style="display: grid;grid-template-columns: 50% 50%">-->
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Present Resident Country:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.country}</span>
-    </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">City:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.city}</span>
-    </div>
-<!--  </div>-->
-
-<!--<div style="display: grid;grid-template-columns: 50% 50%">-->
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zip}</span>
-    </div>
-
-    <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Permanent Resident Country:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.countryPermanent}</span>
-  </div>
-
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;"> City:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.cityPermanent}</span>
-  </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-      <span style="text-wrap: nowrap;">Zip/Postal Code:</span>
-      <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.zipPermanent}</span>
-    </div>
-  <div style="display:flex;margin-top: 7px;font-size: 18px;align-content: center;">
-    <span style="text-wrap: nowrap;">Facebook Profile Link:</span>
-    <span style=" padding-left: 8px; border-bottom: 1px solid #000000!important;width: 100%;"> ${formData?.facebook ?? 'N/A'}</span>
-  </div>
-<!--  </div>-->
-
-  <div style="display:flex;margin-top: 5px;font-size: 19px">
-   <p style="line-height: 24px">I solemnly declare that I hold deep respect for the constitution, declaration, and ideals and objectives of the Bangladesh Nationalist Party. I further declare my firm commitment to uphold Bangladeshi nationalism, the politics of production, people's democracy, national unity, and the achievement of peace and prosperity through the implementation of the 19-point program endorsed by the people in 1977. I pledge never to tolerate corruption. I hereby apply to be accepted as a member of the Bangladesh Nationalist Party.</p>
-  </div>
-
-  <div style="display: flex;justify-content: space-between;margin-top: 50px;">
-    <div>
-    <img style="max-width: 140px" src="https://api.bnpbd.org/api/upload/images/sign.png" alt="">
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Chairperson</span>
-    </div>
-</div>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-<!--      <span style="text-wrap: nowrap;">Member's signature</span>-->
-    </div>
-    <div>
-    <p style="line-height: 18px">Digitally Signed</p>
-    <div style="display:flex;margin-top: 7px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Collector's signature</span>
-    </div>
-</div>
-  </div>
-
-
-  <div style="display: grid;grid-template-columns: 33.33% 33.33% 33.33%;margin-top: 8px">
-    <div style="display:flex;margin-top: 10px;font-size: 20px">
-    </div>
-    <div style="display:flex;margin-top: 10px;font-size: 20px;margin-right: 25px">
-<!--      <span style="text-wrap: nowrap;">Date</span>-->
-<!--      <p style="border-top: 1px solid #000000!important;width: 100%;"></p>-->
-    </div>
-    <div style="display:flex;justify-content: flex-end; margin-top: 40px;font-size: 20px;width: 100%">
-      <span style="text-wrap: nowrap;">Date</span>
-      <p style="border-top: 1px solid #000000!important;width: 50%;"></p>
-    </div>
-  </div>
-
-</div>
-</div>
-    `;
-      }
-    }
 
 
 
     this.contactService.generatePDF(htmlContent)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((pdfBlob) => {
-        const url = window.URL.createObjectURL(pdfBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `Membership_Registration_Form.pdf`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-        this.isLoading.set(false);
+      .subscribe({
+        next: (pdfBlob) => {
+          const url = window.URL.createObjectURL(pdfBlob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `Membership_Registration_Form.pdf`;
+          link.click();
+          window.URL.revokeObjectURL(url);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          // If the PDF (and its images) cannot be generated/downloaded, notify the user and stop the loader
+          this.isLoading.set(false);
+          this.uiService.wrong('Unable to download. Please try again.');
+        }
       });
   }
 }

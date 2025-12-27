@@ -19,7 +19,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     SafeHtmlCustomPipe,
     RouterLink,
     TranslatePipe
-  ]
+  ],
+  standalone:true,
 })
 export class AdditionalPageViewComponent implements OnInit, OnDestroy {
   // Angular 20 Signals for reactive state management

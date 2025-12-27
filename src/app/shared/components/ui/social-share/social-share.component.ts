@@ -10,6 +10,7 @@ import {NgIf} from '@angular/common';
     MatDialogClose,
     NgIf
   ],
+  standalone:true,
   styleUrls: ['./social-share.component.scss']
 })
 export class SocialShareComponent {

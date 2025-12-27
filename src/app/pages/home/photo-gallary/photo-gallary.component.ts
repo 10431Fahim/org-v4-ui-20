@@ -25,8 +25,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     SlicePipe,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./photo-gallary.component.scss'],
-
 })
 export class PhotoGallaryComponent implements OnInit, OnDestroy {
   // Angular 20 Signals for reactive state management

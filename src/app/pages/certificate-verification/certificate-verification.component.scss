@@ -1,0 +1,243 @@
+@use "../../../theme/variables" as *;
+
+.certificate-verification {
+  .section1 {
+    padding: 60px 0;
+  }
+
+  .section1-main {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .section1-title {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h3 {
+      font-family: $font-en-primary;
+      font-size: 32px;
+      font-weight: 600;
+      color: #313132;
+      margin-bottom: 15px;
+      line-height: 38px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #666;
+      line-height: 24px;
+    }
+  }
+
+  .verification-form-area {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+
+    .form-title {
+      margin-bottom: 25px;
+
+      h4 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #313132;
+        text-align: center;
+      }
+    }
+
+    .form {
+      .form-input {
+        margin-bottom: 25px;
+
+        .form-field {
+          width: 100%;
+
+          mat-icon {
+            color: #006A4E;
+            margin-right: 8px;
+          }
+        }
+      }
+
+      .button-area {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .sub-btn {
+          .btn {
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.btn-change {
+              background: linear-gradient(90deg, #006A4E, #D60000);
+              color: #fff;
+
+              &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 106, 78, 0.3);
+              }
+
+              &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+              }
+            }
+
+            &.btn-secondary {
+              background: #f5f5f5;
+              color: #333;
+
+              &:hover {
+                background: #e0e0e0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .verification-result {
+    margin-top: 30px;
+
+    .result-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+      &.success {
+        border-left: 4px solid #006A4E;
+      }
+
+      &.error {
+        border-left: 4px solid #D60000;
+      }
+
+      .result-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0;
+
+        mat-icon {
+          font-size: 40px;
+          width: 40px;
+          height: 40px;
+
+          &.success-icon {
+            color: #006A4E;
+          }
+
+          &.error-icon {
+            color: #D60000;
+          }
+        }
+
+        h3 {
+          font-size: 24px;
+          font-weight: 600;
+          color: #313132;
+          margin: 0;
+        }
+      }
+
+      .result-content {
+        .certificate-info {
+          .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .label {
+              font-weight: 600;
+              color: #666;
+              font-size: 15px;
+            }
+
+            .value {
+              color: #313132;
+              font-size: 15px;
+              text-align: right;
+
+              &.status-badge {
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 600;
+
+                &.paid {
+                  background: #e8f5e9;
+                  color: #006A4E;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      p {
+        color: #666;
+        line-height: 24px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .certificate-verification {
+    .verification-form-area {
+      padding: 25px 20px;
+    }
+
+    .verification-result {
+      .result-card {
+        padding: 20px;
+
+        .result-header {
+          flex-direction: column;
+          text-align: center;
+
+          h3 {
+            font-size: 20px;
+          }
+        }
+
+        .result-content {
+          .certificate-info {
+            .info-row {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 8px;
+
+              .value {
+                text-align: left;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

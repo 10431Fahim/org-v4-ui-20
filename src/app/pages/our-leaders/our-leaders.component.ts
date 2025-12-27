@@ -18,6 +18,7 @@ import {NgForOf, NgIf} from '@angular/common';
     RouterLink,
     NgForOf
   ],
+  standalone:true,
   styleUrls: ['./our-leaders.component.scss']})
 export class OurLeadersComponent implements OnInit, OnDestroy {
 

@@ -9,6 +9,7 @@ import {RouterLink} from '@angular/router';
     RouterLink,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./sohojogi-songothon.component.scss']})
 export class SohojogiSongothonComponent implements OnInit {
 

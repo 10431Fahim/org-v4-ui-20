@@ -19,6 +19,7 @@ import {NgForOf, NgIf} from '@angular/common';
     NgIf,
     NgForOf
   ],
+  standalone:true,
   styleUrls: ['./conference-card.component.scss']
 })
 export class ConferenceCardComponent implements OnInit {

@@ -80,15 +80,25 @@ export class UserService {
             }
           }
         } else {
-          this.uiService.wrong(res.message);
+            console.log(res.message);
+          // Backend responded but marked the attempt as unsuccessful
+          this.uiService.wrong(res.message || 'Login failed');
           this.spinner.hide();
           this.userStatusListener.next(false);
         }
-      }
+      }else {
+          console.log(res.message);
+          // Backend responded but marked the attempt as unsuccessful
+          this.uiService.wrong(res.message || 'Login failed');
+          this.spinner.hide();
+          this.userStatusListener.next(false);
+        }
       }, error => {
         this.spinner.hide();
         this.userStatusListener.next(false);
-        // console.log(error);
+        // Network / server error (non-2xx)
+        this.uiService.wrong(error?.error?.message || error?.message || 'Login failed');
+        console.log(error);
       });
   }
 

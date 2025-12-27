@@ -21,6 +21,7 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
     MatError,
     MatInput
   ],
+  standalone:true,
   styleUrls: ['./edit-basic-info.component.scss']
 })
 export class EditBasicInfoComponent implements OnInit {

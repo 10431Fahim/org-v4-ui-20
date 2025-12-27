@@ -264,7 +264,7 @@
     "IAgreeTo": "I agree to the",
     "ThisFieldRequired": "This Field is Required",
     "ResendCode": "Resend Code",
-    "AmountMustBeGreaterThanZero": "Amount must be greater than 0",
+    "AmountMustBeGreaterThanZero": "Amount must be greater than 100",
     "MaximumDonation": "Maximum donation:",
     "IAgreeToThe": "I agree to the",
     "TermsAndConditionsComma": "Terms & Conditions,",
@@ -285,11 +285,9 @@
     "PrimaryMembershipLogin": "Primary Membership Login",
     "PleaseAcceptInformationTerms": "Please accept the information terms and conditions",
     "PleaseAcceptPersonalFundTerms": "Please accept the personal fund terms and conditions",
-    "ThisFieldRequired": "This field is required",
     "PleaseSelectStartEndDates": "Please select start and end dates to calculate amount",
     "Back": "Back",
     "SubmitPayment": "Submit Payment",
-    "PleaseSelectCountry": "Please select a country",
-    "Country": "Country"
+    "PleaseSelectCountry": "Please select a country"
   }
 }

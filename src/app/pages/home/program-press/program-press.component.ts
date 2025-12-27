@@ -22,6 +22,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     TranslatePipe,
     SwiperComponent,
   ],
+  standalone:true,
   styleUrls: ['./program-press.component.scss'],
 
 })

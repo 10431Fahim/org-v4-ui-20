@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, signal, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from './shared/components/header/header.component';
 import {FooterComponent} from './shared/components/footer/footer.component';
@@ -36,6 +36,12 @@ export class App implements OnInit {
   scrollTop() {
     window.scrollTo(0, 0);
   }
+
+  onHelpClick = () => {
+    // আপনার কাস্টম লজিক
+    alert('Help clicked!');
+  };
+
 
   // @HostListener('window:scroll')
   // hideShowScrollBtn() {

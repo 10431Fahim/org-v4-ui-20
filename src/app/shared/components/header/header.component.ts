@@ -1,12 +1,23 @@
-import { Component, OnInit, OnDestroy, signal, computed, effect, inject, DestroyRef, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { Router, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { UserService } from '../../../services/common/user.service';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
-import { ReloadService } from '../../../services/core/reload.service';
-import { User } from '../../../interfaces/common/user.interface';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule, NgIf } from '@angular/common';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild
+} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {UserService} from '../../../services/common/user.service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {ReloadService} from '../../../services/core/reload.service';
+import {User} from '../../../interfaces/common/user.interface';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {CommonModule, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-header',

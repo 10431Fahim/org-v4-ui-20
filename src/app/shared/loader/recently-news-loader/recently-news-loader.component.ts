@@ -7,6 +7,7 @@ import {NgxSkeletonLoaderComponent} from 'ngx-skeleton-loader';
   imports: [
     NgxSkeletonLoaderComponent
   ],
+  standalone:true,
   styleUrls: ['./recently-news-loader.component.scss']
 })
 export class RecentlyNewsLoaderComponent implements OnInit {

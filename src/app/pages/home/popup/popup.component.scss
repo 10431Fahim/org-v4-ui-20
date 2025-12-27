@@ -33,6 +33,7 @@ iframe{
     display: block;
     margin-bottom: 10px;
     text-align: right;
+    background: transparent;
 }
 .offer-cross-area span{
     color: #fff;
@@ -44,11 +45,12 @@ iframe{
   //pointer-events: none;
 }
 .offer-img-main img{
-    max-height: 400px!important;
+    //max-height: 400px!important;
     //max-width: 1000px!important;
     width: 100%;
     height: auto;
     block-size: auto;
+    object-fit: contain;
     //object-fit: fill;
     border-radius: 5px;
     object-position: top;
@@ -59,3 +61,61 @@ iframe{
     padding: 20px;
     box-sizing: border-box;
   }
+
+//
+
+.popup-area{
+  position: relative;
+  span{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0px;
+    z-index: 9;
+    width: 26px;
+    height:26px;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    svg{
+      fill: #ffffff;
+      background: #0a785a;
+      padding: 5px;
+      width: 16px;
+      height:16px;
+    }
+  }
+}
+
+.offer-dialog{
+  display: block;
+  padding: 18px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  background: white!important;
+
+  img{
+    border-radius: 5px;
+    height: 100%;
+    display: block;
+    width: 100%;
+    max-height: 500px;
+  }
+  .mat-mdc-dialog-container .mdc-dialog__surface{
+    background-color: transparent!important;
+    box-shadow: none!important;
+  }
+}
+
+::ng-deep.offer-dialog .cdk-global-overlay-wrapper{
+  padding: 10px;
+}
+
+::ng-deep.mat-mdc-dialog-surface {
+  border-radius: 5px !important;
+  background: none!important;
+}

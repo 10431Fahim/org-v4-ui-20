@@ -11,6 +11,7 @@ import {MatIconButton} from '@angular/material/button';
     MatIcon,
     MatIconButton
   ],
+  standalone:true,
   styleUrls: ['./youtube-video-show.component.scss']
 })
 export class YoutubeVideoShowComponent implements OnInit {

@@ -16,6 +16,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     DatePipe,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./stories.component.scss'],
 
 })

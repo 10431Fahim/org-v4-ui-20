@@ -262,11 +262,14 @@ export class HomeComponent implements OnInit {
   offerDialog() {
     this.dialog.open(PopupComponent, {
       data: this.popup(),
-      maxWidth: '1030px',
-      width: '100%',
-      maxHeight: '450px',
-      height: '100%',
-      panelClass: ['theme-dialog', 'offer-popup-dialog']})
+      // maxWidth: '1030px',
+      // width: '100%',
+      // maxHeight: '450px',
+      // height: '100%',
+      // maxWidth: '600px',
+      // width: '100%',
+      // maxHeight: '600px',
+      panelClass: ['theme-dialog', 'offer-dialog']})
   }
 
   onScroll(){

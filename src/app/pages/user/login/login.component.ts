@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, signal, computed, effect} from '@angular/core';
+import {Component, OnInit, ViewChild, signal, computed, effect, PLATFORM_ID, Inject} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UiService} from "../../../services/core/ui.service";
 import {UserService} from "../../../services/common/user.service";
@@ -6,6 +6,13 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {TranslatePipe} from '@ngx-translate/core';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
+import {Meta, Title} from '@angular/platform-browser';
+import {isPlatformBrowser} from '@angular/common';
+import {SeoPageService} from '../../../services/common/seo-page.service';
+import {CanonicalService} from '../../../services/common/canonical.service';
+import {SeoPage} from '../../../interfaces/common/seo-page.interface';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {DestroyRef} from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +27,7 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon,
     RouterLink
   ],
+  standalone:true,
   styleUrls: ['./login.component.scss']})
 export class LoginComponent implements OnInit {
   // Data Form
@@ -31,6 +39,7 @@ export class LoginComponent implements OnInit {
   memberType = signal<string | null>(null);
   isLoading = signal<boolean>(false);
   formErrors = signal<{[key: string]: string}>({});
+  seoPage = signal<SeoPage | null>(null);
 
   // Computed properties
   isFormValid = computed(() => this.dataForm?.valid ?? false);
@@ -40,12 +49,28 @@ export class LoginComponent implements OnInit {
     private uiService: UiService,
     public userService: UserService,
     public activatedRoute: ActivatedRoute,
-    public router: Router) {
+    public router: Router,
+    private seoPageService: SeoPageService,
+    private canonicalService: CanonicalService,
+    private titleService: Title,
+    private meta: Meta,
+    private destroyRef: DestroyRef,
+    @Inject(PLATFORM_ID) private platformId: any) {
 
     // Effect to watch form changes and update errors
     effect(() => {
       if (this.dataForm) {
         this.updateFormErrors();
+      }
+    });
+
+    // Effect to handle SEO page updates
+    effect(() => {
+      const seoData = this.seoPage();
+      if (seoData && isPlatformBrowser(this.platformId)) {
+        // Check language - you may need to add language detection logic here
+        // For now, using default (English)
+        this.updateMetaData();
       }
     });
   }
@@ -64,6 +89,11 @@ export class LoginComponent implements OnInit {
       const memberType = params.get('type');
       this.memberType.set(memberType);
     });
+
+    // SEO
+     if (isPlatformBrowser(this.platformId)) {
+      this.getSeoPageByPageWithCache();
+     }
   }
 
   /**
@@ -85,8 +115,7 @@ export class LoginComponent implements OnInit {
         {value: '', disabled: false},
         [
           Validators.minLength(6),
-          Validators.required,
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{6,}$/)
+          Validators.required
         ]
       )
     });
@@ -115,8 +144,6 @@ export class LoginComponent implements OnInit {
         errors['password'] = 'Password is required';
       } else if (this.password.errors['minlength']) {
         errors['password'] = 'Password must be at least 6 characters';
-      } else if (this.password.errors['pattern']) {
-        errors['password'] = 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
       }
     }
 
@@ -165,5 +192,155 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['/registration']);
     }
+  }
+
+  /**
+   * HTTP REQ HANDLE
+   * getSeoPageByPageWithCache()
+   */
+  private getSeoPageByPageWithCache(): void {
+    const select = 'name nameEn image seoDescription keyWord pageName';
+    this.seoPageService.getSeoPageByPageWithCache('login' as any, select)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.seoPage.set(res);
+          // Meta data updates are now handled by the effect in constructor
+        },
+        error: err => {
+          // console.log(err);
+        }
+      });
+  }
+
+  /**
+   * SEO DATA UPDATE
+   * updateMetaData()
+   * updateMetaDataBn()
+   */
+  private updateMetaData(): void {
+    const seoData = this.seoPage();
+    if (!seoData) return;
+
+    // Get absolute image URL for social media with fallback
+    const imageUrl = seoData.image || '';
+    let absoluteImageUrl = '';
+
+    if (imageUrl) {
+      absoluteImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://bnpbd.org${imageUrl}`;
+    } else {
+      // Fallback to default BNP logo for social media
+      absoluteImageUrl = 'https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png';
+    }
+
+    const currentUrl = `https://bnpbd.org${this.router.url}`;
+    const title = seoData.name || 'BNP BD';
+    const description = seoData.seoDescription || '';
+
+    // Title
+    this.titleService.setTitle(title);
+
+    // Meta
+    this.meta.updateTag({name: 'robots', content: 'index, follow'});
+    this.meta.updateTag({name: 'theme-color', content: '#00a0db'});
+    this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
+    this.meta.updateTag({name: 'author', content: 'BNP BD'});
+    this.meta.updateTag({name: 'description', content: description});
+    this.meta.updateTag({name: 'keywords', content: seoData.keyWord || ''});
+
+    // Open Graph Meta Tags (Facebook, LinkedIn, WhatsApp, etc.)
+    this.meta.updateTag({property: 'og:title', content: title});
+    this.meta.updateTag({property: 'og:type', content: 'website'});
+    this.meta.updateTag({property: 'og:url', content: currentUrl});
+    this.meta.updateTag({property: 'og:image', content: absoluteImageUrl});
+    this.meta.updateTag({property: 'og:image:secure_url', content: absoluteImageUrl});
+    this.meta.updateTag({property: 'og:image:type', content: 'image/jpeg'});
+    this.meta.updateTag({property: 'og:image:width', content: '1200'});
+    this.meta.updateTag({property: 'og:image:height', content: '630'});
+    this.meta.updateTag({property: 'og:description', content: description});
+    this.meta.updateTag({property: 'og:locale', content: 'en_US'});
+    this.meta.updateTag({property: 'og:site_name', content: 'BNP Bangladesh'});
+
+    // Twitter Card Meta Tags
+    this.meta.updateTag({name: 'twitter:card', content: 'summary_large_image'});
+    this.meta.updateTag({name: 'twitter:title', content: title});
+    this.meta.updateTag({name: 'twitter:description', content: description});
+    this.meta.updateTag({name: 'twitter:image', content: absoluteImageUrl});
+    this.meta.updateTag({name: 'twitter:image:alt', content: title});
+    this.meta.updateTag({name: 'twitter:site', content: '@bdbnp78'});
+    this.meta.updateTag({name: 'twitter:creator', content: '@bdbnp78'});
+
+    // Additional meta tags for better compatibility
+    this.meta.updateTag({name: 'image', content: absoluteImageUrl});
+    this.meta.updateTag({name: 'thumbnail', content: absoluteImageUrl});
+
+    // Microsoft/Bing
+    this.meta.updateTag({name: 'msapplication-TileImage', content: absoluteImageUrl});
+
+    // Canonical
+    this.canonicalService.setCanonicalURL();
+  }
+
+  private updateMetaDataBn(): void {
+    const seoData = this.seoPage();
+    if (!seoData) return;
+
+    // Get absolute image URL for social media with fallback
+    const imageUrl = seoData.image || '';
+    let absoluteImageUrl = '';
+
+    if (imageUrl) {
+      absoluteImageUrl = imageUrl.startsWith('http') ? imageUrl : `https://bnpbd.org${imageUrl}`;
+    } else {
+      // Fallback to default BNP logo for social media
+      absoluteImageUrl = 'https://www.bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png';
+    }
+
+    const currentUrl = `https://bnpbd.org${this.router.url}`;
+    const title = seoData.nameEn || 'BNP BD';
+    const description = seoData.seoDescription || '';
+
+    // Title
+    this.titleService.setTitle(title);
+
+    // Meta
+    this.meta.updateTag({name: 'robots', content: 'index, follow'});
+    this.meta.updateTag({name: 'theme-color', content: '#00a0db'});
+    this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
+    this.meta.updateTag({name: 'author', content: 'BNP BD'});
+    this.meta.updateTag({name: 'description', content: description});
+    this.meta.updateTag({name: 'keywords', content: seoData.keyWord || ''});
+
+    // Open Graph Meta Tags (Facebook, LinkedIn, WhatsApp, etc.)
+    this.meta.updateTag({property: 'og:title', content: title});
+    this.meta.updateTag({property: 'og:type', content: 'website'});
+    this.meta.updateTag({property: 'og:url', content: currentUrl});
+    this.meta.updateTag({property: 'og:image', content: absoluteImageUrl});
+    this.meta.updateTag({property: 'og:image:secure_url', content: absoluteImageUrl});
+    this.meta.updateTag({property: 'og:image:type', content: 'image/jpeg'});
+    this.meta.updateTag({property: 'og:image:width', content: '1200'});
+    this.meta.updateTag({property: 'og:image:height', content: '630'});
+    this.meta.updateTag({property: 'og:description', content: description});
+    this.meta.updateTag({property: 'og:locale', content: 'bn_BD'});
+    this.meta.updateTag({property: 'og:site_name', content: 'BNP Bangladesh'});
+
+    // Twitter Card Meta Tags
+    this.meta.updateTag({name: 'twitter:card', content: 'summary_large_image'});
+    this.meta.updateTag({name: 'twitter:title', content: title});
+    this.meta.updateTag({name: 'twitter:description', content: description});
+    this.meta.updateTag({name: 'twitter:image', content: absoluteImageUrl});
+    this.meta.updateTag({name: 'twitter:image:alt', content: title});
+    this.meta.updateTag({name: 'twitter:site', content: '@bdbnp78'});
+    this.meta.updateTag({name: 'twitter:creator', content: '@bdbnp78'});
+
+    // Additional meta tags for better compatibility
+    this.meta.updateTag({name: 'image', content: absoluteImageUrl});
+    this.meta.updateTag({name: 'thumbnail', content: absoluteImageUrl});
+
+    // Microsoft/Bing
+    this.meta.updateTag({name: 'msapplication-TileImage', content: absoluteImageUrl});
+
+    // Canonical
+    this.canonicalService.setCanonicalURL();
   }
 }

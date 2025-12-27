@@ -18,6 +18,7 @@ import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/mater
 import {MatFormField, MatInput} from '@angular/material/input';
 import {MatMenu, MatMenuItem} from '@angular/material/menu';
 import {SafeUrlPipe} from '../../../shared/pipes/safe-url.pipe';
+import {PipesModule} from '../../../shared/pipes/pipes.module';
 
 
 @Component({
@@ -39,7 +40,8 @@ import {SafeUrlPipe} from '../../../shared/pipes/safe-url.pipe';
     MatMenuItem,
     NgForOf,
     SafeUrlPipe,
-    AsyncPipe
+    AsyncPipe,
+    PipesModule
   ],
   styleUrls: ['./registration.component.scss']})
 export class RegistrationComponent implements OnInit, OnDestroy {
@@ -101,7 +103,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.memberType = params.get('type');
       this.registrationForm.patchValue({membershipType: this.memberType});
       const memberTypeValue = this.memberType;
-      
+
       // ✅ Email validation based on memberType
       const emailControl = this.registrationForm.get('email');
       if (memberTypeValue === 'primary-member-fee') {
@@ -115,7 +117,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.registrationForm.get('agree')?.clearValidators();
         this.registrationForm.get('agreeWithTermsAndConditions')?.clearValidators();
       }
-      
+
       // ✅ Committee and Designation validation based on memberType
       const committeeControl = this.registrationForm.get('committee');
       const designationControl = this.registrationForm.get('designation');
@@ -128,20 +130,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         committeeControl?.clearValidators();
         designationControl?.clearValidators();
       }
-      
+
       emailControl?.updateValueAndValidity();
       this.registrationForm.get('agree')?.updateValueAndValidity();
       this.registrationForm.get('agreeWithTermsAndConditions')?.updateValueAndValidity();
       committeeControl?.updateValueAndValidity();
       designationControl?.updateValueAndValidity();
+
+      // Update country filter based on memberType
+      this.filteredPresentCountry$.next(this.getFilteredCountries(this.countrys));
     });
-    this.filteredPresentCountry$.next(this.countrys);
+    this.filteredPresentCountry$.next(this.getFilteredCountries(this.countrys));
     this.filteredPermanentCountry$.next(this.countrys);
 
     // Present Country Autocomplete
     this.registrationForm.get('country')?.valueChanges.subscribe((value) => {
       if (typeof value === 'string') {
-        const filtered = this.countrys.filter(country =>
+        const filtered = this.getFilteredCountries(this.countrys).filter(country =>
           country.name.toLowerCase().includes(value.toLowerCase())
         );
         this.filteredPresentCountry$.next(filtered);
@@ -218,7 +223,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       phoneNo: ['', [Validators.required]],
       designation: [''],
       // address: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{6,}$/)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
@@ -297,6 +302,59 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       }
     });
 
+    // Validate country is selected from dropdown
+    const countryValue = this.registrationForm.get('country')?.value;
+    if (countryValue) {
+      const validCountries = this.getFilteredCountries(this.countrys);
+      const isValidCountry = validCountries.some(country => country.name === countryValue);
+      if (!isValidCountry) {
+        const countryControl = this.registrationForm.get('country');
+        const currentErrors = countryControl?.errors || {};
+        countryControl?.setErrors({ ...currentErrors, invalidCountry: true });
+        this.uiService.warn('Please select a valid country from the dropdown');
+        return;
+      }
+    }
+
+    // Validate permanent country is selected from dropdown
+    const countryPermanentValue = this.registrationForm.get('countryPermanent')?.value;
+    if (countryPermanentValue) {
+      const isValidPermanentCountry = this.countrys.some(country => country.name === countryPermanentValue);
+      if (!isValidPermanentCountry) {
+        const countryPermanentControl = this.registrationForm.get('countryPermanent');
+        const currentErrors = countryPermanentControl?.errors || {};
+        countryPermanentControl?.setErrors({ ...currentErrors, invalidCountry: true });
+        this.uiService.warn('Please select a valid permanent country from the dropdown');
+        return;
+      }
+    }
+
+    // Validate city is selected from dropdown
+    const cityValue = this.registrationForm.get('city')?.value;
+    if (cityValue && this.citiesPresent.length > 0) {
+      const isValidCity = this.citiesPresent.some(city => city === cityValue);
+      if (!isValidCity) {
+        const cityControl = this.registrationForm.get('city');
+        const currentErrors = cityControl?.errors || {};
+        cityControl?.setErrors({ ...currentErrors, invalidCity: true });
+        this.uiService.warn('Please select a valid city from the dropdown');
+        return;
+      }
+    }
+
+    // Validate permanent city is selected from dropdown
+    const cityPermanentValue = this.registrationForm.get('cityPermanent')?.value;
+    if (cityPermanentValue && this.citiesPermanent.length > 0) {
+      const isValidPermanentCity = this.citiesPermanent.some(city => city === cityPermanentValue);
+      if (!isValidPermanentCity) {
+        const cityPermanentControl = this.registrationForm.get('cityPermanent');
+        const currentErrors = cityPermanentControl?.errors || {};
+        cityPermanentControl?.setErrors({ ...currentErrors, invalidCity: true });
+        this.uiService.warn('Please select a valid permanent city from the dropdown');
+        return;
+      }
+    }
+
     if (this.registrationForm.invalid) {
       // Detailed debug for each control
       Object.keys(this.registrationForm.controls).forEach(key => {
@@ -374,15 +432,32 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     this.registrationForm.get('country')?.valueChanges.subscribe((countryName) => {
       if (typeof countryName === 'string' && countryName.trim() !== '') {
-        const countryObj = this.countrys.find(item => item?.name === countryName);
+        const validCountries = this.getFilteredCountries(this.countrys);
+        const countryObj = validCountries.find(item => item?.name === countryName);
         if (countryObj) {
           this.citiesPresent = [...countryObj.city];
           this.filteredCities = [...countryObj.city];
           // Don't auto-select first city, let user choose
+          // Clear any invalid state
+          const countryControl = this.registrationForm.get('country');
+          if (countryControl?.hasError('invalidCountry')) {
+            const currentErrors = { ...countryControl.errors };
+            delete currentErrors['invalidCountry'];
+            countryControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+            countryControl.updateValueAndValidity();
+          }
         } else {
+          // Invalid country - user typed something not in the list
           this.citiesPresent = [];
           this.filteredCities = [];
           this.registrationForm.get('city')?.setValue('');
+          // Set error to prevent form submission, but preserve required error if exists
+          const countryControl = this.registrationForm.get('country');
+          if (countryControl) {
+            const currentErrors = countryControl.errors || {};
+            countryControl.setErrors({ ...currentErrors, invalidCountry: true });
+            countryControl.markAsTouched();
+          }
         }
       }
     });
@@ -392,6 +467,28 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.filteredCities = this.citiesPresent.filter(city =>
           city.toLowerCase().includes(value.toLowerCase())
         );
+
+        // Validate city is from the dropdown list
+        if (value.trim() !== '') {
+          const isValidCity = this.citiesPresent.some(city => city === value);
+          const cityControl = this.registrationForm.get('city');
+          if (cityControl) {
+            if (isValidCity) {
+              // Clear invalid city error if exists
+              if (cityControl.hasError('invalidCity')) {
+                const currentErrors = { ...cityControl.errors };
+                delete currentErrors['invalidCity'];
+                cityControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+                cityControl.updateValueAndValidity();
+              }
+            } else {
+              // Invalid city - user typed something not in the list
+              const currentErrors = cityControl.errors || {};
+              cityControl.setErrors({ ...currentErrors, invalidCity: true });
+              cityControl.markAsTouched();
+            }
+          }
+        }
       }
     });
   }
@@ -400,13 +497,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const selectedId = event.target.value;
     if (selectedId) {
       const selected = this.availableDesignations.find(d => d.name == selectedId);
-      if (selected) {
-        this.registrationForm.patchValue({
-          amount: selected.amount
-        });
-        // console.log('selected.amount',selected.amount);
-
-      }
+      // if (selected) {
+      //   this.registrationForm.patchValue({
+      //     amount: selected.amount
+      //   });
+      //   // console.log('selected.amount',selected.amount);
+      //
+      // }
     }
   }
 
@@ -440,10 +537,26 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.citiesPermanent = [...countryObj1.city];
           this.filteredPermanentCities = [...countryObj1.city];
           // Don't auto-select first city, let user choose
+          // Clear any invalid state
+          const countryPermanentControl = this.registrationForm.get('countryPermanent');
+          if (countryPermanentControl?.hasError('invalidCountry')) {
+            const currentErrors = { ...countryPermanentControl.errors };
+            delete currentErrors['invalidCountry'];
+            countryPermanentControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+            countryPermanentControl.updateValueAndValidity();
+          }
         } else {
+          // Invalid country - user typed something not in the list
           this.citiesPermanent = [];
           this.filteredPermanentCities = [];
           this.registrationForm.get('cityPermanent')?.setValue('');
+          // Set error to prevent form submission, but preserve required error if exists
+          const countryPermanentControl = this.registrationForm.get('countryPermanent');
+          if (countryPermanentControl) {
+            const currentErrors = countryPermanentControl.errors || {};
+            countryPermanentControl.setErrors({ ...currentErrors, invalidCountry: true });
+            countryPermanentControl.markAsTouched();
+          }
         }
       }
     });
@@ -453,6 +566,28 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.filteredPermanentCities = this.citiesPermanent.filter(city =>
           city.toLowerCase().includes(value.toLowerCase())
         );
+
+        // Validate city is from the dropdown list
+        if (value.trim() !== '') {
+          const isValidCity = this.citiesPermanent.some(city => city === value);
+          const cityPermanentControl = this.registrationForm.get('cityPermanent');
+          if (cityPermanentControl) {
+            if (isValidCity) {
+              // Clear invalid city error if exists
+              if (cityPermanentControl.hasError('invalidCity')) {
+                const currentErrors = { ...cityPermanentControl.errors };
+                delete currentErrors['invalidCity'];
+                cityPermanentControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+                cityPermanentControl.updateValueAndValidity();
+              }
+            } else {
+              // Invalid city - user typed something not in the list
+              const currentErrors = cityPermanentControl.errors || {};
+              cityPermanentControl.setErrors({ ...currentErrors, invalidCity: true });
+              cityPermanentControl.markAsTouched();
+            }
+          }
+        }
       }
     });
   }
@@ -473,8 +608,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   onPresentCitySelected(event: any) {
     // City is already set by the autocomplete, no additional action needed
-
-
+    // Clear any invalid city error when valid city is selected
+    const cityControl = this.registrationForm.get('city');
+    if (cityControl?.hasError('invalidCity')) {
+      const currentErrors = { ...cityControl.errors };
+      delete currentErrors['invalidCity'];
+      cityControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+      cityControl.updateValueAndValidity();
+    }
   }
 
   onPermanentCountrySelected(event: any) {
@@ -490,12 +631,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   onPermanentCitySelected(event: any) {
     // City is already set by the autocomplete, no additional action needed
+    // Clear any invalid city error when valid city is selected
+    const cityPermanentControl = this.registrationForm.get('cityPermanent');
+    if (cityPermanentControl?.hasError('invalidCity')) {
+      const currentErrors = { ...cityPermanentControl.errors };
+      delete currentErrors['invalidCity'];
+      cityPermanentControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
+      cityPermanentControl.updateValueAndValidity();
+    }
   }
 
   // ✅ Focus event handlers to show full list when clicking on input
   onPresentCountryFocus() {
-    // Show all countries when input is focused
-    this.filteredPresentCountry$.next(this.countrys);
+    // Show all countries when input is focused (excluding Bangladesh if primary-member-fee)
+    this.filteredPresentCountry$.next(this.getFilteredCountries(this.countrys));
   }
 
   onPresentCityFocus() {
@@ -580,6 +729,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return this.translateService.currentLang || this.language || 'en';
   }
 
+  // Helper method to filter countries based on memberType
+  private getFilteredCountries(countries: any[]): any[] {
+    // if (this.memberType === 'primary-member-fee') {
+      return countries.filter(country => country.name !== 'Bangladesh');
+    // }
+    return countries;
+  }
+
   onFileChange(event: any): void {
     const fileInput = event.target as HTMLInputElement;
 
@@ -601,14 +758,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       htmlContent = `
 <div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
   <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+    <img src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
          alt="Background Image">
   </div>
   <div style="padding: 10px;">
 
   <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <img style="width: 140px;" src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
      <div>
       <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">বিসমিল্লাহির রহমানির রহিম</h1>
     <h2 style="font-size: 30px;text-align: center; line-height: 20px">বাংলাদেশ জাতীয়তাবাদী দল</h2>
@@ -770,7 +927,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    <!--<div class="preview-container">-->
 <div #pdfContent id="pdf-content" class="pdf-style" style="position: relative; margin: 0 auto; width: 100%; height: auto;">
   <div style="position: absolute; z-index: 0; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden;height: 1070px;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+    <img src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
          alt="Background Image">
   </div>
@@ -780,7 +937,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 <!--  </div>-->
 
   <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 140px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <img style="width: 140px;" src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
      <div>
       <h1 style="font-size: 20px;  line-height: 18px; text-align: center;margin-bottom: 0!important;">Bismillahir Rahmanir Rahim</h1>
     <h2 style="font-size: 30px;text-align: center; line-height: 20px">Bangladesh Nationalist Party</h2>

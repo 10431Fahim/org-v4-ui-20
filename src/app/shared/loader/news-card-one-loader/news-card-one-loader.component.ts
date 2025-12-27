@@ -7,6 +7,7 @@ import {NgxSkeletonLoaderComponent} from 'ngx-skeleton-loader';
   imports: [
     NgxSkeletonLoaderComponent
   ],
+  standalone:true,
   styleUrls: ['./news-card-one-loader.component.scss']
 })
 export class NewsCardOneLoaderComponent implements OnInit {

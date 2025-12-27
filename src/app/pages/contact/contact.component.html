@@ -193,7 +193,7 @@
       <div class="contact-info-wrapper">
         <h2 class="contact-title">{{ "ln.ContactUs" | translate }}</h2>
         <div class="contact-cards">
-          <div class="contact-card">
+          <div class="contact-card" (click)="openMap()">
             <div class="contact-icon address-icon">
               <mat-icon>location_on</mat-icon>
             </div>
@@ -202,8 +202,8 @@
               <p>{{ "ln.ContactAddressValue" | translate }}</p>
             </div>
           </div>
-          
-          <div class="contact-card">
+
+          <div class="contact-card" (click)="openPhone()">
             <div class="contact-icon phone-icon">
               <mat-icon>phone</mat-icon>
             </div>
@@ -212,10 +212,10 @@
               <p>{{ "ln.ContactPhoneValue" | translate }}</p>
             </div>
           </div>
-          
-          <div class="contact-card">
+
+          <div class="contact-card" (click)="openWhatsApp()">
             <div class="contact-icon mobile-icon">
-              <mat-icon>phone_android</mat-icon>
+              <i class="fab fa-whatsapp"></i>
             </div>
             <div class="contact-content">
               <h3>{{ "ln.ContactMobile" | translate }}</h3>
@@ -227,7 +227,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="map-area">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.313833472206!2d90.41091947613947!3d23.73618558932039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b9a3930cfa6d%3A0xe7f05ff2e7b40ce5!2sBangladesh%20Nationalist%20Party-BNP!5e0!3m2!1sen!2sbd!4v1685778518535!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
@@ -239,7 +239,7 @@
 
 <div   #pdfContent id="pdf-content" class="pdf-style" style=" display: none; z-index: 2; position: relative; margin:0 auto;width: 800px;height: 824px; padding: 20px;">
   <div style="position: absolute; z-index: 1; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-    <img src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
+    <img src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png"
          style="width: 100%; height: 100%; object-fit: cover; opacity: 0.1;"
          alt="Background Image">
   </div>
@@ -248,7 +248,7 @@
   </div>
 
   <div style="display:flex;gap: 10px;align-items: center;margin-bottom: 0">
-    <img style="width: 150px;" src="https://bnpbd.org/assets/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
+    <img style="width: 150px;" src="https://bnpbd.org/images/logo/bangladesh-flag-independent-victory-day_551555-340%20(2).png" alt="">
     <h2 style="font-size: 40px;">{{ "ln.BangladeshNationalistParty" | translate }}</h2>
   </div>
 

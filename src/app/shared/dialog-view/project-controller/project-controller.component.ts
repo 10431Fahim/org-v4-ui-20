@@ -20,7 +20,8 @@ import {MatIcon} from '@angular/material/icon';
     MatLabel,
     MatError,
     MatIcon
-  ]
+  ],
+  standalone:true,
 })
 export class ProjectControllerComponent implements OnInit {
 

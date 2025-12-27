@@ -14,6 +14,7 @@ import {ReviewService} from '../../services/common/review.service';
 import {NoticesService} from '../../services/common/notices.service';
 import {FilterData} from '../../interfaces/core/filter-data';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {RecentlyAllNewsModule} from '../../shared/lazy/recently-all-news/recently-all-news.module';
 
 @Component({
   selector: 'app-all-notice',
@@ -22,10 +23,14 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     RouterLink,
     RecentlyAllNewsComponent,
     DatePipe,
-    TranslatePipe
+    TranslatePipe,
+    RecentlyAllNewsModule
   ],
   standalone: true,
-  styleUrls: ['./all-notice.component.scss']
+  styleUrls: ['./all-notice.component.scss'],
+  host: {
+    'ngSkipHydration': 'true'
+  }
 })
 export class AllNoticeComponent implements OnInit {
   // Angular 20: Using inject() function instead of constructor injection
@@ -47,18 +52,35 @@ export class AllNoticeComponent implements OnInit {
   readonly notices = signal<Notices[]>([]);
   readonly isChangeLanguage = signal<boolean>(false);
   readonly isChangeLanguageToggle = signal<string>('en');
+  readonly currentLang = signal<string>('en'); // Local signal for reactive language tracking
 
   // Angular 20: Computed signals for derived state
-  readonly currentLanguage = computed(() => this.translateService.currentLang);
+  readonly currentLanguage = computed(() => this.currentLang());
   readonly isEnglish = computed(() => this.currentLanguage() === 'en' || !this.currentLanguage());
   readonly isBengali = computed(() => this.currentLanguage() === 'bn');
 
   ngOnInit(): void {
+    // Initialize language from translateService
+    this.currentLang.set(this.translateService.currentLang || 'en');
+
     // Angular 20: Using takeUntilDestroyed for automatic subscription cleanup
     this.activatedRoute.queryParamMap
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(qParam => {
-        this.language.set(qParam.get('language'));
+        const lang = qParam.get('language');
+        this.language.set(lang);
+        if (lang === 'bn') {
+          this.currentLang.set('bn');
+        } else if (lang === 'en') {
+          this.currentLang.set('en');
+        }
+      });
+
+    // Subscribe to translate service for language changes
+    this.translateService.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(langChange => {
+        this.currentLang.set(langChange.lang);
       });
 
     // Seo

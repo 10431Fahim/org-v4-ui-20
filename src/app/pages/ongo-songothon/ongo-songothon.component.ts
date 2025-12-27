@@ -9,6 +9,7 @@ import {RouterLink} from '@angular/router';
     RouterLink,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./ongo-songothon.component.scss']})
 export class OngoSongothonComponent implements OnInit {
 

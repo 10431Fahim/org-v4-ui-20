@@ -265,7 +265,7 @@
     "IAgreeTo": "আমি সম্মত",
     "ThisFieldRequired": "এই ঘরটি পূরণ করা আবশ্যক",
     "ResendCode": "কোড পুনরায় পাঠান",
-    "AmountMustBeGreaterThanZero": "পরিমাণ ০ এর চেয়ে বেশি হতে হবে",
+    "AmountMustBeGreaterThanZero": "পরিমাণ ১০০ এর চেয়ে বেশি হতে হবে",
     "MaximumDonation": "সর্বোচ্চ সহযোগিতা:",
     "IAgreeToThe": "আমি সম্মত",
     "TermsAndConditionsComma": "শর্তাবলি,",
@@ -286,11 +286,9 @@
     "PrimaryMembershipLogin": "প্রাথমিক সদস্য লগইন",
     "PleaseAcceptInformationTerms": "অনুগ্রহ করে তথ্যের শর্তাবলিতে সম্মতি দিন",
     "PleaseAcceptPersonalFundTerms": "অনুগ্রহ করে ব্যক্তিগত তহবিলের শর্তাবলিতে সম্মতি দিন",
-    "ThisFieldRequired": "এই ঘরটি পূরণ করা আবশ্যক",
     "PleaseSelectStartEndDates": "অনুগ্রহ করে পরিমাণ হিসাব করার জন্য শুরু এবং শেষ তারিখ নির্বাচন করুন",
     "Back": "পেছনে",
     "SubmitPayment": "পেমেন্ট জমা দিন",
-    "PleaseSelectCountry": "অনুগ্রহ করে একটি দেশ নির্বাচন করুন",
-    "Country": "দেশ"
+    "PleaseSelectCountry": "অনুগ্রহ করে একটি দেশ নির্বাচন করুন"
   }
 }

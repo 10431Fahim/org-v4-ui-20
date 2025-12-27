@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'secToTime',
-  pure: true
+  pure: true,
+  standalone:true,
 })
 export class SecToTimePipe implements PipeTransform {
 

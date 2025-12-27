@@ -7,6 +7,7 @@ import {NgxSkeletonLoaderComponent} from 'ngx-skeleton-loader';
   imports: [
     NgxSkeletonLoaderComponent
   ],
+  standalone:true,
   styleUrls: ['./youtube-loader.component.scss']
 })
 export class YoutubeLoaderComponent implements OnInit {

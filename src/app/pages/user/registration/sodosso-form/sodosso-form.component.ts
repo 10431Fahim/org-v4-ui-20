@@ -7,7 +7,8 @@ import { NgIf } from '@angular/common';
   selector: 'app-sodosso-form',
   templateUrl: './sodosso-form.component.html',
   styleUrls: ['./sodosso-form.component.scss'],
-  imports: [NgIf]
+  imports: [NgIf],
+  standalone:true,
 })
 export class SodossoFormComponent {
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;

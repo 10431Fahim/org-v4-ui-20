@@ -9,6 +9,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     RouterLink,
     TranslatePipe
   ],
+  standalone:true,
   styleUrls: ['./jatio-nirbahi-comitte.component.scss']})
 export class JatioNirbahiComitteComponent implements OnInit {
 

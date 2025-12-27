@@ -20,6 +20,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-presidency',
   templateUrl: './presidency.component.html',
   imports: [],
+  standalone:true,
   host: {ngSkipHydration: 'true'},
   styleUrls: ['./presidency.component.scss']})
 export class PresidencyComponent implements OnInit, OnDestroy {
@@ -148,7 +149,7 @@ export class PresidencyComponent implements OnInit, OnDestroy {
         next: (res) => {
           this.pageFaq.set(res.data);
           this.isLoading.set(false);
-          
+
           if (this.hasPageFaq()) {
             if (this.isLanguageBengali()) {
               this.updateMetaDataBn();

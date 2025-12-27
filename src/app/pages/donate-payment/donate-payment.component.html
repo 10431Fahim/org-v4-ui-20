@@ -1,0 +1,120 @@
+<div class="section-main">
+  <div class="section-top-contents">
+    <div class="top-banner-area">
+      <div class="banner">
+        <img src="/images/payment.jpg" alt="image" loading="lazy">
+      </div>
+    </div>
+
+    <div class="form-area">
+      <div class="container">
+        <div class="form">
+          <div class="form-input-area">
+            <div class="title-area">
+              <div class="title-area-left">
+                <h3><mat-icon>payment</mat-icon> {{ "ln.CompleteYourDonationPayment" | translate }}</h3>
+                <p>Please review your information and complete the payment</p>
+              </div>
+            </div>
+
+            <form [formGroup]="dataForm()!" (ngSubmit)="onSubmit()">
+              <!-- Name Field (Read-only) -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="field m-100">
+                  <mat-label>{{ "ln.Name" | translate }}</mat-label>
+                  <input matInput type="text" formControlName="name" readonly>
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="dataForm()?.get('name')?.hasError('required') && dataForm()?.get('name')?.touched">
+                    {{ "ln.ThisFieldRequired" | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Email Field (Read-only) -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="field m-100">
+                  <mat-label>{{ "ln.EmailID" | translate }}</mat-label>
+                  <input matInput type="email" formControlName="email" readonly>
+                  <mat-icon matSuffix>email</mat-icon>
+                  <mat-error *ngIf="dataForm()?.get('email')?.hasError('required') && dataForm()?.get('email')?.touched">
+                    {{ "ln.ThisFieldRequired" | translate }}
+                  </mat-error>
+                  <mat-error *ngIf="dataForm()?.get('email')?.hasError('email') && dataForm()?.get('email')?.touched">
+                    {{ "ln.InvalidEmail" | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Phone Number Field (Read-only) -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="field m-100">
+                  <mat-label>{{ "ln.MobileNo" | translate }}</mat-label>
+                  <input matInput type="tel" formControlName="phoneNo" readonly>
+                  <mat-icon matSuffix>phone</mat-icon>
+                  <mat-error *ngIf="dataForm()?.get('phoneNo')?.hasError('required') && dataForm()?.get('phoneNo')?.touched">
+                    {{ "ln.ThisFieldRequired" | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- WhatsApp Number Field (Read-only) -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="field m-100">
+                  <mat-label>{{ 'ln.WhatsAppNumber' | translate }}</mat-label>
+                  <input matInput type="tel" formControlName="whatsAppNumber" readonly>
+                  <mat-icon matSuffix>chat</mat-icon>
+                </mat-form-field>
+              </div>
+
+              <!-- Amount Field (Read-only) -->
+              <div class="form-input">
+                <mat-form-field appearance="outline" class="field m-100">
+                  <mat-label>{{ "ln.Amount" | translate }}</mat-label>
+                  <input matInput type="number" formControlName="amount" readonly>
+                  <span matSuffix>{{dataForm()?.get('currency')?.value || 'BDT'}}</span>
+                  <mat-error *ngIf="dataForm()?.get('amount')?.hasError('required') && dataForm()?.get('amount')?.touched">
+                    {{ "ln.ThisFieldRequired" | translate }}
+                  </mat-error>
+                  <mat-error *ngIf="dataForm()?.get('amount')?.hasError('min') && dataForm()?.get('amount')?.touched">
+                    {{ "ln.InvalidAmount" | translate }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Terms and Conditions Checkbox -->
+              <div class="form-input checkbox-area">
+                <mat-checkbox formControlName="agreeWithTermsAndConditions">
+                  {{ "ln.IAgreeToTheTermsAndConditions" | translate }}
+                </mat-checkbox>
+                <mat-error *ngIf="dataForm()?.get('agreeWithTermsAndConditions')?.hasError('required') && dataForm()?.get('agreeWithTermsAndConditions')?.touched">
+                  {{ "ln.PleaseAcceptTermsAndConditions" | translate }}
+                </mat-error>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-input submit-area">
+                <button
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                  class="submit-btn"
+                  [disabled]="isLoading() || !dataForm()?.valid">
+                  @if (isLoading()) {
+                    <mat-spinner diameter="20" class="spinner"></mat-spinner>
+                    {{ "ln.Processing" | translate }}...
+                  } @else {
+                    <ng-container>
+                      <mat-icon>payment</mat-icon>
+                      {{ "ln.CompletePayment" | translate }}
+                    </ng-container>
+                  }
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

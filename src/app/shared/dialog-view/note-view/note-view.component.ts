@@ -10,6 +10,7 @@ import {MatIcon} from '@angular/material/icon';
     MatIconButton,
     MatIcon
   ],
+  standalone:true,
   styleUrls: ['./note-view.component.scss']
 })
 export class NoteViewComponent implements OnInit {
