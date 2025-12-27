@@ -24,15 +24,21 @@
     <div class="container">
         <div class="section-1-main">
             <div class="all-photo">
-                <div class="photo" *ngFor="let data of photo; index as i"  (click)="onShowPop(i)" >
-                    <img [src]="data?.images[0]" alt="image" loading="lazy" >
+                <div class="photo" *ngFor="let data of photo(); index as i"  (click)="onShowPop(i)" >
+                    <img *ngIf="data?.images?.length && data?.images?.[0]"
+                         [src]="data?.images?.[0]" 
+                         [alt]="data?.name || 'image'" 
+                         loading="lazy">
+                    <div class="photo-title" *ngIf="data?.name">
+                        {{ data.name }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<app-gallery-popup [galleryData]="photo" #galleryPop></app-gallery-popup>
+<app-gallery-popup [galleryData]="photo()" #galleryPop></app-gallery-popup>
 
 <!--  <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide" >-->
 <!--    <div *ngFor="let data of photo; let i=index" >-->

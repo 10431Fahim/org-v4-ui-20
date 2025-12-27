@@ -289,6 +289,20 @@
     "PleaseSelectStartEndDates": "অনুগ্রহ করে পরিমাণ হিসাব করার জন্য শুরু এবং শেষ তারিখ নির্বাচন করুন",
     "Back": "পেছনে",
     "SubmitPayment": "পেমেন্ট জমা দিন",
-    "PleaseSelectCountry": "অনুগ্রহ করে একটি দেশ নির্বাচন করুন"
+    "PleaseSelectCountry": "অনুগ্রহ করে একটি দেশ নির্বাচন করুন",
+    "CertificateVerification": "সনদ যাচাইকরণ",
+    "VerifyCertificateDescription": "আপনার সদস্য আইডি বা সনদ আইডি প্রবেশ করে আপনার সদস্যপদ সনদের সত্যতা যাচাই করুন",
+    "EnterVerificationId": "যাচাইকরণ আইডি লিখুন",
+    "MemberIdOrCertificateId": "সদস্য আইডি বা সনদ আইডি",
+    "VerifyAnother": "আরেকটি যাচাই করুন",
+    "CertificateVerified": "সনদ যাচাইকৃত",
+    "MemberName": "সদস্যের নাম",
+    "MemberId": "সদস্য আইডি",
+    "PaymentStatus": "পেমেন্ট অবস্থা",
+    "Paid": "পরিশোধিত",
+    "Pending": "বকেয়া",
+    "IssueDate": "ইস্যুর তারিখ",
+    "CertificateNotFound": "সনদ পাওয়া যায়নি",
+    "CertificateNotFoundMessage": "আপনার প্রবেশ করা সনদ বা সদস্য আইডি পাওয়া যায়নি। অনুগ্রহ করে তথ্য যাচাই করে আবার চেষ্টা করুন।"
   }
 }

@@ -288,6 +288,20 @@
     "PleaseSelectStartEndDates": "Please select start and end dates to calculate amount",
     "Back": "Back",
     "SubmitPayment": "Submit Payment",
-    "PleaseSelectCountry": "Please select a country"
+    "PleaseSelectCountry": "Please select a country",
+    "CertificateVerification": "Certificate Verification",
+    "VerifyCertificateDescription": "Verify the authenticity of your membership certificate by entering your Member ID or Certificate ID",
+    "EnterVerificationId": "Enter Verification ID",
+    "MemberIdOrCertificateId": "Member ID or Certificate ID",
+    "VerifyAnother": "Verify Another",
+    "CertificateVerified": "Certificate Verified",
+    "MemberName": "Member Name",
+    "MemberId": "Member ID",
+    "PaymentStatus": "Payment Status",
+    "Paid": "Paid",
+    "Pending": "Pending",
+    "IssueDate": "Issue Date",
+    "CertificateNotFound": "Certificate Not Found",
+    "CertificateNotFoundMessage": "The certificate or member ID you entered could not be found. Please verify the information and try again."
   }
 }
