@@ -209,4 +209,6 @@ export const routes: Routes = [ {
     path: 'membership-registration',
     loadChildren: () => import('./pages/user/member-registration-form/member-registration-form.module').then(m => m.MemberRegistrationFormModule),
   },
+  { path: 'mourning', loadComponent: () => import('./pages/mourning/mourning.page').then(m => m.MourningPage) }
+
 ];

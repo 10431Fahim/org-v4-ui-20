@@ -155,6 +155,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isUser.set((this.userService as any).getUserStatus());
   }
 
+  public getRibbonText(): string {
+    return this.currentLang() === 'bn' ? 'আমরা<br>গভীরভাবে<br>শোকাহত' : 'We Are<br>Deeply Mourning';
+  }
+  
+
   @HostListener('window:scroll')
   headerFixedControl(): void {
     this.headerFixed.set(window.scrollY > 300);

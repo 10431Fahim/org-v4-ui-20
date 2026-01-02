@@ -48,7 +48,7 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 160;
+  z-index: 10000;
   transition: all 0.2s linear;
 }
 
@@ -143,6 +143,8 @@ a {
   justify-content: center;
   width: 100%;
   text-align: center;
+  position: relative;
+  z-index: 10001;
   gap: 15px;
 }
 
@@ -1199,6 +1201,42 @@ a {
   transform: translateY(0) !important;
 }
 
+.mobile-ribbon {
+  display: block;
+  position: absolute;
+  right: -89px;
+  width: 100px;
+  height: 90px;
+  flex-shrink: 0;
+}
+.ribbon-image {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 109px;
+  height: 119px;
+  background-image: url('/Shok1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+.ribbon-text {
+  position: absolute;
+  top: -13px;
+  right: -9px;
+  width: 100px;
+  height: 90px;
+  color: #fff;
+  font-family: "Noto Sans Bengali", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
 /* Mobile specific positioning - ensure it stays within viewport */
 @media (max-width: 700px) {
   .dropdown .dropdown-content {
@@ -1209,6 +1247,12 @@ a {
     transform: translateX(0) !important;
   }
   .container{
-    padding: 0px 8px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 1398px) {
+  .mobile-ribbon{
+    display: none;
   }
 }

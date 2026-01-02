@@ -4,10 +4,11 @@ import {HeaderComponent} from './shared/components/header/header.component';
 import {FooterComponent} from './shared/components/footer/footer.component';
 import {CsrfTokenService} from './services/core/csrf-token.service';
 import {UserService} from './services/common/user.service';
+import {MourningBannerComponent} from './pages/mourning/mourning-banner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, MourningBannerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

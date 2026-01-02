@@ -389,3 +389,232 @@ body {
 }
 
 
+/* Grayscale - Apply to app-root and all its content */
+/* iOS Safari support with -webkit-filter prefix */
+body.mourning-grayscale app-root {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+/* Apply grayscale to entire header including side nav - iOS Safari compatible */
+/* Using multiple selectors for better iOS Safari compatibility */
+body.mourning-grayscale app-root > app-header {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: filter;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
+}
+
+/* Apply to all header children */
+body.mourning-grayscale app-root > app-header * {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+}
+
+/* Specific rules for header areas to ensure filter works on iOS */
+body.mourning-grayscale app-root > app-header .header-area {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: filter;
+}
+
+body.mourning-grayscale app-root > app-header .header-area * {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+}
+
+/* Side nav (slide-menu) specific rules for iOS */
+body.mourning-grayscale app-root > app-header .slide-menu {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: filter;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  isolation: isolate;
+  // position: relative;
+  z-index: 1;
+}
+
+body.mourning-grayscale app-root > app-header .slide-menu * {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+}
+
+/* Apply grayscale to main and footer - iOS Safari compatible */
+body.mourning-grayscale app-root > main,
+body.mourning-grayscale app-root > app-footer {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  /* Force hardware acceleration for iOS */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Ensure footer content gets grayscale filter on iOS */
+body.mourning-grayscale app-footer * {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+/* Ensure all images in main content are grayscale */
+body.mourning-grayscale app-root > main img,
+body.mourning-grayscale app-root main img {
+  -webkit-filter: grayscale(1) !important;
+  filter: grayscale(1) !important;
+}
+
+/* Apply grayscale to main's children but exclude mourning banner */
+body.mourning-grayscale app-root main > router-outlet,
+body.mourning-grayscale app-root main > router-outlet * {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+/* Exclude mourning banner component and its children from grayscale - Higher specificity */
+body.mourning-grayscale app-root app-mourning-banner,
+body.mourning-grayscale app-root app-mourning-banner *,
+body.mourning-grayscale app-mourning-banner,
+body.mourning-grayscale app-mourning-banner *,
+body.mourning-grayscale main app-mourning-banner,
+body.mourning-grayscale main app-mourning-banner *,
+body.mourning-grayscale app-root main app-mourning-banner,
+body.mourning-grayscale app-root main app-mourning-banner * {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+/* Material Dialog overlay container - MUST be excluded from grayscale */
+/* Overlay is rendered outside app-root, so it won't inherit the filter */
+body.mourning-grayscale .cdk-overlay-container,
+.cdk-overlay-container {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+/* Ensure all Material Dialog elements are not grayscale */
+body.mourning-grayscale .cdk-overlay-container *,
+body.mourning-grayscale .cdk-global-overlay-wrapper,
+body.mourning-grayscale .cdk-global-overlay-wrapper *,
+body.mourning-grayscale .cdk-overlay-pane,
+body.mourning-grayscale .cdk-overlay-pane *,
+body.mourning-grayscale .mat-mdc-dialog-container,
+body.mourning-grayscale .mat-mdc-dialog-container *,
+body.mourning-grayscale .mdc-dialog__surface,
+body.mourning-grayscale .mdc-dialog__surface *,
+.cdk-overlay-container *,
+.cdk-global-overlay-wrapper,
+.cdk-global-overlay-wrapper *,
+.cdk-overlay-pane,
+.cdk-overlay-pane *,
+.mat-mdc-dialog-container,
+.mat-mdc-dialog-container *,
+.mdc-dialog__surface,
+.mdc-dialog__surface * {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+/* Specific override for popup dialog classes and images */
+body.mourning-grayscale .offer-dialog,
+body.mourning-grayscale .offer-dialog *,
+body.mourning-grayscale .offer-dialog img,
+body.mourning-grayscale .popup-area,
+body.mourning-grayscale .popup-area *,
+body.mourning-grayscale .popup-area img,
+body.mourning-grayscale .offer-img,
+body.mourning-grayscale .offer-img *,
+body.mourning-grayscale .offer-img img,
+body.mourning-grayscale .offer-dialog-main,
+body.mourning-grayscale .offer-dialog-main *,
+body.mourning-grayscale .offer-dialog-main img,
+.offer-dialog,
+.offer-dialog *,
+.offer-dialog img,
+.popup-area,
+.popup-area *,
+.popup-area img,
+.offer-img,
+.offer-img *,
+.offer-img img,
+.offer-dialog-main,
+.offer-dialog-main *,
+.offer-dialog-main img {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+/* Keep top ribbon colored? চাইলে banner/ribbon কে আবার normal করতে */
+/* Override grayscale for mourning-no-filter class with higher specificity */
+body.mourning-grayscale .mourning-no-filter,
+body.mourning-grayscale .mourning-no-filter *,
+body.mourning-grayscale app-root .mourning-no-filter,
+body.mourning-grayscale app-root .mourning-no-filter *,
+.mourning-no-filter,
+.mourning-no-filter * {
+  -webkit-filter: none !important;
+  filter: none !important;
+}
+
+/* Black ribbon (top-right corner) */
+//body.mourning-ribbon::before {
+//  content: "";
+//  position: fixed;
+//  top: 58px;
+//  right: 5px;
+//  width: 100px;
+//  height: 90px;
+//  background-image: url('/Shok1.png');
+//  background-size: contain;
+//  background-repeat: no-repeat;
+//  background-position: top right;
+//  z-index: 99999;
+//  pointer-events: none;
+//}
+//
+//body.mourning-ribbon::after {
+//  content: "আমরা\A গভীরভাবে\A শোকাহত";
+//  white-space: pre;
+//  position: fixed;
+//  top: 50px;
+//  right: 1px;
+//  width: 100px;
+//  height: 90px;
+//  z-index: 999999;
+//  pointer-events: none;
+//  color: #fff;
+//  font-family: 'Noto Sans Bengali', sans-serif;
+//  font-weight: 400;
+//  font-size: 12px;
+//  line-height: 1;
+//  text-align: center;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//}
+
+/* Hide mourning ribbon on mobile devices */
+@media (max-width: 768px) {
+  body.mourning-ribbon::before,
+  body.mourning-ribbon::after {
+    display: none;
+  }
+}
+
+/* Optional: small badge style */
+.mourning-badge {
+  background: #000;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}

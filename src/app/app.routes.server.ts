@@ -194,6 +194,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'membership-registration',
     renderMode: RenderMode.Prerender
   },
+  {
+    path: 'mourning',
+    renderMode: RenderMode.Prerender
+  },
   // Dynamic routes that should be server-side rendered instead of prerendered
   {
     path: 'video-details/:id',

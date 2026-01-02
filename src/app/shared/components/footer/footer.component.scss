@@ -414,11 +414,9 @@
       grid-template-columns: repeat(1, 1fr);
       grid-gap: 5px;
 
-      .footer-link-area {
-        // grid-template-columns: repeat(1, 1fr) !important;
-        //  grid-gap: 10px 20px;
-
-      }
+      // .footer-link-area styles can be added here if needed
+      // grid-template-columns: repeat(1, 1fr) !important;
+      // grid-gap: 10px 20px;
 
     }
   }
@@ -447,6 +445,45 @@
 }
 .mobile-view{
   display: none !important;
+}
+
+/* Ensure footer buttons are visible on all devices, especially iOS */
+.footer-link .link ul li a.membership {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: inline-block !important;
+  position: relative;
+  z-index: 1;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Ensure mobile-view and pc-view sections are properly displayed */
+.footer-link.mobile-view,
+.footer-link.pc-view {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.footer-link.mobile-view .link,
+.footer-link.pc-view .link {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+.footer-link.mobile-view .link ul,
+.footer-link.pc-view .link ul {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+.footer-link.mobile-view .link ul li,
+.footer-link.pc-view .link ul li {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 @media(max-width: 400px) {
