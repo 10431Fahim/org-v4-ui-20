@@ -7,11 +7,11 @@ export const environment = {
   name: 'bnpbd',
   domain: 'bnpbd.org',
   //
-  apiBaseLink: 'https://api-v2.bnpbd.org',
-  ftpBaseLink: 'https://api.bnpbd.org',
+  // apiBaseLink: 'https://api-v2.bnpbd.org',
+  // ftpBaseLink: 'https://api.bnpbd.org',
 
-  // apiBaseLink: 'http://localhost:1601',
-  // ftpBaseLink: 'http://localhost:1601',
+  apiBaseLink: 'http://localhost:1601',
+  ftpBaseLink: 'http://localhost:1601',
   // apiBaseLink: 'https://ict-bnp-78-api.bnpbangladesh.org',
   // ftpBaseLink: 'https://ict-bnp-78-cdn.bnpbangladesh.org',
   // apiBaseLink: 'https://api-v2.bnpbd.org',

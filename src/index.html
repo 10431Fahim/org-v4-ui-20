@@ -31,231 +31,231 @@
   <meta name="google-site-verification" content="HEJEt_dmk59m_H3ZbwZ_yCN7VlZCm-KAi864ckgkDbA" />
 
   <!-- Early Mourning Filter - Apply before Angular bootstraps to prevent color flash -->
-  <style>
-    /* Hide body initially to prevent color flash */
-    body:not(.mourning-initialized) {
-      visibility: hidden;
-    }
-    
-    /* Apply grayscale filter immediately via inline style as fallback */
-    /* This ensures filter works even if JavaScript fails (e.g., from social media links) */
-    body.mourning-grayscale app-root {
-      -webkit-filter: grayscale(1) !important;
-      filter: grayscale(1) !important;
-    }
-    
-    body.mourning-grayscale app-root > * {
-      -webkit-filter: grayscale(1) !important;
-      filter: grayscale(1) !important;
-    }
-  </style>
-  <script>
-    (function() {
-      // Apply filter immediately to prevent flash of colored content
-      function applyMourningFilter() {
-        if (typeof document === 'undefined' || !document.body) {
-          // Retry if DOM not ready
-          setTimeout(applyMourningFilter, 10);
-          return;
-        }
+<!--  <style>-->
+<!--    /* Hide body initially to prevent color flash */-->
+<!--    body:not(.mourning-initialized) {-->
+<!--      visibility: hidden;-->
+<!--    }-->
+<!--    -->
+<!--    /* Apply grayscale filter immediately via inline style as fallback */-->
+<!--    /* This ensures filter works even if JavaScript fails (e.g., from social media links) */-->
+<!--    body.mourning-grayscale app-root {-->
+<!--      -webkit-filter: grayscale(1) !important;-->
+<!--      filter: grayscale(1) !important;-->
+<!--    }-->
+<!--    -->
+<!--    body.mourning-grayscale app-root > * {-->
+<!--      -webkit-filter: grayscale(1) !important;-->
+<!--      filter: grayscale(1) !important;-->
+<!--    }-->
+<!--  </style>-->
+<!--  <script>-->
+<!--    (function() {-->
+<!--      // Apply filter immediately to prevent flash of colored content-->
+<!--      function applyMourningFilter() {-->
+<!--        if (typeof document === 'undefined' || !document.body) {-->
+<!--          // Retry if DOM not ready-->
+<!--          setTimeout(applyMourningFilter, 10);-->
+<!--          return;-->
+<!--        }-->
 
-        var body = document.body;
-        var applied = false;
+<!--        var body = document.body;-->
+<!--        var applied = false;-->
 
-        // Try to get cached status from localStorage first (fastest)
-        try {
-          var cached = localStorage.getItem('mourning-status');
-          var cachedTime = localStorage.getItem('mourning-status-time');
-          if (cached && cachedTime && Date.now() - parseInt(cachedTime) < 60000) {
-            // Use cached data if less than 1 minute old
-            var cfg = JSON.parse(cached);
-            if (cfg?.enabled) {
-              var untilMs = new Date(cfg.until).getTime();
-              var nowMs = Date.now();
-              if (Number.isFinite(untilMs) && nowMs < untilMs) {
-                body.classList.add('mourning-mode');
-                if (cfg.showGrayscale) {
-                  body.classList.add('mourning-grayscale');
-                  // Don't apply inline style to body - it affects popups
-                  // CSS classes in styles.scss handle grayscale with proper popup exclusions
-                }
-                if (cfg.showRibbon) body.classList.add('mourning-ribbon');
-                applied = true;
-              }
-            }
-          }
-        } catch (e) {
-          // Ignore cache errors
-        }
+<!--        // Try to get cached status from localStorage first (fastest)-->
+<!--        try {-->
+<!--          var cached = localStorage.getItem('mourning-status');-->
+<!--          var cachedTime = localStorage.getItem('mourning-status-time');-->
+<!--          if (cached && cachedTime && Date.now() - parseInt(cachedTime) < 60000) {-->
+<!--            // Use cached data if less than 1 minute old-->
+<!--            var cfg = JSON.parse(cached);-->
+<!--            if (cfg?.enabled) {-->
+<!--              var untilMs = new Date(cfg.until).getTime();-->
+<!--              var nowMs = Date.now();-->
+<!--              if (Number.isFinite(untilMs) && nowMs < untilMs) {-->
+<!--                body.classList.add('mourning-mode');-->
+<!--                if (cfg.showGrayscale) {-->
+<!--                  body.classList.add('mourning-grayscale');-->
+<!--                  // Don't apply inline style to body - it affects popups-->
+<!--                  // CSS classes in styles.scss handle grayscale with proper popup exclusions-->
+<!--                }-->
+<!--                if (cfg.showRibbon) body.classList.add('mourning-ribbon');-->
+<!--                applied = true;-->
+<!--              }-->
+<!--            }-->
+<!--          }-->
+<!--        } catch (e) {-->
+<!--          // Ignore cache errors-->
+<!--        }-->
 
-        // If no cache, try multiple methods to fetch status
-        if (!applied) {
-          var cfg = null;
-          
-          // Method 1: Try synchronous XHR (works in most browsers)
-          try {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/site-status.json?t=' + Date.now(), false);
-            xhr.send(null);
-            
-            if (xhr.status === 200) {
-              var data = JSON.parse(xhr.responseText);
-              cfg = data?.mourning;
-            }
-          } catch (e) {
-            // Synchronous XHR failed (common in social media browsers)
-            // Will fall back to async fetch
-          }
-          
-          // Method 2: If we got config from sync XHR, apply it immediately
-          if (cfg) {
-            // Cache the result
-            try {
-              localStorage.setItem('mourning-status', JSON.stringify(cfg));
-              localStorage.setItem('mourning-status-time', Date.now().toString());
-            } catch (e) {
-              // Ignore storage errors
-            }
+<!--        // If no cache, try multiple methods to fetch status-->
+<!--        if (!applied) {-->
+<!--          var cfg = null;-->
+<!--          -->
+<!--          // Method 1: Try synchronous XHR (works in most browsers)-->
+<!--          try {-->
+<!--            var xhr = new XMLHttpRequest();-->
+<!--            xhr.open('GET', '/site-status.json?t=' + Date.now(), false);-->
+<!--            xhr.send(null);-->
+<!--            -->
+<!--            if (xhr.status === 200) {-->
+<!--              var data = JSON.parse(xhr.responseText);-->
+<!--              cfg = data?.mourning;-->
+<!--            }-->
+<!--          } catch (e) {-->
+<!--            // Synchronous XHR failed (common in social media browsers)-->
+<!--            // Will fall back to async fetch-->
+<!--          }-->
+<!--          -->
+<!--          // Method 2: If we got config from sync XHR, apply it immediately-->
+<!--          if (cfg) {-->
+<!--            // Cache the result-->
+<!--            try {-->
+<!--              localStorage.setItem('mourning-status', JSON.stringify(cfg));-->
+<!--              localStorage.setItem('mourning-status-time', Date.now().toString());-->
+<!--            } catch (e) {-->
+<!--              // Ignore storage errors-->
+<!--            }-->
 
-            if (cfg?.enabled) {
-              var untilMs = new Date(cfg.until).getTime();
-              var nowMs = Date.now();
+<!--            if (cfg?.enabled) {-->
+<!--              var untilMs = new Date(cfg.until).getTime();-->
+<!--              var nowMs = Date.now();-->
 
-              if (Number.isFinite(untilMs) && nowMs < untilMs) {
-                body.classList.add('mourning-mode');
-                if (cfg.showGrayscale) {
-                  body.classList.add('mourning-grayscale');
-                  // Don't apply inline style to body - it affects popups
-                  // CSS classes in styles.scss handle grayscale with proper popup exclusions
-                }
-                if (cfg.showRibbon) body.classList.add('mourning-ribbon');
-                applied = true;
-              }
-            }
-          } else {
-            // Method 3: Sync XHR failed, use async fetch immediately (for social media browsers)
-            // This is critical for social media in-app browsers that block sync XHR
-            // Set a timeout to show body even if fetch fails (max 2 seconds)
-            var fetchTimeout = setTimeout(function() {
-              body.classList.add('mourning-initialized');
-            }, 2000);
-            
-            fetch('/site-status.json?t=' + Date.now(), {
-              cache: 'no-cache',
-              headers: { 'Cache-Control': 'no-cache' }
-            })
-            .then(function(response) {
-              clearTimeout(fetchTimeout);
-              if (!response.ok) {
-                body.classList.add('mourning-initialized');
-                return null;
-              }
-              return response.json();
-            })
-            .then(function(data) {
-              if (!data) {
-                body.classList.add('mourning-initialized');
-                return;
-              }
-              
-              var fetchedCfg = data?.mourning;
-              
-              // Cache the result
-              try {
-                localStorage.setItem('mourning-status', JSON.stringify(fetchedCfg));
-                localStorage.setItem('mourning-status-time', Date.now().toString());
-              } catch (e) {
-                // Ignore storage errors
-              }
-              
-              // Remove any existing classes first
-              body.classList.remove('mourning-mode', 'mourning-grayscale', 'mourning-ribbon');
-              
-              if (fetchedCfg?.enabled) {
-                var untilMs = new Date(fetchedCfg.until).getTime();
-                var nowMs = Date.now();
-                
-                if (Number.isFinite(untilMs) && nowMs < untilMs) {
-                  body.classList.add('mourning-mode');
-                  if (fetchedCfg.showGrayscale) {
-                    body.classList.add('mourning-grayscale');
-                    // Don't apply inline style to body - it affects popups
-                    // CSS classes in styles.scss handle grayscale with proper popup exclusions
-                  }
-                  if (fetchedCfg.showRibbon) body.classList.add('mourning-ribbon');
-                }
-              }
-              
-              // Show body after applying filter
-              body.classList.add('mourning-initialized');
-            })
-            .catch(function() {
-              clearTimeout(fetchTimeout);
-              // Show body even if fetch failed
-              body.classList.add('mourning-initialized');
-              // Service will handle it later
-            });
-          }
-        }
+<!--              if (Number.isFinite(untilMs) && nowMs < untilMs) {-->
+<!--                body.classList.add('mourning-mode');-->
+<!--                if (cfg.showGrayscale) {-->
+<!--                  body.classList.add('mourning-grayscale');-->
+<!--                  // Don't apply inline style to body - it affects popups-->
+<!--                  // CSS classes in styles.scss handle grayscale with proper popup exclusions-->
+<!--                }-->
+<!--                if (cfg.showRibbon) body.classList.add('mourning-ribbon');-->
+<!--                applied = true;-->
+<!--              }-->
+<!--            }-->
+<!--          } else {-->
+<!--            // Method 3: Sync XHR failed, use async fetch immediately (for social media browsers)-->
+<!--            // This is critical for social media in-app browsers that block sync XHR-->
+<!--            // Set a timeout to show body even if fetch fails (max 2 seconds)-->
+<!--            var fetchTimeout = setTimeout(function() {-->
+<!--              body.classList.add('mourning-initialized');-->
+<!--            }, 2000);-->
+<!--            -->
+<!--            fetch('/site-status.json?t=' + Date.now(), {-->
+<!--              cache: 'no-cache',-->
+<!--              headers: { 'Cache-Control': 'no-cache' }-->
+<!--            })-->
+<!--            .then(function(response) {-->
+<!--              clearTimeout(fetchTimeout);-->
+<!--              if (!response.ok) {-->
+<!--                body.classList.add('mourning-initialized');-->
+<!--                return null;-->
+<!--              }-->
+<!--              return response.json();-->
+<!--            })-->
+<!--            .then(function(data) {-->
+<!--              if (!data) {-->
+<!--                body.classList.add('mourning-initialized');-->
+<!--                return;-->
+<!--              }-->
+<!--              -->
+<!--              var fetchedCfg = data?.mourning;-->
+<!--              -->
+<!--              // Cache the result-->
+<!--              try {-->
+<!--                localStorage.setItem('mourning-status', JSON.stringify(fetchedCfg));-->
+<!--                localStorage.setItem('mourning-status-time', Date.now().toString());-->
+<!--              } catch (e) {-->
+<!--                // Ignore storage errors-->
+<!--              }-->
+<!--              -->
+<!--              // Remove any existing classes first-->
+<!--              body.classList.remove('mourning-mode', 'mourning-grayscale', 'mourning-ribbon');-->
+<!--              -->
+<!--              if (fetchedCfg?.enabled) {-->
+<!--                var untilMs = new Date(fetchedCfg.until).getTime();-->
+<!--                var nowMs = Date.now();-->
+<!--                -->
+<!--                if (Number.isFinite(untilMs) && nowMs < untilMs) {-->
+<!--                  body.classList.add('mourning-mode');-->
+<!--                  if (fetchedCfg.showGrayscale) {-->
+<!--                    body.classList.add('mourning-grayscale');-->
+<!--                    // Don't apply inline style to body - it affects popups-->
+<!--                    // CSS classes in styles.scss handle grayscale with proper popup exclusions-->
+<!--                  }-->
+<!--                  if (fetchedCfg.showRibbon) body.classList.add('mourning-ribbon');-->
+<!--                }-->
+<!--              }-->
+<!--              -->
+<!--              // Show body after applying filter-->
+<!--              body.classList.add('mourning-initialized');-->
+<!--            })-->
+<!--            .catch(function() {-->
+<!--              clearTimeout(fetchTimeout);-->
+<!--              // Show body even if fetch failed-->
+<!--              body.classList.add('mourning-initialized');-->
+<!--              // Service will handle it later-->
+<!--            });-->
+<!--          }-->
+<!--        }-->
 
-        // Show body after applying filter
-        body.classList.add('mourning-initialized');
+<!--        // Show body after applying filter-->
+<!--        body.classList.add('mourning-initialized');-->
 
-        // Fetch fresh status asynchronously for updates (non-blocking)
-        if (applied) {
-          fetch('/site-status.json?t=' + Date.now(), {
-            cache: 'no-cache',
-            headers: { 'Cache-Control': 'no-cache' }
-          })
-          .then(function(response) {
-            if (!response.ok) return null;
-            return response.json();
-          })
-          .then(function(data) {
-            if (!data) return;
+<!--        // Fetch fresh status asynchronously for updates (non-blocking)-->
+<!--        if (applied) {-->
+<!--          fetch('/site-status.json?t=' + Date.now(), {-->
+<!--            cache: 'no-cache',-->
+<!--            headers: { 'Cache-Control': 'no-cache' }-->
+<!--          })-->
+<!--          .then(function(response) {-->
+<!--            if (!response.ok) return null;-->
+<!--            return response.json();-->
+<!--          })-->
+<!--          .then(function(data) {-->
+<!--            if (!data) return;-->
 
-            var cfg = data?.mourning;
+<!--            var cfg = data?.mourning;-->
 
-            // Cache the result
-            try {
-              localStorage.setItem('mourning-status', JSON.stringify(cfg));
-              localStorage.setItem('mourning-status-time', Date.now().toString());
-            } catch (e) {
-              // Ignore storage errors
-            }
+<!--            // Cache the result-->
+<!--            try {-->
+<!--              localStorage.setItem('mourning-status', JSON.stringify(cfg));-->
+<!--              localStorage.setItem('mourning-status-time', Date.now().toString());-->
+<!--            } catch (e) {-->
+<!--              // Ignore storage errors-->
+<!--            }-->
 
-            // Remove existing classes first
-            body.classList.remove('mourning-mode', 'mourning-grayscale', 'mourning-ribbon');
+<!--            // Remove existing classes first-->
+<!--            body.classList.remove('mourning-mode', 'mourning-grayscale', 'mourning-ribbon');-->
 
-            if (cfg?.enabled) {
-              var untilMs = new Date(cfg.until).getTime();
-              var nowMs = Date.now();
+<!--            if (cfg?.enabled) {-->
+<!--              var untilMs = new Date(cfg.until).getTime();-->
+<!--              var nowMs = Date.now();-->
 
-              if (Number.isFinite(untilMs) && nowMs < untilMs) {
-                body.classList.add('mourning-mode');
-                if (cfg.showGrayscale) {
-                  body.classList.add('mourning-grayscale');
-                  // Don't apply inline style to body - it affects popups
-                  // CSS classes in styles.scss handle grayscale with proper popup exclusions
-                }
-                if (cfg.showRibbon) body.classList.add('mourning-ribbon');
-              }
-            }
-          })
-          .catch(function() {
-            // Silently fail - service will handle it later
-          });
-        }
-      }
+<!--              if (Number.isFinite(untilMs) && nowMs < untilMs) {-->
+<!--                body.classList.add('mourning-mode');-->
+<!--                if (cfg.showGrayscale) {-->
+<!--                  body.classList.add('mourning-grayscale');-->
+<!--                  // Don't apply inline style to body - it affects popups-->
+<!--                  // CSS classes in styles.scss handle grayscale with proper popup exclusions-->
+<!--                }-->
+<!--                if (cfg.showRibbon) body.classList.add('mourning-ribbon');-->
+<!--              }-->
+<!--            }-->
+<!--          })-->
+<!--          .catch(function() {-->
+<!--            // Silently fail - service will handle it later-->
+<!--          });-->
+<!--        }-->
+<!--      }-->
 
-      // Apply immediately when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyMourningFilter);
-      } else {
-        applyMourningFilter();
-      }
-    })();
-  </script>
+<!--      // Apply immediately when DOM is ready-->
+<!--      if (document.readyState === 'loading') {-->
+<!--        document.addEventListener('DOMContentLoaded', applyMourningFilter);-->
+<!--      } else {-->
+<!--        applyMourningFilter();-->
+<!--      }-->
+<!--    })();-->
+<!--  </script>-->
 </head>
 <body>
   <app-root></app-root>
