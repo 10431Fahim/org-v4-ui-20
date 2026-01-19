@@ -67,6 +67,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'plan-to-build-nation',
+    renderMode: RenderMode.Prerender
+  },
+  {
     path: 'about-us',
     renderMode: RenderMode.Prerender
   },

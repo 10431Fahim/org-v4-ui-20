@@ -1,0 +1,58 @@
+<div class="card-detail-dialog">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <mat-icon class="header-icon">{{data.icon}}</mat-icon>
+      <h2 class="dialog-title">{{data.title}}</h2>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="closeDialog()" aria-label="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Dialog Content -->
+  <div class="dialog-content">
+    <!-- PDF Viewer Section -->
+    <div class="pdf-viewer-section" *ngIf="safePdfUrl">
+      <iframe 
+        [src]="safePdfUrl" 
+        class="pdf-iframe"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Image Section (if no PDF) -->
+    <div class="image-section" *ngIf="!safePdfUrl && data.imageUrl">
+      <img [src]="data.imageUrl" [alt]="data.title" class="detail-image">
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-section" *ngIf="data.description || data.benefits">
+      <div class="description" *ngIf="data.description">
+        <p>{{data.description}}</p>
+      </div>
+
+      <div class="benefits-section" *ngIf="data.benefits && data.benefits.length > 0">
+        <h3 class="benefits-title">সুবিধাসমূহ:</h3>
+        <ul class="benefits-list">
+          <li *ngFor="let benefit of data.benefits">{{benefit}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Placeholder if no content -->
+    <div class="no-content" *ngIf="!safePdfUrl && !data.imageUrl && !data.description">
+      <mat-icon class="placeholder-icon">description</mat-icon>
+      <p>বিস্তারিত তথ্য শীঘ্রই যোগ করা হবে</p>
+    </div>
+  </div>
+
+  <!-- Dialog Footer -->
+  <div class="dialog-footer" *ngIf="data.pdfUrl">
+    <button mat-raised-button color="primary" (click)="downloadPdf()">
+      <mat-icon>download</mat-icon>
+      <span>PDF ডাউনলোড করুন</span>
+    </button>
+  </div>
+</div>

@@ -76,6 +76,10 @@ export const routes: Routes = [ {
     loadChildren: () => import('./pages/additional-page-view/additional-page-view.module').then(m => m.AdditionalPageViewModule),
   },
   {
+    path: 'plan-to-build-nation',
+    loadChildren: () => import('./pages/plan-to-build-nation/plan-to-build-nation.module').then(m => m.PlanToBuildNationModule),
+  },
+  {
     path: 'about-us',
     loadChildren: () => import('./pages/porichito/porichito.module').then(m => m.PorichitoModule),
   },
