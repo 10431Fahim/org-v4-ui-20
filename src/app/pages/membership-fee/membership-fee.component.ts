@@ -539,8 +539,8 @@ export class MembershipFeeComponent implements OnInit {
       designation: [
         {
           id: "1",
-          name: "Chairperson",
-          nameBn: "চেয়ারপার্সন ",
+          name: "Chairman",
+          nameBn: "চেয়ারম্যান",
           amount: 1000,
           amountBn: "১০০০",
         },
@@ -583,8 +583,8 @@ export class MembershipFeeComponent implements OnInit {
       designation: [
         {
           id: "1",
-          name: "Chairperson",
-          nameBn: "চেয়ারপার্সন",
+          name: "Chairman",
+          nameBn: "চেয়ারম্যান",
           amount: 1000,
           amountBn: "১০০০",
         },

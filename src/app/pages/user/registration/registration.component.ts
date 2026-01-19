@@ -1079,7 +1079,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   <div style="display: flex;justify-content: space-between;">
     <div style="display:flex;margin-top: 5px;font-size: 18px;border-top: 1px solid #000000;">
-      <span style="text-wrap: nowrap;">Chairperson</span>
+      <span style="text-wrap: nowrap;">Chairman</span>
     </div>
     <div style="display:flex;margin-top: 5px;font-size: 18px;border-top: 1px solid #000000;">
 <!--      <span style="text-wrap: nowrap;">Member's signature</span>-->

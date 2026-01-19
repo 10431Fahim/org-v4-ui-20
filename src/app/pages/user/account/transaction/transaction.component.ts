@@ -482,7 +482,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
                             border-top:3px solid #006A4E;
                             margin:0 auto 5px auto;
                         "></div>
-                        <span style="font-weight:400;">Chairperson</span>
+                        <span style="font-weight:400;">Chairman</span>
                     </div>
                     <div style="flex:1;text-align:center;">
                         <div style="margin-top:25px;height:18px;margin-bottom:6px;font-size:13px;color:#333;">

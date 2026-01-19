@@ -1205,8 +1205,8 @@ export const AllCommittee: any[] = [
       },
       {
         id: "2",
-        name: "Acting Chairman",
-        nameBn: "ভারপ্রাপ্ত চেয়ারম্যান",
+        name: "Chairman",
+        nameBn: "চেয়ারম্যান",
         amount: 1000,
         amountBn: "১০০০",
       },
