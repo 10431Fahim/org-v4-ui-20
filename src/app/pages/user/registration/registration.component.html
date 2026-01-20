@@ -187,7 +187,6 @@
           </div>
           <div class="error" *ngIf="f['city'].invalid && (f['city'].dirty || f['city'].touched || submitted)">
             <span *ngIf="f['city'].errors?.['required']">{{ 'ln.City' | translate }} {{ 'ln.isRequired' | translate }}</span>
-            <span *ngIf="f['city'].errors?.['invalidCity']">Please select a valid city from the dropdown</span>
           </div>
         </div>
 

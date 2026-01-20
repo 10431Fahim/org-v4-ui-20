@@ -329,18 +329,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       }
     }
 
-    // Validate city is selected from dropdown
-    const cityValue = this.registrationForm.get('city')?.value;
-    if (cityValue && this.citiesPresent.length > 0) {
-      const isValidCity = this.citiesPresent.some(city => city === cityValue);
-      if (!isValidCity) {
-        const cityControl = this.registrationForm.get('city');
-        const currentErrors = cityControl?.errors || {};
-        cityControl?.setErrors({ ...currentErrors, invalidCity: true });
-        this.uiService.warn('Please select a valid city from the dropdown');
-        return;
-      }
-    }
+    // NOTE: Present city can be typed freely or selected from dropdown.
+    // We no longer force it to match the predefined city list here.
 
     // Validate permanent city is selected from dropdown
     const cityPermanentValue = this.registrationForm.get('cityPermanent')?.value;
@@ -467,28 +457,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.filteredCities = this.citiesPresent.filter(city =>
           city.toLowerCase().includes(value.toLowerCase())
         );
-
-        // Validate city is from the dropdown list
-        if (value.trim() !== '') {
-          const isValidCity = this.citiesPresent.some(city => city === value);
-          const cityControl = this.registrationForm.get('city');
-          if (cityControl) {
-            if (isValidCity) {
-              // Clear invalid city error if exists
-              if (cityControl.hasError('invalidCity')) {
-                const currentErrors = { ...cityControl.errors };
-                delete currentErrors['invalidCity'];
-                cityControl.setErrors(Object.keys(currentErrors).length > 0 ? currentErrors : null);
-                cityControl.updateValueAndValidity();
-              }
-            } else {
-              // Invalid city - user typed something not in the list
-              const currentErrors = cityControl.errors || {};
-              cityControl.setErrors({ ...currentErrors, invalidCity: true });
-              cityControl.markAsTouched();
-            }
-          }
-        }
+        // No strict validation: user may choose from dropdown or type a custom city name
       }
     });
   }
