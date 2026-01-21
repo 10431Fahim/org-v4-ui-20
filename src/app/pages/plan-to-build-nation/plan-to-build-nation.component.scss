@@ -154,6 +154,7 @@
   cursor: pointer;
   text-align: center;
   min-height: 240px;
+  position: relative; // Needed for absolute positioning of clickable indicator
 
   .card-icon-wrapper {
     width: 3rem;
@@ -191,6 +192,47 @@
     font-size: 0.98rem;
     line-height: 1.7;
     margin: 0;
+
+    .more-text {
+      color: #006a4e;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 0.25rem;
+      display: inline-block;
+    }
+  }
+
+  // Clickable indicator icon
+  .clickable-indicator {
+    display: inline;
+    // position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    // display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #006a4e;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 20;
+    pointer-events: none;
+    // display: inline;
+    // box-shadow: 0 2px 6px rgba(0, 106, 78, 0.3);
+
+    .click-icon {
+      color: white !important;
+      font-size: 1rem !important;
+      width: 1rem !important;
+      height: 1rem !important;
+    }
+  }
+
+  &:hover{
+    // background: rgba(0, 106, 78, 0.2);
+    opacity: 1;
+    transform: scale(1.1);
   }
 }
 
@@ -250,7 +292,7 @@
 // Responsive Design
 @media (max-width: 768px) {
   .plan-to-build-nation-container {
-    padding: 1rem;
+    padding: .8rem;
   }
 
   .hero-wrapper {
@@ -268,12 +310,12 @@
 
   .cards-grid {
     justify-content: center;
-    gap: 1rem;
+    gap: .8rem;
   }
 
   .card-item {
-    width: calc(50% - 0.75rem);
-    padding: 1.5rem 1rem;
+    width: calc(50% - 0.6rem);
+    padding: 1rem 1rem;
     min-height: 180px;
 
     .card-icon-wrapper {
@@ -293,6 +335,19 @@
 
     .card-description {
       font-size: 0.85rem;
+    }
+
+    .clickable-indicator {
+      // width: 1rem;
+      // height: 1rem;
+      // bottom: 0.75rem;
+      // right: 0.75rem;
+      // display: inline;
+      .click-icon {
+        font-size: 1rem;
+        width: 1rem;
+        height: 1rem;
+      }
     }
   }
 

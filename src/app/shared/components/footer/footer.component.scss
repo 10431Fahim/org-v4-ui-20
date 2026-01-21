@@ -443,8 +443,30 @@
     margin-bottom: 20px;
   }
 }
+
+// Default: hide mobile-view on desktop, but media queries will override this
+// Note: This should come BEFORE media queries, but if it comes after, 
+// media queries with !important will still override it
 .mobile-view{
-  display: none !important;
+  display: none;
+}
+
+// iPhone and mobile devices - ensure mobile-view is visible
+@media screen and (max-width: 768px) {
+  .footer-link.mobile-view {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+// Additional iPhone-specific fix
+@media screen and (max-device-width: 768px) {
+  .footer-link.mobile-view {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
 /* Ensure footer buttons are visible on all devices, especially iOS */
@@ -484,6 +506,30 @@
   visibility: visible !important;
   opacity: 1 !important;
   display: block !important;
+}
+
+@media(max-width: 767px) {
+  .pc-view{
+    display: none !important;
+  }
+  .mobile-view,
+  .footer-link.mobile-view {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+@media(max-width: 599px) {
+  .pc-view{
+    display: none !important;
+  }
+  .mobile-view,
+  .footer-link.mobile-view {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
 @media(max-width: 400px) {
@@ -548,9 +594,7 @@
   .pc-view{
     display: none !important;
   }
-  .mobile-view{
-    display: block !important;
-  }
+  
 }
 @media (max-width: 378px) {
   .payment-btn{

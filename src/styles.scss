@@ -618,3 +618,16 @@ body.mourning-grayscale app-root .mourning-no-filter *,
   border-radius: 8px;
   font-weight: 600;
 }
+
+
+/* Card detail dialog - position overlay wrapper lower from top */
+/* Target the overlay wrapper when card-detail-dialog-container class is present */
+.cdk-overlay-container .cdk-global-overlay-wrapper {
+  top: 28px !important;
+}
+
+/* More specific: when dialog container has our panel class */
+.cdk-overlay-container .mat-dialog-container.card-detail-dialog-container ~ .cdk-global-overlay-wrapper,
+.cdk-overlay-container .cdk-global-overlay-wrapper:has(.card-detail-dialog-container) {
+  top: 28px !important;
+}
