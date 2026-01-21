@@ -2,6 +2,22 @@
   <div class="container">
     <div class="section-3-main" *ngFor="let data of tag()">
       <div class="section-3-left wow animate__fadeInLeft">
+
+
+       <div class="section-3-left-item item-1">
+          <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            Plan to Build the Nation
+          </h1>
+          <h1 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">
+            দেশ গড়ার পরিকল্পনা
+          </h1>
+<!--           <h1>{{data?.pointQuenty}} Points</h1>-->
+          <!-- <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
+            {{data?.pointDescription}}</p> -->
+         <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescriptionEn}}</p>
+            <a class="button-hover" [routerLink]="'/plan-to-build-nation'" [queryParamsHandling]="'merge'">{{
+              "ln.Learnmore" | translate }}</a>
+        </div>
         <div class="section-3-left-item item-1">
           <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
             {{data?.pointQuenty3}} {{ "ln.Points" | translate }}</h1>
@@ -13,7 +29,7 @@
           <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescription3En}}</p>
           <!-- <p>{{data?.pointDescription2}}</p> -->
           <a class="button-hover" [routerLink]="data.pointLink3" [queryParamsHandling]="'merge'">{{
-            "ln.Learnmore" | translate }}</a>
+              "ln.Learnmore" | translate }}</a>
 
           <a class="button-hover" *ngIf="translateService.currentLang === 'bn'" (click)="onDownloadPdf('bangla')" href="/pdf/31 Points Bangla 50k.pdf" target="_blank">{{
               "ln.31bangla" | translate }}</a>
@@ -21,22 +37,6 @@
           <a class="button-hover" *ngIf="translateService.currentLang === 'en' || !translateService.currentLang " (click)="onDownloadPdf('english')" href="/pdf/31 Points English 2.5k.pdf" target="_blank">{{
               "ln.31bangla" | translate }}</a>
         </div>
-
-        <!-- <div class="section-3-left-item item-1">
-          <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
-            Plan to Build the Nation
-          </h1>
-          <h1 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">
-            দেশ গড়ার পরিকল্পনা
-          </h1> -->
-          <!-- <h1>{{data?.pointQuenty}} Points</h1> -->
-          <!-- <p *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
-            {{data?.pointDescription}}</p> -->
-          <!-- <p class="font-bangla" *ngIf="translateService.currentLang === 'bn'  ">{{data?.pointDescriptionEn}}</p>
-            <a class="button-hover" [routerLink]="data.pointLink" [queryParamsHandling]="'merge'">{{
-              "ln.Learnmore" | translate }}</a>
-        </div> -->
-
         <div class="section-3-left-item">
           <h1 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">
             {{data?.pointQuenty}} {{ "ln.Points" | translate }} </h1>

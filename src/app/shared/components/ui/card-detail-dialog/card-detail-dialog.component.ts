@@ -14,7 +14,10 @@ export interface CardDetailData {
   pdfUrl?: string;
   imageUrl?: string;
   description?: string;
+  description1?: string;
   benefits?: string[];
+  faqs?: { question: string; answer: string }[];
+  faqImages?: string[];
 }
 
 @Component({
@@ -35,6 +38,7 @@ export class CardDetailDialogComponent implements OnInit {
   public data = inject<CardDetailData>(MAT_DIALOG_DATA);
 
   safePdfUrl: SafeResourceUrl | null = null;
+  expandedFaqIndex: number | null = null;
 
   constructor() { }
 
@@ -52,6 +56,31 @@ export class CardDetailDialogComponent implements OnInit {
   downloadPdf(): void {
     if (this.data.pdfUrl) {
       window.open(this.data.pdfUrl, '_blank');
+    }
+  }
+
+  /**
+   * Toggle FAQ answer visibility
+   */
+  toggleFaq(index: number): void {
+    this.expandedFaqIndex = this.expandedFaqIndex === index ? null : index;
+  }
+
+  /**
+   * Download or open FAQ image in new tab
+   */
+  downloadFaqImage(url: string): void {
+    if (url) {
+      // Trigger direct download instead of opening new tab
+      const link = document.createElement('a');
+      link.href = url;
+      // Try to infer a filename from the URL; fallback to generic
+      const parts = url.split('/');
+      link.download = parts[parts.length - 1] || 'download';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   }
 }

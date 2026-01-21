@@ -28,16 +28,52 @@
     </div>
 
     <!-- Content Section -->
-    <div class="content-section" *ngIf="data.description || data.benefits">
-      <div class="description" *ngIf="data.description">
-        <p>{{data.description}}</p>
+    <div class="content-section" *ngIf="data.description || data.description1 || data.benefits || data.faqs?.length">
+      <div class="description" *ngIf="data.description || data.description1">
+        <p *ngIf="data.description">{{data.description}}</p>
+        <p *ngIf="data.description1">{{data.description1}}</p>
       </div>
 
-      <div class="benefits-section" *ngIf="data.benefits && data.benefits.length > 0">
+      <!-- <div class="benefits-section" *ngIf="data.benefits && data.benefits.length > 0">
         <h3 class="benefits-title">সুবিধাসমূহ:</h3>
         <ul class="benefits-list">
           <li *ngFor="let benefit of data.benefits">{{benefit}}</li>
         </ul>
+      </div> -->
+
+      <!-- FAQ Section -->
+      <div class="faq-section" *ngIf="data.faqs && data.faqs.length > 0">
+        <!-- <h3 class="faq-title">প্রশ্নোত্তর</h3> -->
+        <div class="faq-item" *ngFor="let faq of data.faqs; let i = index">
+          <button class="faq-question" type="button" (click)="toggleFaq(i)">
+            <span>{{ faq.question }}</span>
+            <mat-icon class="faq-toggle-icon">
+              {{ expandedFaqIndex === i ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+          </button>
+          <div class="faq-answer" *ngIf="expandedFaqIndex === i">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional FAQ images (1 or 2) -->
+      <div class="faq-images" *ngIf="data.faqImages && data.faqImages.length > 0">
+        <div
+          class="faq-image-wrapper"
+          *ngFor="let img of data.faqImages | slice:0:2">
+          <img
+            [src]="img"
+            alt="Policy visual"
+            class="faq-image"
+          />
+          <button
+            type="button"
+            class="faq-image-download"
+            (click)="downloadFaqImage(img)">
+            <mat-icon>download</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
 

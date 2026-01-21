@@ -1,10 +1,17 @@
 <div class="plan-to-build-nation-container">
-  <!-- Header Section -->
-  <div class="header-section">
-    <div class="header-content">
-      <mat-icon class="header-icon">menu_book</mat-icon>
-      <h1 class="header-title">বিএনপির দেশ ভাবনার বিস্তারিত</h1>
+  <!-- Hero Title + Subtitle (from design) -->
+  <div class="hero-wrapper">
+    <div class="title-capsule">
+      <h1 class="hero-title">
+        দেশ গড়ার পরিকল্পনা
+      </h1>
     </div>
+
+    <p class="hero-subtitle">
+      <span class="highlight-strong">আধুনিকায়ন,</span>
+      প্রগতি ও টেকসই সমৃদ্ধির লক্ষ্যে
+      <span class="highlight-soft">একটি ডিজিটাল বিপ্লবের সূচনা।</span>
+    </p>
   </div>
 
   <!-- Instructional Text -->
@@ -16,13 +23,16 @@
   <div class="cards-grid">
     <div 
       *ngFor="let card of cards" 
-      class="card-item"
+      class="card-item glass-card"
       (click)="onCardClick(card)">
       <div class="card-icon-wrapper">
+        <div class="card-icon-halo"></div>
         <mat-icon class="card-icon">{{card.icon}}</mat-icon>
       </div>
       <h3 class="card-title">{{card.title}}</h3>
-      <div class="card-underline"></div>
+      <p *ngIf="card.description" class="card-description">
+        {{ card.description }}
+      </p>
     </div>
   </div>
 
