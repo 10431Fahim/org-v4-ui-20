@@ -160,7 +160,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'membership-fee',
-    renderMode: RenderMode.Prerender
+    renderMode: RenderMode.Prerender,
   },
   {
     path: 'donate',

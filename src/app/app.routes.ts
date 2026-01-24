@@ -175,7 +175,7 @@ export const routes: Routes = [ {
   {
     path: 'membership-fee',
     loadChildren: () => import('./pages/membership-fee/membership-fee.module').then(m => m.MembershipFeeModule),
-    // canActivate: [UserAuthGuard],
+    canActivate: [userAuthGuard],
   },
   {
     path: 'donate',
@@ -184,6 +184,7 @@ export const routes: Routes = [ {
   {
     path: 'donate-payment',
     loadComponent: () => import('./pages/donate-payment/donate-payment.component').then(m => m.DonatePaymentComponent),
+    canActivate: [userAuthGuard],
   },
   {
     path:"premiership-begum-khaleda-zia3",
@@ -207,7 +208,8 @@ export const routes: Routes = [ {
   },
   {
     path:"primary-member-fee",
-    loadChildren: () => import('./pages/general-member-fee/general-member-fee.module').then(m => m.GeneralMemberFeeModule)
+    loadChildren: () => import('./pages/general-member-fee/general-member-fee.module').then(m => m.GeneralMemberFeeModule),
+    canActivate: [userAuthGuard],
   },
   {
     path: 'membership-registration',
