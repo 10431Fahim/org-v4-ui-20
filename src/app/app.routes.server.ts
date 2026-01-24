@@ -27,6 +27,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'video-gallery/:type',
+    renderMode: RenderMode.Server
+  },
+  {
     path: 'get-in-touch',
     renderMode: RenderMode.Prerender
   },

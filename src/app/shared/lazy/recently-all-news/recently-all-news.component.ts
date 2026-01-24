@@ -92,7 +92,12 @@ export class RecentlyAllNewsComponent implements OnInit, OnDestroy {
         next: res => {
           this.isLoading = false;
           if (res.success) {
-            this.review = res.data;
+            const data = res.data || [];
+            this.review = [...data].sort((a: Review, b: Review) => {
+              const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+              const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+              return bTime - aTime; // Latest first
+            });
           }
           this.cdr.detectChanges();
         },
@@ -102,6 +107,42 @@ export class RecentlyAllNewsComponent implements OnInit, OnDestroy {
           this.cdr.detectChanges();
         }
       });
+  }
+
+  getTimeAgo(date?: Date | string | null): string {
+    if (!date) {
+      return '';
+    }
+
+    const now = new Date();
+    const past = new Date(date);
+    const diffMs = now.getTime() - past.getTime();
+
+    if (diffMs <= 0) {
+      return this.translateService.currentLang === 'bn' ? 'এক মুহূর্ত আগে' : 'Just now';
+    }
+
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(hours / 24);
+
+    const lang = this.translateService.currentLang === 'bn' ? 'bn' : 'en';
+
+    if (minutes < 60) {
+      return lang === 'bn'
+        ? `${minutes} মিনিট আগে`
+        : `${minutes} minutes ago`;
+    }
+
+    if (hours < 24) {
+      return lang === 'bn'
+        ? `${hours} ঘণ্টা আগে`
+        : `${hours} hours ago`;
+    }
+
+    return lang === 'bn'
+      ? `${days} দিন আগে`
+      : `${days} days ago`;
   }
 
   onChangeLanguage(language: string) {

@@ -1,30 +1,151 @@
 <div class="recently-news">
-  <a routerLink="/all-news" [queryParamsHandling]="'merge'"><h2 class="title-top">{{ "ln.Recentnews" | translate }}</h2></a>
+  <a routerLink="/all-news" [queryParamsHandling]="'merge'">
+    <h2 class="title-top">{{ "ln.Recentnews" | translate }}</h2>
+  </a>
 
-    <div class="news-container">
-        <ng-container *ngIf="isLoading">
-             <div *ngFor="let t of [0,1,2]">
-                <app-recently-news-loader></app-recently-news-loader>
-             </div>
-        </ng-container>
-        <ng-container *ngIf="!isLoading">
-           <div class="news1" >
-            <div class="news" *ngFor="let data of review?.slice(0,4)">
-              <a class="news11" [routerLink]="['/all-news/',data?._id]" [queryParamsHandling]="'merge'">
-                <img [src]="data.image2" alt="image" loading="lazy" >
-                <div class="news-desc">
-                    <h4 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.name}}</h4>
-                    <h4 class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.nameEn}}</h4>
-                    <span *ngIf="translateService.currentLang === 'en' || !translateService.currentLang ">{{data.shortDescription}}</span>
-                    <span class="font-bangla" *ngIf="translateService.currentLang === 'bn'">{{data.shortDescriptionEn}}</span>
-                  <div class="read-more">
-                    <a [routerLink]="['/all-news/',data?._id]" [queryParamsHandling]="'merge'" class="button-hover">{{ "ln.READMORE1" | translate }}</a>
-                  </div>
-                </div>
-              </a>
+  <div class="news-container">
+    <!-- Loader state -->
+    <ng-container *ngIf="isLoading">
+      <div class="recently-news-layout">
+        <div class="recently-news-column">
+          <div *ngFor="let t of [0,1,2]">
+            <app-recently-news-loader></app-recently-news-loader>
+          </div>
+        </div>
+        <div class="recently-news-column">
+          <div *ngFor="let t of [0,1]">
+            <app-recently-news-loader></app-recently-news-loader>
+          </div>
+        </div>
+        <div class="recently-news-column">
+          <div *ngFor="let t of [0,1,2]">
+            <app-recently-news-loader></app-recently-news-loader>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Content state -->
+    <ng-container *ngIf="!isLoading && review.length">
+      <div class="recently-news-layout">
+        <!-- Left column: small cards -->
+        <div class="recently-news-column recently-news-column-left">
+          <ng-container *ngFor="let data of review; let i = index">
+            <a
+              *ngIf="i >= 1 && i <= 3"
+              class="news-card-small"
+              [routerLink]="['/all-news', data?._id]"
+              [queryParamsHandling]="'merge'"
+            >
+              <!-- Title left, image right -->
+              <div class="news-card-content">
+                <h4 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                  {{ data.name }}
+                </h4>
+                <h4
+                  *ngIf="translateService.currentLang === 'bn'"
+                  class="font-bangla"
+                >
+                  {{ data.nameEn }}
+                </h4>
+                <span class="news-time" *ngIf="data.location || data.locationEn">
+                  <ng-container *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                    {{ data.location }}
+                  </ng-container>
+                  <ng-container *ngIf="translateService.currentLang === 'bn'">
+                    <span class="font-bangla">{{ data.locationEn }}</span>
+                  </ng-container>
+                </span>
+                <!-- <span class="news-time">
+                  {{ getTimeAgo(data.createdAt) }}
+                </span> -->
+              </div>
+              <div class="news-card-image">
+                <img [src]="data.image2 || data.image" alt="image" loading="lazy" />
+              </div>
+            </a>
+          </ng-container>
+        </div>
+
+        <!-- Center column: big main card -->
+        <div class="recently-news-column recently-news-column-center" *ngIf="review.length > 0">
+          <a class="news-card-large" [routerLink]="['/all-news', review[0]?._id]" [queryParamsHandling]="'merge'">
+            <div class="news-card-image-large">
+              <img [src]="review[0]?.image2 || review[0]?.image" alt="image" loading="lazy" />
             </div>
-           </div>
-        </ng-container>
-    </div>
-    <a routerLink="/all-news" class="button-hover">{{ "ln.Moresection" | translate }}</a>
+            <div class="news-card-content-large">
+              <h3 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                {{ review[0]?.name }}
+              </h3>
+              <h3 *ngIf="translateService.currentLang === 'bn'" class="font-bangla">
+                {{ review[0]?.nameEn }}
+              </h3>
+
+              <p class="news-summary" *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                {{ review[0]?.shortDescription }}
+              </p>
+              <p class="news-summary font-bangla" *ngIf="translateService.currentLang === 'bn'">
+                {{ review[0]?.shortDescriptionEn }}
+              </p>
+
+              <!-- <span class="news-location" *ngIf="review[0]?.location || review[0]?.locationEn">
+                <ng-container *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                  {{ review[0]?.location }}
+                </ng-container>
+                <ng-container *ngIf="translateService.currentLang === 'bn'">
+                  <span class="font-bangla">{{ review[0]?.locationEn }}</span>
+                </ng-container>
+              </span> -->
+              <!-- <span class="news-time">
+                {{ getTimeAgo(review[0]?.createdAt) }}
+              </span> -->
+            </div>
+          </a>
+        </div>
+
+        <!-- Right column: small cards -->
+        <div class="recently-news-column recently-news-column-right">
+          <ng-container *ngFor="let data of review; let i = index">
+            <a
+              *ngIf="i >= 4 && i <= 6"
+              class="news-card-small"
+              [routerLink]="['/all-news', data?._id]"
+              [queryParamsHandling]="'merge'"
+            >
+              <!-- Title left, image right -->
+              <div class="news-card-content">
+                <h4 *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                  {{ data.name }}
+                </h4>
+                <h4
+                  *ngIf="translateService.currentLang === 'bn'"
+                  class="font-bangla"
+                >
+                  {{ data.nameEn }}
+                </h4>
+                <span class="news-time" *ngIf="data.location || data.locationEn">
+                  <ng-container *ngIf="translateService.currentLang === 'en' || !translateService.currentLang">
+                    {{ data.location }}
+                  </ng-container>
+                  <ng-container *ngIf="translateService.currentLang === 'bn'">
+                    <span class="font-bangla">{{ data.locationEn }}</span>
+                  </ng-container>
+                </span>
+                <!-- <span class="news-time">
+                  {{ getTimeAgo(data.createdAt) }}
+                </span> -->
+              </div>
+              <div class="news-card-image">
+                <img [src]="data.image2 || data.image" alt="image" loading="lazy" />
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <a routerLink="/all-news" class="button-hover">
+    {{ "ln.Moresection" | translate }}
+  </a>
 </div>

@@ -5,8 +5,12 @@ import {VideoGalleryComponent} from "./video-gallery.component";
 
 const routes: Routes = [
   {
-    path:"",
-    component:VideoGalleryComponent
+    path: '',
+    component: VideoGalleryComponent
+  },
+  {
+    path: ':type',
+    component: VideoGalleryComponent
   }
 ];
 @NgModule({

@@ -13,22 +13,24 @@
 }
 
 @if (checkComponentLoad('sec3')) {
-<app-program-press lazyLoadComponent
-                   (lazyLoad)="loadNextComponent('sec4')"></app-program-press>
+  <div  lazyLoadComponent
+        (lazyLoad)="loadNextComponent('sec4')">
+    <div class="container">
+      <div class="section4-right">
+        <app-recently-all-news>
+
+        </app-recently-all-news>
+      </div>
+    </div>
+  </div>
 }
 
 @if (checkComponentLoad('sec4')) {
-<div  lazyLoadComponent
-      (lazyLoad)="loadNextComponent('sec5')">
-  <div class="container">
-  <div class="section4-right">
-    <app-recently-all-news>
-
-    </app-recently-all-news>
-  </div>
-  </div>
-</div>
+<app-program-press lazyLoadComponent
+                   (lazyLoad)="loadNextComponent('sec5')"></app-program-press>
 }
+
+
 
 @if (checkComponentLoad('sec5')) {
 <app-latest-news lazyLoadComponent

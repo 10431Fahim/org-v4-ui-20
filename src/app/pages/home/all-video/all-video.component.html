@@ -2,8 +2,29 @@
   <div class="container">
     <div class="video-heading">
       <a routerLink="all-videos" class="title-top">{{ "ln.Videos" | translate }}</a>
-      <a routerLink="all-videos" class="button-hover">{{ "ln.ViewAllVideo" | translate }}</a>
+
+      <div class="video-heading-actions">
+        <div class="video-tabs">
+          @for (tab of videoTabs; track tab.type) {
+            <button
+              type="button"
+              class="video-tab"
+              [class.active]="tab.type === selectedTab()"
+              [routerLink]="['/video-gallery', tab.type]"
+              [queryParamsHandling]="'merge'"
+              (click)="onTabChange(tab.type)"
+            >
+              {{ tab.label }}
+            </button>
+          }
+        </div>
+
+        <a routerLink="all-videos" class="button-hover view-all-btn">
+          {{ "ln.ViewAllVideo" | translate }}
+        </a>
+      </div>
     </div>
+
     <div class="section6-main carousel">
       <app-swiper 
         [visibleSlides]="1" 

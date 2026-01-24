@@ -232,7 +232,14 @@
               class="fa-solid fa-angle-down"></i></a>
             <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
               <a class="border" routerLink="/all-news" [queryParamsHandling]="'merge'"> {{ "ln.Recentnews" | translate }}</a>
-              <a class="border" routerLink="/video-gallery" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+              <a class="border" routerLink="/video-gallery/important" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+              <a class="border" routerLink="/video-gallery/speech" [queryParamsHandling]="'merge'">
+                {{ "ln.SpeechByTariqueRahman" | translate }}
+              </a>
+              <a class="border" routerLink="/video-gallery/election" [queryParamsHandling]="'merge'">
+                {{ "ln.ElectionCampaignVideos" | translate }}
+              </a>
+           
             </div>
           </li>
 
@@ -462,7 +469,14 @@
           <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu5()">
 
             <a class="border" routerLink="/all-news"  (click)="slideClose()" [queryParamsHandling]="'merge'"> {{ "ln.Recentnews" | translate }}</a>
-            <a class="border" routerLink="/video-gallery"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+            <a class="border" routerLink="/video-gallery/important"  (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.LatestVideo" | translate }}</a>
+            <a class="border" routerLink="/video-gallery/speech"  (click)="slideClose()" [queryParamsHandling]="'merge'">
+              {{ "ln.SpeechByTariqueRahman" | translate }}
+            </a>
+            <a class="border" routerLink="/video-gallery/election"  (click)="slideClose()" [queryParamsHandling]="'merge'">
+              {{ "ln.ElectionCampaignVideos" | translate }}
+            </a>
+           
           </div>
         </li>
 <!--        <li (click)="slideClose()">-->

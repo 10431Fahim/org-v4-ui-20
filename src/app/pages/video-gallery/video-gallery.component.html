@@ -1,16 +1,52 @@
+<div class="container">
+<!--
+<div class="video-type-tabs">
+  <button
+    class="tab-btn"
+    [class.active]="videoTypeFilter() === 'all'"
+    (click)="onFilterChange('all')"
+  >
+    {{ 'ln.AllVideo' | translate }}
+  </button>
+  <button
+    class="tab-btn"
+    [class.active]="videoTypeFilter() === 'speech'"
+    (click)="onFilterChange('speech')"
+  >
+    {{ 'ln.SpeechByTariqueRahman' | translate }}
+  </button>
+  <button
+    class="tab-btn"
+    [class.active]="videoTypeFilter() === 'election'"
+    (click)="onFilterChange('election')"
+  >
+    {{ 'ln.ElectionCampaignVideos' | translate }}
+  </button>
+  <button
+    class="tab-btn"
+    [class.active]="videoTypeFilter() === 'important'"
+    (click)="onFilterChange('important')"
+  >
+    {{ 'ln.LatestVideo' | translate }}
+  </button>
+
+</div>
+-->
 <div class="gallery-container">
+ 
+
   <div class="video-player">
     <div class="left-video-section">
-      <ng-container *ngIf="selectedVideo">
-        <ng-container *ngIf="isYouTubeVideo(selectedVideo?.url); else normalVideo">
-          <iframe [src]="selectedVideo?.url | safeUrl" width="100%" height="400" frameborder="0"
+      <ng-container *ngIf="selectedVideo() as currentVideo">
+        <ng-container *ngIf="isYouTubeVideo(currentVideo.name); else normalVideo">
+          <iframe [src]="currentVideo.name | safeUrl" width="100%" height="400" frameborder="0"
             allowfullscreen></iframe>
         </ng-container>
         <ng-template #normalVideo>
-          <video #videoRef [src]="selectedVideo?.url" controls autoplay width="100%" height="400"></video>
+          <video #videoRef [src]="currentVideo.name" controls autoplay width="100%" height="400"></video>
         </ng-template>
         <div class="video-description">
-          <h2>{{ selectedVideo?.name || selectedVideo?.nameBn }}</h2>
+          <h2>{{ currentVideo.title || currentVideo.titleEn }}</h2>
           <div class="share-section">
             <label>Share:</label>
             <div class="social-icons">
@@ -41,18 +77,38 @@
     </div>
 
     <!-- Show copied link -->
-    <div class="share-popup" *ngIf="copied">
+    <div class="share-popup" *ngIf="copied()">
       Link copied to clipboard!
     </div>
   </div>
 
   <div class="video-list">
     <h4 class="playlist-title">Playlist</h4>
-    <div class="video-item" *ngFor="let video of latestVideo" (click)="selectVideo(video)">
-      <img [src]="getThumbnail(video)" alt="thumbnail" />
+    <div class="video-item" *ngFor="let video of filteredVideos()" (click)="selectVideo(video)">
+      <div class="video-thumb">
+        <img
+          src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png"
+          alt="BNP Flag"
+          class="thumb-flag"
+        />
+        <img
+          src="/youtube.png"
+          alt="Play"
+          class="thumb-play-icon"
+        />
+      </div>
       <div class="video-details">
-        <p class="video-title">{{ video.name || video.nameBn }}</p>
+        <p class="video-title">{{ video.title || video.titleEn }}</p>
       </div>
     </div>
+    <div class="load-more" *ngIf="totalVideo() > 0">
+      <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+        <i *ngIf="isLoadMore()" class="fa-solid fa-spinner"></i>
+        {{ totalVideo() > latestVideo().length ? 'Load More' : 'No More Videos' }}
+      </a>
+    </div>
   </div>
+
+  
+</div>
 </div>

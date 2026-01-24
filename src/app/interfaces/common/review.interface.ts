@@ -12,6 +12,8 @@ export interface Review {
   titleEn?: string;
   shortDescriptionEn?:string;
   descriptionEn?: string;
+  location?: string;
+  locationEn?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

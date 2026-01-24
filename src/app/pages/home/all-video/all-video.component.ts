@@ -48,6 +48,18 @@ export class AllVideoComponent implements OnInit {
   readonly isChangeLanguageToggle = signal<string>('en');
   readonly showcase = signal<Showcase[]>([]);
 
+  // Video category tabs (mapped to video-gallery routes)
+  readonly videoTabs: { label: string; type: 'speech' | 'election' | 'important' }[] = [
+    { label: 'Speech by Tarique Rahman', type: 'speech' },
+    { label: 'Election Campaign Videos', type: 'election' },
+    { label: 'Important Videos', type: 'important' },
+  ];
+  readonly selectedTab = signal<'speech' | 'election' | 'important'>('speech');
+  readonly filteredClient = computed(() => {
+    // Currently showing same list; can be filtered by selectedTab() if needed later
+    return this.client();
+  });
+
   // Angular 20: Computed signals for derived state
   readonly currentLanguage = computed(() => this.translateService.currentLang);
   readonly isEnglish = computed(() => this.currentLanguage() === 'en' || !this.currentLanguage());
@@ -68,8 +80,12 @@ export class AllVideoComponent implements OnInit {
       .subscribe(qParam => {
         this.language.set(qParam.get('language'));
       });
-    
+
     this.getAllClient();
+  }
+
+  onTabChange(type: 'speech' | 'election' | 'important'): void {
+    this.selectedTab.set(type);
   }
 
   // private getAllClient() {

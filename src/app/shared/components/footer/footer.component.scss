@@ -3,7 +3,7 @@
 
 .container1 {
   display: block;
-  max-width: 1100px;
+  max-width: 1200px;
   width: 100%;
   margin: auto;
 }
@@ -176,15 +176,15 @@
 
         ul {
           list-style: none;
-          padding: 0px;
-          margin: 0px;
+          padding: 0;
+          margin: 0;
 
           li {
             display: block;
             margin-bottom: 3px;
 
             &:last-child {
-              margin: 0px;
+              margin: 0;
             }
 
             a {
@@ -205,7 +205,7 @@
                 color: $colo-white;
                 background-color: rgba(10, 120, 90, 0.2);
                 transform: translateY(-1px);
-                
+
                 &::after {
                   content: '';
                   position: absolute;
@@ -217,7 +217,7 @@
                   transition: all 0.3s ease;
                   transform: translateX(-50%);
                 }
-                
+
                 &:hover::after {
                   width: 100%;
                 }
@@ -279,7 +279,7 @@
           &:nth-child(2) {
             a {
               background-color: #ED1D24;
-              
+
               &:hover {
                 background-color: color.adjust(#ED1D24, $lightness: 10%);
               }
@@ -289,37 +289,37 @@
           &:nth-child(3) {
             a {
               background-color: #3B9CD6;
-              
+
               &:hover {
                 background-color: color.adjust(#3B9CD6, $lightness: 10%);
               }
             }
           }
-          
+
           &:nth-child(4) {
             a {
               background-color: #1DA1F2;
-              
+
               &:hover {
                 background-color: color.adjust(#1DA1F2, $lightness: 10%);
               }
             }
           }
-          
+
           &:nth-child(5) {
             a {
               background-color: #0088cc;
-              
+
               &:hover {
                 background-color: color.adjust(#0088cc, $lightness: 10%);
               }
             }
           }
-          
+
           &:nth-child(6) {
             a {
               background-color: black;
-              
+
               &:hover {
                 background-color: color.adjust(black, $lightness: 20%);
               }
@@ -347,7 +347,7 @@
       margin-bottom: 7px !important;
 
       &:last-child {
-        margin: 0px !important;
+        margin: 0 !important;
       }
     }
   }
@@ -381,7 +381,7 @@
 }
 
 @media(max-width: 767px) {
-  
+
   .footer-area {
     .footer-main {
       .footer-link-area {
@@ -445,7 +445,7 @@
 }
 
 // Default: hide mobile-view on desktop, but media queries will override this
-// Note: This should come BEFORE media queries, but if it comes after, 
+// Note: This should come BEFORE media queries, but if it comes after,
 // media queries with !important will still override it
 .mobile-view{
   display: none;
@@ -468,7 +468,6 @@
     opacity: 1 !important;
   }
 }
-
 /* Ensure footer buttons are visible on all devices, especially iOS */
 .footer-link .link ul li a.membership {
   visibility: visible !important;
@@ -594,7 +593,7 @@
   .pc-view{
     display: none !important;
   }
-  
+
 }
 @media (max-width: 378px) {
   .payment-btn{
