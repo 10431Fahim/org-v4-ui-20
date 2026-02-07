@@ -1,38 +1,42 @@
-import {Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild, inject, signal, computed, effect} from '@angular/core';
-import {ChangeDetectionService} from '../../services/core/change-detection.service';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild, inject, signal, computed, effect } from '@angular/core';
+import { ChangeDetectionService } from '../../services/core/change-detection.service';
 // import Swiper core and required modules
 // @ts-ignore
-import SwiperCore, {A11y, Autoplay, EffectFade, FreeMode, Navigation, Scrollbar} from 'swiper';
-import {Meta, SafeResourceUrl, Title} from '@angular/platform-browser';
-import {Subscription} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import {DATABASE_KEY} from "../../core/utils/global-variable";
-import {PopupService} from "../../services/common/popup.service";
-import {PopupComponent} from './popup/popup.component';
-import {MatDialog} from "@angular/material/dialog";
-import {SeoPage} from "../../interfaces/common/seo-page.interface";
-import {SeoPageService} from "../../services/common/seo-page.service";
-import {isPlatformBrowser, isPlatformServer} from "@angular/common";
-import {MainBannerComponent} from './main-banner/main-banner.component';
-import {LazyLoadComponentDirective} from '../../shared/directives/lazy-load-component/lazy-load-component.directive';
-import {OurLeaderComponent} from './our-leader/our-leader.component';
-import {PointsComponent} from './points/points.component';
-import {ProgramPressComponent} from './program-press/program-press.component';
-import {RecentlyAllNewsComponent} from '../../shared/lazy/recently-all-news/recently-all-news.component';
-import {LatestNewsComponent} from './latest-news/latest-news.component';
-import {PhotoGallaryComponent} from './photo-gallary/photo-gallary.component';
-import {AllVideoComponent} from './all-video/all-video.component';
-import {Review} from '../../interfaces/common/review.interface';
-import {Showcase} from '../../interfaces/common/showcase.interface';
-import {Portfolio} from '../../interfaces/common/portfolio.interface';
-import {Tag} from '../../interfaces/common/tag.interface';
-import {Photo} from '../../interfaces/common/photo.interface';
-import {Popup} from '../../interfaces/common/popup.interface';
-import {CanonicalService} from '../../services/common/canonical.service';
-import {StorageService} from '../../services/core/storage.service';
+import SwiperCore, { A11y, Autoplay, EffectFade, FreeMode, Navigation, Scrollbar } from 'swiper';
+import { Meta, SafeResourceUrl, Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { DATABASE_KEY } from "../../core/utils/global-variable";
+import { PopupService } from "../../services/common/popup.service";
+import { PopupComponent } from './popup/popup.component';
+import { MatDialog } from "@angular/material/dialog";
+import { SeoPage } from "../../interfaces/common/seo-page.interface";
+import { SeoPageService } from "../../services/common/seo-page.service";
+import { isPlatformBrowser, isPlatformServer } from "@angular/common";
+import { MainBannerComponent } from './main-banner/main-banner.component';
+import { LazyLoadComponentDirective } from '../../shared/directives/lazy-load-component/lazy-load-component.directive';
+import { OurLeaderComponent } from './our-leader/our-leader.component';
+import { PointsComponent } from './points/points.component';
+import { ProgramPressComponent } from './program-press/program-press.component';
+import { RecentlyAllNewsComponent } from '../../shared/lazy/recently-all-news/recently-all-news.component';
+import { LatestNewsComponent } from './latest-news/latest-news.component';
+import { PhotoGallaryComponent } from './photo-gallary/photo-gallary.component';
+import { AllVideoComponent } from './all-video/all-video.component';
+import { Review } from '../../interfaces/common/review.interface';
+import { Showcase } from '../../interfaces/common/showcase.interface';
+import { Portfolio } from '../../interfaces/common/portfolio.interface';
+import { Tag } from '../../interfaces/common/tag.interface';
+import { Photo } from '../../interfaces/common/photo.interface';
+import { Popup } from '../../interfaces/common/popup.interface';
+import { CanonicalService } from '../../services/common/canonical.service';
+import { StorageService } from '../../services/core/storage.service';
+import { Flipbook } from './flipbook/flipbook';
+
 // install Swiper modules
 SwiperCore.use([Navigation, Scrollbar, A11y, EffectFade, Autoplay, FreeMode]);
+
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -47,11 +51,13 @@ SwiperCore.use([Navigation, Scrollbar, A11y, EffectFade, Autoplay, FreeMode]);
     LatestNewsComponent,
     PhotoGallaryComponent,
     AllVideoComponent,
+    Flipbook,
+    RouterLink
   ],
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('section2') section2!:ElementRef;
+  @ViewChild('section2') section2!: ElementRef;
   // Angular 20 Signals for reactive state management
   showLazyComponent = signal<string[]>([]);
   seoPage = signal<SeoPage | null>(null);
@@ -71,7 +77,7 @@ export class HomeComponent implements OnInit {
   // Store Data
   safeURL: SafeResourceUrl | any;
 
-// Check Browser
+  // Check Browser
   isBrowser: boolean;
   isServer: boolean;
 
@@ -82,7 +88,7 @@ export class HomeComponent implements OnInit {
 
   // Additional signals for reactive state
   isLoading = signal(true);
-  language = signal<string | null>(null);
+  language = signal<string | null>(inject(TranslateService).currentLang || 'bn');
   isChangeLanguage = signal(false);
   isChangeLanguageToggle = signal('en');
 
@@ -98,6 +104,12 @@ export class HomeComponent implements OnInit {
   totalPages = computed(() => Math.ceil(this.totalProducts() / this.productsPerPage()));
   hasMorePages = computed(() => this.currentPage() < this.totalPages());
   isLanguageBengali = computed(() => this.language() === 'bn');
+  isDownloading = signal(false);
+
+  startDownload() {
+    this.isDownloading.set(true);
+    setTimeout(() => this.isDownloading.set(false), 2000);
+  }
 
   // Subscriptions
   private subscriptions: Subscription[] = [];
@@ -128,6 +140,11 @@ export class HomeComponent implements OnInit {
       }
     });
 
+    // React to global language changes
+    this.translateService.onLangChange.subscribe(event => {
+      this.language.set(event.lang);
+    });
+
     // Effect to handle SEO page updates
     effect(() => {
       const seoData = this.seoPage();
@@ -154,14 +171,14 @@ export class HomeComponent implements OnInit {
     }
 
     // Seo
-    if(this.isBrowser) {
+    if (this.isBrowser) {
       this.getSeoPageByPageWithCache();
     }
 
     // Popup Call Based on Session
     const popupData = this.storageService.getDataFromSessionStorage(DATABASE_KEY.popup);
     if (!popupData || !popupData.close) {
-      if(this.isBrowser){
+      if (this.isBrowser) {
         this.getPopup();
       }
     }
@@ -216,7 +233,8 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }});
+      }
+    });
   }
 
 
@@ -244,17 +262,17 @@ export class HomeComponent implements OnInit {
     this.translateService.use(language);
   }
 
-  onChangeLanguageToggle(language: string){
-     if(this.isChangeLanguageToggle() !== language){
-           this.isChangeLanguageToggle.set(language);
-           this.isChangeLanguage.set(true);
-           this.translateService.use(this.isChangeLanguageToggle());
-     }
-     else{
+  onChangeLanguageToggle(language: string) {
+    if (this.isChangeLanguageToggle() !== language) {
+      this.isChangeLanguageToggle.set(language);
+      this.isChangeLanguage.set(true);
+      this.translateService.use(this.isChangeLanguageToggle());
+    }
+    else {
       this.isChangeLanguageToggle.set('en');
       this.isChangeLanguage.set(false);
       this.translateService.use(this.isChangeLanguageToggle());
-     }
+    }
   }
   /**
    * ON DESTROY
@@ -269,11 +287,12 @@ export class HomeComponent implements OnInit {
       // maxWidth: '600px',
       // width: '100%',
       // maxHeight: '600px',
-      panelClass: ['theme-dialog', 'offer-dialog']})
+      panelClass: ['theme-dialog', 'offer-dialog']
+    })
   }
 
-  onScroll(){
-     this.section2.nativeElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+  onScroll() {
+    this.section2.nativeElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
   }
 
 
@@ -292,33 +311,33 @@ export class HomeComponent implements OnInit {
     this.title.setTitle(seoData.name || 'BNP BD');
 
     // Meta
-    this.meta.updateTag({name: 'robots', content: 'index, follow'});
-    this.meta.updateTag({name: 'theme-color', content: '#00a0db'});
-    this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
-    this.meta.updateTag({name: 'author', content: 'BNP BD'});
-    this.meta.updateTag({name: 'description', content: seoData.seoDescription || ''});
-    this.meta.updateTag({name: 'keywords', content: seoData.keyWord || ''});
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'theme-color', content: '#00a0db' });
+    this.meta.updateTag({ name: 'copyright', content: 'BNP BD' });
+    this.meta.updateTag({ name: 'author', content: 'BNP BD' });
+    this.meta.updateTag({ name: 'description', content: seoData.seoDescription || '' });
+    this.meta.updateTag({ name: 'keywords', content: seoData.keyWord || '' });
 
     // Open Graph(og:)
-    this.meta.updateTag({property: 'og:title', content: seoData.name || 'BNP BD'});
-    this.meta.updateTag({property: 'og:type', content: 'website'});
-    this.meta.updateTag({property: 'og:url', content: `https://bnpbd.org${this.router.url}`});
-    this.meta.updateTag({property: 'og:image', content: seoData.image || ''});
-    this.meta.updateTag({property: 'og:image:width', content: '300'});
-    this.meta.updateTag({property: 'og:image:height', content: '300'});
-    this.meta.updateTag({property: 'og:description', content: seoData.seoDescription || ''});
-    this.meta.updateTag({property: 'og:locale', content: 'en_US'});
-    this.meta.updateTag({property: 'og:site_name', content: 'bnpbd'});
+    this.meta.updateTag({ property: 'og:title', content: seoData.name || 'BNP BD' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: `https://bnpbd.org${this.router.url}` });
+    this.meta.updateTag({ property: 'og:image', content: seoData.image || '' });
+    this.meta.updateTag({ property: 'og:image:width', content: '300' });
+    this.meta.updateTag({ property: 'og:image:height', content: '300' });
+    this.meta.updateTag({ property: 'og:description', content: seoData.seoDescription || '' });
+    this.meta.updateTag({ property: 'og:locale', content: 'en_US' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'bnpbd' });
 
     // Twitter
-    this.meta.updateTag({name: 'twitter:title', content: seoData.name || 'BNP BD'});
-    this.meta.updateTag({name: 'twitter:card', content: 'summary_large_image'});
-    this.meta.updateTag({name: 'twitter:site', content: '@bdbnp78'});
-    this.meta.updateTag({name: 'twitter:creator', content: '@bdbnp78'});
-    this.meta.updateTag({name: 'twitter:description', content: seoData.seoDescription || ''});
+    this.meta.updateTag({ name: 'twitter:title', content: seoData.name || 'BNP BD' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:site', content: '@bdbnp78' });
+    this.meta.updateTag({ name: 'twitter:creator', content: '@bdbnp78' });
+    this.meta.updateTag({ name: 'twitter:description', content: seoData.seoDescription || '' });
 
     // Microsoft
-    this.meta.updateTag({name: 'msapplication-TileImage', content: seoData.image || ''});
+    this.meta.updateTag({ name: 'msapplication-TileImage', content: seoData.image || '' });
 
     // Canonical
     this.canonicalService.setCanonicalURL();
@@ -332,33 +351,33 @@ export class HomeComponent implements OnInit {
     this.title.setTitle(seoData.nameEn || 'BNP BD');
 
     // Meta
-    this.meta.updateTag({name: 'robots', content: 'index, follow'});
-    this.meta.updateTag({name: 'theme-color', content: '#00a0db'});
-    this.meta.updateTag({name: 'copyright', content: 'BNP BD'});
-    this.meta.updateTag({name: 'author', content: 'BNP BD'});
-    this.meta.updateTag({name: 'description', content: seoData.seoDescription || ''});
-    this.meta.updateTag({name: 'keywords', content: seoData.keyWord || ''});
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'theme-color', content: '#00a0db' });
+    this.meta.updateTag({ name: 'copyright', content: 'BNP BD' });
+    this.meta.updateTag({ name: 'author', content: 'BNP BD' });
+    this.meta.updateTag({ name: 'description', content: seoData.seoDescription || '' });
+    this.meta.updateTag({ name: 'keywords', content: seoData.keyWord || '' });
 
     // Open Graph(og:)
-    this.meta.updateTag({property: 'og:title', content: seoData.nameEn || 'BNP BD'});
-    this.meta.updateTag({property: 'og:type', content: 'website'});
-    this.meta.updateTag({property: 'og:url', content: `https://bnpbd.org${this.router.url}`});
-    this.meta.updateTag({property: 'og:image', content: seoData.image || ''});
-    this.meta.updateTag({property: 'og:image:width', content: '300'});
-    this.meta.updateTag({property: 'og:image:height', content: '300'});
-    this.meta.updateTag({property: 'og:description', content: seoData.seoDescription || ''});
-    this.meta.updateTag({property: 'og:locale', content: 'en_US'});
-    this.meta.updateTag({property: 'og:site_name', content: 'bnpbd'});
+    this.meta.updateTag({ property: 'og:title', content: seoData.nameEn || 'BNP BD' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: `https://bnpbd.org${this.router.url}` });
+    this.meta.updateTag({ property: 'og:image', content: seoData.image || '' });
+    this.meta.updateTag({ property: 'og:image:width', content: '300' });
+    this.meta.updateTag({ property: 'og:image:height', content: '300' });
+    this.meta.updateTag({ property: 'og:description', content: seoData.seoDescription || '' });
+    this.meta.updateTag({ property: 'og:locale', content: 'en_US' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'bnpbd' });
 
     // Twitter
-    this.meta.updateTag({name: 'twitter:title', content: seoData.nameEn || 'BNP BD'});
-    this.meta.updateTag({name: 'twitter:card', content: 'summary_large_image'});
-    this.meta.updateTag({name: 'twitter:site', content: '@bdbnp78'});
-    this.meta.updateTag({name: 'twitter:creator', content: '@bdbnp78'});
-    this.meta.updateTag({name: 'twitter:description', content: seoData.seoDescription || ''});
+    this.meta.updateTag({ name: 'twitter:title', content: seoData.nameEn || 'BNP BD' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:site', content: '@bdbnp78' });
+    this.meta.updateTag({ name: 'twitter:creator', content: '@bdbnp78' });
+    this.meta.updateTag({ name: 'twitter:description', content: seoData.seoDescription || '' });
 
     // Microsoft
-    this.meta.updateTag({name: 'msapplication-TileImage', content: seoData.image || ''});
+    this.meta.updateTag({ name: 'msapplication-TileImage', content: seoData.image || '' });
 
     // Canonical
     this.canonicalService.setCanonicalURL();

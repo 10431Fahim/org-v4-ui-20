@@ -1,12 +1,13 @@
 @use "../../../../theme/variables" as *;
 @use "../../../../theme/_swipper" as *;
+
 .section-2 {
   margin-bottom: 50px;
-  margin-top: 130px;
+  margin-top: 60px;
 }
 
 .section-2-main {
-  margin: 40px 0px;
+  margin: 70px 0px;
   display: grid;
   grid-template-columns: 1.5fr 1.5fr;
   gap: 15px;
@@ -40,7 +41,7 @@
   }
 
   a {
-    font-family: 'Noto Sans',sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     padding: 4px 7px;
@@ -48,9 +49,10 @@
     box-sizing: border-box;
     display: inline-block;
     transition: all 0.3s linear;
-    margin-top: 20px!important;
+    margin-top: 20px !important;
   }
-  .our-leader{
+
+  .our-leader {
     padding: 0;
   }
 
@@ -66,6 +68,7 @@
     border-radius: 5px;
     height: 252px;
     width: 215px;
+
     img {
       height: 252px;
       width: 215px;
@@ -136,12 +139,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    .section2-img{
+
+    .section2-img {
       width: 100%;
       height: auto;
+
       img {
         height: auto;
-        width: 100%!important;
+        width: 100% !important;
       }
     }
 

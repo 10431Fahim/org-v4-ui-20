@@ -12,13 +12,13 @@
 
 }
 
-.section4-right{
+.section4-right {
   margin-top: 50px;
 }
 
 .swiperr {
   width: 100%;
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .swiper-parent {
@@ -155,9 +155,10 @@
     //}
 
     .desc-5 {
-      h2{
+      h2 {
         line-height: 16px;
       }
+
       top: 70%;
     }
   }
@@ -262,13 +263,11 @@
   .section-5-right {
 
 
-    .desc-5{
+    .desc-5 {
 
       top: 48%;
 
-      h2{
-
-      }
+      h2 {}
     }
   }
 }
@@ -288,3 +287,282 @@
 
 
 
+
+// Manifesto Section Styles
+#manifesto {
+  position: relative;
+  overflow: hidden;
+  background-color: #0E7356; // Base Bangladesh Green
+  color: white;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  margin-bottom: 0px;
+
+  .relative {
+    position: relative;
+  }
+
+  .absolute {
+    position: absolute;
+  }
+
+  .inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .z-10 {
+    z-index: 10;
+  }
+
+  .hero-gradient {
+    background: linear-gradient(135deg, #054d3b 0%, #0E7356 100%);
+  }
+
+  .clip-diagonal {
+    background-color: rgba(0, 0, 0, 0.1);
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .map-deco {
+    right: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 409px;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
+  }
+
+  .map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: lighten; // Blend with the dark green background for a premium look
+  }
+
+  .container {
+    padding-top: 6rem; // py-16
+    padding-bottom: 5rem;
+  }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem; // gap-12
+    align-items: center;
+
+    @media (min-width: 992px) {
+      grid-template-columns: 1.2fr 0.9fr;
+    }
+  }
+
+  .manifesto-points {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; // space-y-8
+  }
+
+  .glass-card {
+    background: rgb(88 88 88 / 10%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.5rem; // rounded-2xl
+    padding: 1.5rem; // p-6
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  .accent-badge {
+    background-color: #f42a41;
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem; // text-2xl
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+
+    @media (min-width: 768px) {
+      font-size: 1.875rem; // text-3xl
+    }
+  }
+
+  .section-desc {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.5rem;
+
+    .highlight-name {
+      color: #ffffff;
+      font-weight: 700;
+      // border-bottom: 2px solid #facc15;
+      padding-bottom: 2px;
+      white-space: nowrap;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap; // Force single row on mobile
+    gap: 0.5rem;
+
+    @media (max-width: 500px) {
+      gap: 0.6rem;
+
+    }
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    @media (max-width: 500px) {
+      margin-top: 10px;
+      padding: 0.4rem 0.6rem;
+      font-size: 14px;
+      gap: 0.3rem;
+
+      i {
+        font-size: 11px;
+      }
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: white;
+    }
+
+    i {
+      font-size: 14px;
+    }
+  }
+
+  .italic-quote {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: #f3f4f6;
+
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .author-tag {
+    background: white;
+    color: #1a1a1a;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-weight: 700;
+  }
+
+  // Animations
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    .lg\:block {
+      display: block !important;
+    }
+
+
+
+    #manifesto .container {
+      padding-top: 1rem;
+      padding-bottom: 3rem;
+      text-align: center;
+    }
+
+    #manifesto .button-group {
+
+      justify-content: center;
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  #manifesto .map-deco {
+    right: 7%;
+    top: 74%;
+    width: 328px;
+  }
+}
+
+.relative {
+  // margin-top: 40px;
+}
+
+.italic-quote {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}

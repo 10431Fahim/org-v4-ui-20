@@ -1,11 +1,11 @@
-import {Component, DestroyRef, OnInit, computed, inject, signal} from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
 import { FilterData } from "../../interfaces/core/filter-data";
-import {NgForOf, NgIf} from '@angular/common';
-import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
+import { NgForOf, NgIf } from '@angular/common';
+import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
 import { ClientService } from '../../services/common/client.service';
 import { Client } from '../../interfaces/common/client.interface';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {ActivatedRoute} from "@angular/router";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-video-gallery',
@@ -15,8 +15,9 @@ import {ActivatedRoute} from "@angular/router";
     SafeUrlPipe,
     NgForOf
   ],
-  standalone:true,
-  styleUrls: ['./video-gallery.component.scss']})
+  standalone: true,
+  styleUrls: ['./video-gallery.component.scss']
+})
 export class VideoGalleryComponent implements OnInit {
 
   private readonly clientService = inject(ClientService);
@@ -35,12 +36,17 @@ export class VideoGalleryComponent implements OnInit {
   readonly isLoadMore = signal<boolean>(false);
 
   readonly filteredVideos = computed(() => {
-    const type = this.videoTypeFilter();
-    const videos = this.latestVideo();
-    if (type === 'all') {
-      return videos;
+    return this.latestVideo();
+  });
+
+  readonly playUrl = computed(() => {
+    const video = this.selectedVideo();
+    if (!video) return '';
+    let url = video.name || '';
+    if (url && this.isYouTubeVideo(url)) {
+      url += (url.includes('?') ? '&' : '?') + 'autoplay=1&mute=1';
     }
-    return videos.filter(video => video.videoType === type);
+    return url;
   });
 
   ngOnInit(): void {
@@ -63,13 +69,20 @@ export class VideoGalleryComponent implements OnInit {
   }
 
   getThumbnail(video: any): string {
+    if (this.isYouTubeVideo(video.name)) {
+      const urlChunks = video.name.split('/');
+      const videoId = urlChunks[urlChunks.length - 1]?.split('?')[0];
+      if (videoId) {
+        return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+      }
+    }
     return video.image || '/assets/images/default-thumbnail.png'; // fallback image
   }
 
   onFilterChange(type: 'all' | 'election' | 'important' | 'speech'): void {
     this.videoTypeFilter.set(type);
-    const first = this.filteredVideos()[0];
-    this.selectedVideo.set(first || null);
+    this.currentPage.set(1);
+    this.getAllLatestVideo();
     this.copied.set(false);
   }
 
@@ -99,10 +112,8 @@ export class VideoGalleryComponent implements OnInit {
           type = typeParam;
         }
         this.videoTypeFilter.set(type);
-
-        // When route type changes, update the selected video immediately
-        const first = this.filteredVideos()[0];
-        this.selectedVideo.set(first || null);
+        this.currentPage.set(1);
+        this.getAllLatestVideo();
         this.copied.set(false);
       });
   }
@@ -113,7 +124,7 @@ export class VideoGalleryComponent implements OnInit {
         pageSize: this.pageSize(),
         currentPage: this.currentPage() - 1
       },
-      filter: null,
+      filter: this.videoTypeFilter() !== 'all' ? { videoType: this.videoTypeFilter() } : null,
       select: {
         image: 1,
         url: 1,

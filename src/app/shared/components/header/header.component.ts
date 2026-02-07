@@ -11,13 +11,13 @@ import {
   signal,
   ViewChild
 } from '@angular/core';
-import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
-import {UserService} from '../../../services/common/user.service';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {ReloadService} from '../../../services/core/reload.service';
-import {User} from '../../../interfaces/common/user.interface';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {CommonModule, NgIf} from '@angular/common';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { UserService } from '../../../services/common/user.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ReloadService } from '../../../services/core/reload.service';
+import { User } from '../../../interfaces/common/user.interface';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openSubSubMenu3 = signal<boolean>(false);
   openSubSubMenu4 = signal<boolean>(false);
   openSubSubMenu5 = signal<boolean>(false);
+  openSubSubMenu6 = signal<boolean>(false);
 
   // Language states
   isChangeLanguage = signal<boolean>(false);
@@ -67,6 +68,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Payment dropdown state (mobile)
   paymentDropdownOpen = signal<boolean>(false);
+
+  // Floating social menu (desktop)
+  socialOpen = signal<boolean>(false);
 
   // UI states
   slide = signal<boolean>(false);
@@ -99,7 +103,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.openSubSubMenu2() ||
     this.openSubSubMenu3() ||
     this.openSubSubMenu4() ||
-    this.openSubSubMenu5()
+    this.openSubSubMenu5() ||
+    this.openSubSubMenu6()
   );
 
   // Effects for side effects
@@ -158,7 +163,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public getRibbonText(): string {
     return this.currentLang() === 'bn' ? 'আমরা<br>গভীরভাবে<br>শোকাহত' : 'We Are<br>Deeply Mourning';
   }
-  
+
 
   @HostListener('window:scroll')
   headerFixedControl(): void {
@@ -263,12 +268,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.closeOtherSubMenus(5);
   }
 
+  onClickOpenSubSubMenu6(): void {
+    this.openSubSubMenu6.update(current => !current);
+    this.closeOtherSubMenus(6);
+  }
+
   private closeOtherSubMenus(except: number): void {
     if (except !== 1) this.openSubSubMenu1.set(false);
     if (except !== 2) this.openSubSubMenu2.set(false);
     if (except !== 3) this.openSubSubMenu3.set(false);
     if (except !== 4) this.openSubSubMenu4.set(false);
     if (except !== 5) this.openSubSubMenu5.set(false);
+    if (except !== 6) this.openSubSubMenu6.set(false);
   }
 
   onSubMenuControll(index: number): void {
@@ -298,6 +309,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.paymentDropdownOpen() && !paymentDropdown) {
       this.paymentDropdownOpen.set(false);
     }
+
+    // Close floating social menu when clicking outside
+    const socialContainer = target.closest('.floating-social');
+    if (this.socialOpen() && !socialContainer) {
+      this.socialOpen.set(false);
+    }
+  }
+
+  toggleSocial(event?: Event): void {
+    if (event) event.preventDefault();
+    this.socialOpen.update(current => !current);
   }
 
   ngOnDestroy(): void {

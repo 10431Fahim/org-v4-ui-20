@@ -1,45 +1,105 @@
 <!-- Angular 20 New Control Flow Syntax -->
-<app-main-banner  lazyLoadComponent
-                 (lazyLoad)="loadNextComponent('sec1')"></app-main-banner>
+<app-main-banner lazyLoadComponent (lazyLoad)="loadNextComponent('sec1')"></app-main-banner>
 
 @if (checkComponentLoad('sec1')) {
-<app-our-leader  lazyLoadComponent
-                 (lazyLoad)="loadNextComponent('sec2')" ></app-our-leader>
+<!-- Manifesto Section -->
+<section id="manifesto" class="relative overflow-hidden">
+  <!-- Background Design -->
+  <div class="absolute inset-0 hero-gradient"></div>
+  <div class="absolute right-0 top-0 w-1/2 h-full clip-diagonal hidden lg:block"></div>
+
+  <!-- Decorative Map Image instead of Red Circle -->
+  <div class="absolute map-deco  lg:block">
+    <img src="/map2.png" alt="Bangladesh Map" class="map-img">
+  </div>
+
+  <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+    <div class="grid-layout">
+
+      <!-- Right Column - Quote (Visible on all screens) -->
+      <div class="quote-column animate-slide-in-right">
+        <blockquote class="italic-quote">
+          <img src="/sobar_age_bd.png" alt="Manifesto Quote">
+        </blockquote>
+      </div>
+
+      <!-- Left Column - Manifesto Points -->
+      <div class="manifesto-points animate-slide-in-left">
+        <!-- 31 Points -->
+        <div class="glass-card">
+          <!-- <span class="accent-badge">৩১ দফা</span> -->
+          <h2 class="section-title">
+            {{ isLanguageBengali() ? 'নির্বাচনী ইশতেহার ২০২৬' : 'Election Manifesto 2026' }}
+          </h2>
+          <p class="section-desc">
+            {{ isLanguageBengali() ? 'করবো কাজ, গড়বো দেশ' : 'We Will Work, and Will Build the Country Together' }}
+          </p>
+          <p class="section-desc">
+            @if (isLanguageBengali()) {
+            ১৩ ফেব্রুয়ারী থেকে শুরু হবে জনগণের দিন, ইনশাআল্লাহ - <span class="highlight-name">তারেক রহমান</span>
+            } @else {
+            From the 13th February, the People’s Days will begin Insa'Allah <span class="highlight-name">- Tarique
+              Rahman</span>
+            }
+          </p>
+          <div class="button-group">
+            <button class="btn-outline" [routerLink]="['/manifesto']"
+              [queryParams]="{language: isLanguageBengali() ? 'bn' : 'en'}">
+              <span>{{ isLanguageBengali() ? 'বিস্তারিত দেখুন' : 'View Details' }}</span>
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <a [href]="isLanguageBengali() ? '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-Bangla.pdf' : '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-English.pdf'"
+              class="btn-outline" (click)="startDownload()" download>
+              <i class="fa-solid" [class.fa-download]="!isDownloading()" [class.fa-spinner]="isDownloading()"
+                [class.fa-spin]="isDownloading()"></i>
+              <span>
+                {{ isDownloading()
+                ? (isLanguageBengali() ? 'ডাউনলোড হচ্ছে...' : 'Downloading...')
+                : (isLanguageBengali() ? 'ডাউনলোড করুন' : 'Download Now')
+                }}
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<app-our-leader lazyLoadComponent (lazyLoad)="loadNextComponent('sec2')"></app-our-leader>
 }
 
 @if (checkComponentLoad('sec2')) {
-<app-points lazyLoadComponent
-            (lazyLoad)="loadNextComponent('sec3')"></app-points>
+<app-points lazyLoadComponent (lazyLoad)="loadNextComponent('sec3')"></app-points>
 }
 
 @if (checkComponentLoad('sec3')) {
-  <div  lazyLoadComponent
-        (lazyLoad)="loadNextComponent('sec4')">
-    <div class="container">
-      <div class="section4-right">
-        <app-recently-all-news>
 
-        </app-recently-all-news>
-      </div>
+<!-- <app-flipbook></app-flipbook> -->
+
+<div lazyLoadComponent (lazyLoad)="loadNextComponent('sec4')">
+  <div class="container">
+    <div class="section4-right">
+      <app-recently-all-news>
+
+      </app-recently-all-news>
     </div>
   </div>
+</div>
 }
 
 @if (checkComponentLoad('sec4')) {
-<app-program-press lazyLoadComponent
-                   (lazyLoad)="loadNextComponent('sec5')"></app-program-press>
+<app-program-press lazyLoadComponent (lazyLoad)="loadNextComponent('sec5')"></app-program-press>
 }
 
 
 
 @if (checkComponentLoad('sec5')) {
-<app-latest-news lazyLoadComponent
-                 (lazyLoad)="loadNextComponent('sec6')"></app-latest-news>
+<app-latest-news lazyLoadComponent (lazyLoad)="loadNextComponent('sec6')"></app-latest-news>
 }
 
 @if (checkComponentLoad('sec6')) {
-<app-photo-gallary lazyLoadComponent
-                   (lazyLoad)="loadNextComponent('sec7')"></app-photo-gallary>
+<app-photo-gallary lazyLoadComponent (lazyLoad)="loadNextComponent('sec7')"></app-photo-gallary>
 }
 
 @if (checkComponentLoad('sec7')) {

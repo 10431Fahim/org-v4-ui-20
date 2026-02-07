@@ -1,17 +1,17 @@
-import {Component, Input, OnInit, inject, signal, computed, DestroyRef} from '@angular/core';
-import {Showcase} from "../../../interfaces/common/showcase.interface";
-import {Subscription} from "rxjs";
-import {MatDialog} from "@angular/material/dialog";
-import {ConferenceService} from "../../../services/common/conference.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {ShowcaseService} from "../../../services/common/showcase.service";
-import {ClientService} from "../../../services/common/client.service";
-import {Client} from "../../../interfaces/common/client.interface";
-import {YoutubeLoaderComponent} from '../../../shared/loader/youtube-loader/youtube-loader.component';
-import {SafeUrlPipe} from '../../../shared/pipes/safe-url.pipe';
-import {SwiperComponent} from '../../../shared/components/swiper/swiper.component';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { Component, Input, OnInit, inject, signal, computed, DestroyRef } from '@angular/core';
+import { Showcase } from "../../../interfaces/common/showcase.interface";
+import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { ConferenceService } from "../../../services/common/conference.service";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { ShowcaseService } from "../../../services/common/showcase.service";
+import { ClientService } from "../../../services/common/client.service";
+import { Client } from "../../../interfaces/common/client.interface";
+import { YoutubeLoaderComponent } from '../../../shared/loader/youtube-loader/youtube-loader.component';
+import { SafeUrlPipe } from '../../../shared/pipes/safe-url.pipe';
+import { SwiperComponent } from '../../../shared/components/swiper/swiper.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({

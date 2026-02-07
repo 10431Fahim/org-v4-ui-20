@@ -1,11 +1,20 @@
-import {Routes} from '@angular/router';
-import {userAuthStateGuard} from './auth-guard/user-auth-state.guard';
-import {userAuthGuard} from './auth-guard/user-auth.guard';
+import { Routes } from '@angular/router';
+import { userAuthStateGuard } from './auth-guard/user-auth-state.guard';
+import { userAuthGuard } from './auth-guard/user-auth.guard';
 
-export const routes: Routes = [ {
-  path: '',
-  loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-},
+export const routes: Routes = [
+  {
+    path: 'all-videos',
+    loadComponent: () => import('./pages/home/youtube-video/youtube-video.component').then(m => m.YoutubeVideoComponent),
+  },
+  {
+    path: 'video-details/:id',
+    loadComponent: () => import('./pages/home/video-details/video-details.component').then(m => m.VideoDetailsComponent),
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+  },
   {
     path: 'login',
     loadChildren: () =>
@@ -46,8 +55,16 @@ export const routes: Routes = [ {
     loadChildren: () => import('./pages/coming-soon/coming-soon.module').then(m => m.ComingSoonModule),
   },
   {
+    path: 'all-news/:id',
+    loadComponent: () => import('./pages/all-news/news-detail/news-detail.component').then(m => m.NewsDetailComponent),
+  },
+  {
     path: 'all-news',
     loadChildren: () => import('./pages/all-news/all-news.module').then(m => m.AllNewsModule),
+  },
+  {
+    path: 'programs&pressReleases/:id',
+    loadComponent: () => import('./pages/program/program-details/program-details.component').then(m => m.ProgramDetailsComponent),
   },
   {
     path: 'programs&pressReleases',
@@ -55,13 +72,25 @@ export const routes: Routes = [ {
   },
 
   {
+    path: 'notice/:id',
+    loadComponent: () => import('./pages/all-notice/notice-details/notice-details.component').then(m => m.NoticeDetailsComponent),
+  },
+  {
     path: 'notice',
     loadChildren: () => import('./pages/all-notice/all-notice.module').then(m => m.AllNoticeModule),
   },
 
   {
+    path: 'reports/:id',
+    loadComponent: () => import('./pages/reports/report-details/report-details.component').then(m => m.ReportDetailsComponent),
+  },
+  {
     path: 'reports',
     loadChildren: () => import('./pages/reports/reports.module').then(m => m.ReportsModule),
+  },
+  {
+    path: 'press-conference/:id',
+    loadComponent: () => import('./pages/conference/conference-details/conference-details.component').then(m => m.ConferenceDetailsComponent),
   },
   {
     path: 'press-conference',
@@ -120,56 +149,64 @@ export const routes: Routes = [ {
     loadChildren: () => import('./pages/upodeshta-counsil/upodeshta-counsil.module').then(m => m.UpodeshtaCounsilModule),
   },
   {
+    path: 'sub-article/:id',
+    loadComponent: () => import('./pages/sub-pathagar/sub-pathagar.component').then(m => m.SubPathagarComponent),
+  },
+  {
     path: 'sub-article',
     loadChildren: () => import('./pages/sub-pathagar/sub-pathagar.module').then(m => m.SubPathagarModule),
+  },
+  {
+    path: 'article-details/:id',
+    loadComponent: () => import('./pages/pathagar-detail/pathagar-detail.component').then(m => m.PathagarDetailComponent),
   },
   {
     path: 'article-details',
     loadChildren: () => import('./pages/pathagar-detail/pathagar-detail.module').then(m => m.PathagarDetailModule),
   },
   {
-    path:"leader-details",
+    path: "leader-details",
     loadChildren: () => import('./pages/leaders-details/leaders-details.module').then(m => m.LeadersDetailsModule)
   },
   {
-    path:"our-leaders",
-    loadChildren: () => import('./pages/our-leaders/our-leaders.module').then(m =>m.OurLeadersModule)
+    path: "our-leaders",
+    loadChildren: () => import('./pages/our-leaders/our-leaders.module').then(m => m.OurLeadersModule)
   },
   {
-    path:"constitution",
+    path: "constitution",
     loadChildren: () => import('./pages/constitution/constitution.module').then(m => m.ConstitutionModule)
   },
   {
-    path:"vision-2030",
+    path: "vision-2030",
     loadChildren: () => import('./pages/vision-page/vision-page.module').then(m => m.VisionPageModule)
   },
   {
-    path:"19-points",
+    path: "19-points",
     loadChildren: () => import('./pages/nineteen-dofa/nineteen-dofa.module').then(m => m.NineteenDofaModule)
   },
   {
-    path:"10-points",
+    path: "10-points",
     loadChildren: () => import('./pages/teen-dofa/teen-dofa.module').then(m => m.TeenDofaModule)
   },
   {
-    path:"31-points",
+    path: "31-points",
     loadChildren: () => import('./pages/thirty-one-dofa/thirty-one-dofa.module').then(m => m.ThirtyOneDofaModule)
   },
   {
-    path:"presidency-of-ziaur-rahman",
+    path: "presidency-of-ziaur-rahman",
     loadChildren: () => import('./pages/presidency/presidency.module').then(m => m.PresidencyModule)
   },
   {
-    path:"presidency-details",
+    path: "presidency-details",
     loadChildren: () => import('./pages/presidency-details/presidency-details.module').then(m => m.PresidencyDetailsModule)
   },
   {
-    path:"premiership-begum-khaleda-zia1",
+    path: "premiership-begum-khaleda-zia1",
     loadChildren: () => import('./pages/premiership-brgum-khalada-zia1/premiership-brgum-khalada-zia1.module').then(m => m.PremiershipBrgumKhaladaZia1Module)
   }
   ,
   {
-    path:"premiership-begum-khaleda-zia2",
+    path: "premiership-begum-khaleda-zia2",
     loadChildren: () => import('./pages/premiership-brgum-khalada-zia2/premiership-brgum-khalada-zia2.module').then(m => m.PremiershipBrgumKhaladaZia2Module)
   },
   {
@@ -187,27 +224,27 @@ export const routes: Routes = [ {
     canActivate: [userAuthGuard],
   },
   {
-    path:"premiership-begum-khaleda-zia3",
+    path: "premiership-begum-khaleda-zia3",
     loadChildren: () => import('./pages/premiership-brgum-khalada-zia3/premiership-brgum-khalada-zia3.module').then(m => m.PremiershipBrgumKhaladaZia3Module)
   },
   {
-    path:"slogan",
+    path: "slogan",
     loadChildren: () => import('./pages/motto/motto.module').then(m => m.MottoModule)
   },
   {
-    path:"founding-historic",
+    path: "founding-historic",
     loadChildren: () => import('./pages/founding-historic/founding-historic.module').then(m => m.FoundingHistoricModule)
   },
   {
-    path:"bnpbd",
+    path: "bnpbd",
     loadChildren: () => import('./pages/visions-resources/visions-resources.module').then(m => m.VisionsResourcesModule)
-  } ,
+  },
   {
-    path:"payment-status",
+    path: "payment-status",
     loadChildren: () => import('./pages/payment/payment.module').then(m => m.PaymentModule)
   },
   {
-    path:"primary-member-fee",
+    path: "primary-member-fee",
     loadChildren: () => import('./pages/general-member-fee/general-member-fee.module').then(m => m.GeneralMemberFeeModule),
     canActivate: [userAuthGuard],
   },
@@ -215,6 +252,14 @@ export const routes: Routes = [ {
     path: 'membership-registration',
     loadChildren: () => import('./pages/user/member-registration-form/member-registration-form.module').then(m => m.MemberRegistrationFormModule),
   },
-  { path: 'mourning', loadComponent: () => import('./pages/mourning/mourning.page').then(m => m.MourningPage) }
+  { path: 'mourning', loadComponent: () => import('./pages/mourning/mourning.page').then(m => m.MourningPage) },
+  {
+    path: 'voter-list',
+    loadComponent: () => import('./pages/voter-list/voter-list.component').then(m => m.VoterListComponent),
+  },
 
+  {
+    path: 'manifesto',
+    loadChildren: () => import('./pages/manifesto/manifesto-module').then(m => m.ManifestoModule)
+  },
 ];

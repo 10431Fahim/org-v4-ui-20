@@ -71,6 +71,14 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'pages/candidate-list',
+    renderMode: RenderMode.Prerender
+  },
+  {
+    path: 'pages/candidate-list/profile/:slug',
+    renderMode: RenderMode.Server
+  },
+  {
     path: 'plan-to-build-nation',
     renderMode: RenderMode.Prerender
   },
@@ -206,6 +214,14 @@ export const serverRoutes: ServerRoute[] = [
     path: 'mourning',
     renderMode: RenderMode.Prerender
   },
+  {
+    path: 'voter-list',
+    renderMode: RenderMode.Prerender
+  },
+  {
+    path: 'manifesto',
+    renderMode: RenderMode.Prerender
+  },
   // Dynamic routes that should be server-side rendered instead of prerendered
   {
     path: 'video-details/:id',
@@ -239,10 +255,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'reports/:id',
     renderMode: RenderMode.Server
   },
-  {
-    path: 'press-conference/press-conference/:id',
-    renderMode: RenderMode.Server
-  },
+  // {
+  //   path: 'press-conference/press-conference/:id',
+  //   renderMode: RenderMode.Server
+  // },
   {
     path: 'pages/:pageSlug',
     renderMode: RenderMode.Server

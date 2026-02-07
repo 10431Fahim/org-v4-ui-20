@@ -6,10 +6,6 @@ import { ProgramComponent } from './program.component';
 const routes: Routes = [{
   path: '',
   component: ProgramComponent
-},
-{
-  path: ':id',
-  component: ProgramDetailsComponent
 },];
 
 @NgModule({

@@ -1,0 +1,314 @@
+.voter-list-page {
+    background-color: #f9fafb;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    font-family: 'SolaimanLipi', 'Inter', sans-serif;
+}
+
+/* Hero Banner */
+.hero-banner {
+    position: relative;
+    background-image: url('/images/banner.jpg');
+    /* Fallback or specific banner */
+    background-size: cover;
+    background-position: center;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(6, 72, 44, 0.85) 0%, rgba(22, 107, 70, 0.7) 100%);
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: fadeInDown 1s ease-out;
+        padding: 20px;
+    }
+
+    .main-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+
+    .tagline {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+        font-weight: 500;
+        opacity: 0.9;
+    }
+}
+
+/* Countdown */
+.countdown-wrapper {
+    display: inline-flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px 30px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 576px) {
+        padding: 10px 20px;
+        gap: 10px;
+    }
+
+    .time-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+
+            @media (max-width: 576px) {
+                font-size: 1.5rem;
+            }
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+    }
+
+    .separator {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-top: -5px;
+        /* align with numbers */
+        opacity: 0.7;
+
+        @media (max-width: 576px) {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+/* Main Content Area - Overlapping Banner */
+.main-content {
+    margin-top: -60px;
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    /* Reduced width for single column focusing */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+/* Info Card */
+.vote-info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #E01D1D;
+    /* Red accent */
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .info-icon {
+        font-size: 2.5rem;
+        color: #E01D1D;
+        background: #fff0f0;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .info-text {
+        h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin: 0;
+        }
+    }
+}
+
+/* Search Container */
+.search-container {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.8s ease-out;
+
+    .search-header {
+        background: #06482C;
+        /* BNP Green */
+        padding: 25px 30px;
+        text-align: center;
+
+        h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+    }
+
+    .form-body {
+        padding: 50px 40px;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            padding: 30px 20px;
+        }
+    }
+
+    .single-search-field {
+        margin-bottom: 30px;
+        text-align: left;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+
+            .icon {
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #999;
+                font-size: 1.3rem;
+                transition: color 0.3s;
+            }
+
+            input {
+                width: 100%;
+                padding: 18px 20px 18px 60px;
+                /* space for icon */
+                border: 2px solid #e0e0e0;
+                border-radius: 12px;
+                font-size: 1.1rem;
+                transition: all 0.3s;
+                box-sizing: border-box;
+                background-color: #fcfcfc;
+                box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
+
+                &:focus {
+                    outline: none;
+                    background-color: white;
+                    border-color: #06482C;
+                    box-shadow: 0 0 0 4px rgba(6, 72, 44, 0.1);
+
+                    /* Using general sibling combinator logic requires careful DOM structure - simplified: relying on focus for input style mainly */
+                }
+            }
+
+            &:focus-within .icon {
+                color: #06482C;
+            }
+        }
+    }
+
+    .actions {
+        margin-top: 20px;
+    }
+
+    .btn-search {
+        background: linear-gradient(90deg, #E01D1D 0%, #c41212 100%);
+        color: white;
+        border: none;
+        padding: 16px 60px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 10px 25px rgba(224, 29, 29, 0.3);
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(224, 29, 29, 0.4);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
+    }
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

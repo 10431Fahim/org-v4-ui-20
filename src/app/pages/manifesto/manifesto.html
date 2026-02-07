@@ -1,0 +1,32 @@
+<div class="manifesto-page">
+    <div class="manifesto-header">
+        <div class="container container-fb">
+            <!-- Center the logo -->
+            <blockquote class="italic-quote">
+                <img src="/sobar_age_bd.png" alt="Manifesto Quote">
+            </blockquote>
+
+            <!-- Title & Subtitle centered -->
+            <div class="fb__title--manifesto">
+                <h2>{{ title() }}</h2>
+                <p [innerHTML]="subtitle()"></p>
+            </div>
+
+            <!-- Download Button below them -->
+            <a [href]="isLanguageBengali() ? '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-Bangla.pdf' : '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-English.pdf'"
+                class="download-pill" (click)="startDownload()" download>
+                <i class="fa-solid" [class.fa-download]="!isDownloading()" [class.fa-spinner]="isDownloading()"
+                    [class.fa-spin]="isDownloading()"></i>
+                <span>
+                    {{ isDownloading()
+                    ? (isLanguageBengali() ? 'ডাউনলোড হচ্ছে...' : 'Downloading...')
+                    : (isLanguageBengali() ? 'ইশতেহার ডাউনলোড করুন' : 'Download Manifesto')
+                    }}
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Flipbook stage only -->
+    <app-flipbook [lang]="language() === 'bn' ? 'bn' : 'en'"></app-flipbook>
+</div>

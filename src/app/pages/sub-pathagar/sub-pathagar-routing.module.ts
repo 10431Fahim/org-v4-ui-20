@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SubPathagarComponent } from './sub-pathagar.component';
 
 const routes: Routes = [
-  {
-    path:':id',component:SubPathagarComponent
-  }
 ];
 
 @NgModule({

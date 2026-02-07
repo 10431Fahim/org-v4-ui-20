@@ -1,0 +1,164 @@
+<div class="page-header-banner">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <h1 class="page-title">{{ "ln.CandidateList" | translate }}</h1>
+    <div class="breadcrumb-nav">
+      <a routerLink="/" [queryParamsHandling]="'merge'">
+        <i class="fa-solid fa-house"></i> {{ "ln.Home" | translate }}
+      </a>
+      <span class="separator"><i class="fa-solid fa-angle-right"></i></span>
+      <span class="current">{{ "ln.CandidateList" | translate }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-1">
+  <div class="container">
+    <div class="toolbar-enhanced">
+      <div class="toolbar-left"></div>
+      <div class="actions-group">
+        @if (step() !== 'division') {
+        <button class="btn-action btn-back" type="button" (click)="goBack()">
+          <i class="fa-solid fa-arrow-left"></i> {{ "ln.Back" | translate }}
+        </button>
+        }
+        <button class="btn-action btn-reset" type="button" (click)="resetAll()">
+          <i class="fa-solid fa-rotate-right"></i> {{ "ln.Reset" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="stepper" aria-label="Candidate list steps">
+      <div class="step" [class.active]="step() === 'division'" [class.done]="step() !== 'division'">
+        <div class="dot"></div>
+        <div class="label">
+          @if (selectedDivision()) {
+          @if (isLanguageBengali()) { {{ selectedDivision()?.bn_name }} } @else { {{ selectedDivision()?.name }} }
+          } @else {
+          {{ "ln.SelectDivision" | translate }}
+          }
+        </div>
+      </div>
+      <div class="line" [class.done]="step() === 'district' || step() === 'candidates'"></div>
+      <div class="step" [class.active]="step() === 'district'" [class.done]="step() === 'candidates'">
+        <div class="dot"></div>
+        <div class="label">
+          @if (selectedDistrict()) {
+          @if (isLanguageBengali()) { {{ selectedDistrict()?.bn_name }} } @else { {{ selectedDistrict()?.name }} }
+          } @else {
+          {{ "ln.SelectDistrict" | translate }}
+          }
+        </div>
+      </div>
+      <div class="line" [class.done]="step() === 'candidates'"></div>
+      <div class="step" [class.active]="step() === 'candidates'">
+        <div class="dot"></div>
+        <div class="label">{{ "ln.CandidateList" | translate }}</div>
+      </div>
+    </div>
+
+    @if (error()) {
+    <div class="error">{{ error() }}</div>
+    }
+
+    @if (step() === 'division') {
+    <h3 class="title">{{ "ln.SelectDivision" | translate }}</h3>
+
+    @if (loadingDivisions()) {
+    <div class="empty">{{ "ln.Loading" | translate }}</div>
+    }
+
+    <div class="grid">
+      @for (div of divisions(); track div.id) {
+      <button class="card" type="button" (click)="onSelectDivision(div)">
+        <div class="card-title">
+          @if (isLanguageBengali()) { {{ div.bn_name }} } @else { {{ div.name }} }
+        </div>
+        <div class="card-sub">{{ "ln.Districts" | translate }}</div>
+      </button>
+      }
+    </div>
+    }
+
+    @if (step() === 'district') {
+    <h3 class="title">
+      {{ "ln.SelectDistrict" | translate }}
+      <span class="muted">
+        (
+        @if (isLanguageBengali()) { {{ selectedDivision()?.bn_name }} } @else { {{ selectedDivision()?.name }} }
+        )
+      </span>
+    </h3>
+
+    <div class="search">
+      <div class="search-row">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="text" [value]="districtSearch()" (input)="districtSearch.set(($any($event.target).value || ''))"
+          [placeholder]="('ln.SearchDistrict' | translate)" />
+        @if (districtSearch().trim()) {
+        <button class="clear" type="button" (click)="districtSearch.set('')" aria-label="Clear search">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        }
+      </div>
+    </div>
+
+    <div class="grid">
+      @for (dist of filteredDistricts(); track dist.id) {
+      <button class="card" type="button" (click)="onSelectDistrict(dist)">
+        <div class="card-title">
+          @if (isLanguageBengali()) { {{ dist.bn_name }} } @else { {{ dist.name }} }
+        </div>
+        <div class="card-sub">{{ "ln.ViewCandidates" | translate }}</div>
+      </button>
+      }
+    </div>
+
+    @if (filteredDistricts().length === 0) {
+    <div class="empty">{{ "ln.NoDistrictFound" | translate }}</div>
+    }
+    }
+
+    @if (step() === 'candidates') {
+    <h3 class="title">
+      {{ "ln.CandidateList" | translate }}
+      <span class="muted">
+        (
+        @if (isLanguageBengali()) { {{ selectedDistrict()?.bn_name }} } @else { {{ selectedDistrict()?.name }} }
+        )
+      </span>
+      @if (!loadingCandidates()) {
+      <span class="count-pill">{{ candidates().length }}</span>
+      }
+    </h3>
+
+    @if (loadingCandidates()) {
+    <div class="empty">{{ "ln.Loading" | translate }}</div>
+    } @else {
+    <div class="candidate-grid">
+      @for (c of candidates(); track c.slug) {
+      <a class="candidate-card" [routerLink]="['/pages/candidate-list/profile', c.slug]" [queryParamsHandling]="'merge'"
+        [queryParams]="{ candidateSlug: c.slug }">
+        <div class="card-header-img">
+          <img [src]="c.photoUrl || '/assets/images/placeholder-user.png'" alt="" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <span class="seat-badge">{{ constituencyLabel(c) }}</span>
+          <h4 class="name">
+            @if (isLanguageBengali()) { {{ c.fullNameBn }} } @else { {{ c.fullNameEn }} }
+          </h4>
+          <div class="view-btn">
+            {{ isLanguageBengali() ? 'প্রোফাইল দেখুন' : 'View Profile' }} <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+      }
+    </div>
+    }
+
+    @if (!loadingCandidates() && candidates().length === 0) {
+    <div class="empty">{{ "ln.NoCandidatesFound" | translate }}</div>
+    }
+    }
+  </div>
+</div>

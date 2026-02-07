@@ -1,5 +1,5 @@
 <div class="container">
-<!--
+  <!--
 <div class="video-type-tabs">
   <button
     class="tab-btn"
@@ -32,83 +32,75 @@
 
 </div>
 -->
-<div class="gallery-container">
- 
+  <div class="gallery-container">
 
-  <div class="video-player">
-    <div class="left-video-section">
-      <ng-container *ngIf="selectedVideo() as currentVideo">
-        <ng-container *ngIf="isYouTubeVideo(currentVideo.name); else normalVideo">
-          <iframe [src]="currentVideo.name | safeUrl" width="100%" height="400" frameborder="0"
-            allowfullscreen></iframe>
-        </ng-container>
-        <ng-template #normalVideo>
-          <video #videoRef [src]="currentVideo.name" controls autoplay width="100%" height="400"></video>
-        </ng-template>
-        <div class="video-description">
-          <h2>{{ currentVideo.title || currentVideo.titleEn }}</h2>
-          <div class="share-section">
-            <label>Share:</label>
-            <div class="social-icons">
-              <a [href]="'https://www.facebook.com/sharer/sharer.php?u=' + getVideoUrl()" target="_blank"><img
-                  src="/brand/facebook-logo-2428.svg" /></a>
-              <a [href]="'https://twitter.com/intent/tweet?url=' + getVideoUrl()" target="_blank"><img
-                  src="/brand/twitter-logo-2429.svg" /></a>
-              <a [href]="'https://www.linkedin.com/shareArticle?url=' + getVideoUrl()" target="_blank"><img
-                  src="/brand/linkedin-svgrepo-com.svg" /></a>
-              <!--            <a [href]="'https://pinterest.com/pin/create/button/?url=' + getVideoUrl()" target="_blank"><img src="assets/icons/pinterest.svg" /></a>-->
-              <!--            <a [href]="'mailto:?subject=Check this out&body=' + getVideoUrl()"><img src="assets/icons/email.svg" /></a>-->
+
+    <div class="video-player">
+      <div class="left-video-section">
+        <ng-container *ngIf="selectedVideo() as currentVideo">
+          <ng-container *ngIf="isYouTubeVideo(currentVideo.name); else normalVideo">
+            <iframe [src]="playUrl() | safeUrl" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+          </ng-container>
+          <ng-template #normalVideo>
+            <video #videoRef [src]="currentVideo.name" controls autoplay width="100%" height="400"></video>
+          </ng-template>
+          <div class="video-description">
+            <h2>{{ currentVideo.title || currentVideo.titleEn }}</h2>
+            <div class="share-section">
+              <label>Share:</label>
+              <div class="social-icons">
+                <a [href]="'https://www.facebook.com/sharer/sharer.php?u=' + getVideoUrl()" target="_blank"><img
+                    src="/brand/facebook-logo-2428.svg" /></a>
+                <a [href]="'https://twitter.com/intent/tweet?url=' + getVideoUrl()" target="_blank"><img
+                    src="/brand/twitter-logo-2429.svg" /></a>
+                <a [href]="'https://www.linkedin.com/shareArticle?url=' + getVideoUrl()" target="_blank"><img
+                    src="/brand/linkedin-svgrepo-com.svg" /></a>
+                <!--            <a [href]="'https://pinterest.com/pin/create/button/?url=' + getVideoUrl()" target="_blank"><img src="assets/icons/pinterest.svg" /></a>-->
+                <!--            <a [href]="'mailto:?subject=Check this out&body=' + getVideoUrl()"><img src="assets/icons/email.svg" /></a>-->
+              </div>
             </div>
           </div>
+        </ng-container>
+      </div>
+
+      <div class="video-actions">
+        <!-- Download Button -->
+        <!--      <a [href]="selectedVideo?.url" download class="btn" title="Download Video">-->
+        <!--        ⬇ Download-->
+        <!--      </a>-->
+
+        <!-- Share Button -->
+        <button (click)="copyLink()" class="btn" title="Share Video">
+          🔗 Share
+        </button>
+      </div>
+
+      <!-- Show copied link -->
+      <div class="share-popup" *ngIf="copied()">
+        Link copied to clipboard!
+      </div>
+    </div>
+
+    <div class="video-list">
+      <h4 class="playlist-title">Playlist</h4>
+      <div class="video-item" *ngFor="let video of filteredVideos()" [class.active]="selectedVideo() === video"
+        (click)="selectVideo(video)">
+        <div class="video-thumb">
+          <img [src]="getThumbnail(video)" [alt]="video.title || video.titleEn" class="thumb-img" />
+          <img src="/youtube.png" alt="Play" class="thumb-play-icon" />
         </div>
-      </ng-container>
-    </div>
-
-    <div class="video-actions">
-      <!-- Download Button -->
-<!--      <a [href]="selectedVideo?.url" download class="btn" title="Download Video">-->
-<!--        ⬇ Download-->
-<!--      </a>-->
-
-      <!-- Share Button -->
-      <button (click)="copyLink()" class="btn" title="Share Video">
-        🔗 Share
-      </button>
-    </div>
-
-    <!-- Show copied link -->
-    <div class="share-popup" *ngIf="copied()">
-      Link copied to clipboard!
-    </div>
-  </div>
-
-  <div class="video-list">
-    <h4 class="playlist-title">Playlist</h4>
-    <div class="video-item" *ngFor="let video of filteredVideos()" (click)="selectVideo(video)">
-      <div class="video-thumb">
-        <img
-          src="/images/logo/bangladesh-flag-independent-victory-day_551555-340 (2).png"
-          alt="BNP Flag"
-          class="thumb-flag"
-        />
-        <img
-          src="/youtube.png"
-          alt="Play"
-          class="thumb-play-icon"
-        />
+        <div class="video-details">
+          <p class="video-title">{{ video.title || video.titleEn }}</p>
+        </div>
       </div>
-      <div class="video-details">
-        <p class="video-title">{{ video.title || video.titleEn }}</p>
+      <div class="load-more" *ngIf="totalVideo() > 0">
+        <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
+          <i *ngIf="isLoadMore()" class="fa-solid fa-spinner"></i>
+          {{ totalVideo() > latestVideo().length ? 'Load More' : 'No More Videos' }}
+        </a>
       </div>
     </div>
-    <div class="load-more" *ngIf="totalVideo() > 0">
-      <a (click)="onLoadMore()" class="button" [class.loading]="isLoadMore()">
-        <i *ngIf="isLoadMore()" class="fa-solid fa-spinner"></i>
-        {{ totalVideo() > latestVideo().length ? 'Load More' : 'No More Videos' }}
-      </a>
-    </div>
-  </div>
 
-  
-</div>
+
+  </div>
 </div>

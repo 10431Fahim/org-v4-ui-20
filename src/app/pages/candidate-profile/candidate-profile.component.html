@@ -1,0 +1,82 @@
+@if (loading()) {
+  <div class="loading-wrap">
+    <div class="loading-card">
+      <div class="skeleton avatar"></div>
+      <div class="skeleton line"></div>
+      <div class="skeleton line short"></div>
+    </div>
+  </div>
+} @else {
+  @if (profile()) {
+    <div class="profile-page">
+      <div class="profile-hero">
+        <div class="profile-hero-inner container">
+          <div class="left">
+            <div class="avatar">
+              <img [src]="profile()!.photoUrl" alt="" loading="lazy" />
+            </div>
+            <div class="meta">
+              <div class="seat">{{ seatLabel() }}</div>
+              <h1 class="name">
+                @if (isLanguageBengali()) { {{ profile()!.fullNameBn }} } @else { {{ profile()!.fullNameEn }} }
+              </h1>
+              <div class="designation">{{ profile()!.designation }}</div>
+
+              <div class="actions">
+                <a class="btn btn-outline" routerLink="/pages/candidate-list" [queryParamsHandling]="'merge'">
+                  {{ "ln.Back" | translate }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container content">
+        @if (isLanguageBengali()) {
+          @if (profile()!.introBn) {
+            <h3 class="section-title">{{ "ln.BriefIntroduction" | translate }}</h3>
+            <p class="para">{{ profile()!.introBn }}</p>
+          }
+          @if (profile()!.politicalJourneyBn) {
+            <h3 class="section-title">{{ "ln.PoliticalJourney" | translate }}</h3>
+            <p class="para">{{ profile()!.politicalJourneyBn }}</p>
+          }
+          @if (profile()!.personalProfileBn) {
+            <h3 class="section-title">{{ "ln.PersonalLife" | translate }}</h3>
+            <p class="para">{{ profile()!.personalProfileBn }}</p>
+          }
+          @if (profile()!.visionBn) {
+            <h3 class="section-title">{{ "ln.ConstituencyPlan" | translate }}</h3>
+            <p class="para">{{ profile()!.visionBn }}</p>
+          }
+        } @else {
+          @if (profile()!.briefIntro) {
+            <h3 class="section-title">{{ "ln.BriefIntroduction" | translate }}</h3>
+            <p class="para">{{ profile()!.briefIntro }}</p>
+          }
+          @if (profile()!.politicalJourney) {
+            <h3 class="section-title">{{ "ln.PoliticalJourney" | translate }}</h3>
+            <p class="para">{{ profile()!.politicalJourney }}</p>
+          }
+          @if (profile()!.personalProfile) {
+            <h3 class="section-title">{{ "ln.PersonalLife" | translate }}</h3>
+            <p class="para">{{ profile()!.personalProfile }}</p>
+          }
+          @if (profile()!.vision) {
+            <h3 class="section-title">{{ "ln.ConstituencyPlan" | translate }}</h3>
+            <p class="para">{{ profile()!.vision }}</p>
+          }
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="container content">
+      <div class="error-box">{{ "ln.NoCandidateFound" | translate }}</div>
+      <a class="btn btn-outline" routerLink="/pages/candidate-list" [queryParamsHandling]="'merge'">
+        {{ "ln.Back" | translate }}
+      </a>
+    </div>
+  }
+}
+

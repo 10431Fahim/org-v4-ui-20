@@ -5,12 +5,8 @@ import { NoticeDetailsComponent } from './notice-details/notice-details.componen
 
 const routes: Routes = [
   {
-    path:'',
-    component:AllNoticeComponent
-  },
-  {
-    path:':id',
-    component:NoticeDetailsComponent
+    path: '',
+    component: AllNoticeComponent
   },
 ];
 

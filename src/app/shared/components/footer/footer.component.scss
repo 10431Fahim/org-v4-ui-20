@@ -56,9 +56,9 @@
   }
 }
 
-.payment-btn{
+.payment-btn {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 }
 
@@ -84,7 +84,7 @@
   }
 }
 
-.membership{
+.membership {
   //max-width: 133px;
   width: 100%;
   white-space: nowrap;
@@ -107,11 +107,12 @@
     box-shadow: 0 4px 12px rgba(10, 120, 90, 0.3);
   }
 }
-.margin{
+
+.margin {
   margin-top: 15px;
 }
 
-.title2{
+.title2 {
   text-align: center;
 }
 
@@ -396,14 +397,17 @@
         }
       }
     }
-    .title2{
+
+    .title2 {
       text-align: start;
     }
   }
-  .pc-view{
+
+  .pc-view {
     display: none !important;
   }
-  .mobile-view{
+
+  .mobile-view {
     display: block !important;
   }
 }
@@ -420,6 +424,7 @@
 
     }
   }
+
   .res-hide {
     display: none !important;
   }
@@ -435,10 +440,12 @@
       }
     }
   }
-  .pc-view{
+
+  .pc-view {
     display: none !important;
   }
-  .mobile-view{
+
+  .mobile-view {
     display: block !important;
     margin-bottom: 20px;
   }
@@ -447,7 +454,7 @@
 // Default: hide mobile-view on desktop, but media queries will override this
 // Note: This should come BEFORE media queries, but if it comes after,
 // media queries with !important will still override it
-.mobile-view{
+.mobile-view {
   display: none;
 }
 
@@ -468,6 +475,7 @@
     opacity: 1 !important;
   }
 }
+
 /* Ensure footer buttons are visible on all devices, especially iOS */
 .footer-link .link ul li a.membership {
   visibility: visible !important;
@@ -508,9 +516,10 @@
 }
 
 @media(max-width: 767px) {
-  .pc-view{
+  .pc-view {
     display: none !important;
   }
+
   .mobile-view,
   .footer-link.mobile-view {
     display: block !important;
@@ -520,9 +529,10 @@
 }
 
 @media(max-width: 599px) {
-  .pc-view{
+  .pc-view {
     display: none !important;
   }
+
   .mobile-view,
   .footer-link.mobile-view {
     display: block !important;
@@ -590,13 +600,226 @@
       }
     }
   }
-  .pc-view{
+
+  .pc-view {
     display: none !important;
   }
 
 }
+
 @media (max-width: 378px) {
-  .payment-btn{
-    grid-template-columns: repeat(1,1fr);
+  .payment-btn {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+
+
+
+// Manifesto Section Styles
+#manifesto {
+  position: relative;
+  overflow: hidden;
+  background-color: #006a4e; // Deep Bangladesh Green
+  color: white;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  padding: 40px 0;
+
+  .hero-gradient {
+    background: linear-gradient(to bottom, #006a4e 0%, #004d3b 100%);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .manifesto-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .main-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+
+    @media (max-width: 991px) {
+      gap: 30px;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .profile-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(0, 77, 59, 1) 100%);
+      pointer-events: none;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      width: 140px;
+      height: 140px;
+    }
+  }
+
+  .text-side {
+    text-align: left;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+
+    .top-title {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+
+      @media (max-width: 768px) {
+        font-size: 1.8rem;
+      }
+    }
+
+    .sub-title {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      margin-bottom: 20px;
+    }
+  }
+
+  .btn-advice {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    font-size: 0.95rem;
+    text-decoration: none;
+    width: auto;
+
+    i {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      background: #fff;
+      color: #006a4e;
+      transform: translateY(-2px);
+
+      i {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .side-logo-box {
+    flex-shrink: 0;
+
+    @media (max-width: 991px) {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      z-index: 20;
+    }
+
+    .side-logo {
+      height: 180px;
+      width: auto;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+
+      @media (max-width: 991px) {
+        height: 70px;
+      }
+
+      @media (max-width: 768px) {
+        height: 60px;
+      }
+    }
+  }
+
+  .bottom-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .bottom-logo-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    img {
+      height: 35px;
+      width: auto;
+    }
+
+    .bnp-today-logo {
+      height: 25px;
+    }
+
+    .bnp-today-text {
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+
+      .dot {
+        color: #E01D1D;
+      }
+    }
   }
 }

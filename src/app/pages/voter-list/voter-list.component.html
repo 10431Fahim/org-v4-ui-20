@@ -1,0 +1,75 @@
+<div class="voter-list-page">
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 class="main-title">{{ 'ln.Election2026' | translate }}</h1>
+            <p class="tagline">গণতন্ত্র পুনরুদ্ধারের যাত্রায় শামিল হোন</p>
+            <!-- Join the journey to restore democracy -->
+
+            <!-- Countdown Timer -->
+            <div class="countdown-wrapper">
+                <div class="time-unit">
+                    <div class="value">{{ days() }}</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="separator">:</div>
+                <div class="time-unit">
+                    <div class="value">{{ hours() }}</div>
+                    <div class="label">Hours</div>
+                </div>
+                <div class="separator">:</div>
+                <div class="time-unit">
+                    <div class="value">{{ minutes() }}</div>
+                    <div class="label">Mins</div>
+                </div>
+                <div class="separator">:</div>
+                <div class="time-unit">
+                    <div class="value">{{ seconds() }}</div>
+                    <div class="label">Secs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <!-- Info Section -->
+        <div class="vote-info-card">
+            <div class="info-icon">
+                <i class="fa-solid fa-check-to-slot"></i>
+            </div>
+            <div class="info-text">
+                <h3>আপনার ভোট, আপনার অধিকার</h3>
+                <p>
+                    একটি সুষ্ঠু ও নিরপেক্ষ নির্বাচনের মাধ্যমে দেশের ভবিষ্যৎ নির্ধারণে আপনার ভূমিকা অত্যন্ত গুরুত্বপূর্ণ।
+                    নিচের সার্চ বক্স ব্যবহার করে আপনার ভোটার তথ্য যাচাই করুন।
+                </p>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-container">
+            <div class="search-header">
+                <h2>{{ 'ln.VoterList' | translate }} অনুসন্ধান</h2>
+            </div>
+
+            <div class="form-body">
+                <div class="single-search-field">
+                    <label>প্রার্থীর নাম, ভোটার নম্বর অথবা জন্ম তারিখ দিয়ে খুঁজুন</label>
+                    <div class="input-wrapper large-input">
+                        <i class="fa-solid fa-magnifying-glass icon"></i>
+                        <input type="text" [(ngModel)]="searchQuery"
+                            placeholder="Candidate Name, Voter No, or Date of Birth..." (keyup.enter)="onSearch()" />
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button (click)="onSearch()" class="btn-search">
+                        <span>অনুসন্ধান করুন</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<section class="fb" id="fb-container" [class.is-fullscreen]="isFullscreen()">
+  <div class="fb__stage">
+    <div class="book-wrap" id="bookWrap" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)"
+      (mousedown)="onMouseDown($event)"
+      [style.transform]="'translate(' + panX() + 'px, ' + panY() + 'px) scale(' + zoomLevel() + ')'"
+      [class.zoomed]="zoomLevel() > 1" [class.panning]="isPanning()">
+      <div class="book-inner">
+        <!-- Left Side -->
+        <div class="page left-page" (click)="zoomLevel() === 1 && prev()">
+          <img [src]="pages()[currentIndex()]" alt="Left page" loading="eager" />
+          <div class="page-overlay prev-overlay"></div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="page right-page" *ngIf="pages()[currentIndex() + 1]" (click)="zoomLevel() === 1 && next()">
+          <img [src]="pages()[currentIndex() + 1]" alt="Right page" loading="eager" />
+          <div class="page-overlay next-overlay"></div>
+        </div>
+
+        <!-- 3D Flipping Sheet for NEXT transition -->
+        <div class="flipping-sheet flip-next" *ngIf="isAnimating() && animationDirection() === 'next'">
+          <div class="flipping-sheet__front">
+            <img [src]="pages()[prevIndex() + 1]" alt="Turning Front" />
+          </div>
+          <div class="flipping-sheet__back">
+            <img [src]="pages()[currentIndex()]" alt="Turning Back" />
+          </div>
+        </div>
+
+        <!-- 3D Flipping Sheet for PREV transition -->
+        <div class="flipping-sheet flip-prev" *ngIf="isAnimating() && animationDirection() === 'prev'">
+          <div class="flipping-sheet__front">
+            <img [src]="pages()[currentIndex() + 1]" alt="Turning Front" />
+          </div>
+          <div class="flipping-sheet__back">
+            <img [src]="pages()[prevIndex()]" alt="Turning Back" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Layer -->
+      <div class="fb__controls fb__controls--absolute">
+        <div class="fb__actions">
+          <button (click)="prev()" [disabled]="currentIndex() === 0 || isAnimating()" title="Previous">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <div class="kpi"><span>{{ currentPageLabel() }}</span></div>
+
+          <button (click)="next()" [disabled]="currentIndex() >= pages().length - 2 || isAnimating()" title="Next">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <div class="divider"></div>
+
+          <button (click)="zoomOut()" [disabled]="zoomLevel() <= 1" title="Zoom Out">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <button (click)="zoomIn()" [disabled]="zoomLevel() >= 3" title="Zoom In">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+
+          <div class="divider"></div>
+
+          <button (click)="toggleFullscreen()" title="Fullscreen">
+            <i class="fa-solid" [class.fa-expand]="!isFullscreen()" [class.fa-compress]="isFullscreen()"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
