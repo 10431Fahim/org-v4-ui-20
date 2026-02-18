@@ -60,6 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openSubSubMenu4 = signal<boolean>(false);
   openSubSubMenu5 = signal<boolean>(false);
   openSubSubMenu6 = signal<boolean>(false);
+  openSubSubMenu7 = signal<boolean>(false);
 
   // Language states
   isChangeLanguage = signal<boolean>(false);
@@ -104,7 +105,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.openSubSubMenu3() ||
     this.openSubSubMenu4() ||
     this.openSubSubMenu5() ||
-    this.openSubSubMenu6()
+    this.openSubSubMenu6() ||
+    this.openSubSubMenu7()
   );
 
   // Effects for side effects
@@ -273,6 +275,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.closeOtherSubMenus(6);
   }
 
+  onClickOpenSubSubMenu7(): void {
+    this.openSubSubMenu7.update(current => !current);
+    this.closeOtherSubMenus(7);
+  }
+
   private closeOtherSubMenus(except: number): void {
     if (except !== 1) this.openSubSubMenu1.set(false);
     if (except !== 2) this.openSubSubMenu2.set(false);
@@ -280,6 +287,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (except !== 4) this.openSubSubMenu4.set(false);
     if (except !== 5) this.openSubSubMenu5.set(false);
     if (except !== 6) this.openSubSubMenu6.set(false);
+    if (except !== 7) this.openSubSubMenu7.set(false);
   }
 
   onSubMenuControll(index: number): void {

@@ -1,4 +1,85 @@
-/* উদাহরণ */
-.fab-item.item-4{ left: 70px; top: 6px; }      /* right */
-.fab-item.item-5{ left: 58px; top: -58px; }    /* up-right */
+@use "../theme/variables" as *;
 
+/* উদাহরণ */
+.fab-item.item-4 {
+  left: 70px;
+  top: 6px;
+}
+
+/* right */
+.fab-item.item-5 {
+  left: 58px;
+  top: -58px;
+}
+
+/* up-right */
+
+.fixed-helpline-wrapper {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  transition: right 0.3s ease;
+
+  &:hover {
+    right: 0;
+    /* Keep it visible on hover if we had negative margin, but here we just want hover effect on child */
+  }
+}
+
+.fixed-helpline {
+  /* Previously fixed position properties removed */
+  display: block;
+  background-color: $color-primary2;
+  color: #fff;
+  padding: 20px 8px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-family: 'Roboto', sans-serif;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $color-primary;
+  }
+
+  i {
+    margin-bottom: 5px;
+    transform: rotate(90deg);
+    /* Adjust icon orientation */
+  }
+}
+
+.helpline-close-btn {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-color: #fff;
+  color: #ff0000;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  z-index: 10001;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #ff0000;
+    color: #fff;
+    transform: scale(1.1);
+  }
+}

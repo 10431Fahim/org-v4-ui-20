@@ -269,9 +269,17 @@
             </div>
           </li>
 
-          <li>
-            <a routerLink="/manifesto" routerLinkActive="active" [queryParamsHandling]="'merge'"
-              class="manifesto-link">{{ "ln.Manifesto" | translate }}</a>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn manifesto-link">{{ "ln.Election" | translate }} <i
+                class="fa-solid fa-angle-down"></i></a>
+            <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
+              <a class="border" routerLink="/manifesto" [queryParamsHandling]="'merge'">{{ "ln.ElectionManifesto" |
+                translate
+                }}</a>
+              <a href="https://election26.bnpbd.org/" target="_blank">{{ "ln.NationalElection"
+                | translate
+                }}</a>
+            </div>
           </li>
 
           <li class="dropdown desktop-payment">
@@ -558,10 +566,20 @@
           </div>
         </li>
 
-        <li (click)="slideClose()">
-          <a routerLink="/manifesto" routerLinkActive="active" [queryParamsHandling]="'merge'" class="manifesto-link">
-            {{ "ln.Manifesto" | translate }}
+        <li class="dropdown-mobile">
+          <a style="cursor: pointer;" [class]="openSubSubMenu7() ? 'active-bg':''" (click)="onClickOpenSubSubMenu7()"
+            class="manifesto-link dropdown-manifesto">
+            {{ "ln.Election" | translate }}
+            <i class="fa-solid fa-angle-down"></i>
           </a>
+          <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu7()">
+            <a routerLink="/manifesto" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.ElectionManifesto"
+              |
+              translate }}</a>
+            <a href="https://election26.bnpbd.org/" target="_blank" (click)="slideClose()">{{ "ln.NationalElection"
+              |
+              translate }}</a>
+          </div>
         </li>
         <!--        <li (click)="slideClose()">-->
         <!--          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">-->

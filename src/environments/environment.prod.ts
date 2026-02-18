@@ -4,6 +4,7 @@ export const environment = {
   domain: 'bnpbd.org',
   apiBaseLink: 'https://api-v2.bnpbd.org',
   ftpBaseLink: 'https://api.bnpbd.org',
+
   // apiBaseLink: 'https://api.bangladeshnationalistparty.net',
   // ftpBaseLink: 'https://api.bangladeshnationalistparty.net',
   sslIpnUrl: 'https://api-v2.bnpbd.org/api/payment/ssl-ipn',

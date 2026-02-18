@@ -3,7 +3,7 @@ import { Component, Inject, Input, PLATFORM_ID, signal, computed, HostListener }
 
 @Component({
   selector: 'app-flipbook',
-  imports: [NgForOf, NgIf],
+  imports: [NgIf],
   templateUrl: './flipbook.html',
   styleUrl: './flipbook.scss',
   standalone: true
@@ -42,11 +42,11 @@ export class Flipbook {
   private lastX = 0;
   private lastY = 0;
 
-  private readonly TOTAL_PAGES = 48;
+  private readonly TOTAL_PAGES = 40;
 
   readonly pages = computed(() => {
     const folder = this.langSignal() === 'en' ? 'en' : 'bn';
-    const baseUrl = `/flipbooks/${folder}/pages`;
+    const baseUrl = `/flipbooks/${folder}/pagess`;
 
     return Array.from({ length: this.TOTAL_PAGES }).map((_, i) =>
       `${baseUrl}/p${String(i + 1).padStart(3, '0')}.jpg`

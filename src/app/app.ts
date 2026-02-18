@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {HeaderComponent} from './shared/components/header/header.component';
-import {FooterComponent} from './shared/components/footer/footer.component';
-import {CsrfTokenService} from './services/core/csrf-token.service';
-import {UserService} from './services/common/user.service';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { CsrfTokenService } from './services/core/csrf-token.service';
+import { UserService } from './services/common/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,12 @@ import {UserService} from './services/common/user.service';
 })
 export class App implements OnInit {
   protected readonly title = signal('bnp-bd');
+  protected readonly showHelpline = signal(true);
   @ViewChild('scroll') scroll!: ElementRef;
+
+  closeHelpline() {
+    this.showHelpline.set(false);
+  }
   constructor(
     private userService: UserService,
     private csrf: CsrfTokenService

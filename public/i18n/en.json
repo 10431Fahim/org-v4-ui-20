@@ -323,7 +323,10 @@
     "CertificateNotFound": "Certificate Not Found",
     "CertificateNotFoundMessage": "The certificate or member ID you entered could not be found. Please verify the information and try again.",
     "Election2026": "Election 2026",
+    "Election": "Election",
+    "NationalElection": "13th National Parliament Election",
     "VoterList": "National Election 2026",
-    "Manifesto": "Manifesto"
+    "Manifesto": "Manifesto",
+    "ElectionManifesto": "BNP's Election Manifesto"
   }
 }

@@ -51,7 +51,6 @@ import { RouterLink } from '@angular/router';
     LatestNewsComponent,
     PhotoGallaryComponent,
     AllVideoComponent,
-    Flipbook,
     RouterLink
   ],
   styleUrls: ['./home.component.scss']
@@ -148,13 +147,13 @@ export class HomeComponent implements OnInit {
     // Effect to handle SEO page updates
     effect(() => {
       const seoData = this.seoPage();
-      if (seoData && this.isBrowser) {
-        if (this.isLanguageBengali()) {
-          this.updateMetaDataBn();
-        } else {
-          this.updateMetaData();
-        }
+      // if (seoData && this.isBrowser) {
+      if (this.isLanguageBengali()) {
+        this.updateMetaDataBn();
+      } else {
+        this.updateMetaData();
       }
+      // }
     });
   }
 

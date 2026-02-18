@@ -257,7 +257,6 @@ export const routes: Routes = [
     path: 'voter-list',
     loadComponent: () => import('./pages/voter-list/voter-list.component').then(m => m.VoterListComponent),
   },
-
   {
     path: 'manifesto',
     loadChildren: () => import('./pages/manifesto/manifesto-module').then(m => m.ManifestoModule)

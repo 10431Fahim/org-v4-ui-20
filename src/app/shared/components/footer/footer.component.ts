@@ -25,7 +25,7 @@ export class FooterComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   currentYear: number;
-  language = signal<string>(this.translateService.currentLang || 'bn');
+  language = signal<string>(this.translateService.currentLang || 'en');
   isChangeLanguage = signal(false);
   isChangeLanguageToggle = signal('en');
 
