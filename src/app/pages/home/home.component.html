@@ -48,7 +48,7 @@
               <span>{{ isLanguageBengali() ? 'বিস্তারিত দেখুন' : 'View Details' }}</span>
               <i class="fa-solid fa-chevron-right"></i>
             </button>
-            <a [href]="isLanguageBengali() ? '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-Bangla.pdf' : '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-English.pdf'"
+            <a [href]="isLanguageBengali() ? '/flipbooks/Bangladesh-Nationalist-Party-BNP-Election-Manifesto-2026-Bangla.pdf' : '/flipbooks/Bangladesh Nationalist Party-BNP Election Manifesto 2026-English.pdf'"
               class="btn-outline" (click)="startDownload()" download>
               <i class="fa-solid" [class.fa-download]="!isDownloading()" [class.fa-spinner]="isDownloading()"
                 [class.fa-spin]="isDownloading()"></i>

@@ -56,6 +56,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  // Bangladesh-Nationalist-Party-BNP-Election-Manifesto-2026-Bangla.pdf
+  // Bangladesh Nationalist Party-BNP Election Manifesto 2026-Bangla.pdf
+
   @ViewChild('section2') section2!: ElementRef;
   // Angular 20 Signals for reactive state management
   showLazyComponent = signal<string[]>([]);
