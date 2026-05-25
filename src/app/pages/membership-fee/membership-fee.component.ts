@@ -1,46 +1,49 @@
-import {Component, Inject, OnInit, PLATFORM_ID, ViewChild, signal, computed, effect, ChangeDetectorRef} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatError, MatFormField, MatLabel, MatOption, MatSelect, MatSelectChange} from '@angular/material/select';
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild, signal, computed, effect, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError, MatFormField, MatLabel, MatOption, MatSelect, MatSelectChange } from '@angular/material/select';
+import { TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 import * as _moment from "moment";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {UiService} from "../../services/core/ui.service";
-import {MembershipFeeService} from "../../services/common/membership-fee.service";
-import {Subscription} from "rxjs";
-import {OtpService} from "../../services/common/otp.service";
-import {ReloadService} from "../../services/core/reload.service";
-import {UserService} from "../../services/common/user.service";
-import {PaymentMethod} from "../../interfaces/common/payment-method.interface";
-import {PAYMENT_METHODS} from "../../core/utils/app-data";
-import {UtilsService} from "../../services/core/utils.service";
-import {PaymentService} from "../../services/common/payment.service";
-import {StorageService} from "../../services/core/storage.service";
-import {CurrencyPipe, DOCUMENT, isPlatformBrowser, NgForOf, NgIf} from '@angular/common';
-import {MatStep, MatStepper, MatStepperNext, MatStepperPrevious} from '@angular/material/stepper';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { UiService } from "../../services/core/ui.service";
+import { MembershipFeeService } from "../../services/common/membership-fee.service";
+import { Subscription } from "rxjs";
+import { OtpService } from "../../services/common/otp.service";
+import { ReloadService } from "../../services/core/reload.service";
+import { UserService } from "../../services/common/user.service";
+import { PaymentMethod } from "../../interfaces/common/payment-method.interface";
+import { PAYMENT_METHODS } from "../../core/utils/app-data";
+import { UtilsService } from "../../services/core/utils.service";
+import { PaymentService } from "../../services/common/payment.service";
+import { StorageService } from "../../services/core/storage.service";
+import { CurrencyPipe, DOCUMENT, isPlatformBrowser, NgForOf, NgIf } from '@angular/common';
+import { MatStep, MatStepper, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper';
 import COUNTRY_DATA from "../../core/utils/country";
-import {GeoService} from "../../services/core/geo.service";
-import {MatInput} from '@angular/material/input';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {DigitOnlyDirective} from '@uiowa/digit-only';
-import {MatCheckbox} from '@angular/material/checkbox';
-import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
-import {UserDataService} from '../../services/common/user-data.service';
-import {MatIcon} from '@angular/material/icon';
-import {RouterLink} from '@angular/router';
+import { GeoService } from "../../services/core/geo.service";
+import { MatInput } from '@angular/material/input';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { DigitOnlyDirective } from '@uiowa/digit-only';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+import { UserDataService } from '../../services/common/user-data.service';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 const moment = _moment;
 const moment1 = _moment;
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'MM/YYYY'},
+    dateInput: 'MM/YYYY'
+  },
   display: {
     dateInput: 'MM/YYYY',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'}};
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 @Component({
   selector: 'app-membership-fee',
@@ -49,9 +52,10 @@ export const MY_FORMATS = {
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {showError: true}},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+      useValue: { showError: true }
+    },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
   imports: [
     NgIf,
@@ -80,14 +84,15 @@ export const MY_FORMATS = {
     FormsModule,
     RouterLink
   ],
-  standalone: true})
+  standalone: true
+})
 export class MembershipFeeComponent implements OnInit {
 
   // Data Form
   @ViewChild('formElement') formElement!: NgForm;
   @ViewChild('stepper') stepper!: MatStepper;
   dataForm?: FormGroup | any;  // Data Form
-  
+
   // Angular 20 Signals
   isChangeLanguage = signal<boolean>(false);
   isChangeLanguageToggle = signal<string>('bn');
@@ -102,12 +107,17 @@ export class MembershipFeeComponent implements OnInit {
   confarmSubmit = signal<boolean>(false);
   searchQuery = signal<string>('');
   selectedPaymentMethod = signal<string>('');
-  
+
+  // Expiry Signals
+  remainingDays = signal<number | null>(null);
+  isExpired = signal<boolean>(false);
+  canRenew = signal<boolean>(true);
+
   // Computed properties
   isFormValid = computed(() => this.dataForm?.valid ?? false);
   isStepComplete = computed(() => this.isVerified() && this.isOtpValid());
   canProceedToNextStep = computed(() => this.isStepComplete());
-  
+
   // Legacy properties (keeping for compatibility)
   otpCode: any;
   currency = 'BDT';
@@ -195,7 +205,8 @@ export class MembershipFeeComponent implements OnInit {
       // Add country-related fields
       countryCode: [null],
       countryName: [null],
-      currency: [null]});
+      currency: [null]
+    });
 
     // Initialize form with default country data
     if (this.getSingleCountry && this.dataForm) {
@@ -252,7 +263,7 @@ export class MembershipFeeComponent implements OnInit {
         this.uiService.warn('End date must be after start date');
         this.totalMonth = 0;
         this.amount = 0;
-        this.dataForm.patchValue({amount: 0});
+        this.dataForm.patchValue({ amount: 0 });
         return;
       }
 
@@ -269,7 +280,7 @@ export class MembershipFeeComponent implements OnInit {
         const baseAmount = this.designationData[0]?.amount || 0;
         const calculatedAmount = baseAmount * this.totalMonth;
 
-        this.dataForm.patchValue({amount: calculatedAmount});
+        this.dataForm.patchValue({ amount: calculatedAmount });
         this.amount = calculatedAmount;
         // console.log('Amount updated:', calculatedAmount);
       }
@@ -372,6 +383,12 @@ export class MembershipFeeComponent implements OnInit {
       return;
     }
 
+    // Block form submission if renewal is not allowed
+    if (!this.canRenew()) {
+      this.uiService.warn('You cannot renew your membership at this time. Please check the warning message.');
+      return;
+    }
+
     this.uiService.success('Data Added SuccessFully');
     this.addMembershipFee();
     // this.openDialog(mData);
@@ -380,7 +397,7 @@ export class MembershipFeeComponent implements OnInit {
 
   onEnterOtp(event: string) {
     this.otpCode = event;
-    this.validateOtpWithPhoneNo({phoneNo: this.dataForm.value.phoneNo, code: this.otpCode})
+    this.validateOtpWithPhoneNo({ phoneNo: this.dataForm.value.phoneNo, code: this.otpCode })
   }
 
   onSubmitOtp() {
@@ -410,12 +427,13 @@ export class MembershipFeeComponent implements OnInit {
     const formValue = this.dataForm.getRawValue();
     const mData = {
       ...formValue,
-        ...{
-          paymentMethod: this.selectedPaymentMethod(),
-          // Add country data
-          countryCode: this.getSingleCountry?.dial_code || this.getSingleCountry?.dial_code1,
-          countryName: this.getSingleCountry?.name,
-          currency: this.getSingleCountry?.currency || 'BDT'}
+      ...{
+        paymentMethod: this.selectedPaymentMethod(),
+        // Add country data
+        countryCode: this.getSingleCountry?.dial_code || this.getSingleCountry?.dial_code1,
+        countryName: this.getSingleCountry?.name,
+        currency: this.getSingleCountry?.currency || 'BDT'
+      }
     }
 
     this.subDataOne = this.membershipFeeService.addMembershipFee(mData)
@@ -475,7 +493,7 @@ export class MembershipFeeComponent implements OnInit {
       const calculatedAmount = baseAmount * this.totalMonth;
 
       // Update form with calculated amount
-      this.dataForm.patchValue({amount: calculatedAmount});
+      this.dataForm.patchValue({ amount: calculatedAmount });
       this.dataForm.get('amount').setValue(calculatedAmount);
       this.dataForm.get('amount').updateValueAndValidity();
 
@@ -558,7 +576,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 1000,
           amountBn: "১০০০",
         }
-  
+
       ]
     },
     {
@@ -573,7 +591,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 500,
           amountBn: "৫০০",
         }
-  
+
       ]
     },
     {
@@ -609,7 +627,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 1000,
           amountBn: "১০০০",
         },
-         {
+        {
           id: "5",
           name: "Senior Joint Secretary General",
           nameBn: "সিনিয়র যুগ্ম মহাসচিব",
@@ -651,7 +669,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 100,
           amountBn: "১০০",
         }
-  
+
       ]
     },
     {
@@ -708,7 +726,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 50,
           amountBn: "৫০",
         }
-  
+
       ]
     },
     {
@@ -765,8 +783,8 @@ export class MembershipFeeComponent implements OnInit {
           amount: 40,
           amountBn: "৪০",
         }
-  
-  
+
+
       ]
     },
     {
@@ -823,10 +841,10 @@ export class MembershipFeeComponent implements OnInit {
           amount: 40,
           amountBn: "৪০",
         },
-  
+
       ]
     },
-  
+
     {
       id: 7,
       name: "Union and Municipality Ward",
@@ -881,8 +899,8 @@ export class MembershipFeeComponent implements OnInit {
           amount: 20,
           amountBn: "২০",
         }
-  
-  
+
+
       ]
     },
     {
@@ -939,7 +957,7 @@ export class MembershipFeeComponent implements OnInit {
           amount: 10,
           amountBn: "১০",
         }
-  
+
       ]
     },
   ]
@@ -1006,7 +1024,7 @@ export class MembershipFeeComponent implements OnInit {
       !this.dataForm.get('startDate1').value ||
       !this.dataForm.get('endDate1').value) {
       this.amount = 0;
-      this.dataForm.patchValue({amount: null});
+      this.dataForm.patchValue({ amount: null });
     }
   }
 
@@ -1021,7 +1039,7 @@ export class MembershipFeeComponent implements OnInit {
       this.amount = calculatedAmount;
 
       // Update form with calculated amount
-      this.dataForm.patchValue({amount: calculatedAmount});
+      this.dataForm.patchValue({ amount: calculatedAmount });
       this.dataForm.get('amount').setValue(calculatedAmount);
       this.dataForm.get('amount').updateValueAndValidity();
 
@@ -1054,7 +1072,7 @@ export class MembershipFeeComponent implements OnInit {
           this.amountBng = this.designationData[0]?.amountBn;
 
           // Update form with calculated amount
-          this.dataForm.patchValue({amount: calculatedAmount}, {emitEvent: false});
+          this.dataForm.patchValue({ amount: calculatedAmount }, { emitEvent: false });
 
           // console.log('Amount auto-calculated:', calculatedAmount);
         }
@@ -1088,11 +1106,11 @@ export class MembershipFeeComponent implements OnInit {
   setDefaultOrganization() {
     if (this.organizationName.length > 0) {
       const defaultOrg = this.organizationName[0].name;
-      this.dataForm.patchValue({organization: defaultOrg});
+      this.dataForm.patchValue({ organization: defaultOrg });
       // console.log('Default organization set:', defaultOrg);
 
       // Trigger the selection event
-      this.onOrganizationSelect({value: defaultOrg} as MatSelectChange);
+      this.onOrganizationSelect({ value: defaultOrg } as MatSelectChange);
     }
   }
 
@@ -1190,12 +1208,30 @@ export class MembershipFeeComponent implements OnInit {
       return;
     }
 
-    const select = 'phoneNo phone name designation committee organizationName';
+    const select = 'username email membershipExpiresAt memberShipType paymentStatus resident countryPermanent cityPermanent memberType zipPermanent phoneNo countryCode phone amount name profileImg memberId whatsAppNumber qualification occupation designation address country city zip recommender1Name memberShipType recommender1Mobile recommender2Mobile agree spouse age mothersName recommender2Designation recommender2Name recommender1Designation permanentAddress nationalId facebookId organizationName';
     this.subDataOne = this.userDataService.getLoggedInUserData(select)
       .subscribe({
         next: (res) => {
-          this.user = res.data?.user;
+          const user = res.data?.user;
+          this.user = user;
 
+          if (user?.membershipExpiresAt) {
+            const expireDate = new Date(user.membershipExpiresAt);
+            const today = new Date();
+            const diffTime = expireDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            this.remainingDays.set(diffDays > 0 ? diffDays : 0);
+            this.isExpired.set(diffDays <= 0);
+
+            // Allow renewal only if expired or within 30 days
+            if (diffDays > 30) {
+              this.canRenew.set(false);
+              this.uiService.warn(`আপনার মেম্বারশিপ এখনও সক্রিয় আছে। মেয়াদ শেষ হওয়ার ৩০ দিন আগে আপনি রিনিউ করতে পারবেন। (বাকি দিন: ${diffDays})`);
+            } else {
+              this.canRenew.set(true);
+            }
+          }
           // Auto-populate form fields with user data
           if (this.user) {
             this.populateUserData();
@@ -1256,7 +1292,7 @@ export class MembershipFeeComponent implements OnInit {
       if (this.user.committee) {
         // Filter committee based on user's committee name
         this.filterCommittee(this.user.committee);
-        
+
         this.dataForm.patchValue({
           committee: this.user.committee
         });
@@ -1265,7 +1301,7 @@ export class MembershipFeeComponent implements OnInit {
         // Filter designation based on committee
         if (this.user.designation) {
           this.filterDesignation(this.user.designation);
-          
+
           // Set designation if available in user data
           this.dataForm.patchValue({
             designation: this.user.designation
@@ -1293,7 +1329,7 @@ export class MembershipFeeComponent implements OnInit {
         if (this.dataForm.get('designation')) {
           this.dataForm.get('designation').disable();
         }
-        
+
         // Update form validation after disabling fields
         this.dataForm.updateValueAndValidity();
       }, 0);
@@ -1302,21 +1338,21 @@ export class MembershipFeeComponent implements OnInit {
   }
 
   private reloadCommitteeAndDesignation() {
-  // Filter committee based on selected organization
-  if (this.dataForm.get('organization').value) {
-    this.filterCommittee(this.dataForm.get('committee').value);
-  }
+    // Filter committee based on selected organization
+    if (this.dataForm.get('organization').value) {
+      this.filterCommittee(this.dataForm.get('committee').value);
+    }
 
-  // Filter designation based on selected committee
-  if (this.dataForm.get('committee').value && this.committee.length > 0) {
-    this.filterDesignation(this.dataForm.get('designation').value);
-  }
+    // Filter designation based on selected committee
+    if (this.dataForm.get('committee').value && this.committee.length > 0) {
+      this.filterDesignation(this.dataForm.get('designation').value);
+    }
 
-  // Recalculate amount
-  if (this.dataForm.get('startDate1').value && this.dataForm.get('endDate1').value) {
-    this.calculateDifference();
+    // Recalculate amount
+    if (this.dataForm.get('startDate1').value && this.dataForm.get('endDate1').value) {
+      this.calculateDifference();
+    }
   }
-}
 
   /**
    * Update form validation based on signals

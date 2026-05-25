@@ -218,7 +218,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       memberShipType: [''],
       unitCommittee: [''],
       committee: [''],
-      amount: [''],
+      amount: [],
       email: [''],
       phoneNo: ['', [Validators.required]],
       designation: [''],

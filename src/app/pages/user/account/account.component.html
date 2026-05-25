@@ -10,30 +10,26 @@
           </button>
         </div>
 
-        <input
-          [hidden]="true"
-          #profileImagePicker
-          type="file"
-          (change)="fileChangeEvent($event)"
-          accept="image/*"
-        />
+        <input [hidden]="true" #profileImagePicker type="file" (change)="fileChangeEvent($event)" accept="image/*" />
       </div>
 
       <div class="desc">
         <h2>{{ userDisplayName() }}</h2>
 
         <p>{{ userDisplayPhone() }}</p>
+        @if (remainingDays() !== null) {
+        <div class="expiry-info" [class.expired]="isExpired()">
+          <mat-icon>{{ isExpired() ? 'error_outline' : 'timer' }}</mat-icon>
+          <span>{{ isExpired() ? 'Membership Expired' : remainingDays() + ' days remaining' }}</span>
+        </div>
+        }
       </div>
     </div>
     <!--  END! profile-view -->
 
     <div class="nav-link">
       <ul>
-        <li
-          (click)="onLinkChange()"
-          [routerLink]="['basic-info']"
-          routerLinkActive="active-list"
-        >
+        <li (click)="onLinkChange()" [routerLink]="['basic-info']" routerLinkActive="active-list">
           <mat-icon>perm_identity</mat-icon>
           <span>My Account</span>
         </li>
@@ -44,59 +40,45 @@
           <span> Change Password</span>
         </li>
 
-        <li
-          (click)="onLinkChange()"
-          [routerLink]="['transaction']"
-          routerLinkActive="active-list"
-        >
+        <li (click)="onLinkChange()" [routerLink]="['transaction']" routerLinkActive="active-list">
           <mat-icon>bar_chart_4_bars</mat-icon>
           <span>Manage Your Data</span>
         </li>
 
-        @if (isNotPrimaryMember()) {
+
+        <!-- @if (isNotPrimaryMember() && (isExpired() || (remainingDays() !== null && remainingDays()! <= 30))) { 
           <li
-            (click)="onLinkChange()"
-            [routerLink]="['../membership-fee']"
-            routerLinkActive="active-list"
-          >
-            <mat-icon>paid</mat-icon>
-            <span>Monthly Membership Fee</span>
-          </li>
-        }
-
-        <li class="donate"
-          (click)="onLinkChange()"
-          [routerLink]="['../donate']"
-          routerLinkActive="active-list"
-        >
+          (click)="onLinkChange()" [routerLink]="['../membership-fee']" routerLinkActive="active-list">
           <mat-icon>paid</mat-icon>
-          <span>Donate</span>
-        </li>
+          <span>Monthly Membership Fee</span>
+          </li>
+          } -->
 
-        <li class="donate"
-            (click)="downloadForm()"
-            routerLinkActive="active-list">
-          <mat-icon>cloud_download</mat-icon>
-          @if (!isImageLoading()) {
+          <li class="donate" (click)="onLinkChange()" [routerLink]="['../donate']" routerLinkActive="active-list">
+            <mat-icon>paid</mat-icon>
+            <span>Donate</span>
+          </li>
+
+          <!-- <li class="donate" (click)="downloadForm()" routerLinkActive="active-list">
+            <mat-icon>cloud_download</mat-icon>
+            @if (!isImageLoading()) {
             <span>Download Form</span>
-          } @else {
+            } @else {
             <span>Please wait...</span>
-          }
-        </li>
-        @if (isPrimaryMember()) {
-          <li class="donate"
-              [routerLink]="['../primary-member-fee']"
-              routerLinkActive="active-list"
-          >
+            }
+          </li> -->
+          <!-- @if (isPrimaryMember() && (isExpired() || (remainingDays() !== null && remainingDays()! <= 30))) { 
+            <li
+            class="donate" [routerLink]="['../primary-member-fee']" routerLinkActive="active-list">
             <mat-icon>paid</mat-icon>
             <span>Yearly Renewal Fee</span>
-          </li>
-        }
+            </li>
+            } -->
 
-        <li (click)="onLogout()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </li>
+            <li (click)="onLogout()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </li>
       </ul>
     </div>
     <!-- END! nav-link -->

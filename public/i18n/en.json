@@ -327,6 +327,13 @@
     "NationalElection": "13th National Parliament Election",
     "VoterList": "National Election 2026",
     "Manifesto": "Manifesto",
-    "ElectionManifesto": "BNP's Election Manifesto"
+    "ElectionManifesto": "BNP's Election Manifesto",
+    "CouncilOfMinisters": "Council of Ministers",
+    "PMAdvisoryCouncil": "Prime Minister’s Advisory Council",
+    "SpeakerOfParliament": "Speaker & Deputy Speaker",
+    "ParliamentaryWhips": "Parliamentary Whips",
+    "ParliamentMembers": "Parliament Members",
+    "PrimeMinister": "Prime Minister",
+    "NationalElection1": "BNP Govt 2026"
   }
 }

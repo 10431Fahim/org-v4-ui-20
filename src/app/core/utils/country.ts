@@ -53,15 +53,7 @@ const COUNTRY_DATA: any[] = [
     "dial_code1": "0044",
     "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/GB.svg"
   },
-  {
-    "name": "Afghanistan",
-    "flag": "🇦🇫",
-    "code": "AF",
-    "currency": "AFN",
-    "dial_code": "+93",
-    "dial_code1": "0093",
-    "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg"
-  },
+
   {
     "name": "Åland Islands",
     "flag": "🇦🇽",

@@ -26,10 +26,11 @@
             </a>
             @if (paymentDropdownOpen()) {
             <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22 show">
-              <a class="border" [routerLink]="['/login/primary-member-fee']"
+              <a class="border" [routerLink]="['/registration/primary-member-fee']"
                 (click)="closePaymentDropdown(); slideClose()">
                 {{ "ln.GeneralMember" | translate }}</a>
-              <a class="border" [routerLink]="['/login/member-fee']" (click)="closePaymentDropdown(); slideClose()">
+              <a class="border" [routerLink]="['/registration/member-fee']"
+                (click)="closePaymentDropdown(); slideClose()">
                 {{ "ln.MembershipFee" | translate }}</a>
               <a class="border" routerLink="/donate" (click)="closePaymentDropdown(); slideClose()">
                 {{ "ln.Donate" | translate }}</a>
@@ -273,20 +274,52 @@
             <a href="javascript:void(0)" class="dropbtn manifesto-link">{{ "ln.Election" | translate }} <i
                 class="fa-solid fa-angle-down"></i></a>
             <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
-              <a class="border" routerLink="/manifesto" [queryParamsHandling]="'merge'">{{ "ln.ElectionManifesto" |
-                translate
-                }}</a>
-              <a href="https://election26.bnpbd.org/" target="_blank">{{ "ln.NationalElection"
+              <a class="border" href="https://election26.bnpbd.org/" target="_blank">{{ "ln.NationalElection"
                 | translate
                 }}</a>
+              <ul>
+                <li class="sub-sub-menu1">
+                  <a href="javascript:void(0)" class="border fa-solid">{{ "ln.NationalElection1" | translate }} <i
+                      class="fa-solid fa-caret-down"></i></a>
+                  <div class="sub-sub-menu">
+                    <ul class="sub-sub-menu1">
+                      <li>
+                        <a class="border" [routerLink]="['/cabinet-council', 'premier']"
+                          [queryParamsHandling]="'merge'">{{ "ln.PrimeMinister" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" [routerLink]="['/cabinet-council', 'Cabinet Ministers']"
+                          [queryParamsHandling]="'merge'">{{ "ln.CouncilOfMinisters" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" [routerLink]="['/cabinet-council', 'Prime Minister’s Advisory Council']"
+                          [queryParamsHandling]="'merge'">{{ "ln.PMAdvisoryCouncil" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" [routerLink]="['/cabinet-council', 'Speaker & Deputy Speaker']"
+                          [queryParamsHandling]="'merge'">{{ "ln.SpeakerOfParliament" | translate }}</a>
+                      </li>
+                      <li>
+                        <a class="border" [routerLink]="['/cabinet-council', 'Parliamentary Whips']"
+                          [queryParamsHandling]="'merge'">{{ "ln.ParliamentaryWhips" | translate }}</a>
+                      </li>
+                      <li>
+                        <a [routerLink]="['/cabinet-council', 'Parliament Members']" [queryParamsHandling]="'merge'">{{
+                          "ln.ParliamentMembers" | translate }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
             </div>
           </li>
 
           <li class="dropdown desktop-payment">
             <a href="javascript:void(0)" class="dropbtn"> <img class="payment-btn" src="/dfgdfgd.png" alt=""></a>
             <div class="dropdown-content dropdown1 dropdown-content-2 dropdown-content-22">
-              <a class="border" [routerLink]="['/login/primary-member-fee']">{{ "ln.GeneralMember" | translate }}</a>
-              <a class="border" [routerLink]="['/login/member-fee']">
+              <a class="border" [routerLink]="['/registration/primary-member-fee']">{{ "ln.GeneralMember" | translate
+                }}</a>
+              <a class="border" [routerLink]="['/registration/member-fee']">
                 {{ "ln.MembershipFee" | translate }}</a>
               <a class="border" routerLink="/donate">{{ "ln.Donate" | translate }}</a>
             </div>
@@ -573,12 +606,42 @@
             <i class="fa-solid fa-angle-down"></i>
           </a>
           <div class="sub-sub-menu-mobile" *ngIf="openSubSubMenu7()">
-            <a routerLink="/manifesto" (click)="slideClose()" [queryParamsHandling]="'merge'">{{ "ln.ElectionManifesto"
-              |
-              translate }}</a>
             <a href="https://election26.bnpbd.org/" target="_blank" (click)="slideClose()">{{ "ln.NationalElection"
               |
               translate }}</a>
+
+            <ul>
+              <li (click)="onSubMenuControll(7)" style="cursor: pointer;"><a>{{ "ln.NationalElection1" | translate }}
+                  <i [class]="subMenu() == 7? 'fa-solid fa-angle-up':'fa-solid fa-angle-down'"></i></a></li>
+              <div class="sub-sub-sub-menu-mobile" *ngIf="subMenu() === 7">
+                <ul>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'premier']" [queryParamsHandling]="'merge'">{{
+                      "ln.PrimeMinister" | translate }}</a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'Cabinet Ministers']" [queryParamsHandling]="'merge'">{{
+                      "ln.CouncilOfMinisters" | translate }}</a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'Prime Minister’s Advisory Council']"
+                      [queryParamsHandling]="'merge'">{{ "ln.PMAdvisoryCouncil" | translate }}</a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'Speaker & Deputy Speaker']"
+                      [queryParamsHandling]="'merge'">{{ "ln.SpeakerOfParliament" | translate }}</a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'Parliamentary Whips']" [queryParamsHandling]="'merge'">{{
+                      "ln.ParliamentaryWhips" | translate }}</a>
+                  </li>
+                  <li (click)="slideClose()">
+                    <a [routerLink]="['/cabinet-council', 'Parliament Members']" [queryParamsHandling]="'merge'">{{
+                      "ln.ParliamentMembers" | translate }}</a>
+                  </li>
+                </ul>
+              </div>
+            </ul>
           </div>
         </li>
         <!--        <li (click)="slideClose()">-->
@@ -588,13 +651,13 @@
         <!--        </li>-->
 
         <li (click)="slideClose()">
-          <a [routerLink]="['/login/member-fee']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-            [queryParamsHandling]="'merge'">
+          <a [routerLink]="['/registration/member-fee']" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
             {{ "ln.MembershipFee" | translate }}
           </a>
         </li>
         <li (click)="slideClose()">
-          <a [routerLink]="['/login/primary-member-fee']" routerLinkActive="active"
+          <a [routerLink]="['/registration/primary-member-fee']" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
             {{ "ln.GeneralMember" | translate }}
           </a>

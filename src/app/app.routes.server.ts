@@ -119,6 +119,18 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+    path: 'cabinet-council',
+    renderMode: RenderMode.Prerender
+  },
+  {
+    path: 'cabinet-council/:slug',
+    renderMode: RenderMode.Server
+  },
+  {
+    path: '180-days-plan',
+    renderMode: RenderMode.Prerender
+  },
+  {
     path: 'sub-article',
     renderMode: RenderMode.Prerender
   },

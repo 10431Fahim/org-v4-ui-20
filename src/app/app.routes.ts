@@ -149,6 +149,14 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/upodeshta-counsil/upodeshta-counsil.module').then(m => m.UpodeshtaCounsilModule),
   },
   {
+    path: 'cabinet-council',
+    loadChildren: () => import('./pages/cabinet-council/cabinet-council.module').then(m => m.CabinetCouncilModule),
+  },
+  {
+    path: '180-days-plan',
+    loadChildren: () => import('./pages/plan-180-days/plan-180-days-module').then(m => m.Plan180DaysModule),
+  },
+  {
     path: 'sub-article/:id',
     loadComponent: () => import('./pages/sub-pathagar/sub-pathagar.component').then(m => m.SubPathagarComponent),
   },

@@ -80,12 +80,7 @@ export const COUNTRY_DB: any[] = [
       "Dhaka Division", "Barisal Division", "Chittagong Division", "Khulna Division", "Mymensingh Division", "Rajshahi Division", "Rangpur Division", "Sylhet Division"
     ]
   },
-  {
-    "name": "Afghanistan",
-    "city": [
-      "Badakhshan", "Badghis", "Baghlan", "Balkh", "Bamyan", "Dakyundi", "Farah", "Faryab", "Ghazni", "Ghor", "Helmand", "Herat", "Jowzjan", "Kabul", "Kandahar", "Kapisa", "Khost", "Kunar", "Kunduz", "Laghman", "Logar", "Maidan Wardak", "Nagarhar", "Nimruz", "Nuristan", "Paktia", "Panjshir", "Parwan", "Samangan", "Sar-e Pol", "Takhar", "Urozgan", "Zabul"
-    ]
-  },
+ 
   {
     "name": "Albania",
     "city": [
@@ -128,6 +123,55 @@ export const COUNTRY_DB: any[] = [
       "Burgenland", "Carinthia", "Lower Austria", "Upper Austria", "Salzburg", "Styria", "Tyrol", "Vorarlberg", "Vienna"
     ]
   },
+  {
+  "name": "Antigua and Barbuda",
+  "city": [
+    "Saint George",
+    "Saint John",
+    "Saint Mary",
+    "Saint Paul",
+    "Saint Peter",
+    "Saint Philip",
+    "Barbuda",
+    "Redonda"
+  ]
+},
+{
+  "name": "Armenia",
+  "city": [
+    "Aragatsotn",
+    "Ararat",
+    "Armavir",
+    "Gegharkunik",
+    "Kotayk",
+    "Lori",
+    "Shirak",
+    "Syunik",
+    "Tavush",
+    "Vayots Dzor",
+    "Yerevan"
+  ]
+},
+{
+  "name": "Azerbaijan",
+  "city": [
+    "Absheron",
+    "Agdam",
+    "Agdash",
+    "Aghjabadi",
+    "Baku",
+    "Ganja",
+    "Lankaran",
+    "Mingachevir",
+    "Nakhchivan",
+    "Quba",
+    "Qusar",
+    "Shaki",
+    "Shirvan",
+    "Sumqayit",
+    "Zaqatala"
+  ]
+},
   {
     "name": "Bahamas",
     "city": [
@@ -201,6 +245,89 @@ export const COUNTRY_DB: any[] = [
     ]
   },
   {
+  "name": "Brunei",
+  "city": [
+    "Belait",
+    "Brunei-Muara",
+    "Temburong",
+    "Tutong"
+  ]
+},
+{
+  "name": "Bulgaria",
+  "city": [
+    "Blagoevgrad",
+    "Burgas",
+    "Dobrich",
+    "Gabrovo",
+    "Haskovo",
+    "Kardzhali",
+    "Kyustendil",
+    "Lovech",
+    "Montana",
+    "Pazardzhik",
+    "Pernik",
+    "Pleven",
+    "Plovdiv",
+    "Razgrad",
+    "Ruse",
+    "Shumen",
+    "Silistra",
+    "Sliven",
+    "Smolyan",
+    "Sofia",
+    "Sofia Province",
+    "Stara Zagora",
+    "Targovishte",
+    "Varna",
+    "Veliko Tarnovo",
+    "Vidin",
+    "Vratsa",
+    "Yambol"
+  ]
+},
+{
+  "name": "Burkina Faso",
+  "city": [
+    "Boucle du Mouhoun",
+    "Cascades",
+    "Centre",
+    "Centre-East",
+    "Centre-North",
+    "Centre-Ouest",
+    "Centre-South",
+    "East",
+    "Hauts-Bassins",
+    "North",
+    "Plateau-Central",
+    "Sahel",
+    "South-West"
+  ]
+},
+{
+  "name": "Burundi",
+  "city": [
+    "Bubanza",
+    "Bujumbura Mairie",
+    "Bujumbura Rural",
+    "Bururi",
+    "Cankuzo",
+    "Cibitoke",
+    "Gitega",
+    "Karuzi",
+    "Kayanza",
+    "Kirundo",
+    "Makamba",
+    "Muramvya",
+    "Muyinga",
+    "Mwaro",
+    "Ngozi",
+    "Rumonge",
+    "Rutana",
+    "Ruyigi"
+  ]
+},
+  {
     "name": "Canada",
     "city": [
       "Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"
@@ -243,6 +370,179 @@ export const COUNTRY_DB: any[] = [
     ]
   },
   {
+  "name": "Cabo Verde",
+  "city": [
+    "Boa Vista",
+    "Brava",
+    "Maio",
+    "Mosteiros",
+    "Paul",
+    "Porto Novo",
+    "Praia",
+    "Ribeira Brava",
+    "Ribeira Grande",
+    "Sal",
+    "Santa Catarina",
+    "Santa Cruz",
+    "São Domingos",
+    "São Filipe",
+    "São Miguel",
+    "São Vicente",
+    "Tarrafal"
+  ]
+},
+{
+  "name": "Cambodia",
+  "city": [
+    "Banteay Meanchey",
+    "Battambang",
+    "Kampong Cham",
+    "Kampong Chhnang",
+    "Kampong Speu",
+    "Kampong Thom",
+    "Kampot",
+    "Kandal",
+    "Kep",
+    "Koh Kong",
+    "Kratie",
+    "Mondulkiri",
+    "Oddar Meanchey",
+    "Pailin",
+    "Phnom Penh",
+    "Preah Sihanouk",
+    "Preah Vihear",
+    "Prey Veng",
+    "Pursat",
+    "Ratanakiri",
+    "Siem Reap",
+    "Stung Treng",
+    "Svay Rieng",
+    "Takeo",
+    "Tbong Khmum"
+  ]
+},
+{
+  "name": "Cameroon",
+  "city": [
+    "Adamawa",
+    "Centre",
+    "East",
+    "Far North",
+    "Littoral",
+    "North",
+    "Northwest",
+    "South",
+    "Southwest",
+    "West"
+  ]
+},
+{
+  "name": "Central African Republic",
+  "city": [
+    "Bamingui-Bangoran",
+    "Bangui",
+    "Basse-Kotto",
+    "Haute-Kotto",
+    "Haut-Mbomou",
+    "Kémo",
+    "Lobaye",
+    "Mambéré-Kadéï",
+    "Mbomou",
+    "Nana-Grébizi",
+    "Nana-Mambéré",
+    "Ombella-M'Poko",
+    "Ouaka",
+    "Ouham",
+    "Ouham-Pendé",
+    "Sangha-Mbaéré",
+    "Vakaga"
+  ]
+},
+{
+  "name": "Chad",
+  "city": [
+    "Bahr el Gazel",
+    "Batha",
+    "Borkou",
+    "Chari-Baguirmi",
+    "Ennedi-East",
+    "Ennedi-West",
+    "Guéra",
+    "Hadjer-Lamis",
+    "Kanem",
+    "Lac",
+    "Logone Occidental",
+    "Logone Oriental",
+    "Mandoul",
+    "Mayo-Kebbi East",
+    "Mayo-Kebbi West",
+    "Moyen-Chari",
+    "N'Djamena",
+    "Ouaddaï",
+    "Salamat",
+    "Sila",
+    "Tandjilé",
+    "Tibesti",
+    "Wadi Fira"
+  ]
+},
+{
+  "name": "Comoros",
+  "city": [
+    "Anjouan",
+    "Grande Comore",
+    "Mohéli"
+  ]
+},
+{
+  "name": "Congo",
+  "city": [
+    "Bouenza",
+    "Brazzaville",
+    "Cuvette",
+    "Cuvette-Ouest",
+    "Kouilou",
+    "Lékoumou",
+    "Likouala",
+    "Niari",
+    "Plateaux",
+    "Pointe-Noire",
+    "Pool",
+    "Sangha"
+  ]
+},
+{
+  "name": "Democratic Republic of the Congo",
+  "city": [
+    "Bas-Uele",
+    "Équateur",
+    "Haut-Katanga",
+    "Haut-Lomami",
+    "Haut-Uele",
+    "Ituri",
+    "Kasaï",
+    "Kasaï-Central",
+    "Kasaï-Oriental",
+    "Kinshasa",
+    "Kongo Central",
+    "Kwango",
+    "Kwilu",
+    "Lomami",
+    "Lualaba",
+    "Mai-Ndombe",
+    "Maniema",
+    "Mongala",
+    "Nord-Kivu",
+    "Nord-Ubangi",
+    "Sankuru",
+    "Sud-Kivu",
+    "Sud-Ubangi",
+    "Tanganyika",
+    "Tshopo",
+    "Tshuapa"
+  ]
+},
+  {
     "name": "Denmark",
     "city": [
       "Capital Region", "Central Denmark Region", "North Denmark Region", "Region of Southern Denmark", "Region Zealand"
@@ -260,6 +560,21 @@ export const COUNTRY_DB: any[] = [
       "Azua", "Baoruco", "Barahona", "Dajabón", "Distrito Nacional", "Duarte", "Elías Piña", "El Seibo", "Espaillat", "Hato Mayor", "Hermanas Mirabal", "Independencia", "La Altagracia", "La Romana", "La Vega", "María Trinidad Sánchez", "Monseñor Nouel", "Monte Cristi", "Monte Plata", "Pedernales", "Peravia", "Puerto Plata", "Samaná", "San Cristóbal", "San José de Ocoa", "San Juan", "San Pedro de Macorís", "Sánchez Ramírez", "Santiago", "Santiago Rodríguez", "Santo Domingo", "Valverde"
     ]
   },
+  {
+  "name": "Dominica",
+  "city": [
+    "Saint Andrew",
+    "Saint David",
+    "Saint George",
+    "Saint John",
+    "Saint Joseph",
+    "Saint Luke",
+    "Saint Mark",
+    "Saint Patrick",
+    "Saint Paul",
+    "Saint Peter"
+  ]
+},
   {
     "name": "Ecuador",
     "city": [
@@ -284,6 +599,38 @@ export const COUNTRY_DB: any[] = [
       "Addis Ababa", "Afar Region", "Amhara Region", "Benishangul-Gumuz Region", "Dire Dawa", "Gambela Region", "Harari Region", "Oromia Region", "Sidama Region", "Somali Region", "Southern Nations, Nationalities, and Peoples' Region (SNNPR)", "Tigray Region"
     ]
   },
+  {
+  "name": "Equatorial Guinea",
+  "city": [
+    "Annobón",
+    "Bioko Norte",
+    "Bioko Sur",
+    "Centro Sur",
+    "Kié-Ntem",
+    "Litoral",
+    "Wele-Nzas"
+  ]
+},
+{
+  "name": "Eritrea",
+  "city": [
+    "Anseba",
+    "Debub",
+    "Debubawi Keyih Bahri",
+    "Gash-Barka",
+    "Maekel",
+    "Semenawi Keyih Bahri"
+  ]
+},
+{
+  "name": "Eswatini",
+  "city": [
+    "Hhohho",
+    "Lubombo",
+    "Manzini",
+    "Shiselweni"
+  ]
+},
   {
     "name": "Finland",
     "city": [
@@ -321,6 +668,72 @@ export const COUNTRY_DB: any[] = [
     ]
   },
   {
+  "name": "Gabon",
+  "city": [
+    "Estuaire",
+    "Haut-Ogooué",
+    "Moyen-Ogooué",
+    "Ngounié",
+    "Nyanga",
+    "Ogooué-Ivindo",
+    "Ogooué-Lolo",
+    "Ogooué-Maritime",
+    "Woleu-Ntem"
+  ]
+},
+{
+  "name": "Gambia",
+  "city": [
+    "Banjul",
+    "Central River",
+    "Lower River",
+    "North Bank",
+    "Upper River",
+    "West Coast"
+  ]
+},
+{
+  "name": "Grenada",
+  "city": [
+    "Saint Andrew",
+    "Saint David",
+    "Saint George",
+    "Saint John",
+    "Saint Mark",
+    "Saint Patrick",
+    "Carriacou and Petite Martinique"
+  ]
+},
+{
+  "name": "Guinea-Bissau",
+  "city": [
+    "Bafatá",
+    "Biombo",
+    "Bissau",
+    "Bolama",
+    "Cacheu",
+    "Gabú",
+    "Oio",
+    "Quinara",
+    "Tombali"
+  ]
+},
+{
+  "name": "Guyana",
+  "city": [
+    "Barima-Waini",
+    "Cuyuni-Mazaruni",
+    "Demerara-Mahaica",
+    "East Berbice-Corentyne",
+    "Essequibo Islands-West Demerara",
+    "Mahaica-Berbice",
+    "Pomeroon-Supenaam",
+    "Potaro-Siparuni",
+    "Upper Demerara-Berbice",
+    "Upper Takutu-Upper Essequibo"
+  ]
+},
+  {
     "name": "Honduras",
     "city": [
       "Atlántida", "Choluteca", "Colón", "Comayagua", "Copán", "Cortés", "El Paraíso", "Francisco Morazán", "Gracias a Dios", "Intibucá", "Islas de la Bahía", "La Paz", "Lempira", "Ocotepeque", "Olancho", "Santa Bárbara", "Valle", "Yoro"
@@ -332,6 +745,27 @@ export const COUNTRY_DB: any[] = [
       "Bács-Kiskun", "Baranya", "Békés", "Borsod-Abaúj-Zemplén", "Csongrád-Csanád", "Fejér", "Győr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", "Komárom-Esztergom", "Nógrád", "Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", "Veszprém", "Zala"
     ]
   },
+  {
+  "name": "Haiti",
+  "city": [
+    "Artibonite",
+    "Centre",
+    "Grand'Anse",
+    "Nippes",
+    "Nord",
+    "Nord-Est",
+    "Nord-Ouest",
+    "Ouest",
+    "Sud",
+    "Sud-Est"
+  ]
+},
+{
+  "name": "Holy See",
+  "city": [
+    "Vatican City"
+  ]
+},
   {
     "name": "Iceland",
     "city": [
@@ -489,6 +923,22 @@ export const COUNTRY_DB: any[] = [
     ]
   },
   {
+  "name": "Liechtenstein",
+  "city": [
+    "Balzers",
+    "Eschen",
+    "Gamprin",
+    "Mauren",
+    "Planken",
+    "Ruggell",
+    "Schaan",
+    "Schellenberg",
+    "Triesen",
+    "Triesenberg",
+    "Vaduz"
+  ]
+},
+  {
     "name": "Madagascar",
     "city": [
       "Alaotra-Mangoro", "Amoron'i Mania", "Analamanga", "Analanjirofo", "Androy", "Anosy", "Atsimo-Andrefana", "Atsimo-Atsinanana", "Atsinanana", "Betsiboka", "Boeny", "Bongolava", "Diana", "Haute Matsiatra", "Ihorombe", "Itasy", "Melaky", "Menabe", "Sava", "Sofia", "Vakinankaratra", "Vatovavy-Fitovinany"
@@ -518,12 +968,37 @@ export const COUNTRY_DB: any[] = [
       "Bamako", "Gao Region", "Kayes Region", "Kidal Region", "Koulikoro Region", "Mopti Region", "Segou Region", "Sikasso Region", "Taoudenni Region", "Timbuktu Region"
     ]
   },
-  {
-    "name": "Malta",
-    "city": [
-      "Gozo", "Malta"
-    ]
-  },
+ {
+  "name": "Malta",
+  "city": [
+    "Attard",
+    "Balzan",
+    "Birgu",
+    "Birkirkara",
+    "Birżebbuġa",
+    "Fgura",
+    "Floriana",
+    "Gżira",
+    "Ħamrun",
+    "Marsa",
+    "Marsaskala",
+    "Marsaxlokk",
+    "Mdina",
+    "Mellieħa",
+    "Mosta",
+    "Naxxar",
+    "Paola",
+    "Qormi",
+    "Rabat",
+    "San Ġiljan",
+    "San Ġwann",
+    "Sliema",
+    "Valletta",
+    "Żabbar",
+    "Żebbuġ",
+    "Żejtun"
+  ]
+},
   {
     "name": "Marshall Islands",
     "city": [
@@ -614,6 +1089,15 @@ export const COUNTRY_DB: any[] = [
       "Ayeyarwady Region", "Bago Region", "Chin State", "Kachin State", "Kayah State", "Kayin State", "Magway Region", "Mandalay Region", "Mon State", "Naypyidaw Union Territory", "Rakhine State", "Sagaing Region", "Shan State", "Tanintharyi Region", "Yangon Region"
     ]
   },
+  {
+  "name": "Monaco",
+  "city": [
+    "Fontvieille",
+    "La Condamine",
+    "Monaco-Ville",
+    "Monte Carlo"
+  ]
+},
   {
     "name": "Namibia",
     "city": [
@@ -806,7 +1290,6 @@ export const COUNTRY_DB: any[] = [
       "Eastern Province", "Kigali City", "Northern Province", "Southern Province", "Western Province"
     ]
   },
-
   {
     "name": "Saint Barthélemy",
     "city": [
@@ -873,6 +1356,15 @@ export const COUNTRY_DB: any[] = [
       "Asir", "Al Bahah", "Al Hudud ash Shamaliyah", "Al Jawf", "Al Madinah al Munawwarah", "Al Qasim", "Ar Riyad", "Ash Sharqiyah (Eastern Province)", "Ha'il", "Jizan", "Makkah al Mukarramah", "Najran", "Tabuk"
     ]
   },
+  {
+  "name": "Swaziland",
+  "city": [
+    "Hhohho",
+    "Lubombo",
+    "Manzini",
+    "Shiselweni"
+  ]
+},
   {
     "name": "Senegal",
     "city": [
@@ -993,6 +1485,21 @@ export const COUNTRY_DB: any[] = [
       "Al-Hasakah", "Aleppo", "Damascus", "Daraa", "Deir ez-Zor", "Hama", "Homs", "Idlib", "Latakia", "Quneitra", "Raqqa", "Rif Dimashq", "Suwayda", "Tartus"
     ]
   },
+  {
+  "name": "San Marino",
+  "city": [
+    "Acquaviva",
+    "Borgo Maggiore",
+    "Chiesanuova",
+    "Domagnano",
+    "Faetano",
+    "Fiorentino",
+    "Montegiardino",
+    "San Marino",
+    "Serravalle"
+  ]
+},
+
   {
     "name": "Taiwan",
     "city": [

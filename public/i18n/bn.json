@@ -326,8 +326,15 @@
     "Election2026": "নির্বাচন ২০২৬",
     "Election": "নির্বাচন",
     "NationalElection": "ত্রয়োদশ জাতীয় সংসদ নির্বাচন",
+    "NationalElection1": "বিএনপি সরকার ২০২৬",
     "VoterList": "নির্বাচনী ইশতেহার",
     "Manifesto": "ইশতেহার",
-    "ElectionManifesto": "বিএনপি'র নির্বাচনী ইশতেহার"
+    "ElectionManifesto": "বিএনপি'র নির্বাচনী ইশতেহার",
+    "CouncilOfMinisters": "মন্ত্রিপরিষদ সদস্যবৃন্দ",
+    "PMAdvisoryCouncil": "প্রধানমন্ত্রীর উপদেষ্টা কাউন্সিল",
+    "SpeakerOfParliament": "স্পিকার ও ডেপুটি স্পিকার",
+    "ParliamentaryWhips": "সংসদীয় হুইপগণ",
+    "ParliamentMembers": "সংসদ সদস্যবৃন্দ",
+    "PrimeMinister": "প্রধানমন্ত্রী"
   }
 }

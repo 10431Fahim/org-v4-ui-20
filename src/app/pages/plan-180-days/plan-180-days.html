@@ -1,0 +1,55 @@
+<section class="plan-180-days">
+    <!-- Header Section -->
+    <div class="header-banner">
+        <div class="container header-flex">
+            <div class="profile-section">
+                <div class="profile-img-wrapper">
+                    <img src="/tariquerahman.png" alt="Tarique Rahman">
+                </div>
+            </div>
+            <div class="text-section">
+                <h1>তারেক রহমান</h1>
+                <p class="designation">চেয়ারম্যান, বাংলাদেশ জাতীয়তাবাদী দল (বিএনপি)</p>
+
+                <div class="quote-box">
+                    <p>
+                        'আমাদের ১৮০ দিনের পরিকল্পনা বাংলাদেশের জনগণের জন্য একটি প্রতিশ্রুতি। আমরা দেশকে গণতন্ত্র, সুশাসন
+                        এবং উন্নয়নের পথে ফিরিয়ে আনতে দৃঢ় প্রতিজ্ঞ। এটি শুধু একটি পরিকল্পনা নয়, এটি জনগণের সাথে আমাদের
+                        চুক্তি।'
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-body">
+        <div class="container">
+            <div class="title-area">
+                <h2 class="main-title">১৮০ দিনের পরিকল্পনা</h2>
+                <p class="sub-title">সচরাচর জিজ্ঞাসিত প্রশ্নাবলী</p>
+                <div class="gradient-line"></div>
+            </div>
+
+            <div class="plans-list">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let plan of plans()" class="custom-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="plan-header">
+                                    <span class="plan-number">{{ plan.serial }}</span>
+                                    <span class="plan-title">{{ translate.currentLang === 'bn' ? plan.titleBn :
+                                        plan.title }}</span>
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="plan-content">
+                            <div [innerHTML]="translate.currentLang === 'bn' ? plan.descriptionBn : plan.description">
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</section>

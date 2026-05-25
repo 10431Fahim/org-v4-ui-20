@@ -1,19 +1,19 @@
-import {Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed, effect, DestroyRef, inject} from '@angular/core';
-import {map, Observable, shareReplay, Subscription} from "rxjs";
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {UserDataService} from "../../../services/common/user-data.service";
-import {UserService} from "../../../services/common/user.service";
-import {ReloadService} from "../../../services/core/reload.service";
-import {MatDialog} from "@angular/material/dialog";
-import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
-import {FileUploadService} from "../../../services/gallery/file-upload.service";
-import {UiService} from "../../../services/core/ui.service";
-import {BreakpointObserver} from "@angular/cdk/layout";
-import {FileData} from "../../../interfaces/gallery/file-data";
-import {ImageCropComponent} from "./image-crop/image-crop.component";
-import {ContactService} from "../../../services/common/contact.service";
-import {MatIconButton} from '@angular/material/button';
-import {MatIcon} from '@angular/material/icon';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, signal, computed, effect, DestroyRef, inject } from '@angular/core';
+import { map, Observable, shareReplay, Subscription } from "rxjs";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserDataService } from "../../../services/common/user-data.service";
+import { UserService } from "../../../services/common/user.service";
+import { ReloadService } from "../../../services/core/reload.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { FileUploadService } from "../../../services/gallery/file-upload.service";
+import { UiService } from "../../../services/core/ui.service";
+import { BreakpointObserver } from "@angular/cdk/layout";
+import { FileData } from "../../../interfaces/gallery/file-data";
+import { ImageCropComponent } from "./image-crop/image-crop.component";
+import { ContactService } from "../../../services/common/contact.service";
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-account',
@@ -50,6 +50,19 @@ export class AccountComponent implements OnInit, OnDestroy {
   userDisplayName = computed(() => this.user()?.name || '');
   userDisplayPhone = computed(() => this.user()?.phoneNo || this.user()?.username || '');
   isImageLoading = computed(() => this.isLoading());
+  remainingDays = computed(() => {
+    const expireDate = this.user()?.membershipExpiresAt;
+    if (!expireDate) return null;
+    const expire = new Date(expireDate);
+    const today = new Date();
+    const diffTime = expire.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
+  });
+  isExpired = computed(() => {
+    const remaining = this.remainingDays();
+    return remaining !== null && remaining <= 0;
+  });
 
   // BREAKPOINTS
   isHandset$!: Observable<boolean>;
@@ -122,7 +135,7 @@ export class AccountComponent implements OnInit, OnDestroy {
    * removeOldImageFromServer()
    */
   private getLoggedInUserInfo() {
-    const select = 'username email memberShipType paymentStatus resident countryPermanent cityPermanent memberType zipPermanent phoneNo countryCode phone amount name profileImg memberId whatsAppNumber qualification occupation designation address country city zip recommender1Name memberShipType recommender1Mobile recommender2Mobile agree spouse age mothersName recommender2Designation recommender2Name recommender1Designation permanentAddress nationalId facebookId organizationName';
+    const select = 'username email membershipExpiresAt memberShipType paymentStatus resident countryPermanent cityPermanent memberType zipPermanent phoneNo countryCode phone amount name profileImg memberId whatsAppNumber qualification occupation designation address country city zip recommender1Name memberShipType recommender1Mobile recommender2Mobile agree spouse age mothersName recommender2Designation recommender2Name recommender1Designation permanentAddress nationalId facebookId organizationName';
     this.subDataOne = this.userDataService.getLoggedInUserData(select)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -284,7 +297,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   onLinkChange() {
     this.isHandset$.subscribe((isHandset) => {
       if (isHandset) {
-        const element:any = document.getElementById('main-sidebar-container-area');
+        const element: any = document.getElementById('main-sidebar-container-area');
         setTimeout(() => {
           window.scrollTo({
             left: 0,
@@ -326,7 +339,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   downloadForm(): void {
     // Build HTML content based on sodosso-form design and registration form data
     const formData = this.user();
-    let htmlContent : any;
+    let htmlContent: any;
     this.isLoading.set(true);
 
     const issueDate = new Date().toLocaleDateString('bn-BD', {
@@ -336,10 +349,10 @@ export class AccountComponent implements OnInit, OnDestroy {
     });
     const approvedDate = formData?.updatedAt
       ? new Date(formData.updatedAt).toLocaleDateString('bn-BD', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
       : issueDate;
     const currency =
       formData?.country === 'BD' || formData?.country === 'Bangladesh'

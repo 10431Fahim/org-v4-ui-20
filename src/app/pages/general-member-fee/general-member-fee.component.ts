@@ -1,29 +1,29 @@
-import {Component, Inject, OnInit, PLATFORM_ID, ViewChild, signal, computed, effect, inject, afterNextRender} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators, FormsModule} from "@angular/forms";
-import {PaymentMethod} from "../../interfaces/common/payment-method.interface";
-import {PAYMENT_METHODS} from "../../core/utils/app-data";
-import {Subscription} from "rxjs";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-import {OtpService} from "../../services/common/otp.service";
-import {UiService} from "../../services/core/ui.service";
-import {UserService} from "../../services/common/user.service";
-import {PaymentService} from "../../services/common/payment.service";
-import {UtilsService} from "../../services/core/utils.service";
-import {DOCUMENT, isPlatformBrowser} from "@angular/common";
-import {DonateService} from "../../services/common/donate.service";
-import {MembershipFeeService} from "../../services/common/membership-fee.service";
-import {UserDataService} from "../../services/common/user-data.service";
-import {ReloadService} from "../../services/core/reload.service";
-import {StorageService} from "../../services/core/storage.service";
+import { Component, Inject, OnInit, PLATFORM_ID, ViewChild, signal, computed, effect, inject, afterNextRender } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators, FormsModule } from "@angular/forms";
+import { PaymentMethod } from "../../interfaces/common/payment-method.interface";
+import { PAYMENT_METHODS } from "../../core/utils/app-data";
+import { Subscription } from "rxjs";
+import { TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { OtpService } from "../../services/common/otp.service";
+import { UiService } from "../../services/core/ui.service";
+import { UserService } from "../../services/common/user.service";
+import { PaymentService } from "../../services/common/payment.service";
+import { UtilsService } from "../../services/core/utils.service";
+import { DOCUMENT, isPlatformBrowser } from "@angular/common";
+import { DonateService } from "../../services/common/donate.service";
+import { MembershipFeeService } from "../../services/common/membership-fee.service";
+import { UserDataService } from "../../services/common/user-data.service";
+import { ReloadService } from "../../services/core/reload.service";
+import { StorageService } from "../../services/core/storage.service";
 import COUNTRY_DATA from "../../core/utils/country";
-import {GeoService} from "../../services/core/geo.service";
-import {MatStep, MatStepper, MatStepperNext} from '@angular/material/stepper';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {DigitOnlyDirective} from '@uiowa/digit-only';
-import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {MatCheckbox} from '@angular/material/checkbox';
-import {RouterLink} from '@angular/router';
-import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
+import { GeoService } from "../../services/core/geo.service";
+import { MatStep, MatStepper, MatStepperNext } from '@angular/material/stepper';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { DigitOnlyDirective } from '@uiowa/digit-only';
+import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { RouterLink } from '@angular/router';
+import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
 
 @Component({
   selector: 'app-general-member-fee',
@@ -48,12 +48,13 @@ import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
     MatMenu,
     MatStepperNext
   ],
-  styleUrls: ['./general-member-fee.component.scss']})
-export class GeneralMemberFeeComponent implements OnInit{
+  styleUrls: ['./general-member-fee.component.scss']
+})
+export class GeneralMemberFeeComponent implements OnInit {
 
   // Data Form
   @ViewChild('formElement') formElement!: NgForm;
-  
+
   // Angular 20 Signals for reactive state management
   isChangeLanguage = signal(false);
   isChangeLanguageToggle = signal('bn');
@@ -73,6 +74,10 @@ export class GeneralMemberFeeComponent implements OnInit{
   currency = signal('BDT');
   user = signal<any>(null);
 
+  // Expiry Signals
+  remainingDays = signal<number | null>(null);
+  isExpired = signal<boolean>(false);
+  canRenew = signal<boolean>(true);
   countryData: any[] = COUNTRY_DATA;
   searchQuery = signal('');
   getSingleCountry = signal<any>(null);
@@ -130,7 +135,7 @@ export class GeneralMemberFeeComponent implements OnInit{
   });
 
   // Subscriptions
-  private  subDataOne!: Subscription;
+  private subDataOne!: Subscription;
   private subOtpGenerate!: Subscription;
   private subOtpValidate!: Subscription;
   private subReloadOne!: Subscription;
@@ -172,7 +177,8 @@ export class GeneralMemberFeeComponent implements OnInit{
       countryCode: [null],
       countryName: [null],
       memberType: ['primary-member-fee'],
-      currency: [null]});
+      currency: [null]
+    });
 
     this.getSelectMethod();
     // Get logged in user
@@ -229,7 +235,7 @@ export class GeneralMemberFeeComponent implements OnInit{
     // Currency is automatically updated when country changes
   }
 
-  resendOtp(){
+  resendOtp() {
     if (this.dataForm.invalid) {
       this.uiService.wrong('Please enter 11 digit phone number.');
       return;
@@ -301,6 +307,12 @@ export class GeneralMemberFeeComponent implements OnInit{
       return;
     }
 
+    // Block form submission if renewal is not allowed
+    if (!this.canRenew()) {
+      this.uiService.warn('You cannot renew your membership at this time. Please check the warning message.');
+      return;
+    }
+
     this.uiService.success('Data Added SuccessFully');
     this.addDonate();
     // this.openDialog(mData);
@@ -309,7 +321,7 @@ export class GeneralMemberFeeComponent implements OnInit{
 
   onEnterOtp(event: string) {
     this.otpCode.set(event);
-    this.validateOtpWithPhoneNo({phoneNo: this.dataForm.value.phoneNo, code: this.otpCode()})
+    this.validateOtpWithPhoneNo({ phoneNo: this.dataForm.value.phoneNo, code: this.otpCode() })
   }
 
   onSubmitOtp() {
@@ -337,7 +349,7 @@ export class GeneralMemberFeeComponent implements OnInit{
    * addDonate()
    */
   private addDonate() {
-    const mData ={
+    const mData = {
       ...this.dataForm.value,
       ...{
         paymentMethod: this.selectedPaymentMethod(),
@@ -399,7 +411,7 @@ export class GeneralMemberFeeComponent implements OnInit{
 
 
 
-  onEditBtn(){
+  onEditBtn() {
     this.isOtpSent.set(false);
     this.isBtnHide.set(true);
   }
@@ -409,10 +421,29 @@ export class GeneralMemberFeeComponent implements OnInit{
    * getLoggedInUserInfo()
    */
   private getLoggedInUserInfo() {
-    const select = 'phoneNo phone name email country countryCode countryName currency';
+    const select = 'phoneNo phone name email country countryCode countryName currency membershipExpiresAt';
     this.subDataOne = this.userDataService.getLoggedInUserData(select)
       .subscribe(res => {
-        this.user.set(res.data?.user);
+        const user = res.data?.user;
+        this.user.set(user);
+
+        if (user?.membershipExpiresAt) {
+          const expireDate = new Date(user.membershipExpiresAt);
+          const today = new Date();
+          const diffTime = expireDate.getTime() - today.getTime();
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          this.remainingDays.set(diffDays > 0 ? diffDays : 0);
+          this.isExpired.set(diffDays <= 0);
+
+          // Allow renewal only if expired or within 30 days
+          if (diffDays > 30) {
+            this.canRenew.set(false);
+            this.uiService.warn(`আপনার মেম্বারশিপ এখনও সক্রিয় আছে। মেয়াদ শেষ হওয়ার ৩০ দিন আগে আপনি রিনিউ করতে পারবেন। (বাকি দিন: ${diffDays})`);
+          } else {
+            this.canRenew.set(true);
+          }
+        }
 
         // Populate form with logged-in user data if available
         if (this.user() && this.dataForm) {
@@ -464,13 +495,13 @@ export class GeneralMemberFeeComponent implements OnInit{
     this.translateService.use(language);
   }
 
-  onChangeLanguageToggle(language: string){
-    if(this.isChangeLanguageToggle() !== language){
+  onChangeLanguageToggle(language: string) {
+    if (this.isChangeLanguageToggle() !== language) {
       this.isChangeLanguageToggle.set(language);
       this.isChangeLanguage.set(true);
       this.translateService.use(this.isChangeLanguageToggle());
     }
-    else{
+    else {
       this.isChangeLanguageToggle.set('bn');
       this.isChangeLanguage.set(false);
       this.translateService.use(this.isChangeLanguageToggle());

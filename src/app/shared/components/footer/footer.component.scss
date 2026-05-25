@@ -539,6 +539,10 @@
     visibility: visible !important;
     opacity: 1 !important;
   }
+
+  .footer-area .footer-main .footer-link .footer-title h3 {
+    font-size: 12px;
+  }
 }
 
 @media(max-width: 400px) {
@@ -567,31 +571,7 @@
         }
       }
 
-      .footer-link {
-        &:nth-child(6) {
-          .footer-title {
-            display: none;
-          }
-        }
 
-        &:nth-child(7) {
-          .footer-title {
-            display: none;
-          }
-        }
-
-        &:nth-child(8) {
-          .footer-title {
-            display: none;
-          }
-        }
-
-        &:nth-child(9) {
-          .footer-title {
-            display: none;
-          }
-        }
-      }
     }
 
     .ntt {
@@ -824,7 +804,7 @@
   }
 }
 
-.pmo-title{
+.pmo-title {
 
   margin-top: 10px;
 }
