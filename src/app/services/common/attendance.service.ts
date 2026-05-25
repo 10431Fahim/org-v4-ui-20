@@ -26,7 +26,6 @@ export class AttendanceService {
    * updateAttendanceById
    * updateMultipleAttendanceById
    * deleteAttendanceById
-   * deleteMultipleAttendanceById
    */
 
   addAttendance(data: Attendance) {

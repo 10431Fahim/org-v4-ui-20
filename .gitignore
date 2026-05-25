@@ -45,4 +45,8 @@ Thumbs.db
 
 # Large PDF manifestos
 /public/flipbooks/*.pdf
+/public/flipbooks
 
+# Large ZIP files
+*.zip
+public.zip

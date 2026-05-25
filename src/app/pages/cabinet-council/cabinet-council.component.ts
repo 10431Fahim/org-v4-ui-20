@@ -16,6 +16,7 @@ interface CouncilMember {
     color: string;
     image?: string;
     cabinetType?: string;
+    isStateMinister?: boolean;
 }
 
 @Component({
@@ -36,6 +37,7 @@ export class CabinetCouncilComponent implements OnInit {
     language = signal<string>('bn');
     premier = signal<CouncilMember | null>(null);
     members = signal<CouncilMember[]>([]);
+    stateMinisters = signal<CouncilMember[]>([]);
     slug = signal<string | null>(null);
     headline = signal<string>('Council of Ministers');
     headlineBn = signal<string>('মন্ত্রিপরিষদ সদস্যবৃন্দ');
@@ -97,7 +99,7 @@ export class CabinetCouncilComponent implements OnInit {
         const filterData: FilterData = {
             filter: null,
             pagination: null,
-            select: 'name nameBn designation designationBn image initials color serial cabinetType',
+            select: 'name nameBn designation designationBn image initials color serial cabinetType isStateMinister',
             sort: { serial: 1 }
         };
 
@@ -136,14 +138,18 @@ export class CabinetCouncilComponent implements OnInit {
                             normalizedCurrentSlug === 'premier';
                         if (isCabinetOrPremier) {
                             this.premier.set(filtered[0]);
-                            this.members.set(filtered.slice(1));
+                            const remaining = filtered.slice(1);
+                            this.members.set(remaining.filter(m => !m.isStateMinister));
+                            this.stateMinisters.set(remaining.filter(m => !!m.isStateMinister));
                         } else {
                             this.premier.set(null);
-                            this.members.set(filtered);
+                            this.members.set(filtered.filter(m => !m.isStateMinister));
+                            this.stateMinisters.set(filtered.filter(m => !!m.isStateMinister));
                         }
                     } else {
                         this.premier.set(null);
                         this.members.set([]);
+                        this.stateMinisters.set([]);
                     }
                 }
             },
